@@ -6,13 +6,13 @@ import useContract from 'hooks/useContract';
 import { ethers } from 'ethers';
 
 const WFTM_ADDRESS = {
-  [ChainId.FANTOM]: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
-  [ChainId.FANTOM_TESTNET]: '0xf1277d1Ed8AD466beddF92ef448A132661956621',
+  888: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
+  999: '0x916283cc60fdaf05069796466af164876e35d21f',
 };
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
-const CHAIN = isMainnet ? ChainId.FANTOM : ChainId.FANTOM_TESTNET;
+const CHAIN = isMainnet ? 888 : 999;
 export const useWFTMContract = () => {
   const { getContract } = useContract();
 

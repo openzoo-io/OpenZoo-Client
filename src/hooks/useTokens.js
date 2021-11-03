@@ -10,7 +10,7 @@ import iconDAI from 'assets/imgs/dai.png';
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const Tokens = {
-  [ChainId.FANTOM]: [
+  888: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -19,35 +19,14 @@ const Tokens = {
     //   icon: iconFTM,
     // },
     {
-      address: '0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83',
-      name: 'Wrapped Fantom',
-      symbol: 'WFTM',
+      address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
+      name: 'Wrapped WAN',
+      symbol: 'WWAN',
       decimals: 18,
       icon: iconWFTM,
     },
-    {
-      address: '0x049d68029688eabf473097a2fc38ef61633a3c7a',
-      name: 'Tether USD',
-      symbol: 'fUSDT',
-      decimals: 6,
-      icon: iconUSDT,
-    },
-    {
-      address: '0x04068DA6C83AFCFA0e13ba15A6696662335D5B75',
-      name: 'USD Coin',
-      symbol: 'USDC',
-      decimals: 6,
-      icon: iconUSDC,
-    },
-    {
-      address: '0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E',
-      name: 'Dai Stablecoin',
-      symbol: 'DAI',
-      decimals: 18,
-      icon: iconDAI,
-    },
   ],
-  [ChainId.FANTOM_TESTNET]: [
+  999: [
     // {
     //   address: '',
     //   name: 'Fantom',
@@ -56,9 +35,9 @@ const Tokens = {
     //   icon: iconFTM,
     // },
     {
-      address: '0xf1277d1ed8ad466beddf92ef448a132661956621',
-      name: 'Wrapped Fantom',
-      symbol: 'WFTM',
+      address: '0x916283cc60fdaf05069796466af164876e35d21f',
+      name: 'Wrapped WAN',
+      symbol: 'WWAN',
       decimals: 18,
       icon: iconWFTM,
     },
@@ -66,7 +45,7 @@ const Tokens = {
 };
 
 export default function useTokens() {
-  const chain = isMainnet ? ChainId.FANTOM : ChainId.FANTOM_TESTNET;
+  const chain = isMainnet ? 888 : 999;
 
   const tokens = Tokens[chain];
 

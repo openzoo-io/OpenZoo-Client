@@ -34,7 +34,7 @@ const App = () => {
 
   const getPrice = async () => {
     try {
-      if (chainId === ChainId.FANTOM) {
+      if (chainId === 888) {
         // const endpoint = 'https://rpc.bandchain.org';
         // const client = new Client(endpoint);
         // const resp = await client.getReferenceData(['FTM/USD', 'BTC/USD']);
@@ -57,10 +57,10 @@ const App = () => {
         const _price = await oracle.latestAnswer();
         const price = parseFloat(_price.toString()) / 10 ** 8;
         dispatch(PriceActions.updatePrice(price));
-      } else if (chainId === ChainId.FANTOM_TESTNET) {
+      } else if (chainId === 999) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
-          '0xe04676B9A9A2973BCb0D1478b5E1E9098BBB7f3D',
+          '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
           [
             {
               inputs: [],

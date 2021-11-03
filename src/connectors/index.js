@@ -11,29 +11,29 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-      [ChainId.FANTOM]: 'https://rpc.ftm.tools',
+      [888]: 'https://rpc.zookeeper.finance',
     }
   : {
-      [ChainId.FANTOM_TESTNET]: 'https://rpc.testnet.fantom.network',
+      [999]: 'https://rpc.zookeeper.finance/testnet',
     };
 
 export const network = new NetworkConnector({
-  defaultChainId: ChainId.FANTOM,
+  defaultChainId: 888,
   urls: RPC,
 });
 
 export const injected = new InjectedConnector({
   supportedChainIds: isMainnet
     ? [
-        250, // fantom
+        888, // fantom
       ]
     : [
-        4002, // fantom testnet
+        999, // fantom testnet
       ],
 });
 
 export const walletlink = new WalletLinkConnector({
-  url: 'https://rpc.ftm.tools',
+  url: 'https://rpc.zookeeper.finance',
   appName: 'Artion',
   appLogoUrl: ARTION_LOGO_URL,
 });

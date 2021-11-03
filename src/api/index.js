@@ -5,18 +5,18 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 export const useApi = () => {
   const explorerUrl = isMainnet
-    ? 'https://ftmscan.com'
-    : 'https://testnet.ftmscan.com';
+    ? 'https://wanscan.org'
+    : 'https://testnet.wanscan.org';
 
   const apiUrl = isMainnet
-    ? 'https://api.artion.io'
-    : 'https://api.testnet.artion.io';
+    ? 'https://api.openzoo.io'
+    : 'https://api.openzoo.io';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
-    ? 'https://storage.artion.io'
-    : 'https://storage.testnet.artion.io';
+    ? 'https://api.openzoo.io'
+    : 'https://api.openzoo.io';
 
   // const tokenURL = 'https://fetch-tokens.vercel.app/api';
   // const tokenURL = 'https://api.artion.io/nftitems/fetchTokens';

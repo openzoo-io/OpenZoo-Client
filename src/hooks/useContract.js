@@ -19,9 +19,9 @@ export default () => {
       } else {
         const provider = new ethers.providers.JsonRpcProvider(
           isMainnet
-            ? 'https://rpc.ftm.tools/'
-            : 'https://rpc.testnet.fantom.network/',
-          isMainnet ? 250 : 4002
+            ? 'https://rpc.zookeeper.finance/'
+            : 'https://rpc.zookeeper.finance/testnet',
+          isMainnet ? 888 : 999
         );
 
         return new ethers.Contract(address, abi, provider);
