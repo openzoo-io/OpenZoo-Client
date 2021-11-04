@@ -680,7 +680,7 @@ const AccountDetails = () => {
             <Skeleton width="100%" height={200} />
           ) : bannerHash || user.bannerHash ? (
             <img
-              src={`https://cloudflare-ipfs.com/ipfs/${bannerHash ||
+              src={`https://openzoo.mypinata.cloud/ipfs/${bannerHash ||
                 user.bannerHash}`}
               className={styles.bannerImg}
             />
@@ -719,7 +719,7 @@ const AccountDetails = () => {
               <Skeleton width={160} height={160} className={styles.avatar} />
             ) : user.imageHash ? (
               <img
-                src={`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`}
+                src={`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`}
                 className={styles.avatar}
               />
             ) : (
@@ -925,7 +925,7 @@ const AccountDetails = () => {
                             <div className={styles.ownerAvatarWrapper}>
                               {activity.image ? (
                                 <img
-                                  src={`https://cloudflare-ipfs.com/ipfs/${activity.image}`}
+                                  src={`https://openzoo.mypinata.cloud/ipfs/${activity.image}`}
                                   className={styles.ownerAvatar}
                                 />
                               ) : (
@@ -1002,7 +1002,7 @@ const AccountDetails = () => {
                         <div className={styles.ownerAvatarWrapper}>
                           {offer.image ? (
                             <img
-                              src={`https://cloudflare-ipfs.com/ipfs/${offer.image}`}
+                              src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
                               className={styles.ownerAvatar}
                             />
                           ) : (

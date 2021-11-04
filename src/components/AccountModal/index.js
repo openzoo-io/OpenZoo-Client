@@ -38,7 +38,7 @@ const AccountModal = () => {
   useEffect(() => {
     if (accountModalVisible) {
       if (user.imageHash) {
-        setAvatar(`https://cloudflare-ipfs.com/ipfs/${user.imageHash}`);
+        setAvatar(`https://openzoo.mypinata.cloud/ipfs/${user.imageHash}`);
       } else {
         setAvatar(null);
       }

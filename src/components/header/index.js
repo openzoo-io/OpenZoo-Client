@@ -447,7 +447,7 @@ const Header = ({ border }) => {
                       {account.imageHash ? (
                         <img
                           className={styles.resultimg}
-                          src={`https://cloudflare-ipfs.com/ipfs/${account.imageHash}`}
+                          src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
                         />
                       ) : (
                         <Identicon
@@ -573,7 +573,7 @@ const Header = ({ border }) => {
               <Skeleton className={styles.avatar} />
             ) : user?.imageHash ? (
               <img
-                src={`https://cloudflare-ipfs.com/ipfs/${user?.imageHash}`}
+                src={`https://openzoo.mypinata.cloud/ipfs/${user?.imageHash}`}
                 width="24"
                 height="24"
                 className={styles.avatar}

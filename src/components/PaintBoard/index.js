@@ -429,7 +429,7 @@ const PaintBoard = () => {
                       }}
                     >
                       <img
-                        src={`https://cloudflare-ipfs.com/ipfs/${item.logoImageHash}`}
+                        src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
                         className={styles.collectionLogo}
                       />
                       <div className={styles.collectionName}>
@@ -441,7 +441,7 @@ const PaintBoard = () => {
                     values.length > 0 ? (
                       <div className={styles.collection}>
                         <img
-                          src={`https://cloudflare-ipfs.com/ipfs/${values[0].logoImageHash}`}
+                          src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
                           className={styles.collectionLogo}
                         />
                         <div className={styles.collectionName}>
