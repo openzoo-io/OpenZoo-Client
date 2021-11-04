@@ -146,6 +146,7 @@ const PaintBoard = () => {
 
   const getCollections = async () => {
     try {
+      console.log('!1 authToken', authToken);
       const { data } = await fetchMintableCollections(authToken);
       setCollections(data);
       if (data.length) {

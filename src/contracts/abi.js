@@ -2963,21 +2963,14 @@ export const ERC1155_CONTRACT_ABI = [
 export const WFTM_ABI = [
   {
     constant: true,
-    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
-    name: 'balanceOf',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    payable: false,
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    constant: true,
-    inputs: [
-      { internalType: 'address', name: 'owner', type: 'address' },
-      { internalType: 'address', name: 'spender', type: 'address' },
+    inputs: [],
+    name: 'name',
+    outputs: [
+      {
+        name: '',
+        type: 'string',
+      },
     ],
-    name: 'allowance',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     payable: false,
     stateMutability: 'view',
     type: 'function',
@@ -2985,11 +2978,147 @@ export const WFTM_ABI = [
   {
     constant: false,
     inputs: [
-      { internalType: 'address', name: 'spender', type: 'address' },
-      { internalType: 'uint256', name: 'value', type: 'uint256' },
+      {
+        name: 'guy',
+        type: 'address',
+      },
+      {
+        name: 'wad',
+        type: 'uint256',
+      },
     ],
     name: 'approve',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    outputs: [
+      {
+        name: '',
+        type: 'bool',
+      },
+    ],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [
+      {
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: 'src',
+        type: 'address',
+      },
+      {
+        name: 'dst',
+        type: 'address',
+      },
+      {
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'transferFrom',
+    outputs: [
+      {
+        name: '',
+        type: 'bool',
+      },
+    ],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'withdraw',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'decimals',
+    outputs: [
+      {
+        name: '',
+        type: 'uint8',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'balanceOf',
+    outputs: [
+      {
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: 'symbol',
+    outputs: [
+      {
+        name: '',
+        type: 'string',
+      },
+    ],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: 'dst',
+        type: 'address',
+      },
+      {
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'transfer',
+    outputs: [
+      {
+        name: '',
+        type: 'bool',
+      },
+    ],
     payable: false,
     stateMutability: 'nonpayable',
     type: 'function',
@@ -2998,19 +3127,116 @@ export const WFTM_ABI = [
     constant: false,
     inputs: [],
     name: 'deposit',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    outputs: [],
     payable: true,
     stateMutability: 'payable',
     type: 'function',
   },
   {
-    constant: false,
-    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
-    name: 'withdraw',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    constant: true,
+    inputs: [
+      {
+        name: '',
+        type: 'address',
+      },
+      {
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'allowance',
+    outputs: [
+      {
+        name: '',
+        type: 'uint256',
+      },
+    ],
     payable: false,
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function',
+  },
+  {
+    payable: true,
+    stateMutability: 'payable',
+    type: 'fallback',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: 'src',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        name: 'guy',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'Approval',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: 'src',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        name: 'dst',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'Transfer',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: 'dst',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'Deposit',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: 'src',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        name: 'wad',
+        type: 'uint256',
+      },
+    ],
+    name: 'Withdrawal',
+    type: 'event',
   },
 ];
 
