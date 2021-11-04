@@ -290,9 +290,7 @@ const NFTItem = () => {
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
-    return (
-      account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999)
-    );
+    return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
   };
 
   useEffect(() => {
