@@ -1,4 +1,4 @@
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 
 import { WFTM_ABI } from './abi';
 import { calculateGasMargin, getHigherGWEI } from 'utils';

@@ -1,10 +1,10 @@
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 
 // import iconFTM from 'assets/imgs/ftm.png';
 import iconWFTM from 'assets/imgs/wftm.png';
-import iconUSDT from 'assets/imgs/usdt.png';
-import iconUSDC from 'assets/imgs/usdc.png';
-import iconDAI from 'assets/imgs/dai.png';
+// import iconUSDT from 'assets/imgs/usdt.png';
+// import iconUSDC from 'assets/imgs/usdc.png';
+// import iconDAI from 'assets/imgs/dai.png';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';

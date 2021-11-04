@@ -21,7 +21,7 @@ export const NETWORK_LABEL = {
   [ChainId.HARMONY]: 'Harmony',
   [ChainId.HARMONY_TESTNET]: 'Harmony Testnet',
   888: 'Wanchain',
-  999: 'Wanchain Testnet'
+  999: 'Wanchain Testnet',
 };
 
 export const Contracts = {
@@ -42,5 +42,5 @@ export const Contracts = {
     privateFactory: '0xB628A26232F5E24B771D268C8680877DA9e8D209', //FantomNFTFactoryPrivate
     artFactory: '0x01C619F89247284268DA8837ffEE8fBb5a78eA22', //FantomArtFactory
     privateArtFactory: '0xCaa6ff4Db9a762dcdc725D69DD5d9B392A66d933', //FantomArtFactoryPrivate
-  }
+  },
 };

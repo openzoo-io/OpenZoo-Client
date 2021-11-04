@@ -8,7 +8,7 @@ import axios from 'axios';
 import { BigNumber, ethers } from 'ethers';
 import { useDropzone } from 'react-dropzone';
 import Skeleton from 'react-loading-skeleton';
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
 
 import CloseIcon from '@material-ui/icons/Close';

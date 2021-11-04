@@ -1,4 +1,4 @@
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 
 export const FantomNFTConstants = {
   ADDRESS: {

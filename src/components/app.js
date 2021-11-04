@@ -9,7 +9,7 @@ import {
 import { Toaster } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 // import { Client } from '@bandprotocol/bandchain.js';
 
 import ProtectedRoute from './ProtectedRoute';

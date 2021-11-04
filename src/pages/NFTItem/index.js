@@ -25,7 +25,7 @@ import {
   CartesianGrid,
   Line,
 } from 'recharts';
-import { ChainId } from '@sushiswap/sdk';
+// import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
@@ -291,10 +291,7 @@ const NFTItem = () => {
 
   const isLoggedIn = () => {
     return (
-      account &&
-      (ENV === 'MAINNET'
-        ? chainId === 888
-        : chainId === 999)
+      account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999)
     );
   };
 
