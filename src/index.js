@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
+import 'assets/css/plugins/remixicon.css';
+import 'assets/css/plugins/bootstrap.min.css';
 import './index.css';
+import 'assets/css/style.css';
 
 import App from 'components/app';
 import Web3ReactManager from 'components/Web3ReactManager';
