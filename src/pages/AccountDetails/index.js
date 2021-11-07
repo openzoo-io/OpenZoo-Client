@@ -192,7 +192,7 @@ const AccountDetails = () => {
         if (authToken) {
           updateItems(tokens.current)
             .then(_tokens => (tokens.current = _tokens))
-            .catch();
+            .catch(err => console.error(err));
         }
       } else {
         // eslint-disable-next-line require-atomic-updates

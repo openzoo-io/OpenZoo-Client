@@ -4,7 +4,7 @@ import { createLogger } from 'redux-logger';
 
 import rootReducer from '../reducers/index';
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger({ level: 'error' });
 
 export const store = createStore(
   rootReducer,
