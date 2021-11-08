@@ -91,7 +91,7 @@ import mediumIcon from 'assets/svgs/medium.svg';
 import filterIcon from 'assets/svgs/filter.svg';
 import checkIcon from 'assets/svgs/check.svg';
 import shareIcon from 'assets/svgs/share.svg';
-import iconArtion from 'assets/svgs/logo_small_blue.svg';
+import iconArtion from 'assets/svgs/openzoo_icon.svg';
 import iconFacebook from 'assets/imgs/facebook.png';
 import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
@@ -401,6 +401,7 @@ const NFTItem = () => {
       } = await fetchItemDetails(address, tokenID);
 
       contentType.current = _contentType;
+      console.log('!contentType', contentType);
       tradeHistory.current = history
         .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
         .map(history => ({
@@ -469,6 +470,8 @@ const NFTItem = () => {
 
       setInfo(data);
     } catch (err) {
+      console.log('!2 222222', err);
+
       try {
         console.warn(
           'Failed to retrieve Item data, fallback to fetching from contract'
@@ -1163,7 +1166,7 @@ const NFTItem = () => {
 
   useEffect(() => {
     setLiked(null);
-
+    console.log('!bundleID', bundleID);
     if (bundleID) {
       listings.current = [];
 
@@ -1182,6 +1185,7 @@ const NFTItem = () => {
       });
     } else {
       bundleListing.current = null;
+      console.log('!getItemDetails', bundleListing);
 
       getItemDetails();
       getAuctions().then(() => {
@@ -2379,6 +2383,7 @@ const NFTItem = () => {
   );
 
   const renderMedia = (image, contentType) => {
+    console.log('!renderMedia', image, contentType);
     if (contentType === 'video' || image?.includes('youtube')) {
       return (
         <ReactPlayer
@@ -3259,6 +3264,7 @@ const NFTItem = () => {
                     )}
                     <div className={styles.buy} />
                   </div>
+                  {console.log('!listings', listings)}
                   {bundleID
                     ? bundleListing.current && (
                         <div className={styles.listing}>

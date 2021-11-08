@@ -307,6 +307,7 @@ export const useApi = () => {
 
   const fetchItemDetails = async (contractAddress, tokenID) => {
     const data = { contractAddress, tokenID };
+    console.log('!2 fetchItemDetails', data);
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/nftItems/getSingleItemDetails`,
@@ -315,6 +316,8 @@ export const useApi = () => {
         'Content-Type': 'application/json',
       },
     });
+    console.log('!2 fetchItemDetails', res.data);
+
     return res.data;
   };
 

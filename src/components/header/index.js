@@ -24,7 +24,7 @@ import BoostCollectionModal from 'components/BoostCollectionModal';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logoSmallBlue from 'assets/svgs/logo_small_blue.svg';
+import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
 import iconUser from 'assets/svgs/user.svg';
 import iconNotification from 'assets/svgs/notification.svg';
 import iconAdd from 'assets/svgs/add.svg';
