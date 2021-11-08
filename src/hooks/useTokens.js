@@ -1,7 +1,7 @@
 // import { ChainId } from '@sushiswap/sdk';
 
 // import iconFTM from 'assets/imgs/ftm.png';
-import iconWFTM from 'assets/imgs/wftm.png';
+import iconWFTM from 'assets/imgs/wwan.png';
 // import iconUSDT from 'assets/imgs/usdt.png';
 // import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
