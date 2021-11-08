@@ -37,7 +37,7 @@ const OfferModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    if (tokens?.length > 1) {
+    if (tokens?.length >= 1) {
       setOptions(tokens);
     }
   }, [tokens]);
