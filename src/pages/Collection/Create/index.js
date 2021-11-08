@@ -674,7 +674,7 @@ const CollectionCreate = ({ isRegister }) => {
             <div className={styles.inputTitle}>
               Fee Recipient *&nbsp;
               <BootstrapTooltip
-                title="The nominated Fantom Opera Network wallet address to receive royalties from each sale in this collection."
+                title="The wallet address to receive royalties from each sale in this collection."
                 placement="top"
               >
                 <HelpOutlineIcon />
@@ -727,7 +727,7 @@ const CollectionCreate = ({ isRegister }) => {
         <div className={styles.inputGroup}>
           <div className={styles.inputTitle}>Category</div>
           <div className={styles.inputSubTitle}>
-            Adding a category will help make your item discoverable on Fantom.
+            Adding a category will help make your item discoverable on Wanchain.
           </div>
           <div className={styles.inputSubTitle}>
             For more information, read{' '}
