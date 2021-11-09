@@ -34,6 +34,6 @@ export const injected = new InjectedConnector({
 
 export const walletlink = new WalletLinkConnector({
   url: 'https://rpc.zookeeper.finance',
-  appName: 'Artion',
+  appName: 'OpenZoo',
   appLogoUrl: ARTION_LOGO_URL,
 });

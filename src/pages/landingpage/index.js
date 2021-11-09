@@ -10,13 +10,13 @@ import HeaderActions from 'actions/header.actions';
 import FilterActions from 'actions/filter.actions';
 import Header from 'components/header';
 
-import umansExample from 'assets/imgs/umans_example.png';
-import logo from 'assets/svgs/logo_white.svg';
-import fantomLogo from 'assets/svgs/fantom_logo_white.svg';
+import umansExample from 'assets/imgs/exampleZooGenes.png';
+import logo from 'assets/svgs/OpenZoo_white.svg';
+import fantomLogo from 'assets/imgs/wanchain_logo.png';
 import card1 from 'assets/svgs/card1.svg';
 import card2 from 'assets/svgs/card2.svg';
 import card3 from 'assets/svgs/card3.svg';
-import card4 from 'assets/svgs/card4.svg';
+// import card4 from 'assets/svgs/card4.svg';
 import search from 'assets/svgs/magnifier.svg';
 
 import styles from './styles.module.scss';
@@ -33,7 +33,7 @@ const cards = [
     icon: card2,
     title: 'Super Fast',
     description:
-      'Since Artion runs on the Fantom Opera Network, transactions are usually confirmed within 1-2 seconds.',
+      'Since OpenZoo runs on the Wanchain Network, transactions are usually confirmed within 5 seconds.',
     path: '/',
   },
   {
@@ -42,13 +42,6 @@ const cards = [
     description:
       'Transactions are usually just a few cents, allowing users to create and trade many NFTs without prohibitively high network fees.',
     path: '/',
-  },
-  {
-    icon: card4,
-    title: 'Zero Platform Fees',
-    description:
-      'Trade NFTs via auction or direct offer without any fees taken by Artion.',
-    path: '/explore',
   },
 ];
 
@@ -102,16 +95,14 @@ const LandingPage = () => {
       <div className={styles.body}>
         <div className={styles.main}>
           <div className={styles.mainLeft}>
-            <div
-              className={styles.title}
-            >{`Trade without platform fees on Artion`}</div>
+            <div className={styles.title}>{`Fast NFT trading on OpenZoo`}</div>
             <div className={styles.subtitle}>
-              Artion is an NFT marketplace built on Fantom. Create and trade
+              OpenZoo is an NFT marketplace built on Wanchain. Create and trade
               NFTs instantly with low network costs.
             </div>
             <div className={styles.subtitle}>
               <strong>
-                Warning: This is a beta version. Use at your own caution.
+                Warning: This is a Testnet version. Use at your own caution.
               </strong>
             </div>
 
@@ -132,11 +123,13 @@ const LandingPage = () => {
               }}
             >
               <div className={styles.cardInfo}>
-                <div className={styles.cardCategory}>Shamanka: The Healer</div>
-                <div className={styles.cardName}>{'World of Umans'}</div>
+                <div className={styles.cardCategory}>ZooGenes</div>
+                <div className={styles.cardName}>
+                  {'Benneret The Strict Monkey #36'}
+                </div>
               </div>
               <Link
-                to="/explore/0x972dd206a7c2d4ae46db1db700bc79de1bc59960/0"
+                to="/explore/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36"
                 className={styles.exploreButton}
                 style={{ margin: '0 24px' }}
               >
@@ -147,7 +140,7 @@ const LandingPage = () => {
         </div>
         <div className={styles.about}>
           <div className={styles.aboutInner}>
-            <div className={styles.aboutTitle}>Why Artion</div>
+            <div className={styles.aboutTitle}>Why OpenZoo</div>
             <div className={styles.aboutCards}>
               {cards.map((card, key) =>
                 renderAboutCard(

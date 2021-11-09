@@ -1,7 +1,8 @@
 // import { ChainId } from '@sushiswap/sdk';
 
 // import iconFTM from 'assets/imgs/ftm.png';
-import iconWFTM from 'assets/imgs/wftm.png';
+import iconWFTM from 'assets/imgs/wwan.png';
+import iconZOO from 'assets/imgs/zoo32x32.png';
 // import iconUSDT from 'assets/imgs/usdt.png';
 // import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
@@ -40,6 +41,13 @@ const Tokens = {
       symbol: 'WWAN',
       decimals: 18,
       icon: iconWFTM,
+    },
+    {
+      address: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+      name: 'ZOO',
+      symbol: 'ZOO',
+      decimals: 18,
+      icon: iconZOO,
     },
   ],
 };

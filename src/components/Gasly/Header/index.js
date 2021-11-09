@@ -15,7 +15,7 @@ import { NETWORK_LABEL } from 'constants/networks';
 import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
-import logo from 'assets/imgs/fantom_logo.png';
+import logo from 'assets/imgs/wanchain_logo.png';
 
 import styles from './styles.module.scss';
 

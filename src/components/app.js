@@ -42,7 +42,7 @@ const App = () => {
         // dispatch(PriceActions.updatePrice(resp.rate));
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
-          '0xf4766552D15AE4d256Ad41B6cf2933482B0680dc',
+          '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
           [
             {
               inputs: [],

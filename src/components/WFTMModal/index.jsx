@@ -127,7 +127,7 @@ const WFTMModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Wrapped FTM successfully!',
+          'Wrapped WAN successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -140,7 +140,7 @@ const WFTMModal = ({ visible, onClose }) => {
         await pollBalanceChange(balance, wrappedBalance);
         const toastId = showToast(
           'success',
-          'Unwrap W-FTM successfully!',
+          'Unwrap WWAN successfully!',
           '',
           () => {
             toast.dismiss(toastId);
@@ -161,7 +161,7 @@ const WFTMModal = ({ visible, onClose }) => {
   return (
     <Modal
       visible={visible}
-      title="FTM / WFTM Station"
+      title="WAN / WWAN Station"
       onClose={onClose}
       submitDisabled={
         confirming ||
@@ -189,7 +189,7 @@ const WFTMModal = ({ visible, onClose }) => {
     >
       <div className={cx(styles.swapContainer, !wrap && styles.reverse)}>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>FTM</div>
+          <div className={styles.symbol}>WAN</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}
@@ -223,7 +223,7 @@ const WFTMModal = ({ visible, onClose }) => {
           <SwapVertIcon className={styles.icon} />
         </div>
         <div className={styles.swapBox}>
-          <div className={styles.symbol}>WFTM</div>
+          <div className={styles.symbol}>WWAN</div>
           <div className={styles.swapBoxInner}>
             <div className={styles.balance}>
               Balance:{' '}
