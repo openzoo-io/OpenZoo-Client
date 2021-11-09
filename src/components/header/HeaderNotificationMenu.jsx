@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 
 import DefaultNotifiImg from 'assets/svgs/monster.svg';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function HeaderNotificationMenu() {
   const [notiPopupVisible, setNotiPopupVisible] = useState(false);
@@ -49,10 +49,10 @@ export function HeaderNotificationMenu() {
         <div className="item space-x-20 d-flex justify-content-between align-items-center">
           <img className="thumb" src={DefaultNotifiImg} alt="..." />
           <div className="details">
-            <NavLink to="#">
+            <Link to="#">
               {' '}
               <h6>Money revieved</h6>{' '}
-            </NavLink>
+            </Link>
             <p>0.6 ETH</p>
           </div>
           <span className="circle"></span>

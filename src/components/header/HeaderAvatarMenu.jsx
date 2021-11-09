@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import styles from './styles.module.scss';
 import Identicon from 'components/Identicon';
 
-const propsType = {
+const propTypes = {
   user: PropTypes.object,
   account: PropTypes.string,
   loading: PropTypes.bool,
@@ -47,4 +47,4 @@ export function HeaderAvatarMenu(props) {
   );
 }
 
-HeaderAvatarMenu.propsType = propsType;
+HeaderAvatarMenu.propTypes = propTypes;

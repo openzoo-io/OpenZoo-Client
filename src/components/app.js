@@ -25,6 +25,7 @@ import CollectionCreate from '../pages/Collection/Create';
 import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
 import PriceActions from 'actions/price.actions';
+import { HomePage } from 'pages/HomePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/home" component={HomePage} />
           <Route exact path="/explore" component={ExplorePage} />
           <Route path="/explore/:addr/:id" component={NFTItem} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />

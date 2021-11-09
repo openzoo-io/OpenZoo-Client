@@ -614,32 +614,24 @@ const Header = () => {
             <div className="header__mobile__menu space-y-40">
               <ul className="d-flex space-y-20">
                 <li>
-                  {' '}
                   <a className="color_black" href="Marketplace.html">
-                    {' '}
                     Marketplace
-                  </a>{' '}
+                  </a>
                 </li>
                 <li>
-                  {' '}
                   <a className="color_black" href="Collections.html">
-                    {' '}
                     Collections
-                  </a>{' '}
+                  </a>
                 </li>
                 <li>
-                  {' '}
                   <a className="color_black" href="Profile.html">
-                    {' '}
                     Profile
-                  </a>{' '}
+                  </a>
                 </li>
                 <li>
-                  {' '}
                   <a className="color_black" href="Creators.html">
-                    {' '}
                     Creators
-                  </a>{' '}
+                  </a>
                 </li>
               </ul>
               <div className="space-y-20">
