@@ -129,6 +129,38 @@
   border-radius: 0px;
 }
 
+.panelBodyAttribute {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.attribute {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100px;
+  height: 60px;
+  border: 1px solid #EAEAF1;
+  border-radius: 10px;
+  justify-content: center;
+  margin: 4px;
+}
+.attribute .attributeLabel {
+  font-weight: normal;
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.attribute .attributeValue {
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
 .property {
   display: flex;
   margin-bottom: 10px;

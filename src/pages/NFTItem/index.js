@@ -2464,9 +2464,9 @@ const NFTItem = () => {
       }
 
       res.push(
-        <div key={idx} className={styles.property}>
-          <div className={styles.propertyLabel}>{attributes[key].trait_type} : </div>
-          <div className={styles.propertyValue}>
+        <div key={idx} className={styles.attribute}>
+          <div className={styles.attributeLabel}>{attributes[key].trait_type}</div>
+          <div className={styles.attributeValue}>
             {attributes[key].value}
           </div>
         </div>
@@ -3099,8 +3099,8 @@ const NFTItem = () => {
               )}
               {info?.attributes && (
                 <Panel title="Attributes" icon={DynamicFeedIcon}>
-                  <div className={styles.panelBody}>
-                    {renderAttributes(info.attributes,)}
+                  <div className={styles.panelBodyAttribute}>
+                    {renderAttributes(info.attributes)}
                   </div>
                 </Panel>
               )}
