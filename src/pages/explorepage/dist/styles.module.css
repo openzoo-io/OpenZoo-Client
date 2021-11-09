@@ -19,19 +19,16 @@
 
 .collapsed {
   flex: 0 0 64px;
-
-  .sidebarHeader {
-    padding: 0;
-    justify-content: center;
-  }
-
-  .iconCollapse {
-    transform: rotateZ(180deg);
-  }
-
-  .filterList {
-    display: none;
-  }
+}
+.collapsed .sidebarHeader {
+  padding: 0;
+  justify-content: center;
+}
+.collapsed .iconCollapse {
+  transform: rotateZ(180deg);
+}
+.collapsed .filterList {
+  display: none;
 }
 
 .sidebarHeader {
@@ -129,15 +126,13 @@
     /*flex: 0 0 260px;*/
   }
 }
-
 @media only screen and (max-width: 600px) {
   .container {
     flex-direction: column;
-
     /* width */
-    &::-webkit-scrollbar {
-      width: 0;
-    }
+  }
+  .container::-webkit-scrollbar {
+    width: 0;
   }
 
   .sidebar {
@@ -148,10 +143,9 @@
   .collapsed {
     flex-basis: unset;
     flex-grow: 1;
-
-    .filterList {
-      display: block;
-    }
+  }
+  .collapsed .filterList {
+    display: block;
   }
 
   .sidebarHeader {
@@ -173,15 +167,9 @@
     overflow-y: visible;
   }
 }
-
-:global
-{
-  .MuiMenuItem-root
-  {
-    min-height: 30px !important;
-  }
-  .menuItemSelected
-  {
-    color: #00A59A !important;
-  }
+:global .MuiMenuItem-root {
+  min-height: 30px !important;
+}
+:global .menuItemSelected {
+  color: #00A59A !important;
 }

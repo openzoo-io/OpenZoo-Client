@@ -2423,42 +2423,35 @@ const NFTItem = () => {
     //console.log(attributes);
     const res = [];
     Object.keys(attributes).map((key, idx) => {
-      
-      if (collection?.collectionName === 'ZooKeeper Booster')
-      {
-        
-        if (attributes[key].trait_type === 'category')
-        {
-          switch(attributes[key].value)
-          {
-            case '1': attributes[key].value = <img src="/ZooBooster/category/fruits.png"/>;break;
-            case '2': attributes[key].value = <img src="/ZooBooster/category/foods.png"/>;break;
-            case '3': attributes[key].value = <img src="/ZooBooster/category/sweets.png"/>;break;
-            case '4': attributes[key].value = <img src="/ZooBooster/category/potions.png"/>;break;
-            case '5': attributes[key].value = <img src="/ZooBooster/category/spices.png"/>;break;
-            case '6': attributes[key].value = <img src="/ZooBooster/category/magic.png"/>;break;
+
+      if (collection?.collectionName === 'ZooKeeper Booster') {
+
+        if (attributes[key].trait_type === 'category') {
+          switch (attributes[key].value) {
+            case '1': attributes[key].value = <img src="/ZooBooster/category/fruits.png" />; break;
+            case '2': attributes[key].value = <img src="/ZooBooster/category/foods.png" />; break;
+            case '3': attributes[key].value = <img src="/ZooBooster/category/sweets.png" />; break;
+            case '4': attributes[key].value = <img src="/ZooBooster/category/potions.png" />; break;
+            case '5': attributes[key].value = <img src="/ZooBooster/category/spices.png" />; break;
+            case '6': attributes[key].value = <img src="/ZooBooster/category/magic.png" />; break;
           }
         }
-        if (attributes[key].trait_type === 'level')
-        {
-          switch(attributes[key].value)
-          {
-            case '1': attributes[key].value = <img src="/ZooBooster/star.png"/>;break;
-            case '2': attributes[key].value = <><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/></>;break;
-            case '3': attributes[key].value = <><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/></>;break;
-            case '4': attributes[key].value = <img src="/ZooBooster/max.png"/>;break;
+        if (attributes[key].trait_type === 'level') {
+          switch (attributes[key].value) {
+            case '1': attributes[key].value = <img src="/ZooBooster/star.png" />; break;
+            case '2': attributes[key].value = <><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /></>; break;
+            case '3': attributes[key].value = <><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /><img src="/ZooBooster/star.png" /></>; break;
+            case '4': attributes[key].value = <img src="/ZooBooster/max.png" />; break;
           }
         }
-        if (attributes[key].trait_type === 'item')
-        {
+        if (attributes[key].trait_type === 'item') {
           attributes[key].trait_type = 'Class';
-          switch(attributes[key].value)
-          {
-            case '1': attributes[key].value = <img src="/ZooBooster/class/N.png"/>;break;
-            case '2': attributes[key].value = <img src="/ZooBooster/class/R.png"/>;break;
-            case '3': attributes[key].value = <img src="/ZooBooster/class/SR.png"/>;break;
-            case '4': attributes[key].value = <img src="/ZooBooster/class/SSR.png"/>;break;
-            case '5': attributes[key].value = <img src="/ZooBooster/class/UR.png"/>;break;
+          switch (attributes[key].value) {
+            case '1': attributes[key].value = <img src="/ZooBooster/class/N.png" />; break;
+            case '2': attributes[key].value = <img src="/ZooBooster/class/R.png" />; break;
+            case '3': attributes[key].value = <img src="/ZooBooster/class/SR.png" />; break;
+            case '4': attributes[key].value = <img src="/ZooBooster/class/SSR.png" />; break;
+            case '5': attributes[key].value = <img src="/ZooBooster/class/UR.png" />; break;
           }
         }
       }
@@ -3121,6 +3114,18 @@ const NFTItem = () => {
                 </Panel>
               </div>
             )}
+
+            {info?.attributes && (
+              <div className={cx(styles.panelWrapper, styles.infoPanel)}>
+                <Panel title="Attributes">
+                  <div className={styles.panelBodyAttribute}>
+                    {renderAttributes(info.attributes)}
+                  </div>
+                </Panel>
+              </div>
+            )}
+
+
             {bundleID && (
               <div className={cx(styles.panelWrapper, styles.infoPanel)}>
                 {renderBundleInfoPanel()}

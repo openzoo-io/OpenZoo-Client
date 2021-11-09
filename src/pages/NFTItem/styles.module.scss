@@ -145,7 +145,27 @@
   box-sizing: border-box;
   display:flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
+
+@media only screen and (max-width: 425px) {
+  .attribute
+  {
+    width:90px !important;
+    .attributeLabel
+    {
+      font-size:11px !important;
+    }
+    .attributeValue{
+      
+      font-size:13px !important;
+
+    }
+  }
+  
+
+}
+
 .attribute
 {
   display:flex;
