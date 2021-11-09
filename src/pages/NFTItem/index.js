@@ -98,7 +98,7 @@ import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
-import { useZooBoosterContract } from 'contracts/zookeeper';
+import { useZooBoosterContract, useZooElixirContract } from 'contracts/zookeeper';
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -187,6 +187,9 @@ const NFTItem = () => {
     getBoosting,
     getLockTimeReduce
   } = useZooBoosterContract();
+  const {
+    getElixir
+  } = useZooElixirContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
   const { getTokenByAddress, tokens } = useTokens();
@@ -2426,11 +2429,13 @@ const NFTItem = () => {
     }
   };
 
-
+  
   const [zooBoosterBoosting, setzooBoosterBoosting] = useState(0);
   const [zooBoosterLockTimeReduce, setzooBoosterLockTimeReduce] = useState(0);
+  const [zooElixir, setzooElixir] = useState({});
   useEffect(() => {
     
+    // ZooBooster //
     if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
       getBoosting(tokenID).then(ret => {
         setzooBoosterBoosting(100 * (Number(ret.toString()) / 1e12 - 1));
@@ -2439,8 +2444,24 @@ const NFTItem = () => {
         setzooBoosterLockTimeReduce(100 * (1 - (Number(ret.toString()) / 1e12)));
       });
     }
+
+    // ZooElixir //
+    if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
+      getElixir(tokenID).then(ret => {
+        
+        setzooElixir(ret);
+        //console.log('Elixir Info',ret);
+        //console.log('Elixir Info',zooElixir);
+      });
+    }
+
+
   }, [tokenID]);
 
+  const numberToColor = (number, diff=0) =>
+  {
+    return '#'+((number%16777215)+diff).toString(16).padStart(6,'0');
+  }
 
   const renderAttributes = attributes => {
     //console.log(attributes);
@@ -2460,6 +2481,49 @@ const NFTItem = () => {
             <div className={styles.attributeLabel}>Lock Reduce</div>
             <div className={styles.attributeValue}>
               -{zooBoosterLockTimeReduce.toFixed(3)}%
+            </div>
+          </div>
+        </>
+      );
+
+    }
+
+    // ZooElixir //
+    if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
+      let levelImg = '';
+      switch(zooElixir?.level.toString())
+      {
+        case '1':levelImg=<img src="/ZooBooster/class/N.png" />; break;
+        case '2':levelImg=<img src="/ZooBooster/class/R.png" />; break;
+        case '3':levelImg=<img src="/ZooBooster/class/SR.png" />; break;
+        case '4':levelImg=<img src="/ZooBooster/class/SSR.png" />; break;
+        case '5':levelImg=<img src="/ZooBooster/class/UR.png" />; break;
+      }
+      res.push(
+        <>
+          <div key={'zooElixir_name'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Name</div>
+            <div className={styles.attributeValue}>
+              {zooElixir?.name}
+            </div>
+          </div>
+          <div key={'zooElixir_drops'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Drops</div>
+            <div className={styles.attributeValue}>
+              {Number(zooElixir?.drops.toString())/1e18}%
+            </div>
+          </div>
+          <div key={'zooElixir_level'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Level</div>
+            <div className={styles.attributeValue}>
+              {levelImg}
+            </div>
+          </div>
+          <div key={'zooElixir_color'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Color</div>
+            <div className={styles.attributeValue}>
+              <div style={{width:20,height:20,borderRadius:'50%',background:numberToColor(Number(zooElixir?.color.toString()))}}>
+              </div>
             </div>
           </div>
         </>

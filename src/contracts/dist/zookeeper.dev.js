@@ -3,11 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useZooBoosterContract = void 0;
+exports.useZooElixirContract = exports.useZooBoosterContract = void 0;
 
 var _networks = require("constants/networks");
 
-var _useContract2 = _interopRequireDefault(require("hooks/useContract"));
+var _contracts = require("contracts");
+
+var _useContract3 = _interopRequireDefault(require("hooks/useContract"));
 
 var _abi = require("./abi");
 
@@ -18,7 +20,7 @@ var isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 var CHAIN = isMainnet ? 888 : 999;
 
 var useZooBoosterContract = function useZooBoosterContract() {
-  var _useContract = (0, _useContract2["default"])(),
+  var _useContract = (0, _useContract3["default"])(),
       getContract = _useContract.getContract;
 
   var getZooBoosterContract = function getZooBoosterContract() {
@@ -97,3 +99,58 @@ var useZooBoosterContract = function useZooBoosterContract() {
 };
 
 exports.useZooBoosterContract = useZooBoosterContract;
+
+var useZooElixirContract = function useZooElixirContract() {
+  var _useContract2 = (0, _useContract3["default"])(),
+      getContract = _useContract2.getContract;
+
+  var getAlchemyContract = function getAlchemyContract() {
+    return regeneratorRuntime.async(function getAlchemyContract$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return regeneratorRuntime.awrap(getContract(_networks.Contracts[CHAIN].zooAlchemy, _contracts.ALCHEMY_ABI));
+
+          case 2:
+            return _context4.abrupt("return", _context4.sent);
+
+          case 3:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    });
+  };
+
+  var getElixir = function getElixir(tokenId) {
+    var contract;
+    return regeneratorRuntime.async(function getElixir$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return regeneratorRuntime.awrap(getAlchemyContract());
+
+          case 2:
+            contract = _context5.sent;
+            _context5.next = 5;
+            return regeneratorRuntime.awrap(contract.elixirInfoMap(tokenId));
+
+          case 5:
+            return _context5.abrupt("return", _context5.sent);
+
+          case 6:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    });
+  };
+
+  return {
+    getElixir: getElixir
+  };
+};
+
+exports.useZooElixirContract = useZooElixirContract;
