@@ -24,9 +24,10 @@ const PriceInput = ({
       onInputError(null);
     }
   }, [value]);
-
+/*
   const handleKeyDown = e => {
     const key = e.keyCode;
+    console.log(key);
     if (key >= '0'.charCodeAt(0) && key <= '9'.charCodeAt(0)) {
       if (value === '0' && key === '0'.charCodeAt(0)) e.preventDefault();
     } else if (key === 190) {
@@ -36,7 +37,7 @@ const PriceInput = ({
       e.preventDefault();
     }
   };
-
+*/
   const checkDecimals = val => {
     if (!val) return '';
     if (val.indexOf('.') > -1 && val.length - val.indexOf('.') - 1 > decimals) {
@@ -53,7 +54,8 @@ const PriceInput = ({
   return (
     <input
       value={value}
-      onKeyDown={handleKeyDown}
+      type="number"
+      //onKeyDown={handleKeyDown}
       onChange={handleChange}
       {...rest}
     />

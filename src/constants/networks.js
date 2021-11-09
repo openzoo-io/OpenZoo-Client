@@ -33,6 +33,9 @@ export const Contracts = {
     privateFactory: '0xB628A26232F5E24B771D268C8680877DA9e8D209', //FantomNFTFactoryPrivate
     artFactory: '0x01C619F89247284268DA8837ffEE8fBb5a78eA22', //FantomArtFactory
     privateArtFactory: '0xCaa6ff4Db9a762dcdc725D69DD5d9B392A66d933', //FantomArtFactoryPrivate
+    zooBooster: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6',
+    zooElixir: '0xA67213608Db9D4BFFAc75baD01Ca5B1f4ad0724c',
+    zooAlchemy: '0x23A9f34aa1e45f9E191A6615d24A781607a1bcb1'
   },
   999: {
     auction: '0x7e408f989deD4ac3ce2AdddD96b8E518Cbdc9aa0',
@@ -42,5 +45,8 @@ export const Contracts = {
     privateFactory: '0xB628A26232F5E24B771D268C8680877DA9e8D209', //FantomNFTFactoryPrivate
     artFactory: '0x01C619F89247284268DA8837ffEE8fBb5a78eA22', //FantomArtFactory
     privateArtFactory: '0xCaa6ff4Db9a762dcdc725D69DD5d9B392A66d933', //FantomArtFactoryPrivate
+    zooBooster: '0xbCF9F4fae90dA7c4BB05DA6f9E9A9A39dc5Ce979',
+    zooElixir: '0xDe3f8DA0Cf18b4ddc5e2f3d94ca3694c241507Bd',
+    zooAlchemy: '0x910A1a6b133A6A869141722872Eb19609A16B511'
   },
 };

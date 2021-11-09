@@ -11,33 +11,29 @@
   flex-grow: 1;
   cursor: pointer;
   transition: transform ease 0.1s;
-  border: 1px solid rgba(0, 0, 0, .1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   background-color: #FFF;
-  border-radius:10px;
-  
-  &:nth-child(n+2) {
-    position: absolute;
-    height: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1;
-  }
-
-  &:nth-child(2) {
-    width: 93%;
-    top: 4px;
-  }
-
-  &:nth-child(3) {
-    width: 96%;
-    top: 1px;
-  }
-
-  &:hover {
-    box-shadow: 0 0 6px rgba(0, 0, 0, .4);
-  }
+  border-radius: 10px;
+}
+.card:nth-child(n+2) {
+  position: absolute;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.card:nth-child(2) {
+  width: 93%;
+  top: 4px;
+}
+.card:nth-child(3) {
+  width: 96%;
+  top: 1px;
+}
+.card:hover {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
 .cardHeader {
@@ -45,20 +41,18 @@
   align-items: center;
   justify-content: flex-end;
   padding: 6px 12px;
-  color: rgba(0, 0, 0, .6);
-
-  &.liking {
-    color: #007BFF;
-  }
+  color: rgba(0, 0, 0, 0.6);
+}
+.cardHeader.liking {
+  color: #007BFF;
 }
 
 .favIcon {
   height: 20px;
   margin-right: 6px;
-
-  &:hover {
-    color: #007BFF;
-  }
+}
+.favIcon:hover {
+  color: #007BFF;
 }
 
 .favLabel {
@@ -83,10 +77,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  img {
-    width: 12px;
-  }
+}
+.createIcon img {
+  width: 12px;
 }
 
 .createLabel {
@@ -130,11 +123,10 @@
   display: flex;
   align-items: center;
   margin: 0;
-
-  img {
-    height: 16px;
-    margin-right: 6px;
-  }
+}
+.price img {
+  height: 16px;
+  margin-right: 6px;
 }
 
 .label2 {
@@ -153,11 +145,10 @@
   display: flex;
   align-items: center;
   margin: 0;
-
-  img {
-    height: 12px;
-    margin-right: 4px;
-  }
+}
+.price2 img {
+  height: 12px;
+  margin-right: 4px;
 }
 
 .name {
@@ -231,7 +222,7 @@
   width: 100%;
   height: 100%;
   background-size: contain;
-  object-fit: scale-down;//contain;
+  object-fit: scale-down;
   border: 0;
 }
 
@@ -251,20 +242,13 @@
   box-sizing: border-box;
 }
 
-:global {
-  .BrainhubCarousel__thumbnail {
-    padding: 0 !important;
-    opacity: 1 !important;
-    margin-right: 5px;
-  }
-
-  .BrainhubCarousel__thumbnail--selected {
-    :local {
-      .dot {
-        background-color: #007BFF;
-      }
-    }
-  }
+:global .BrainhubCarousel__thumbnail {
+  padding: 0 !important;
+  opacity: 1 !important;
+  margin-right: 5px;
+}
+:global .BrainhubCarousel__thumbnail--selected :local .dot {
+  background-color: #007BFF;
 }
 
 .content {
