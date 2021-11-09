@@ -134,6 +134,7 @@
   margin-bottom: 10px;
   font-weight: 400;
   font-size: 14px;
+  align-items: center;
 }
 .property:last-child {
   margin-bottom: 0;
@@ -207,7 +208,7 @@
 
 .itemName {
   font-weight: 700;
-  font-size: 32px;
+  font-size: 20px;
   line-height: 32px;
   color: #3D3D3D;
   margin-top: 16px;
@@ -219,7 +220,7 @@
 
 .itemDescription {
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 20px;
   color: rgba(0, 0, 0, 0.6);
   margin-top: 10px;

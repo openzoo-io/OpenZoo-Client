@@ -2431,33 +2431,34 @@ const NFTItem = () => {
         {
           switch(attributes[key].value)
           {
-            case '1': attributes[key].value = 'Fruits';break;
-            case '2': attributes[key].value = 'Foods';break;
-            case '3': attributes[key].value = 'Sweets';break;
-            case '4': attributes[key].value = 'Potions';break;
-            case '5': attributes[key].value = 'Spices';break;
-            case '6': attributes[key].value = 'Magic';break;
+            case '1': attributes[key].value = <img src="/ZooBooster/category/fruits.png"/>;break;
+            case '2': attributes[key].value = <img src="/ZooBooster/category/foods.png"/>;break;
+            case '3': attributes[key].value = <img src="/ZooBooster/category/sweets.png"/>;break;
+            case '4': attributes[key].value = <img src="/ZooBooster/category/potions.png"/>;break;
+            case '5': attributes[key].value = <img src="/ZooBooster/category/spices.png"/>;break;
+            case '6': attributes[key].value = <img src="/ZooBooster/category/magic.png"/>;break;
           }
         }
         if (attributes[key].trait_type === 'level')
         {
           switch(attributes[key].value)
           {
-            case '1': attributes[key].value = '★';break;
-            case '2': attributes[key].value = '★★';break;
-            case '3': attributes[key].value = '★★★';break;
-            case '4': attributes[key].value = 'MAX';break;
+            case '1': attributes[key].value = <img src="/ZooBooster/star.png"/>;break;
+            case '2': attributes[key].value = <><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/></>;break;
+            case '3': attributes[key].value = <><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/><img src="/ZooBooster/star.png"/></>;break;
+            case '4': attributes[key].value = <img src="/ZooBooster/max.png"/>;break;
           }
         }
         if (attributes[key].trait_type === 'item')
         {
+          attributes[key].trait_type = 'Class';
           switch(attributes[key].value)
           {
-            case '1': attributes[key].value = 'NORMAL';break;
-            case '2': attributes[key].value = 'RARE';break;
-            case '3': attributes[key].value = 'SUPER RARE';break;
-            case '4': attributes[key].value = 'SUPER SUPER RARE';break;
-            case '5': attributes[key].value = 'ULTRA RARE';break;
+            case '1': attributes[key].value = <img src="/ZooBooster/class/N.png"/>;break;
+            case '2': attributes[key].value = <img src="/ZooBooster/class/R.png"/>;break;
+            case '3': attributes[key].value = <img src="/ZooBooster/class/SR.png"/>;break;
+            case '4': attributes[key].value = <img src="/ZooBooster/class/SSR.png"/>;break;
+            case '5': attributes[key].value = <img src="/ZooBooster/class/UR.png"/>;break;
           }
         }
       }
