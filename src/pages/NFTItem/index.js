@@ -45,6 +45,7 @@ import {
   VerticalSplit as VerticalSplitIcon,
   Subject as SubjectIcon,
   Redeem as RedeemIcon,
+  DynamicFeed as DynamicFeedIcon
 } from '@material-ui/icons';
 import toast from 'react-hot-toast';
 
@@ -1249,16 +1250,16 @@ const NFTItem = () => {
       let missingTokens = moreItems.current.map((tk, index) =>
         tk.items
           ? {
-              index,
-              isLiked: tk.isLiked,
-              bundleID: tk._id,
-            }
+            index,
+            isLiked: tk.isLiked,
+            bundleID: tk._id,
+          }
           : {
-              index,
-              isLiked: tk.isLiked,
-              contractAddress: tk.contractAddress,
-              tokenID: tk.tokenID,
-            }
+            index,
+            isLiked: tk.isLiked,
+            contractAddress: tk.contractAddress,
+            tokenID: tk.tokenID,
+          }
       );
       if (prevAuthToken) {
         missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
@@ -2418,6 +2419,61 @@ const NFTItem = () => {
     }
   };
 
+  const renderAttributes = attributes => {
+    //console.log(attributes);
+    const res = [];
+    Object.keys(attributes).map((key, idx) => {
+      
+      if (collection?.collectionName === 'ZooKeeper Booster')
+      {
+        
+        if (attributes[key].trait_type === 'category')
+        {
+          switch(attributes[key].value)
+          {
+            case '1': attributes[key].value = 'Fruits';break;
+            case '2': attributes[key].value = 'Foods';break;
+            case '3': attributes[key].value = 'Sweets';break;
+            case '4': attributes[key].value = 'Potions';break;
+            case '5': attributes[key].value = 'Spices';break;
+            case '6': attributes[key].value = 'Magic';break;
+          }
+        }
+        if (attributes[key].trait_type === 'level')
+        {
+          switch(attributes[key].value)
+          {
+            case '1': attributes[key].value = '★';break;
+            case '2': attributes[key].value = '★★';break;
+            case '3': attributes[key].value = '★★★';break;
+            case '4': attributes[key].value = 'MAX';break;
+          }
+        }
+        if (attributes[key].trait_type === 'item')
+        {
+          switch(attributes[key].value)
+          {
+            case '1': attributes[key].value = 'NORMAL';break;
+            case '2': attributes[key].value = 'RARE';break;
+            case '3': attributes[key].value = 'SUPER RARE';break;
+            case '4': attributes[key].value = 'SUPER SUPER RARE';break;
+            case '5': attributes[key].value = 'ULTRA RARE';break;
+          }
+        }
+      }
+
+      res.push(
+        <div key={idx} className={styles.property}>
+          <div className={styles.propertyLabel}>{attributes[key].trait_type} : </div>
+          <div className={styles.propertyValue}>
+            {attributes[key].value}
+          </div>
+        </div>
+      );
+    });
+    return res;
+  }
+
   const renderProperties = properties => {
     const res = [];
     Object.keys(properties).map((key, idx) => {
@@ -2579,9 +2635,8 @@ const NFTItem = () => {
         <div className={styles.bestBuy}>
           <div
             className={styles.unlockableLabel}
-          >{`This item has unlockable content.${
-            !isMine ? ' Only owners can see the content.' : ''
-          }`}</div>
+          >{`This item has unlockable content.${!isMine ? ' Only owners can see the content.' : ''
+            }`}</div>
           {isMine ? (
             unlockableContent ? (
               <textarea
@@ -2631,15 +2686,15 @@ const NFTItem = () => {
           </div>
           {bestListing.owner.toLocaleLowerCase() !==
             account?.toLocaleLowerCase() && (
-            <TxButton
-              className={cx(styles.buyNow, buyingItem && styles.disabled)}
-              onClick={
-                bundleID ? handleBuyBundle : () => handleBuyItem(bestListing)
-              }
-            >
-              {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy Now'}
-            </TxButton>
-          )}
+              <TxButton
+                className={cx(styles.buyNow, buyingItem && styles.disabled)}
+                onClick={
+                  bundleID ? handleBuyBundle : () => handleBuyItem(bestListing)
+                }
+              >
+                {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy Now'}
+              </TxButton>
+            )}
         </div>
       )}
     </>
@@ -2886,7 +2941,7 @@ const NFTItem = () => {
                     className={cx(
                       styles.headerButton,
                       (auctionStarting || auctionUpdating || auctionEnded) &&
-                        styles.disabled
+                      styles.disabled
                     )}
                     onClick={() => {
                       !auctionEnded && setAuctionModalVisible(true);
@@ -3041,6 +3096,13 @@ const NFTItem = () => {
                   </div>
                 </Panel>
               )}
+              {info?.attributes && (
+                <Panel title="Attributes" icon={DynamicFeedIcon}>
+                  <div className={styles.panelBody}>
+                    {renderAttributes(info.attributes,)}
+                  </div>
+                </Panel>
+              )}
               {bundleID && renderBundleInfoPanel()}
               {!bundleID && renderAboutPanel()}
               {!bundleID && renderCollectionPanel()}
@@ -3086,13 +3148,13 @@ const NFTItem = () => {
                       ? auctionEnded
                         ? 'Sale ended'
                         : `Sale ends in ${formatDuration(
-                            auction.current.endTime
-                          )} (${new Date(
-                            auction.current.endTime * 1000
-                          ).toLocaleString()})`
+                          auction.current.endTime
+                        )} (${new Date(
+                          auction.current.endTime * 1000
+                        ).toLocaleString()})`
                       : `Sale starts in ${formatDuration(
-                          auction.current.startTime
-                        )}`
+                        auction.current.startTime
+                      )}`
                   }
                   fixed
                 >
@@ -3160,36 +3222,36 @@ const NFTItem = () => {
                     )}
                     {!isMine &&
                       (!auctionActive() &&
-                      bid?.bidder?.toLowerCase() === account?.toLowerCase()
+                        bid?.bidder?.toLowerCase() === account?.toLowerCase()
                         ? now.getTime() / 1000 >=
-                            auction?.current?.endTime + 43200 && (
-                            <div
-                              className={cx(
-                                styles.withdrawBid,
-                                bidWithdrawing && styles.disabled
-                              )}
-                              onClick={() => handleWithdrawBid()}
-                            >
-                              {bidWithdrawing
-                                ? 'Withdrawing Bid...'
-                                : 'Withdraw Bid'}
-                            </div>
-                          )
+                        auction?.current?.endTime + 43200 && (
+                          <div
+                            className={cx(
+                              styles.withdrawBid,
+                              bidWithdrawing && styles.disabled
+                            )}
+                            onClick={() => handleWithdrawBid()}
+                          >
+                            {bidWithdrawing
+                              ? 'Withdrawing Bid...'
+                              : 'Withdraw Bid'}
+                          </div>
+                        )
                         : // )
-                          !isMine &&
-                          bid?.bidder?.toLowerCase() !==
-                            account?.toLowerCase() &&
-                          auctionActive() && (
-                            <div
-                              className={cx(
-                                styles.placeBid,
-                                bidPlacing && styles.disabled
-                              )}
-                              onClick={() => setBidModalVisible(true)}
-                            >
-                              Place Bid
-                            </div>
-                          ))}
+                        !isMine &&
+                        bid?.bidder?.toLowerCase() !==
+                        account?.toLowerCase() &&
+                        auctionActive() && (
+                          <div
+                            className={cx(
+                              styles.placeBid,
+                              bidPlacing && styles.disabled
+                            )}
+                            onClick={() => setBidModalVisible(true)}
+                          >
+                            Place Bid
+                          </div>
+                        ))}
                     {isMine && auctionEnded && !auction.current.resulted && (
                       <div
                         className={cx(
@@ -3198,7 +3260,7 @@ const NFTItem = () => {
                         )}
                         onClick={
                           bid === null ||
-                          bid?.bid < auction.current?.reservePrice
+                            bid?.bid < auction.current?.reservePrice
                             ? cancelCurrentAuction
                             : handleResultAuction
                         }
@@ -3270,108 +3332,108 @@ const NFTItem = () => {
                   {console.log('!listings', listings)}
                   {bundleID
                     ? bundleListing.current && (
-                        <div className={styles.listing}>
-                          <div className={styles.owner}>
-                            {loading ? (
-                              <Skeleton width={100} height={20} />
-                            ) : (
-                              <Link to={`/account/${owner}`}>
-                                <div className={styles.userAvatarWrapper}>
-                                  {ownerInfo?.imageHash ? (
-                                    <img
-                                      src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
-                                      className={styles.userAvatar}
-                                    />
-                                  ) : (
-                                    <Identicon
-                                      account={owner}
-                                      size={24}
-                                      className={styles.userAvatar}
-                                    />
-                                  )}
-                                </div>
-                                {isMine
-                                  ? 'Me'
-                                  : ownerInfo?.alias || shortenAddress(owner)}
-                              </Link>
-                            )}
-                          </div>
-                          <div className={styles.price}>
-                            {loading ? (
-                              <Skeleton width={100} height={20} />
-                            ) : (
-                              <>
-                                <img
-                                  src={bundleListing.current.token?.icon}
-                                  className={styles.tokenIcon}
-                                />
-                                {formatNumber(bundleListing.current.price)}
-                              </>
-                            )}
-                          </div>
-                          <div className={styles.buy}>
-                            {!isMine && (
-                              <TxButton
-                                className={cx(
-                                  styles.buyButton,
-                                  buyingItem && styles.disabled
-                                )}
-                                onClick={handleBuyBundle}
-                              >
-                                {buyingItem ? (
-                                  <ClipLoader color="#FFF" size={16} />
-                                ) : (
-                                  'Buy'
-                                )}
-                              </TxButton>
-                            )}
-                          </div>
-                        </div>
-                      )
-                    : listings.current.map((listing, idx) => (
-                        <div className={styles.listing} key={idx}>
-                          <div className={styles.owner}>
-                            <Link to={`/account/${listing.owner}`}>
+                      <div className={styles.listing}>
+                        <div className={styles.owner}>
+                          {loading ? (
+                            <Skeleton width={100} height={20} />
+                          ) : (
+                            <Link to={`/account/${owner}`}>
                               <div className={styles.userAvatarWrapper}>
-                                {listing.image ? (
+                                {ownerInfo?.imageHash ? (
                                   <img
-                                    src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                    src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
                                     className={styles.userAvatar}
                                   />
                                 ) : (
                                   <Identicon
-                                    account={listing.owner}
+                                    account={owner}
                                     size={24}
                                     className={styles.userAvatar}
                                   />
                                 )}
                               </div>
-                              {listing.alias || listing.owner?.substr(0, 6)}
+                              {isMine
+                                ? 'Me'
+                                : ownerInfo?.alias || shortenAddress(owner)}
                             </Link>
-                          </div>
-                          <div className={styles.price}>
-                            <img
-                              src={listing.token?.icon}
-                              className={styles.tokenIcon}
-                            />
-                            {formatNumber(listing.price)}&nbsp;(
-                            {prices[listing.token?.address] !== undefined ? (
-                              `$${(
-                                listing.price * prices[listing.token?.address]
-                              ).toFixed(3)}`
-                            ) : (
-                              <Skeleton width={60} height={24} />
-                            )}
-                            )
-                          </div>
-                          {tokenInfo?.totalSupply > 1 && (
-                            <div className={styles.quantity}>
-                              {formatNumber(listing.quantity)}
-                            </div>
                           )}
-                          <div className={styles.buy}>
-                            {listing.owner.toLowerCase() !==
-                              account?.toLowerCase() && (
+                        </div>
+                        <div className={styles.price}>
+                          {loading ? (
+                            <Skeleton width={100} height={20} />
+                          ) : (
+                            <>
+                              <img
+                                src={bundleListing.current.token?.icon}
+                                className={styles.tokenIcon}
+                              />
+                              {formatNumber(bundleListing.current.price)}
+                            </>
+                          )}
+                        </div>
+                        <div className={styles.buy}>
+                          {!isMine && (
+                            <TxButton
+                              className={cx(
+                                styles.buyButton,
+                                buyingItem && styles.disabled
+                              )}
+                              onClick={handleBuyBundle}
+                            >
+                              {buyingItem ? (
+                                <ClipLoader color="#FFF" size={16} />
+                              ) : (
+                                'Buy'
+                              )}
+                            </TxButton>
+                          )}
+                        </div>
+                      </div>
+                    )
+                    : listings.current.map((listing, idx) => (
+                      <div className={styles.listing} key={idx}>
+                        <div className={styles.owner}>
+                          <Link to={`/account/${listing.owner}`}>
+                            <div className={styles.userAvatarWrapper}>
+                              {listing.image ? (
+                                <img
+                                  src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                  className={styles.userAvatar}
+                                />
+                              ) : (
+                                <Identicon
+                                  account={listing.owner}
+                                  size={24}
+                                  className={styles.userAvatar}
+                                />
+                              )}
+                            </div>
+                            {listing.alias || listing.owner?.substr(0, 6)}
+                          </Link>
+                        </div>
+                        <div className={styles.price}>
+                          <img
+                            src={listing.token?.icon}
+                            className={styles.tokenIcon}
+                          />
+                          {formatNumber(listing.price)}&nbsp;(
+                          {prices[listing.token?.address] !== undefined ? (
+                            `$${(
+                              listing.price * prices[listing.token?.address]
+                            ).toFixed(3)}`
+                          ) : (
+                            <Skeleton width={60} height={24} />
+                          )}
+                          )
+                        </div>
+                        {tokenInfo?.totalSupply > 1 && (
+                          <div className={styles.quantity}>
+                            {formatNumber(listing.quantity)}
+                          </div>
+                        )}
+                        <div className={styles.buy}>
+                          {listing.owner.toLowerCase() !==
+                            account?.toLowerCase() && (
                               <TxButton
                                 className={cx(
                                   styles.buyButton,
@@ -3386,9 +3448,9 @@ const NFTItem = () => {
                                 )}
                               </TxButton>
                             )}
-                          </div>
                         </div>
-                      ))}
+                      </div>
+                    ))}
                 </div>
               </Panel>
             </div>
@@ -3462,13 +3524,13 @@ const NFTItem = () => {
                                 (myHolding &&
                                   myHolding.supply >= offer.quantity)) &&
                                 offer.creator?.toLowerCase() !==
-                                  account?.toLowerCase() && (
+                                account?.toLowerCase() && (
                                   <div
                                     className={cx(
                                       styles.buyButton,
                                       (salesContractApproving ||
                                         offerAccepting) &&
-                                        styles.disabled
+                                      styles.disabled
                                     )}
                                     onClick={
                                       bundleID
@@ -3476,8 +3538,8 @@ const NFTItem = () => {
                                           ? () => handleAcceptOffer(offer)
                                           : handleApproveBundleSalesContract
                                         : salesContractApproved
-                                        ? () => handleAcceptOffer(offer)
-                                        : handleApproveSalesContract
+                                          ? () => handleAcceptOffer(offer)
+                                          : handleApproveSalesContract
                                     }
                                   >
                                     {!(bundleID
@@ -3497,20 +3559,20 @@ const NFTItem = () => {
                                 )}
                               {offer.creator?.toLowerCase() ===
                                 account?.toLowerCase() && (
-                                <div
-                                  className={cx(
-                                    styles.buyButton,
-                                    offerCanceling && styles.disabled
-                                  )}
-                                  onClick={() => handleCancelOffer()}
-                                >
-                                  {offerCanceling ? (
-                                    <ClipLoader color="#FFF" size={16} />
-                                  ) : (
-                                    'Withdraw'
-                                  )}
-                                </div>
-                              )}
+                                  <div
+                                    className={cx(
+                                      styles.buyButton,
+                                      offerCanceling && styles.disabled
+                                    )}
+                                    onClick={() => handleCancelOffer()}
+                                  >
+                                    {offerCanceling ? (
+                                      <ClipLoader color="#FFF" size={16} />
+                                    ) : (
+                                      'Withdraw'
+                                    )}
+                                  </div>
+                                )}
                             </div>
                           </div>
                         ))}
@@ -3573,8 +3635,8 @@ const NFTItem = () => {
             {(historyLoading
               ? [null, null, null]
               : filter === 0
-              ? tradeHistory.current
-              : transferHistory.current
+                ? tradeHistory.current
+                : transferHistory.current
             ).map((history, idx) => {
               const saleDate = history ? new Date(history.createdAt) : null;
               return (

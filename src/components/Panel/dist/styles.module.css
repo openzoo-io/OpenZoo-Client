@@ -42,20 +42,17 @@
   border-top: 1px solid #EAEAF1;
   max-height: 0;
   transition: max-height 100ms ease;
-
-  &.open {
-    max-height: 500px;
-    overflow:auto;
-  }
-
-  &.responsive.open {
-    max-height: 800px;
-    overflow:auto;
-  }
-
-  &:not(.open) {
-    border-top: none;
-  }
+}
+.body.open {
+  max-height: 500px;
+  overflow: auto;
+}
+.body.responsive.open {
+  max-height: 800px;
+  overflow: auto;
+}
+.body:not(.open) {
+  border-top: none;
 }
 
 @media only screen and (max-width: 600px) {
