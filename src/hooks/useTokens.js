@@ -6,6 +6,11 @@ import iconZOO from 'assets/imgs/zoo32x32.png';
 // import iconUSDT from 'assets/imgs/usdt.png';
 // import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
+import iconUSDT from 'assets/imgs/wanUSDT.png';
+import iconUSDC from 'assets/imgs/wanUSDC.png';
+import iconETH from 'assets/imgs/wanETH.png';
+import iconWASP from 'assets/imgs/wasp.png';
+
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -48,6 +53,34 @@ const Tokens = {
       symbol: 'ZOO',
       decimals: 18,
       icon: iconZOO,
+    },
+    {
+      address: '0x830053DABd78b4ef0aB0FeC936f8a1135B68da6f',
+      name: 'WASP',
+      symbol: 'WASP',
+      decimals: 18,
+      icon: iconWASP,
+    },
+    {
+      address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+      name: 'wanUSDT',
+      symbol: 'wanUSDT',
+      decimals: 6,
+      icon: iconUSDT,
+    },
+    {
+      address: '0x7fF465746e4F47e1CbBb80c864CD7DE9F13337fE',
+      name: 'wanUSDC',
+      symbol: 'wanUSDC',
+      decimals: 6,
+      icon: iconUSDC,
+    },
+    {
+      address: '0x48344649B9611a891987b2Db33fAada3AC1d05eC',
+      name: 'wanETH',
+      symbol: 'wanETH',
+      decimals: 18,
+      icon: iconETH,
     },
   ],
 };
