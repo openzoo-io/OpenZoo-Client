@@ -98,6 +98,7 @@ import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
+import { useZooBoosterContract } from 'contracts/zookeeper';
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -182,6 +183,10 @@ const NFTItem = () => {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
+  const {
+    getBoosting,
+    getLockTimeReduce
+  } = useZooBoosterContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
   const { getTokenByAddress, tokens } = useTokens();
@@ -1223,6 +1228,8 @@ const NFTItem = () => {
       })
       .catch(console.log);
   }, [address]);
+
+
 
   useEffect(() => {
     if (address && tokenID && tokenType.current && filter === 1) {
@@ -2419,12 +2426,50 @@ const NFTItem = () => {
     }
   };
 
+
+  const [zooBoosterBoosting, setzooBoosterBoosting] = useState(0);
+  const [zooBoosterLockTimeReduce, setzooBoosterLockTimeReduce] = useState(0);
+  useEffect(() => {
+    
+    if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
+      getBoosting(tokenID).then(ret => {
+        setzooBoosterBoosting(100 * (Number(ret.toString()) / 1e12 - 1));
+      });
+      getLockTimeReduce(tokenID).then(ret => {
+        setzooBoosterLockTimeReduce(100 * (1 - (Number(ret.toString()) / 1e12)));
+      });
+    }
+  }, [tokenID]);
+
+
   const renderAttributes = attributes => {
     //console.log(attributes);
     const res = [];
-    Object.keys(attributes).map((key, idx) => {
+    // ZooBooster //
+    if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
 
-      if (collection?.collectionName === 'ZooKeeper Booster') {
+      res.push(
+        <>
+          <div key={'zooBooster_boosting'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Boosting</div>
+            <div className={styles.attributeValue}>
+              +{zooBoosterBoosting.toFixed(3)}%
+            </div>
+          </div>
+          <div key={'zooBooster_locktimereduce'} className={styles.attribute}>
+            <div className={styles.attributeLabel}>Lock Reduce</div>
+            <div className={styles.attributeValue}>
+              -{zooBoosterLockTimeReduce.toFixed(3)}%
+            </div>
+          </div>
+        </>
+      );
+
+    }
+
+    Object.keys(attributes).map((key, idx) => {
+      // ZooBooster //
+      if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
 
         if (attributes[key].trait_type === 'category') {
           switch (attributes[key].value) {
@@ -3117,7 +3162,7 @@ const NFTItem = () => {
 
             {info?.attributes && (
               <div className={cx(styles.panelWrapper, styles.infoPanel)}>
-                <Panel title="Attributes">
+                <Panel title="Attributes" icon={DynamicFeedIcon}>
                   <div className={styles.panelBodyAttribute}>
                     {renderAttributes(info.attributes)}
                   </div>
