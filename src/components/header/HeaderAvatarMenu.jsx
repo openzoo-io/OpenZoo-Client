@@ -24,7 +24,7 @@ export function HeaderAvatarMenu(props) {
       {balance != null && balance !== '' && (
         <div className="price">
           <span>
-            {balance} <strong>{coinCurrency}</strong>{' '}
+            {balance} <strong>{coinCurrency}</strong>
           </span>
         </div>
       )}
@@ -33,7 +33,7 @@ export function HeaderAvatarMenu(props) {
       ) : props.user?.imageHash ? (
         <img
           className="avatar"
-          src={`https://openzoo.mypinata.cloud/ipfs/${props.props.user?.imageHash}`}
+          src={`https://openzoo.mypinata.cloud/ipfs/${props.user?.imageHash}`}
           alt="avatar"
         />
       ) : (

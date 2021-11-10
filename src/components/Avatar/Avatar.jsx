@@ -67,7 +67,7 @@ export function Avatar(props) {
 
   return (
     <img
-      src={`https://openzoo.mypinata.cloud/ipfs/${props.props.user?.imageHash}`}
+      src={`https://openzoo.mypinata.cloud/ipfs/${props.user?.imageHash}`}
       alt="Avatar"
       className={cx('avatar', `avatar-${props.size}, props.className`)}
     />
