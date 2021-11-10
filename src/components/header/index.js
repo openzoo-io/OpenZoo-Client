@@ -4,16 +4,14 @@ import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
 import { Menu } from '@material-ui/core';
 import { useWeb3React } from '@web3-react/core';
-import { ExpandMore, Search as SearchIcon } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import WalletConnectActions from 'actions/walletconnect.actions';
 import AuthActions from 'actions/auth.actions';
 import ModalActions from 'actions/modal.actions';
-import { shortenAddress, getRandomIPFS } from 'utils';
+import { getRandomIPFS } from 'utils';
 import { useApi } from 'api';
-import { NETWORK_LABEL } from 'constants/networks';
 import { ADMIN_ADDRESS } from 'constants/index';
 import WFTMModal from 'components/WFTMModal';
 import ModModal from 'components/ModModal';
@@ -33,8 +31,10 @@ import iconSwap from 'assets/svgs/swap.svg';
 
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
+import { HeaderAvatarMenu } from './HeaderAvatarMenu';
+import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 
-const Header = ({ border }) => {
+const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -70,6 +70,7 @@ const Header = ({ border }) => {
     boostCollectionModalVisible,
     setBoostCollectionModalVisible,
   ] = useState(false);
+  const [burgerActive, setBurgerActive] = useState(false);
 
   const [keyword, setKeyword] = useState('');
   const [cancelSource, setCancelSource] = useState(null);
@@ -239,6 +240,10 @@ const Header = ({ border }) => {
     handleMenuClose();
   };
 
+  const handleClickBurgerMenu = () => {
+    setBurgerActive(previousValue => !previousValue);
+  };
+
   const openWrapStation = () => {
     dispatch(ModalActions.showWFTMModal());
     handleMenuClose();
@@ -394,16 +399,20 @@ const Header = ({ border }) => {
   const renderSearchBox = () => (
     <div className={cx(styles.searchcont, searchBarActive && styles.active)}>
       <div className={styles.searchcontinner}>
-        <div className={styles.searchbar}>
-          <SearchIcon className={styles.searchicon} />
+        <div className={cx('header__search', styles.searchWrapper)}>
           <input
+            type="text"
             placeholder="Search items, collections and accounts"
-            className={styles.searchinput}
+            className={'searchinput'}
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
           />
+          <button className="header__result">
+            <i className="ri-search-line"></i>
+          </button>
         </div>
+
         {searchBarActive && (
           <div className={styles.resultcont}>
             {collections.length > 0 && (
@@ -525,130 +534,169 @@ const Header = ({ border }) => {
   );
 
   return (
-    <div className={cx(styles.header, border && styles.hasBorder)}>
-      <div className={styles.left}>
-        <Link to="/" className={styles.logo}>
-          <img src={logoSmallBlue} alt="logo" />
-        </Link>
-        {isSearchbarShown && renderSearchBox()}
-        <div className={styles.secondmenu}>
-          <NavLink
-            to="/explore"
-            className={cx(styles.menuLink, styles.link)}
-            activeClassName={styles.active}
-          >
-            Explore
-          </NavLink>
-          <NavLink
-            to="/create"
-            className={cx(styles.menuLink, styles.link)}
-            activeClassName={styles.active}
-          >
-            Create
-          </NavLink>
-        </div>
-      </div>
-      <div className={styles.menu}>
-        {isSearchbarShown && renderSearchBox()}
-        <NavLink
-          to="/explore"
-          className={cx(styles.menuLink, styles.link)}
-          activeClassName={styles.active}
-        >
-          Explore
-        </NavLink>
-        <NavLink
-          to="/create"
-          className={cx(styles.menuLink, styles.link)}
-          activeClassName={styles.active}
-        >
-          Create
-        </NavLink>
-        {account ? (
-          <div
-            className={cx(styles.account, styles.menuLink)}
-            onClick={handleProfileMenuOpen}
-          >
-            {loading ? (
-              <Skeleton className={styles.avatar} />
-            ) : user?.imageHash ? (
-              <img
-                src={`https://openzoo.mypinata.cloud/ipfs/${user?.imageHash}`}
-                width="24"
-                height="24"
-                className={styles.avatar}
-              />
+    <header className={cx('header__1', 'js-header', styles.header)}>
+      <div className={'container'}>
+        <div className={'wrapper js-header-wrapper'}>
+          <div className="header__logo">
+            <Link to="/" className={'header__logo'}>
+              <img src={logoSmallBlue} alt="logo" />
+            </Link>
+          </div>
+          <div className={cx('header__menu', styles.left)}>
+            <ul className="d-flex space-x-20">
+              <li>
+                <NavLink
+                  to="/home"
+                  className={'color_black'}
+                  activeClassName={'color_info'}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/explore"
+                  className={'color_black'}
+                  activeClassName={styles.active}
+                >
+                  Explore
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/explore"
+                  className={'color_black'}
+                  activeClassName={styles.active}
+                >
+                  Collections
+                </NavLink>
+              </li>
+            </ul>
+          </div>
+          {renderSearchBox()}
+          <div className="d-flex align-items-center space-x-20">
+            {account ? (
+              <>
+                <HeaderNotificationMenu />
+                <HeaderAvatarMenu
+                  user={user}
+                  account={account}
+                  loading={loading}
+                  onClick={handleProfileMenuOpen}
+                />
+                <div className="header__btns">
+                  <NavLink
+                    to="/create"
+                    className={'btn btn-primary btn-sm'}
+                    activeClassName={styles.active}
+                  >
+                    Create
+                  </NavLink>
+                </div>
+              </>
             ) : (
-              <Identicon
-                account={account}
-                size={36}
-                className={styles.avatar}
-              />
-            )}
-            <div className={styles.profile}>
-              <div className={styles.address}>
-                {loading ? (
-                  <Skeleton width={120} />
-                ) : (
-                  user?.alias || shortenAddress(account)
-                )}
+              <div className="header__btns">
+                <a
+                  className="btn btn-grad btn-sm"
+                  onClick={handleConnectWallet}
+                >
+                  <i className="ri-wallet-3-line"></i>
+                  Connect wallet
+                </a>
               </div>
-              <div className={styles.network}>
-                {loading ? <Skeleton width={80} /> : NETWORK_LABEL[chainId]}
+            )}
+            <div
+              className={cx(
+                'header__burger js-header-burger',
+                burgerActive && 'active'
+              )}
+              onClick={handleClickBurgerMenu}
+            ></div>
+          </div>
+
+          <div
+            className={cx(
+              'header__mobile js-header-mobile',
+              burgerActive && 'visible'
+            )}
+          >
+            <div className="header__mobile__menu space-y-40">
+              <ul className="d-flex space-y-20">
+                <li>
+                  <a className="color_black" href="Marketplace.html">
+                    Marketplace
+                  </a>
+                </li>
+                <li>
+                  <a className="color_black" href="Collections.html">
+                    Collections
+                  </a>
+                </li>
+                <li>
+                  <a className="color_black" href="Profile.html">
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a className="color_black" href="Creators.html">
+                    Creators
+                  </a>
+                </li>
+              </ul>
+              <div className="space-y-20">
+                <div className="header__search in_mobile w-full">
+                  <input type="text" placeholder="Search" />
+                  <button className="header__result">
+                    <i className="ri-search-line"></i>
+                  </button>
+                </div>
+                <a className="btn btn-grad btn-sm" href="Connect-wallet.html">
+                  Connect wallet
+                </a>
               </div>
             </div>
+          </div>
 
-            <ExpandMore
-              className={cx(styles.expand, isMenuOpen && styles.expanded)}
-            />
-          </div>
-        ) : (
-          <div
-            className={cx(styles.connect, styles.menuLink)}
-            onClick={handleConnectWallet}
-          >
-            Connect Wallet
-          </div>
-        )}
+          {renderMenu}
+          <WFTMModal
+            visible={wftmModalVisible}
+            onClose={() => dispatch(ModalActions.hideWFTMModal())}
+          />
+          <ModModal
+            isAdding={isAdding}
+            visible={modModalVisible}
+            onClose={() => setModModalVisible(false)}
+          />
+          <BanCollectionModal
+            visible={banCollectionModalVisible}
+            isBan={isBan}
+            onClose={() => setBanCollectionModalVisible(false)}
+          />
+          <BanItemModal
+            visible={banItemModalVisible}
+            onClose={() => setBanItemModalVisible(false)}
+          />
+          <BanUserModal
+            visible={banUserModalVisible}
+            onClose={() => setBanUserModalVisible(false)}
+            isForBanning={true}
+          />
+          <BanUserModal
+            visible={unbanUserModalVisible}
+            onClose={() => setUnbanUserModalVisible(false)}
+            isForBanning={false}
+          />
+          <BoostCollectionModal
+            visible={boostCollectionModalVisible}
+            onClose={() => setBoostCollectionModalVisible(false)}
+          />
+          <ConnectWalletModal
+            visible={connectWalletModalVisible}
+            onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
+          />
+        </div>
       </div>
-      {renderMenu}
-      <WFTMModal
-        visible={wftmModalVisible}
-        onClose={() => dispatch(ModalActions.hideWFTMModal())}
-      />
-      <ModModal
-        isAdding={isAdding}
-        visible={modModalVisible}
-        onClose={() => setModModalVisible(false)}
-      />
-      <BanCollectionModal
-        visible={banCollectionModalVisible}
-        isBan={isBan}
-        onClose={() => setBanCollectionModalVisible(false)}
-      />
-      <BanItemModal
-        visible={banItemModalVisible}
-        onClose={() => setBanItemModalVisible(false)}
-      />
-      <BanUserModal
-        visible={banUserModalVisible}
-        onClose={() => setBanUserModalVisible(false)}
-        isForBanning={true}
-      />
-      <BanUserModal
-        visible={unbanUserModalVisible}
-        onClose={() => setUnbanUserModalVisible(false)}
-        isForBanning={false}
-      />
-      <BoostCollectionModal
-        visible={boostCollectionModalVisible}
-        onClose={() => setBoostCollectionModalVisible(false)}
-      />
-      <ConnectWalletModal
-        visible={connectWalletModalVisible}
-        onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
-      />
-    </div>
+    </header>
   );
 };
 
