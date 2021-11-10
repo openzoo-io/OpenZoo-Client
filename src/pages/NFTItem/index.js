@@ -763,7 +763,7 @@ const NFTItem = () => {
       }
       tradeHistory.current = [newTradeHistory, ...tradeHistory.current];
 
-      showToast('success', 'You have bought the item!');
+      showToast('success', 'Item has been sold!');
       setBuyingItem(false);
     }
   };
