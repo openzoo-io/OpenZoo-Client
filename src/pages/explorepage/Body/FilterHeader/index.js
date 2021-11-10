@@ -1,4 +1,5 @@
-import React from 'react';
+import { React, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,23 +17,35 @@ import nftActiveIcon from 'assets/svgs/nft_active.svg';
 
 import './styles.css';
 
+
 const ExploreFilterHeader = ({ loading, category }) => {
   const dispatch = useDispatch();
+
+  const { addr } = useParams();
 
   const { collections: collectionItems } = useSelector(
     state => state.Collections
   );
   const { count } = useSelector(state => state.Tokens);
   const { groupType, sortBy, collections } = useSelector(state => state.Filter);
-
+  useEffect(() => {
+    if (addr) {
+      dispatch(FilterActions.updateCollectionsFilter([addr]));
+    }
+  }, [addr]);
   const selectedCollections = () => {
     const res = new Array(collections.length).fill(null);
+
     collectionItems.map(item => {
+
       const index = collections.findIndex(_item => _item === item.address);
+
+
       if (index > -1) {
         res[index] = item;
       }
     });
+
     return res.filter(item => !!item);
   };
 
@@ -60,8 +73,7 @@ const ExploreFilterHeader = ({ loading, category }) => {
             <Skeleton width={100} height={24} />
           ) : (
             `${formatNumber(count)} Result${count !== 1 ? 's' : ''}
-            ${
-              category === null ? '' : `- Category: ${formatCategory(category)}`
+            ${category === null ? '' : `- Category: ${formatCategory(category)}`
             }`
           )}
         </label>
