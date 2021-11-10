@@ -98,6 +98,7 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/explore" component={ExplorePage} />
+          <Route exact path="/explore/:addr" component={ExplorePage} />
           <Route path="/explore/:addr/:id" component={NFTItem} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
