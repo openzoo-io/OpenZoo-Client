@@ -546,6 +546,15 @@ const Header = () => {
             <ul className="d-flex space-x-20">
               <li>
                 <NavLink
+                  to="/home"
+                  className={'color_black'}
+                  activeClassName={'color_info'}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/explore"
                   className={'color_black'}
                   activeClassName={styles.active}
