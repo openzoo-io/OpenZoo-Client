@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StackAvatars } from 'components/Avatar/StackAvatars';
-import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 import { Link } from 'react-router-dom';
+import { formatNumber } from 'utils';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -11,21 +11,27 @@ const propTypes = {
   onLike: PropTypes.func,
 };
 
-export function AssetCardThree() {
-  const assetUrl = '/explore/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36';
+export function AssetCardThree(props) {
+  const { item } = props;
+  const assetUrl = item
+    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    : '#';
 
   return (
     <div className="card__item three">
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={ExampleImage} alt="..." />
+            <img src={item?.imageURL} alt="..." />
           </Link>
 
-          <a href="#" className="likes space-x-3">
+          <div
+            className="cursor-pointer likes space-x-3"
+            onClick={props.onLike}
+          >
             <i className="ri-heart-3-fill"></i>
-            <span className="txt_sm">23.1k</span>
-          </a>
+            <span className="txt_sm">{item?.liked ?? 0}</span>
+          </div>
           <div className="action">
             <a
               href="#"
@@ -40,7 +46,7 @@ export function AssetCardThree() {
         </div>
         <h6 className="card_title">
           <Link to={assetUrl} className="color_black">
-            Colorful Abstract Painting
+            {item?.name}
           </Link>
         </h6>
 
@@ -48,7 +54,9 @@ export function AssetCardThree() {
           <div className="d-flex justify-content-between">
             <StackAvatars users={new Array(2).fill({})} />
             <a href="#" className="space-x-3">
-              <span className="color_green txt_sm">0.001 ETH</span>
+              <span className="color_green txt_sm">
+                {formatNumber(item?.price?.toFixed?.(2))}
+              </span>
             </a>
           </div>
           <div className="hr"></div>

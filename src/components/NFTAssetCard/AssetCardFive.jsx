@@ -5,6 +5,7 @@ import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 import Skeleton from 'react-loading-skeleton';
 import { Avatar } from 'components/Avatar';
 import { Link } from 'react-router-dom';
+import { formatNumber } from 'utils';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -14,7 +15,10 @@ const propTypes = {
 };
 
 export function AssetCardFive(props) {
-  const assetUrl = '/explore/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36';
+  const { item } = props;
+  const assetUrl = item
+    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    : '#';
 
   if (props.loading) {
     return (
@@ -37,7 +41,7 @@ export function AssetCardFive(props) {
       <div className="card_body space-y-10 space-x-10 d-flex">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={ExampleImage} alt="" />
+            <img src={item?.imageURL ?? ExampleImage} alt="" />
           </Link>
           <div className="details d-flex justify-content-between">
             <div className="progress">
@@ -55,7 +59,7 @@ export function AssetCardFive(props) {
         <div className="d-flex flex-column justify-content-center w-100 space-y-10">
           <h6>
             <Link to={assetUrl} className={'color_black'}>
-              Colorful Abstract Painting
+              {item?.name}
             </Link>
           </h6>
           <div className="hr"></div>
@@ -75,7 +79,9 @@ export function AssetCardFive(props) {
               >
                 Place Bid
               </a>
-              <span className="color_green txt_sm text-right">4,906 ETH</span>
+              <span className="color_green txt_sm text-right">
+                {formatNumber(item?.price?.toFixed(2))}
+              </span>
             </div>
           </div>
         </div>

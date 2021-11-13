@@ -2,8 +2,8 @@ import { Avatar } from 'components/Avatar';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 import Skeleton from 'react-loading-skeleton';
+import { formatNumber } from 'utils';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -13,7 +13,10 @@ const propTypes = {
 };
 
 export function AssetCardFour(props) {
-  const assetUrl = '/explore/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36';
+  const { item } = props;
+  const assetUrl = item
+    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    : '#';
 
   if (props.loading) {
     return (
@@ -58,18 +61,21 @@ export function AssetCardFour(props) {
         </div>
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={ExampleImage} alt="" />
+            <img src={item?.imageURL} alt="" />
           </Link>
 
-          <a href="#" className="likes space-x-3" onClick={props.onLike}>
+          <div
+            className="cursor-pointer likes space-x-3"
+            onClick={props.onLike}
+          >
             <i className="ri-heart-3-fill"></i>
-            <span className="txt_sm">1.2k</span>
-          </a>
+            <span className="txt_sm">{item?.liked ?? 0}</span>
+          </div>
         </div>
 
         <h6 className="card_title">
           <Link to={assetUrl} className={'color_black'}>
-            Colorful Abstract Painting
+            {item?.name}
           </Link>
         </h6>
 
@@ -80,7 +86,10 @@ export function AssetCardFour(props) {
             </div>
             <a href="#" className="">
               <p className="txt_sm">
-                Price: <span className="color_green txt_sm">2.45 ETH</span>
+                Price:{' '}
+                <span className="color_green txt_sm">
+                  {formatNumber(item?.price?.toFixed?.(2))}
+                </span>
               </p>
             </a>
           </div>

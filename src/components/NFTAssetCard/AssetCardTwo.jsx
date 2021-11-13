@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 import { StackAvatars } from 'components/Avatar';
 import faker from 'faker';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
+import { formatNumber } from 'utils';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -15,7 +15,10 @@ const propTypes = {
 };
 
 export function AssetCardTwo(props) {
-  const assetUrl = '/explore/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36';
+  const { item } = props;
+  const assetUrl = item
+    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    : '#';
 
   if (props.loading) {
     return (
@@ -36,7 +39,7 @@ export function AssetCardTwo(props) {
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={ExampleImage} alt="" />
+            <img src={item?.imageURL} alt="" />
           </Link>
           <div className="block_timer">
             <div className="d-flex justify-content-center align-items-center">
@@ -74,7 +77,7 @@ export function AssetCardTwo(props) {
         </div>
         <h6 className="card_title">
           <Link className="color_black" to={assetUrl}>
-            Spider Eyes Modern Art
+            {item?.name}
           </Link>
         </h6>
         <div className="hr"></div>
@@ -84,7 +87,9 @@ export function AssetCardTwo(props) {
             users={new Array(2).fill({ alias: faker.name.findName() })}
           />
           <a href="#" className="space-x-3">
-            <p className="color_green txt_sm">0,006 ETH</p>
+            <p className="color_green txt_sm">
+              {formatNumber(item?.price?.toFixed?.(2))}
+            </p>
           </a>
         </div>
       </div>
