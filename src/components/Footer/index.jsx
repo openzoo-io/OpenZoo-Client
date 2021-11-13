@@ -47,12 +47,14 @@ export function Footer() {
             <h6 className="footer__title">OpenZoo</h6>
             <ul className="footer__list">
               <li>
-                <Link to="/"> Home1 </Link>
+                <Link to="/home"> Home </Link>
+              </li>
+              <li>
+                <Link to="/new-explore">New Marketplace</Link>
               </li>
               <li></li>
-              <li></li>
               <li>
-                <Link to="/explore"> Marketplace</Link>
+                <Link to="/explore">Old Marketplace</Link>
               </li>
             </ul>
           </div>
