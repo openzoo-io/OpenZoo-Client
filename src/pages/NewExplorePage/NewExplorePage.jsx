@@ -4,6 +4,7 @@ import {
   ExplorePageArtworksSection,
   ExplorePageFilterCategorySection,
   ExplorePageFillterStatus,
+  ExplorePageCollectionsSections,
 } from './sections';
 import { Footer } from 'components/Footer';
 import { useResizeDetector } from 'react-resize-detector';
@@ -192,7 +193,6 @@ export function NewExplorePage() {
   };
 
   // handle event methos
-
   const handleScroll = e => {
     if (upFetching || downFetching) return;
 
@@ -229,6 +229,7 @@ export function NewExplorePage() {
         <div ref={ref}>
           <ExplorePageArtworksSection items={tokens} loading={downFetching} />
         </div>
+        <ExplorePageCollectionsSections />
       </div>
       <Footer />
     </div>
