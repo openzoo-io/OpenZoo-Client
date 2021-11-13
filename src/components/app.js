@@ -26,6 +26,7 @@ import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
 import PriceActions from 'actions/price.actions';
 import { HomePage } from 'pages/HomePage';
+import { NewExplorePage } from 'pages/NewExplorePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -99,6 +100,7 @@ const App = () => {
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/explore" component={ExplorePage} />
           <Route path="/explore/:addr/:id" component={NFTItem} />
+          <Route path="/new-explore" component={NewExplorePage} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
           <Route path="/account/:uid" component={AccountDetails} />

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const propTypes = {
   name: PropTypes.string.isRequired,
+  values: PropTypes.arrayOf(PropTypes.string),
   items: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,
@@ -10,14 +12,20 @@ const propTypes = {
     })
   ).isRequired,
   multiple: PropTypes.bool,
+  className: PropTypes.string,
   onChange: PropTypes.func,
 };
 
 export function FilterMenu(props) {
   const [selectedValues, setSelectedValues] = useState([]);
 
+  useEffect(() => {
+    if (props.values != null) {
+      setSelectedValues(props.values);
+    }
+  }, [props.values]);
+
   const handleOnChange = item => () => {
-    // e.preventDefault();
     const index = selectedValues.findIndex(v => v === item.value);
     const cpValues = [...selectedValues];
     if (index >= 0) {
@@ -30,7 +38,7 @@ export function FilterMenu(props) {
   };
 
   return (
-    <div className="d-flex space-x-10">
+    <div className={cx('d-flex space-x-10', props.className)}>
       <span className="color_text txt_sm" style={{ minWidth: 'max-content' }}>
         FILTER BY:
       </span>

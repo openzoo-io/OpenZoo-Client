@@ -38,7 +38,7 @@ export function HeaderAvatarMenu(props) {
         />
       ) : (
         <Identicon
-          account={'13b9ebda035r178'}
+          account={props.account}
           size={40}
           className={styles.avatar}
         />
