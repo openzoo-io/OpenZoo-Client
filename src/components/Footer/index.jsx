@@ -50,12 +50,9 @@ export function Footer() {
                 <Link to="/home"> Home </Link>
               </li>
               <li>
-                <Link to="/new-explore">New Marketplace</Link>
+                <Link to="/explore">Explore</Link>
               </li>
               <li></li>
-              <li>
-                <Link to="/explore">Old Marketplace</Link>
-              </li>
             </ul>
           </div>
           <div className="col-lg-2 col-6">
