@@ -1,40 +1,52 @@
 import { Avatar } from 'components/Avatar';
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Badge from 'assets/imgs/icons/Badge.svg';
+import styles from '../../NFTItem/styles.module.scss';
+// import Badge from 'assets/imgs/icons/Badge.svg';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';
+import Skeleton from 'react-loading-skeleton';
 
 const propTypes = {
-  user: PropTypes.object,
-  dateTime: PropTypes.string,
-  price: PropTypes.number,
+  listing: PropTypes.object,
+  prices: PropTypes.object,
 };
 
 export function ArtworkDetailPageHistoryItem(props) {
-  const userUrl = props.user ? `/account/${props.user?.address}` : '#';
+  const { listing, prices } = props;
+  const userUrl = listing.owner ? `/account/${listing.owner}` : '#';
+  const accountImage = `https://openzoo.mypinata.cloud/ipfs/${listing.image}`;
 
   return (
     <div className="creator_item creator_card space-x-10">
       <div className="avatars space-x-10">
         <div className="media">
-          <div className="badge">
+          {/* <div className="badge">
             <img src={Badge} alt="" />
-          </div>
+          </div> */}
           <Link to={userUrl}>
-            <Avatar user={props.user} size="md" />
+            <Avatar imageSrc={accountImage} size="md" />
           </Link>
         </div>
         <div>
           <p className="color_black">
             Bid accepted{' '}
             <span className="color_brand">
-              {formatNumber((props.price ?? 0).toFixed(2))}
+              <img src={listing?.token?.icon} className={styles.tokenIcon} />
+              {formatNumber(listing?.price)}&nbsp;(
+              {listing?.token?.address != null &&
+              prices?.[listing?.token?.address] != null ? (
+                `$${(listing?.price * prices[listing?.token?.address]).toFixed(
+                  3
+                )}`
+              ) : (
+                <Skeleton width={60} height={24} />
+              )}
+              )
             </span>{' '}
             by{' '}
             <Link className="color_black txt _bold" to={userUrl}>
-              {props.user?.name ?? 'unnamed'}
+              {listing?.alias || listing.owner?.substr(0, 6) || 'unnamed'}
             </Link>
           </p>
           <span className="date color_text">{props.dateTime ?? ''}</span>

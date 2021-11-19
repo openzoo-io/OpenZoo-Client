@@ -55,6 +55,11 @@ export function ShareButton(props) {
             </div>
           </li>
           <li>
+            <div className="cursor-pointer" onClick={handleOnShare('twitter')}>
+              <i className="ri-twitter-line"></i>
+            </div>
+          </li>
+          <li>
             <div
               className="cursor-pointer"
               onClick={handleOnShare('messenger')}

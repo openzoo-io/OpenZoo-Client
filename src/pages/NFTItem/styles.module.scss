@@ -165,13 +165,20 @@
 
 }
 
+.attributeWrapper, .propertiesWrapper {
+  max-height: 300px;
+  overflow: auto;
+  justify-content: center;
+}
+
 .attribute
 {
   display:flex;
   align-items: center;
   flex-direction: column;
   width:100px;
-  height:60px;
+  min-height:60px;
+  max-height: 100px;
   border:1px solid #EAEAF1;
   border-radius: 10px;
   justify-content: center;
