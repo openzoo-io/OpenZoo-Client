@@ -110,3 +110,31 @@ export const calculateGasMargin = value => {
     .mul(ethers.BigNumber.from(10000).add(ethers.BigNumber.from(1000)))
     .div(ethers.BigNumber.from(10000));
 };
+
+export const formatDateTimeAgo = (_date, _now) => {
+  const ONE_MIN = 60;
+  const ONE_HOUR = ONE_MIN * 60;
+  const ONE_DAY = ONE_HOUR * 24;
+  const ONE_MONTH = ONE_DAY * 30;
+
+  const now = _now ?? new Date();
+  const date = new Date(_date);
+  const diff = Math.floor((now - date.getTime()) / 1000);
+  if (diff >= ONE_MONTH) {
+    const m = Math.ceil(diff / ONE_MONTH);
+    return `${m} Month${m > 1 ? 's' : ''} Ago`;
+  }
+  if (diff >= ONE_DAY) {
+    const d = Math.ceil(diff / ONE_DAY);
+    return `${d} Day${d > 1 ? 's' : ''} Ago`;
+  }
+  if (diff >= ONE_HOUR) {
+    const h = Math.ceil(diff / ONE_HOUR);
+    return `${h} Hour${h > 1 ? 's' : ''} Ago`;
+  }
+  if (diff >= ONE_MIN) {
+    const h = Math.ceil(diff / ONE_MIN);
+    return `${h} Min${h > 1 ? 's' : ''} Ago`;
+  }
+  return `${diff} Second${diff > 1 ? 's' : ''} Ago`;
+};

@@ -26,7 +26,8 @@ import NotificationSetting from '../pages/NotificationSetting';
 import PriceActions from 'actions/price.actions';
 import { HomePage } from 'pages/HomePage';
 import { NewExplorePage } from 'pages/NewExplorePage';
-import { ArtworkDetailPage } from 'pages/ArtworkDetailPage/ArtworkDetailPage';
+import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
+import { AccountProfilePage } from 'pages/AccountProfilePage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -105,7 +106,8 @@ const App = () => {
           <Route path="/explore/:addr/:id" component={ArtworkDetailPage} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
-          <Route path="/account/:uid" component={AccountDetails} />
+          <Route path="/account/:uid" component={AccountProfilePage} />
+          <Route path="/old-account/:uid" component={AccountDetails} />
           <ProtectedRoute
             path="/collection/create"
             component={() => <CollectionCreate isRegister={false} />}

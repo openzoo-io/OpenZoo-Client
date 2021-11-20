@@ -41,7 +41,7 @@ const fakerAsset = () => {
   };
 };
 
-export function AssetCard(props) {
+function AssetCardComponent(props) {
   const { preset, item, ...rest } = props;
 
   // TODO: delete faker code
@@ -64,4 +64,6 @@ export function AssetCard(props) {
   );
 }
 
-AssetCard.propTypes = propTypes;
+AssetCardComponent.propTypes = propTypes;
+
+export const AssetCard = React.memo(AssetCardComponent);
