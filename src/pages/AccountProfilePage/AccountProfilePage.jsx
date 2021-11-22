@@ -45,7 +45,6 @@ import {
   AccountProfileOffersList,
   AccountProfileMyOffersList,
 } from './components';
-import { TabList } from 'components/TabList';
 import { AssetCard } from 'components/NFTAssetCard';
 
 const TAB_ITEMS = [
