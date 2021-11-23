@@ -421,6 +421,11 @@ export function AccountProfilePage() {
     }
   };
 
+  const handleOnArtworksReachBottom = () => {
+    if (tab > 2) return;
+    loadNextPage();
+  };
+
   const init = () => {
     if (tab === 0) {
       tokens.current = [];
@@ -644,12 +649,7 @@ export function AccountProfilePage() {
           </div>
 
           {/* Right section */}
-          <div
-            ref={ref}
-            className="col-lg-9 col-md-12 order-md-1 order-0"
-            style={{ overflow: 'auto' }}
-            onScroll={handleScroll}
-          >
+          <div ref={ref} className="col-lg-9 col-md-12 order-md-1 order-0">
             <div className="profile__content">
               <div className="d-flex justify-content-between">
                 <div className="space-x-10 w-full">
@@ -667,6 +667,11 @@ export function AccountProfilePage() {
                           ? likes.current
                           : []
                       }
+                      count={count}
+                      loading={
+                        tab === 0 ? fetching : tab === 2 ? favFetching : []
+                      }
+                      onReachBottom={handleOnArtworksReachBottom}
                     />
                   ) : tab === 3 ? (
                     <AccountProfileActivitiesList
