@@ -70,7 +70,7 @@ export function ArtworkDetailPageAttributesView(props) {
   // ZooElixir //
   if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
     let levelImg = '';
-    switch (zooElixir?.level.toString()) {
+    switch (zooElixir?.level?.toString()) {
       case '1':
         levelImg = <img src="/ZooBooster/class/N.png" />;
         break;
@@ -96,7 +96,7 @@ export function ArtworkDetailPageAttributesView(props) {
         <div key={'zooElixir_drops'} className={styles.attribute}>
           <div className={styles.attributeLabel}>Drops</div>
           <div className={styles.attributeValue}>
-            {Number(zooElixir?.drops.toString()) / 1e18}%
+            {Number(zooElixir?.drops?.toString()) / 1e18}%
           </div>
         </div>
         <div key={'zooElixir_level'} className={styles.attribute}>
@@ -111,7 +111,7 @@ export function ArtworkDetailPageAttributesView(props) {
                 width: 20,
                 height: 20,
                 borderRadius: '50%',
-                background: numberToColor(Number(zooElixir?.color.toString())),
+                background: numberToColor(Number(zooElixir?.color?.toString())),
               }}
             ></div>
           </div>
