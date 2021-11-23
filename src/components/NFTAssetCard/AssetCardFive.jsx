@@ -6,6 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Avatar } from 'components/Avatar';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';
+import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -41,7 +42,7 @@ export function AssetCardFive(props) {
       <div className="card_body space-y-10 space-x-10 d-flex">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={item?.imageURL ?? ExampleImage} alt="" />
+            <ArtworkMediaView image={item?.imageURL ?? ExampleImage} alt="" />
           </Link>
           <div className="details d-flex justify-content-between">
             <div className="progress">

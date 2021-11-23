@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
+import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -61,7 +62,7 @@ export function AssetCardFour(props) {
         </div>
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={item?.imageURL} alt="" />
+            <ArtworkMediaView image={item?.imageURL} alt="" />
           </Link>
 
           <div

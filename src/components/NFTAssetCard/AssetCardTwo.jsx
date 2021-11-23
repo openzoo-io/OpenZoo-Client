@@ -6,6 +6,7 @@ import faker from 'faker';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';
+import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -39,7 +40,7 @@ export function AssetCardTwo(props) {
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={item?.imageURL} alt="" />
+            <ArtworkMediaView image={item?.imageURL} alt="" />
           </Link>
           <div className="block_timer">
             <div className="d-flex justify-content-center align-items-center">

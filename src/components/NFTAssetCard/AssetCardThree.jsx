@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StackAvatars } from 'components/Avatar/StackAvatars';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';
+import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -22,7 +23,7 @@ export function AssetCardThree(props) {
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <img src={item?.imageURL} alt="..." />
+            <ArtworkMediaView image={item?.imageURL} />
           </Link>
 
           <div
