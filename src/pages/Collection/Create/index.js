@@ -19,7 +19,6 @@ import showToast from 'utils/toast';
 
 import { Categories } from 'constants/filter.constants';
 import HeaderActions from 'actions/header.actions';
-import Header from 'components/header';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import toast from 'utils/toast';
@@ -39,6 +38,7 @@ import closeIcon from 'assets/svgs/close.svg';
 
 import styles from './styles.module.scss';
 import { formatError, isAddress } from 'utils';
+import { PageLayout } from 'components/Layouts';
 
 const CustomRadio = withStyles({
   root: {
@@ -491,8 +491,7 @@ const CollectionCreate = ({ isRegister }) => {
   );
 
   return (
-    <div className={styles.container}>
-      <Header border />
+    <PageLayout>
       <div className={styles.inner}>
         <div className={styles.title}>
           {isRegister ? 'Register' : 'Create New'} Collection
@@ -920,7 +919,7 @@ const CollectionCreate = ({ isRegister }) => {
         )}
       </div>
       {renderMenu}
-    </div>
+    </PageLayout>
   );
 };
 

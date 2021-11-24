@@ -9,12 +9,12 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 
 import HeaderActions from 'actions/header.actions';
-import Header from 'components/header';
 import { useApi } from 'api';
 import { getSigner } from 'contracts';
 import toast from 'utils/toast';
 
 import styles from './styles.module.scss';
+import { PageLayout } from 'components/Layouts/PageLayout';
 
 const selfSettings = [
   {
@@ -232,8 +232,7 @@ const NotificationSetting = () => {
     settings[key] === undefined ? true : settings[key];
 
   return (
-    <div className={styles.container}>
-      <Header border />
+    <PageLayout>
       <div className={styles.inner}>
         <div className={styles.title}>Notification Settings</div>
 
@@ -308,7 +307,7 @@ const NotificationSetting = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

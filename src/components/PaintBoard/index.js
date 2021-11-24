@@ -18,7 +18,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
 import HeaderActions from 'actions/header.actions';
-import Header from 'components/header';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import { calculateGasMargin, formatError, getHigherGWEI } from 'utils';
@@ -29,6 +28,7 @@ import { useApi } from 'api';
 import { useSalesContract, getSigner } from 'contracts';
 
 import styles from './styles.module.scss';
+import { PageLayout } from 'components/Layouts';
 
 const accept = ['image/*'];
 
@@ -370,8 +370,7 @@ const PaintBoard = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Header border />
+    <PageLayout>
       <div className={styles.body}>
         <div className={styles.board}>
           <div {...getRootProps({ className: styles.uploadCont })}>
@@ -625,7 +624,7 @@ const PaintBoard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 
