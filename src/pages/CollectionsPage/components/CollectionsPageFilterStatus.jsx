@@ -25,7 +25,7 @@ const propTypes = {
   onChange: PropTypes.func,
 };
 
-export function ExplorePageCollectionFilterStatus(props) {
+export function CollectionsPageFilterStatus(props) {
   const handleOnChange = values => {
     props.onChange?.(values);
   };
@@ -71,4 +71,4 @@ export function ExplorePageCollectionFilterStatus(props) {
   );
 }
 
-ExplorePageCollectionFilterStatus.propTypes = propTypes;
+CollectionsPageFilterStatus.propTypes = propTypes;

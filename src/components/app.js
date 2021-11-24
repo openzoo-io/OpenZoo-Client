@@ -28,6 +28,7 @@ import { HomePage } from 'pages/HomePage';
 import { NewExplorePage } from 'pages/NewExplorePage';
 import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
+import { CollectionsPage } from 'pages/CollectionsPage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ const App = () => {
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
           <Route path="/account/:uid" component={AccountProfilePage} />
           <Route path="/old-account/:uid" component={AccountDetails} />
+          <Route path="/collections" component={CollectionsPage} />
           <ProtectedRoute
             path="/collection/create"
             component={() => <CollectionCreate isRegister={false} />}
