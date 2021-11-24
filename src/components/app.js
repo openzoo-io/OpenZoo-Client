@@ -17,9 +17,9 @@ import AccountModal from './AccountModal';
 import WFTMModal from './WFTMModal';
 import NotFound from './NotFound';
 import PaintBoard from './PaintBoard';
-import ExplorePage from '../pages/explorepage';
+//import ExplorePage from '../pages/explorepage';
 import AccountDetails from '../pages/AccountDetails';
-import NFTItem from '../pages/NFTItem';
+//import NFTItem from '../pages/NFTItem';
 import CollectionCreate from '../pages/Collection/Create';
 import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
@@ -99,11 +99,13 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/home" component={HomePage} />
-          {/* <Route exact path="/explore" component={ExplorePage} /> */}
-          <Route exact path="/explore" component={NewExplorePage} />
-          <Route exact path="/explore/:addr" component={ExplorePage} />
+          {/*
+          <Route exact path="/old-explore" component={ExplorePage} />
           <Route path="/old-explore/:addr/:id" component={NFTItem} />
-          <Route path="/explore/:addr/:id" component={ArtworkDetailPage} />
+           */}
+          <Route exact path="/explore" component={NewExplorePage} />
+          <Route exact path="/explore/:addr" component={NewExplorePage} />
+          <Route exact path="/explore/:addr/:id" component={ArtworkDetailPage} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
           <Route path="/account/:uid" component={AccountProfilePage} />
