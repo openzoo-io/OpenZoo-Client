@@ -14598,7 +14598,7 @@ label:active:after {
 
 @media screen and (max-width: 768px) {
   .header__1 .header__avatar {
-    display: none !important;
+    /* display: none !important; */
   }
 }
 
@@ -14678,7 +14678,7 @@ label:active:after {
 
 @media screen and (max-width: 768px) {
   .header__1 .header__notifications {
-    display: none !important;
+    /* display: none !important; */
   }
 }
 
@@ -14700,6 +14700,12 @@ label:active:after {
           transform: translateY(-1rem);
   max-width: 30rem;
   z-index: 9;
+}
+
+@media screen and (max-width: 991px) {
+  .header__1 .header__notifications .notifications_popup {
+    right: 0;
+  }
 }
 
 .header__1 .header__notifications .notifications_popup.visible {

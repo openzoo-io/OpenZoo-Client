@@ -28,10 +28,7 @@ export function HeaderNotificationMenu() {
 
   return (
     <div className="header__notifications" ref={wrapperRef}>
-      <div
-        className="js-notifications-icon"
-        onClick={handleClickNotificationButton}
-      >
+      <div className="cursor-pointer" onClick={handleClickNotificationButton}>
         <i className="ri-notification-3-line"></i>
       </div>
       <div
@@ -42,9 +39,9 @@ export function HeaderNotificationMenu() {
       >
         <div className="d-flex justify-content-between">
           <h5> Notifications</h5>
-          <a href="Activity.html" className="badge color_white">
+          <Link to="#" className="badge color_white">
             View all
-          </a>
+          </Link>
         </div>
         <div className="item space-x-20 d-flex justify-content-between align-items-center">
           <img className="thumb" src={DefaultNotifiImg} alt="..." />

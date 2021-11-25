@@ -413,125 +413,131 @@ const Header = () => {
           </button>
         </div>
 
-        {searchBarActive && (
-          <div className={styles.resultcont}>
-            {collections.length > 0 && (
-              <div className={styles.resultsection}>
-                <div className={styles.resultsectiontitle}>Collections</div>
-                <div className={styles.separator} />
-                <div className={styles.resultlist}>
-                  {collections.map((collection, idx) => (
-                    <div
-                      key={idx}
-                      className={styles.result}
-                      onClick={() =>
-                        handleSelectCollection(collection.erc721Address)
-                      }
-                    >
-                      <img
-                        className={styles.resultimg}
-                        src={`${getRandomIPFS('', true)}${
-                          collection.logoImageHash
-                        }`}
-                      />
-                      <div className={styles.resulttitle}>
-                        {collection.collectionName}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            {accounts.length > 0 && (
-              <div className={styles.resultsection}>
-                <div className={styles.resultsectiontitle}>Accounts</div>
-                <div className={styles.separator} />
-                <div className={styles.resultlist}>
-                  {accounts.map((account, idx) => (
-                    <Link
-                      to={`/account/${account.address}`}
-                      key={idx}
-                      className={styles.result}
-                    >
-                      {account.imageHash ? (
-                        <img
-                          className={styles.resultimg}
-                          src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
-                        />
-                      ) : (
-                        <Identicon
-                          className={styles.resultimg}
-                          account={account.address}
-                          size={40}
-                        />
-                      )}
-                      <div className={styles.resulttitle}>{account.alias}</div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            {tokens.length > 0 && (
-              <div className={styles.resultsection}>
-                <div className={styles.resultsectiontitle}>Items</div>
-                <div className={styles.separator} />
-                <div className={styles.resultlist}>
-                  {tokens.map((tk, idx) => (
-                    <Link
-                      to={`/explore/${tk.contractAddress}/${tk.tokenID}`}
-                      key={idx}
-                      className={styles.result}
-                    >
-                      <div className={styles.resultimg}>
-                        {tokenDetailsLoading ? (
-                          <Skeleton width={40} height={40} />
-                        ) : (
-                          tk.thumbnailPath &&
-                          (tk.thumbnailPath.length > 10 ? (
-                            <img
-                              src={`${storageUrl}/image/${tk.thumbnailPath}`}
-                            />
-                          ) : tk.thumbnailPath === '.' ? (
-                            <img src={tk.imageURL} />
-                          ) : null)
-                        )}
-                      </div>
-                      <div className={styles.resulttitle}>{tk.name}</div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            {bundles.length > 0 && (
-              <div className={styles.resultsection}>
-                <div className={styles.resultsectiontitle}>Bundles</div>
-                <div className={styles.separator} />
-                <div className={styles.resultlist}>
-                  {bundles.map((bundle, idx) => (
-                    <Link
-                      to={`/bundle/${bundle._id}`}
-                      key={idx}
-                      className={styles.result}
-                    >
-                      <div className={styles.resultimg}></div>
-                      <div className={styles.resulttitle}>{bundle.name}</div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-            {keyword.length > 0 &&
-              collections.length === 0 &&
-              accounts.length === 0 &&
-              tokens.length === 0 &&
-              bundles.length === 0 && (
-                <div className={styles.noResults}>No Results</div>
-              )}
-          </div>
-        )}
+        {renderSearchResult()}
       </div>
     </div>
   );
+
+  const renderSearchResult = () => {
+    if (!searchBarActive) {
+      return null;
+    }
+
+    return (
+      <div className={styles.resultcont}>
+        {collections.length > 0 && (
+          <div className={styles.resultsection}>
+            <div className={styles.resultsectiontitle}>Collections</div>
+            <div className={styles.separator} />
+            <div className={styles.resultlist}>
+              {collections.map((collection, idx) => (
+                <div
+                  key={idx}
+                  className={styles.result}
+                  onClick={() =>
+                    handleSelectCollection(collection.erc721Address)
+                  }
+                >
+                  <img
+                    className={styles.resultimg}
+                    src={`${getRandomIPFS('', true)}${
+                      collection.logoImageHash
+                    }`}
+                  />
+                  <div className={styles.resulttitle}>
+                    {collection.collectionName}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {accounts.length > 0 && (
+          <div className={styles.resultsection}>
+            <div className={styles.resultsectiontitle}>Accounts</div>
+            <div className={styles.separator} />
+            <div className={styles.resultlist}>
+              {accounts.map((account, idx) => (
+                <Link
+                  to={`/account/${account.address}`}
+                  key={idx}
+                  className={styles.result}
+                >
+                  {account.imageHash ? (
+                    <img
+                      className={styles.resultimg}
+                      src={`https://openzoo.mypinata.cloud/ipfs/${account.imageHash}`}
+                    />
+                  ) : (
+                    <Identicon
+                      className={styles.resultimg}
+                      account={account.address}
+                      size={40}
+                    />
+                  )}
+                  <div className={styles.resulttitle}>{account.alias}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {tokens.length > 0 && (
+          <div className={styles.resultsection}>
+            <div className={styles.resultsectiontitle}>Items</div>
+            <div className={styles.separator} />
+            <div className={styles.resultlist}>
+              {tokens.map((tk, idx) => (
+                <Link
+                  to={`/explore/${tk.contractAddress}/${tk.tokenID}`}
+                  key={idx}
+                  className={styles.result}
+                >
+                  <div className={styles.resultimg}>
+                    {tokenDetailsLoading ? (
+                      <Skeleton width={40} height={40} />
+                    ) : (
+                      tk.thumbnailPath &&
+                      (tk.thumbnailPath.length > 10 ? (
+                        <img src={`${storageUrl}/image/${tk.thumbnailPath}`} />
+                      ) : tk.thumbnailPath === '.' ? (
+                        <img src={tk.imageURL} />
+                      ) : null)
+                    )}
+                  </div>
+                  <div className={styles.resulttitle}>{tk.name}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {bundles.length > 0 && (
+          <div className={styles.resultsection}>
+            <div className={styles.resultsectiontitle}>Bundles</div>
+            <div className={styles.separator} />
+            <div className={styles.resultlist}>
+              {bundles.map((bundle, idx) => (
+                <Link
+                  to={`/bundle/${bundle._id}`}
+                  key={idx}
+                  className={styles.result}
+                >
+                  <div className={styles.resultimg}></div>
+                  <div className={styles.resulttitle}>{bundle.name}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {keyword.length > 0 &&
+          collections.length === 0 &&
+          accounts.length === 0 &&
+          tokens.length === 0 &&
+          bundles.length === 0 && (
+            <div className={styles.noResults}>No Results</div>
+          )}
+      </div>
+    );
+  };
 
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
@@ -616,45 +622,64 @@ const Header = () => {
 
           <div
             className={cx(
-              'header__mobile js-header-mobile',
+              'header__mobile js-header-mobile shadow-sm',
               burgerActive && 'visible'
             )}
           >
             <div className="header__mobile__menu space-y-40">
               <ul className="d-flex space-y-20">
                 <li>
-                  <a className="color_black" href="Marketplace.html">
-                    Marketplace
-                  </a>
+                  <NavLink className="color_black" to="/home">
+                    Home
+                  </NavLink>
                 </li>
                 <li>
-                  <a className="color_black" href="Collections.html">
+                  <NavLink className="color_black" to="/explore">
+                    Explore
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="color_black" to="/collections">
                     Collections
-                  </a>
-                </li>
-                <li>
-                  <a className="color_black" href="Profile.html">
-                    Profile
-                  </a>
-                </li>
-                <li>
-                  <a className="color_black" href="Creators.html">
-                    Creators
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
+              {account ? (
+                <div className="col-md-12 col-sm-12">
+                  <Link
+                    to="/create"
+                    className={'btn btn-primary w-full'}
+                    activeClassName={styles.active}
+                  >
+                    Create
+                  </Link>
+                </div>
+              ) : (
+                <a
+                  className="btn btn-grad btn-sm"
+                  onClick={handleConnectWallet}
+                >
+                  Connect wallet
+                </a>
+              )}
               <div className="space-y-20">
                 <div className="header__search in_mobile w-full">
-                  <input type="text" placeholder="Search" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    onChange={e => handleSearch(e.target.value)}
+                    onFocus={() => setSearchBarActive(true)}
+                    onBlur={() =>
+                      setTimeout(() => setSearchBarActive(false), 200)
+                    }
+                  />
                   <button className="header__result">
                     <i className="ri-search-line"></i>
                   </button>
                 </div>
-                <a className="btn btn-grad btn-sm" href="Connect-wallet.html">
-                  Connect wallet
-                </a>
               </div>
             </div>
+            <div className="header__mobile__menu">{renderSearchResult()}</div>
           </div>
 
           {renderMenu}
