@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
 import PropTypes from 'prop-types';
+import { GroupFilters, SortByOptions } from 'constants/filter.constants';
 
 const filterStatusItems = [
   {
@@ -36,6 +37,8 @@ export function ExplorePageFillterStatus(props) {
     statusHasBids,
     statusHasOffers,
     statusOnAuction,
+    groupType,
+    sortBy,
   } = filter;
   const selectedValues = Object.keys(filter).filter(k => filter[k] === true);
 
@@ -64,6 +67,14 @@ export function ExplorePageFillterStatus(props) {
     props.onChange?.(values);
   };
 
+  const handleOnClickGroupFilter = item => () => {
+    dispatch(FilterActions.updateGroupTypeFilter(item.value));
+  };
+
+  const handleOnClickSortBy = item => () => {
+    dispatch(FilterActions.updateSortByFilter(item.id));
+  };
+
   return (
     <div className="row justify-content-between align-items-center">
       <div className="col-lg-auto">
@@ -77,7 +88,6 @@ export function ExplorePageFillterStatus(props) {
       </div>
       <div className="col-lg-auto">
         <div className="d-flex space-x-10 align-items-center sm:mt-20">
-          <span className="color_text txt_sm"> SORT BY: </span>
           <div className="dropdown">
             <button
               className="btn btn-dark btn-sm dropdown-toggle"
@@ -86,18 +96,41 @@ export function ExplorePageFillterStatus(props) {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Recent Active
+              {GroupFilters.find(item => item.value === groupType)?.label}
             </button>
             <div className="dropdown-menu">
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
+              {GroupFilters.map(item => (
+                <a
+                  key={`group-by-dropdown-menu-${item.value}`}
+                  className="dropdown-item"
+                  onClick={handleOnClickGroupFilter(item)}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="dropdown">
+            <button
+              className="btn btn-dark btn-sm dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              {SortByOptions.find(item => item.id === sortBy)?.label}
+            </button>
+            <div className="dropdown-menu">
+              {SortByOptions.map(item => (
+                <a
+                  key={`sort-by-dropdown-menu-${item.id}`}
+                  className="dropdown-item"
+                  onClick={handleOnClickSortBy(item)}
+                >
+                  {item.label}
+                </a>
+              ))}
             </div>
           </div>
         </div>

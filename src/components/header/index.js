@@ -586,7 +586,7 @@ const Header = () => {
             </ul>
           </div>
           {renderSearchBox()}
-          <div className="d-flex align-items-center space-x-20">
+          <div className="d-flex align-items-center space-x-20 sm:space-x-10">
             {account ? (
               <>
                 <HeaderNotificationMenu />
