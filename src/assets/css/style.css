@@ -12399,7 +12399,7 @@ input[type="checkbox"] {
   visibility: hidden;
 }
 
-label {
+label.toggle {
   cursor: pointer;
   text-indent: -9999px;
   width: 44px;
@@ -12410,7 +12410,7 @@ label {
   position: relative;
 }
 
-label:after {
+label.toggle:after {
   content: "";
   position: absolute;
   top: 2px;

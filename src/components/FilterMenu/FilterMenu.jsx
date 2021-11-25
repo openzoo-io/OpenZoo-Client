@@ -54,7 +54,12 @@ export function FilterMenu(props) {
               checked={selectedValues.includes(item.value)}
               onChange={handleOnChange(item)}
             />
-            <label htmlFor={`${props.name}-switch-${item.value}`}>Toggle</label>
+            <label
+              className="toggle"
+              htmlFor={`${props.name}-switch-${item.value}`}
+            >
+              Toggle
+            </label>
             <span> {item.label} </span>
           </li>
         ))}
