@@ -12732,6 +12732,7 @@ label:active:after {
 }
 
 .menu_categories {
+  flex-wrap: wrap;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
