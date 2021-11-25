@@ -147,7 +147,6 @@ export function AccountProfilePage() {
     setLoading(true);
     try {
       const { data } = await getUserAccountDetails(_account);
-      console.log('user detail', data);
       setUser(data);
     } catch {
       setUser({});
@@ -260,12 +259,10 @@ export function AccountProfilePage() {
   };
 
   useEffect(() => {
-    console.log({ prevUID, uid, tab, chainId, numPerRow, prevNumPerRow });
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
 
-    console.log('AAAAAAAAAA');
     if (prevUID !== uid) {
       setPrevUID(uid);
       getUserDetails(uid);
@@ -533,6 +530,10 @@ export function AccountProfilePage() {
     }
   };
 
+  const selectBanner = () => {
+    fileInput.current?.click();
+  };
+
   const handleSelectFile = e => {
     if (e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -626,8 +627,7 @@ export function AccountProfilePage() {
       <Header />
       <AccountProfilePageHeader
         loading={loading}
-        coverImg={`https://openzoo.mypinata.cloud/ipfs/${bannerHash ||
-          user.bannerHash}`}
+        authToken={authToken}
         uid={uid}
         user={user}
         isMe={isMe}
