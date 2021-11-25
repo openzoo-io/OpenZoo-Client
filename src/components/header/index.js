@@ -33,6 +33,7 @@ import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 import { HeaderNotificationMenu } from './HeaderNotificationMenu';
+import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 
 const Header = () => {
   const history = useHistory();
@@ -80,6 +81,10 @@ const Header = () => {
   const [bundles, setBundles] = useState([]);
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
+
+  const burgerMenuRef = useDetectOutsideRef(() => {
+    setBurgerActive(false);
+  });
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -212,6 +217,7 @@ const Header = () => {
     handleMenuClose();
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleProfileMenuOpen = e => {
     setAnchorEl(e.currentTarget);
   };
@@ -586,9 +592,21 @@ const Header = () => {
                 <HeaderNotificationMenu />
                 <HeaderAvatarMenu
                   user={user}
-                  account={account}
                   loading={loading}
-                  onClick={handleProfileMenuOpen}
+                  isAdmin={
+                    account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
+                  }
+                  isModerator={isModerator}
+                  onClickSignOut={handleSignOut}
+                  addMod={addMod}
+                  removeMod={removeMod}
+                  reviewCollections={reviewCollections}
+                  banCollection={banCollection}
+                  unbanCollection={unbanCollection}
+                  banItems={banItems}
+                  banUser={banUser}
+                  unbanUser={unbanUser}
+                  boostCollection={boostCollection}
                 />
                 <div className="header__btns">
                   <NavLink
@@ -616,6 +634,7 @@ const Header = () => {
                 'header__burger js-header-burger',
                 burgerActive && 'active'
               )}
+              ref={burgerMenuRef}
               onClick={handleClickBurgerMenu}
             ></div>
           </div>
