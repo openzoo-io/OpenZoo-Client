@@ -634,6 +634,7 @@ export function AccountProfilePage() {
         following={following}
         followingInProgress={followingInProgress}
         onClickFollow={followUser}
+        onClickEdit={openAccountSettings}
       />
       <div className="container">
         <div className="row justify-content-center">
@@ -642,7 +643,6 @@ export function AccountProfilePage() {
             <div className="profile__sidebar">
               <div className="space-y-40">
                 <AccountProfileAboutMeCard user={user} loading={loading} />
-                <AccountProfileFollowCard />
               </div>
               <p className="text-center txt_sm mt-20 color_text">Since 2021</p>
             </div>

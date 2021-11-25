@@ -564,7 +564,7 @@ const Header = () => {
               </li>
               <li>
                 <NavLink
-                  to="/explore"
+                  to="/collections"
                   className={'color_black'}
                   activeClassName={styles.active}
                 >

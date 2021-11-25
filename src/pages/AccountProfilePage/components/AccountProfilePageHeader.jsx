@@ -21,6 +21,7 @@ const propTypes = {
   following: PropTypes.bool.isRequired,
   followingInProgress: PropTypes.bool.isRequired,
   onClickFollow: PropTypes.func,
+  onClickEdit: PropTypes.func,
 };
 
 export function AccountProfilePageHeader(props) {
@@ -33,6 +34,7 @@ export function AccountProfilePageHeader(props) {
     following,
     followingInProgress,
     onClickFollow,
+    onClickEdit,
   } = props;
 
   const [copied, setCopied] = useState(false);
@@ -108,6 +110,16 @@ export function AccountProfilePageHeader(props) {
                           ) : (
                             'Follow'
                           )}
+                        </button>
+                      </div>
+                    )}
+                    {isMe && (
+                      <div className="mb-20">
+                        <button
+                          className="btn btn-dark btn-sm"
+                          onClick={onClickEdit}
+                        >
+                          Edit
                         </button>
                       </div>
                     )}

@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Header from 'components/header';
 import {
   ExplorePageArtworksSection,
   ExplorePageFilterCategorySection,
   ExplorePageFillterStatus,
-  ExplorePageCollectionsSections,
 } from './sections';
-import { Footer } from 'components/Footer';
 import { useResizeDetector } from 'react-resize-detector';
 import { useDispatch, useSelector } from 'react-redux';
 import CollectionsActions from 'actions/collections.actions';
@@ -15,21 +12,26 @@ import { useApi } from 'api';
 import useWindowDimensions from 'hooks/useWindowDimensions';
 import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
+import usePrevious from 'hooks/usePrevious';
+import { PageLayout } from 'components/Layouts/PageLayout';
 
 export function NewExplorePage() {
-  const { fetchCollections, fetchTokens } = useApi();
+  const { fetchCollections, fetchTokens, getItemsLiked } = useApi();
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
 
   const { width: gridWidth, ref } = useResizeDetector();
   const { width } = useWindowDimensions();
 
+  // console.log({ width });
+
   const conRef = useRef();
   const [fetchInterval, setFetchInterval] = useState(null);
   const [cancelSource, setCancelSource] = useState(null);
+  const [likeCancelSource, setLikeCancelSource] = useState(null);
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
 
-  // const { authToken } = useSelector(state => state.ConnectWallet);
+  const { authToken } = useSelector(state => state.ConnectWallet);
   const { upFetching, downFetching, tokens, count, from, to } = useSelector(
     state => state.Tokens
   );
@@ -43,6 +45,8 @@ export function NewExplorePage() {
     statusHasOffers,
     statusOnAuction,
   } = useSelector(state => state.Filter);
+
+  const prevAuthToken = usePrevious(authToken);
 
   const numPerRow = Math.floor(gridWidth / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
@@ -166,15 +170,16 @@ export function NewExplorePage() {
       } else {
         _to = _from + newTokens.length;
       }
-      newTokens =
-        dir > 0
-          ? newTokens.slice(-fetchCount * 2)
-          : newTokens.slice(0, fetchCount * 2);
-      if (dir > 0) {
-        _from = _to - newTokens.length;
-      } else if (dir < 0) {
-        _to = _from + newTokens.length;
-      }
+
+      // newTokens =
+      //   dir > 0
+      //     ? newTokens.slice(-fetchCount * 2)
+      //     : newTokens.slice(0, fetchCount * 2);
+      // if (dir > 0) {
+      //   _from = _to - newTokens.length;
+      // } else if (dir < 0) {
+      //   _to = _from + newTokens.length;
+      // }
       dispatch(
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
@@ -193,6 +198,7 @@ export function NewExplorePage() {
   };
 
   // handle event methos
+  // eslint-disable-next-line no-unused-vars
   const handleScroll = e => {
     if (upFetching || downFetching) return;
 
@@ -204,34 +210,105 @@ export function NewExplorePage() {
     }
   };
 
+  const handleOnReachArtworksBottom = () => {
+    if (upFetching || downFetching) return;
+    fetchNFTs(1);
+  };
+
+  const updateItems = async () => {
+    try {
+      if (!authToken) {
+        if (prevAuthToken) {
+          dispatch(
+            TokensActions.updateTokens(
+              tokens.map(tk => ({
+                ...tk,
+                isLiked: false,
+              }))
+            )
+          );
+        }
+        return;
+      }
+      let missingTokens = tokens.map((tk, index) =>
+        tk.items
+          ? {
+              index,
+              isLiked: tk.isLiked,
+              bundleID: tk._id,
+            }
+          : {
+              index,
+              isLiked: tk.isLiked,
+              contractAddress: tk.contractAddress,
+              tokenID: tk.tokenID,
+            }
+      );
+      if (prevAuthToken) {
+        missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
+      }
+
+      if (missingTokens.length === 0) return;
+
+      const cancelTokenSource = axios.CancelToken.source();
+      setLikeCancelSource(cancelTokenSource);
+      const { data, status } = await getItemsLiked(
+        missingTokens,
+        authToken,
+        cancelTokenSource.token
+      );
+      if (status === 'success') {
+        const newTokens = [...tokens];
+        missingTokens.map((tk, idx) => {
+          newTokens[tk.index].isLiked = data[idx].isLiked;
+        });
+        dispatch(TokensActions.updateTokens(newTokens));
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLikeCancelSource(null);
+    }
+  };
+
+  useEffect(() => {
+    if (likeCancelSource) {
+      likeCancelSource.cancel();
+    }
+    if (tokens.length) {
+      updateItems();
+    }
+  }, [tokens, authToken]);
+
   return (
-    <div
+    <PageLayout
       ref={conRef}
-      className="overflow-hidden"
-      onScroll={width <= 600 ? handleScroll : null}
-    >
-      <Header />
-      <div className="hero_marketplace bg_white">
-        <div className="container">
-          <h1 className="text-center">NFT Marketplace</h1>
-        </div>
-      </div>
-
-      <ExplorePageFilterCategorySection />
-
-      <div className="container">
-        <div className="section mt-100">
-          <div className="section__head">
-            <h2 className="section__title mb-20"> Artworks</h2>
-            <ExplorePageFillterStatus />
+      cover={
+        <>
+          <div className="hero_marketplace bg_white">
+            <div className="container">
+              <h1 className="text-center">NFT Marketplace</h1>
+            </div>
           </div>
+          <ExplorePageFilterCategorySection />
+        </>
+      }
+    >
+      <div className="section mt-100">
+        <div className="section__head">
+          <h2 className="section__title mb-20"> Artworks</h2>
+          <ExplorePageFillterStatus />
         </div>
-        <div ref={ref}>
-          <ExplorePageArtworksSection items={tokens} loading={downFetching} />
-        </div>
-        <ExplorePageCollectionsSections />
       </div>
-      <Footer />
-    </div>
+      <div ref={ref}>
+        <ExplorePageArtworksSection
+          items={tokens}
+          category={category}
+          count={count}
+          loading={downFetching}
+          onReachBottom={handleOnReachArtworksBottom}
+        />
+      </div>
+    </PageLayout>
   );
 }
