@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { Avatar } from 'components/Avatar';
 import { ShareButton } from 'components/ShareButton';
 import { ReportButton } from 'components/ReportButton';
 import { Tooltip } from '@material-ui/core';
+import { Edit as EditIcon } from '@material-ui/icons';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -11,10 +12,11 @@ import PropTypes from 'prop-types';
 import { shortenAddress } from 'utils';
 import Skeleton from 'react-loading-skeleton';
 import { ClipLoader } from 'react-spinners';
+import { makeStyles } from '@material-ui/styles';
+import { useApi } from 'api';
 
 const propTypes = {
   loading: PropTypes.bool,
-  coverImg: PropTypes.string,
   isMe: PropTypes.bool.isRequired,
   user: PropTypes.object,
   uid: PropTypes.string.isRequired,
@@ -26,9 +28,9 @@ const propTypes = {
 
 export function AccountProfilePageHeader(props) {
   const {
+    authToken,
     uid,
     loading,
-    coverImg,
     user,
     isMe,
     following,
@@ -37,8 +39,15 @@ export function AccountProfilePageHeader(props) {
     onClickEdit,
   } = props;
 
+  const { updateBanner } = useApi();
+
+  const styles = useStyle();
+
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [bannerHash, setBannerHash] = useState();
+
+  const fileInput = useRef();
 
   const handleOnMouseOverCopy = on => () => {
     setTooltipOpen(on);
@@ -51,14 +60,51 @@ export function AccountProfilePageHeader(props) {
     }, 3000);
   };
 
+  const selectBanner = () => {
+    fileInput.current?.click();
+  };
+
+  const handleSelectFile = e => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        const { data } = await updateBanner(e.target.result, authToken);
+        setBannerHash(data);
+      };
+
+      reader.readAsDataURL(file);
+    }
+    e.target.value = null;
+  };
+
   return (
     <div className="md:mb-30 mb-100">
       <div className="hero__profile">
         <div className="cover">
           {loading ? (
             <Skeleton width="100%" height="100%" />
+          ) : bannerHash || user.bannerHash ? (
+            <img
+              src={`https://openzoo.mypinata.cloud/ipfs/${bannerHash ||
+                user.bannerHash}`}
+              alt=""
+            />
           ) : (
-            <img src={coverImg} alt="" />
+            <div className={styles.bannerPlaceholder}></div>
+          )}
+          {isMe && (
+            <div className={styles.editBanner} onClick={selectBanner}>
+              <input
+                ref={fileInput}
+                hidden
+                type="file"
+                onChange={handleSelectFile}
+                accept="image/*"
+              />
+              <EditIcon className={styles.editIcon} />
+            </div>
           )}
         </div>
         <div className="infos">
@@ -139,5 +185,26 @@ export function AccountProfilePageHeader(props) {
     </div>
   );
 }
+
+const useStyle = makeStyles(() => ({
+  editBanner: {
+    position: 'absolute',
+    top: '32px',
+    right: '32px',
+    width: '48px',
+    height: '48px',
+    borderRadius: '10px',
+    backgroundColor: '#FFF',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+  },
+  bannerPlaceholder: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgb(229, 232, 235)',
+  },
+}));
 
 AccountProfilePageHeader.propTypes = propTypes;

@@ -38,11 +38,14 @@ export function FilterMenu(props) {
   };
 
   return (
-    <div className={cx('d-flex space-x-10', props.className)}>
-      <span className="color_text txt_sm" style={{ minWidth: 'max-content' }}>
+    <div className={cx('d-flex align-items-center', props.className)}>
+      <span
+        className="color_text txt_sm d-none d-sm-block mr-10"
+        style={{ minWidth: 'max-content' }}
+      >
         FILTER BY:
       </span>
-      <ul className="menu_categories space-x-20">
+      <ul className="menu_categories">
         {props.items?.map(item => (
           <li
             key={`filter-menu-item-${item.value}`}
@@ -54,7 +57,12 @@ export function FilterMenu(props) {
               checked={selectedValues.includes(item.value)}
               onChange={handleOnChange(item)}
             />
-            <label htmlFor={`${props.name}-switch-${item.value}`}>Toggle</label>
+            <label
+              className="toggle"
+              htmlFor={`${props.name}-switch-${item.value}`}
+            >
+              Toggle
+            </label>
             <span> {item.label} </span>
           </li>
         ))}

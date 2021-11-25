@@ -12399,7 +12399,7 @@ input[type="checkbox"] {
   visibility: hidden;
 }
 
-label {
+label.toggle {
   cursor: pointer;
   text-indent: -9999px;
   width: 44px;
@@ -12410,7 +12410,7 @@ label {
   position: relative;
 }
 
-label:after {
+label.toggle:after {
   content: "";
   position: absolute;
   top: 2px;
@@ -12732,6 +12732,7 @@ label:active:after {
 }
 
 .menu_categories {
+  flex-wrap: wrap;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14597,7 +14598,7 @@ label:active:after {
 
 @media screen and (max-width: 768px) {
   .header__1 .header__avatar {
-    display: none !important;
+    /* display: none !important; */
   }
 }
 
@@ -14677,7 +14678,7 @@ label:active:after {
 
 @media screen and (max-width: 768px) {
   .header__1 .header__notifications {
-    display: none !important;
+    /* display: none !important; */
   }
 }
 
@@ -14699,6 +14700,12 @@ label:active:after {
           transform: translateY(-1rem);
   max-width: 30rem;
   z-index: 9;
+}
+
+@media screen and (max-width: 991px) {
+  .header__1 .header__notifications .notifications_popup {
+    right: 0;
+  }
 }
 
 .header__1 .header__notifications .notifications_popup.visible {
