@@ -33,7 +33,6 @@ import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 import { HeaderNotificationMenu } from './HeaderNotificationMenu';
-import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 
 const Header = () => {
   const history = useHistory();
@@ -81,10 +80,6 @@ const Header = () => {
   const [bundles, setBundles] = useState([]);
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
-
-  const burgerMenuRef = useDetectOutsideRef(() => {
-    setBurgerActive(false);
-  });
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -403,13 +398,12 @@ const Header = () => {
   );
 
   const renderSearchBox = () => (
-    <div className={cx(styles.searchcont, searchBarActive && styles.active)}>
+    <div className={cx(styles.searchcont)}>
       <div className={styles.searchcontinner}>
         <div className={cx('header__search', styles.searchWrapper)}>
           <input
             type="text"
             placeholder="Search items, collections and accounts"
-            className={'searchinput'}
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
@@ -430,7 +424,7 @@ const Header = () => {
     }
 
     return (
-      <div className={styles.resultcont}>
+      <div className={cx('shadow', styles.resultcont)}>
         {collections.length > 0 && (
           <div className={styles.resultsection}>
             <div className={styles.resultsectiontitle}>Collections</div>
@@ -630,11 +624,7 @@ const Header = () => {
               </div>
             )}
             <div
-              className={cx(
-                'header__burger js-header-burger',
-                burgerActive && 'active'
-              )}
-              ref={burgerMenuRef}
+              className={cx('header__burger', burgerActive && 'active')}
               onClick={handleClickBurgerMenu}
             ></div>
           </div>
