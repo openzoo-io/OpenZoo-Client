@@ -7,7 +7,7 @@ import Identicon from 'components/Identicon';
 import { Link } from 'react-router-dom';
 import { DropdownButton } from 'components/DropdownButton';
 
-import styles from '../../NFTItem/styles.module.scss';
+import styles from '../styles.module.scss';
 
 const filtersItems = [
   { id: 0, label: 'Trade History' },

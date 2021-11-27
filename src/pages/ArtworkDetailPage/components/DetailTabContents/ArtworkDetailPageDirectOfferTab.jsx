@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 import { Link } from 'react-router-dom';
 import Identicon from 'components/Identicon';
 import { formatNumber } from 'utils';

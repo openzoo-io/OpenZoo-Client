@@ -8,7 +8,7 @@ import { formatNumber, shortenAddress } from 'utils';
 import TxButton from 'components/TxButton';
 import { ClipLoader } from 'react-spinners';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 export function ArtworkDetailPageListingsTab(props) {
   const { bundleID } = useParams();

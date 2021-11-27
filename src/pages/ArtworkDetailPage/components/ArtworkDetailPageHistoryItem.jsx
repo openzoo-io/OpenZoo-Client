@@ -1,7 +1,7 @@
 import { Avatar } from 'components/Avatar';
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../NFTItem/styles.module.scss';
+import styles from '../styles.module.scss';
 // import Badge from 'assets/imgs/icons/Badge.svg';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';

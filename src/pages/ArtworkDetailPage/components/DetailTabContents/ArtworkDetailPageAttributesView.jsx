@@ -6,7 +6,7 @@ import {
 } from 'contracts/zookeeper';
 import cx from 'classnames';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;

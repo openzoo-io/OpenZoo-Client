@@ -9,7 +9,7 @@ import {
   Line,
 } from 'recharts';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 export function ArtworkDetailPagePriceHistoryTab(props) {
   const { data } = props;

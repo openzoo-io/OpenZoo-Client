@@ -110,7 +110,7 @@ import iconArtion from 'assets/svgs/openzoo_icon.svg';
 import iconFacebook from 'assets/imgs/facebook.png';
 import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
-import styles from '../NFTItem/styles.module.scss';
+import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import {
   useZooBoosterContract,
