@@ -1,6 +1,5 @@
 // import { DropdownButton } from 'components/DropdownButton';
 import React from 'react';
-import { ArtworkDetailPageHistoryItem } from './ArtworkDetailPageHistoryItem';
 import PropTypes from 'prop-types';
 import {
   ArtworkDetailPageAttributesView,
@@ -25,7 +24,7 @@ export function ArtworkDetailPageDetailSection(props) {
     info,
     bundleID,
     address,
-    listings,
+    // listings,
     tokenID,
     creatorInfoLoading,
     creatorInfo,
@@ -49,26 +48,6 @@ export function ArtworkDetailPageDetailSection(props) {
                 role="tab"
               >
                 Details
-              </a>
-            </li>
-            <li className="nav-item mx-1.5 mb-2">
-              <a
-                className="btn btn-white btn-sm"
-                data-toggle="tab"
-                href="#tabs-bids"
-                role="tab"
-              >
-                Bids
-              </a>
-            </li>
-            <li className="nav-item mx-1.5 mb-2">
-              <a
-                className="btn btn-white btn-sm"
-                data-toggle="tab"
-                href="#tabs-history"
-                role="tab"
-              >
-                History
               </a>
             </li>
             {info?.attributes && (
@@ -157,22 +136,6 @@ export function ArtworkDetailPageDetailSection(props) {
         <div className="tab-content">
           <div className="tab-pane active" id="tabs-details" role="tabpanel">
             <p>{info?.description ?? '-'}</p>
-          </div>
-          <div className="tab-pane" id="tabs-bids" role="tabpanel">
-            <p>No active bids yet. Be the first to make a bid!</p>
-          </div>
-          <div
-            className="tab-pane space-y-20"
-            id="tabs-history"
-            role="tabpanel"
-          >
-            {listings?.map((listing, index) => (
-              <ArtworkDetailPageHistoryItem
-                key={`artwork-trade-history-listing-${index}`}
-                listing={listing}
-                prices={props.prices}
-              />
-            ))}
           </div>
           <div className="tab-pane pb" id="tabs-attributes" role="tabpanel">
             {info?.attributes && (
