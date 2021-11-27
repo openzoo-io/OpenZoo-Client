@@ -2494,6 +2494,34 @@ export function ArtworkDetailPage() {
                   collection={collection}
                   explorerUrl={explorerUrl}
                   collectionRoyalty={collectionRoyalty}
+                  tokenInfo={tokenInfo}
+                  bundleListing={bundleListing.current}
+                  loading={loading}
+                  owner={owner}
+                  ownerInfo={ownerInfo}
+                  isMine={isMine}
+                  buyingItem={buyingItem}
+                  data={data}
+                  offers={offers.current}
+                  now={now}
+                  myHolding={myHolding}
+                  salesContractApproving={salesContractApproving}
+                  offerAccepting={offerAccepting}
+                  isBundleContractApproved={isBundleContractApproved}
+                  salesContractApproved={salesContractApproved}
+                  offerCanceling={offerCanceling}
+                  tokenType={tokenType.current}
+                  auction={auction.current}
+                  offerPlacing={offerPlacing}
+                  handleApproveBundleSalesContract={
+                    handleApproveBundleSalesContract
+                  }
+                  handleApproveSalesContract={handleApproveSalesContract}
+                  handleBuyBundle={handleBuyBundle}
+                  handleBuyItem={handleBuyItem}
+                  handleAcceptOffer={handleAcceptOffer}
+                  handleCancelOffer={handleCancelOffer}
+                  setOfferModalVisible={setOfferModalVisible}
                 />
 
                 <ArtworkDetailPagePriceSection
