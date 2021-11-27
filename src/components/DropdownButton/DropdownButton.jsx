@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 const DropdownButtonItem = {
   id: PropTypes.string.isRequired,
@@ -7,32 +8,34 @@ const DropdownButtonItem = {
 };
 
 const propsTypes = {
-  title: PropTypes.string.isRequired,
+  value: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape(DropdownButtonItem)),
-  onClick: PropTypes.func,
+  btnClassName: PropTypes.string,
+  className: PropTypes.string,
   onClickItem: PropTypes.func,
 };
 
 export function DropdownButton(props) {
+  const title = props.items?.find(v => v.id === props.value)?.label || '';
+
   const handleClickItem = item => () => {
     props.onClickItem?.(item);
   };
   return (
-    <div className="dropdown d-none d-sm-block">
+    <div className={cx('dropdown', props.className)}>
       <button
-        className="btn btn-white btn-sm dropdown-toggle"
+        className={cx('btn btn-sm dropdown-toggle', props.btnClassName)}
         type="button"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
-        onClick={props.onClick}
       >
-        {props.title}
+        {title}
       </button>
       <div className="dropdown-menu">
         {props.items?.map(item => (
           <a
-            key={`${props.title}-${item.id}-${item.label}`}
+            key={`${props.key}-${item.id}-${item.label}`}
             className="dropdown-item"
             href="#"
             onClick={handleClickItem(item)}
@@ -46,3 +49,6 @@ export function DropdownButton(props) {
 }
 
 DropdownButton.propsTypes = propsTypes;
+DropdownButton.defaultProps = {
+  btnClassName: 'btn-dark',
+};
