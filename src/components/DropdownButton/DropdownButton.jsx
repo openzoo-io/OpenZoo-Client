@@ -27,7 +27,7 @@ export function DropdownButton(props) {
         className={cx('btn btn-sm dropdown-toggle', props.btnClassName)}
         type="button"
         data-toggle="dropdown"
-        aria-haspopup="true"
+        aria-haspopup="false"
         aria-expanded="false"
       >
         {title}
@@ -37,7 +37,6 @@ export function DropdownButton(props) {
           <a
             key={`${props.key}-${item.id}-${item.label}`}
             className="dropdown-item"
-            href="#"
             onClick={handleClickItem(item)}
           >
             {item.label}

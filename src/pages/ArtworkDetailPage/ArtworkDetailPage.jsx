@@ -19,6 +19,7 @@ import {
   ArtworkDetailPageCreatorSection,
   ArtworkDetailPageStateSection,
   ArtworkDetailPagePriceSection,
+  ArtworkDetailPageHistorySection,
 } from './components';
 import { useApi } from 'api';
 import useTokens from 'hooks/useTokens';
@@ -2639,6 +2640,13 @@ export function ArtworkDetailPage() {
               </div>
             </div>
           </div>
+          <ArtworkDetailPageHistorySection
+            historyLoading={historyLoading}
+            tokenType={tokenType}
+            tradeHistory={tradeHistory.current}
+            transferHistory={transferHistory.current}
+            onFilterChange={handleSelectFilter}
+          />
         </div>
       </div>
       <Footer />
