@@ -68,3 +68,9 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+.form-container-page {
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 20px;
+}

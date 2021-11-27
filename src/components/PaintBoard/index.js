@@ -370,7 +370,7 @@ const PaintBoard = () => {
   };
 
   return (
-    <PageLayout>
+    <PageLayout containerClassName="form-container-page">
       <div className={styles.body}>
         <div className={styles.board}>
           <div {...getRootProps({ className: styles.uploadCont })}>
@@ -457,6 +457,7 @@ const PaintBoard = () => {
               <div className={styles.formGroup}>
                 <p className={styles.formLabel}>Name</p>
                 <input
+                  type="text"
                   className={styles.formInput}
                   maxLength={40}
                   placeholder="Name"
@@ -469,6 +470,7 @@ const PaintBoard = () => {
               <div className={styles.formGroup}>
                 <p className={styles.formLabel}>Symbol</p>
                 <input
+                  type="text"
                   className={styles.formInput}
                   maxLength={20}
                   placeholder="Symbol"
@@ -541,6 +543,7 @@ const PaintBoard = () => {
                   </BootstrapTooltip>
                 </p>
                 <input
+                  type="text"
                   className={styles.formInput}
                   placeholder="Enter Link"
                   value={xtra}

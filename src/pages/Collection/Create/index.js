@@ -491,7 +491,7 @@ const CollectionCreate = ({ isRegister }) => {
   );
 
   return (
-    <PageLayout>
+    <PageLayout containerClassName="form-container-page">
       <div className={styles.inner}>
         <div className={styles.title}>
           {isRegister ? 'Register' : 'Create New'} Collection
@@ -579,6 +579,7 @@ const CollectionCreate = ({ isRegister }) => {
           <div className={styles.inputTitle}>Name *</div>
           <div className={styles.inputWrapper}>
             <input
+              type="text"
               className={cx(styles.input, nameError && styles.hasError)}
               maxLength={20}
               placeholder="Collection Name"
@@ -604,6 +605,7 @@ const CollectionCreate = ({ isRegister }) => {
             </div>
             <div className={styles.inputWrapper}>
               <input
+                type="text"
                 className={cx(styles.input, symbolError && styles.hasError)}
                 maxLength={20}
                 placeholder="Collection Symbol"
@@ -681,6 +683,7 @@ const CollectionCreate = ({ isRegister }) => {
             </div>
             <div className={styles.inputWrapper}>
               <input
+                type="text"
                 className={cx(styles.input, recipientError && styles.hasError)}
                 placeholder="Fee Recipient"
                 value={feeRecipient}
@@ -778,6 +781,7 @@ const CollectionCreate = ({ isRegister }) => {
                       <img src={nftIcon} className={styles.linkIcon} />
                     </div>
                     <input
+                      type="text"
                       className={styles.linkInput}
                       placeholder="Enter your collection's address"
                       value={address}
@@ -795,6 +799,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={webIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your website url"
                   value={siteUrl}
@@ -806,6 +811,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={discordIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your Discord url"
                   value={discord}
@@ -817,6 +823,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={twitterIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your Twitter profile link"
                   value={twitterHandle}
@@ -828,6 +835,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={instagramIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your Instagram profile link"
                   value={instagramHandle}
@@ -839,6 +847,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={mediumIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your Medium profile link"
                   value={mediumHandle}
@@ -850,6 +859,7 @@ const CollectionCreate = ({ isRegister }) => {
                   <img src={telegramIcon} className={styles.linkIcon} />
                 </div>
                 <input
+                  type="text"
                   className={styles.linkInput}
                   placeholder="Enter your Telegram profile link"
                   value={telegram}
@@ -872,6 +882,7 @@ const CollectionCreate = ({ isRegister }) => {
           </div>
           <div className={styles.inputWrapper}>
             <input
+              type="email"
               className={cx(styles.input, emailError && styles.hasError)}
               placeholder="Email Address"
               value={email}
