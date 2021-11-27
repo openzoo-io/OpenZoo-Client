@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../NFTItem/styles.module.scss';
 import { Contracts } from 'constants/networks';
 import {
   useZooBoosterContract,
   useZooElixirContract,
 } from 'contracts/zookeeper';
 import cx from 'classnames';
+
+import styles from '../../../NFTItem/styles.module.scss';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;

@@ -232,7 +232,8 @@
 
 .socialLink {
   width: 20px;
-  height: 20px;
+  height: auto;
+  max-height: 40px;
   padding: 4px;
   margin-right: 20px;
   border-radius: 4px;

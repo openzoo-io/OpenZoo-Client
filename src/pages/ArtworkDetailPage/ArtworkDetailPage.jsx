@@ -2480,11 +2480,19 @@ export function ArtworkDetailPage() {
                 <ViewProofButton />
                 <ArtworkDetailPageDetailSection
                   info={info}
+                  bundleID={bundleID}
                   listings={listings.current}
                   transferHistory={transferHistory.current}
                   address={address}
                   tokenID={tokenID}
                   prices={prices}
+                  creatorInfoLoading={creatorInfoLoading}
+                  creatorInfo={creatorInfo}
+                  creator={creator}
+                  account={account}
+                  collection={collection}
+                  explorerUrl={explorerUrl}
+                  collectionRoyalty={collectionRoyalty}
                 />
 
                 <ArtworkDetailPagePriceSection

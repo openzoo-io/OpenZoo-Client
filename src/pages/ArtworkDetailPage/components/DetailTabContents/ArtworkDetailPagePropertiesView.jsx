@@ -1,7 +1,7 @@
 import { useApi } from 'api';
 import React from 'react';
 import { shortenAddress } from 'utils';
-import styles from '../../NFTItem/styles.module.scss';
+import styles from '../../../NFTItem/styles.module.scss';
 
 export function ArtworkDetailPagePropertiesView(props) {
   const { properties } = props;
