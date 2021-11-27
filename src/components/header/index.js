@@ -212,6 +212,7 @@ const Header = () => {
     handleMenuClose();
   };
 
+  // eslint-disable-next-line no-unused-vars
   const handleProfileMenuOpen = e => {
     setAnchorEl(e.currentTarget);
   };
@@ -397,13 +398,12 @@ const Header = () => {
   );
 
   const renderSearchBox = () => (
-    <div className={cx(styles.searchcont, searchBarActive && styles.active)}>
+    <div className={cx(styles.searchcont)}>
       <div className={styles.searchcontinner}>
         <div className={cx('header__search', styles.searchWrapper)}>
           <input
             type="text"
             placeholder="Search items, collections and accounts"
-            className={'searchinput'}
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setSearchBarActive(true)}
             onBlur={() => setTimeout(() => setSearchBarActive(false), 200)}
@@ -424,7 +424,7 @@ const Header = () => {
     }
 
     return (
-      <div className={styles.resultcont}>
+      <div className={cx('shadow', styles.resultcont)}>
         {collections.length > 0 && (
           <div className={styles.resultsection}>
             <div className={styles.resultsectiontitle}>Collections</div>
@@ -580,15 +580,27 @@ const Header = () => {
             </ul>
           </div>
           {renderSearchBox()}
-          <div className="d-flex align-items-center space-x-20">
+          <div className="d-flex align-items-center space-x-20 sm:space-x-10">
             {account ? (
               <>
                 <HeaderNotificationMenu />
                 <HeaderAvatarMenu
                   user={user}
-                  account={account}
                   loading={loading}
-                  onClick={handleProfileMenuOpen}
+                  isAdmin={
+                    account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
+                  }
+                  isModerator={isModerator}
+                  onClickSignOut={handleSignOut}
+                  addMod={addMod}
+                  removeMod={removeMod}
+                  reviewCollections={reviewCollections}
+                  banCollection={banCollection}
+                  unbanCollection={unbanCollection}
+                  banItems={banItems}
+                  banUser={banUser}
+                  unbanUser={unbanUser}
+                  boostCollection={boostCollection}
                 />
                 <div className="header__btns">
                   <NavLink
@@ -612,10 +624,7 @@ const Header = () => {
               </div>
             )}
             <div
-              className={cx(
-                'header__burger js-header-burger',
-                burgerActive && 'active'
-              )}
+              className={cx('header__burger', burgerActive && 'active')}
               onClick={handleClickBurgerMenu}
             ></div>
           </div>

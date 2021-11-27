@@ -19,7 +19,7 @@
 }
 
 .headerButton {
-  min-width: 168px;
+  min-width: 120px;
   height: 48px;
   padding: 0 15px;
   box-sizing: border-box;
@@ -232,7 +232,8 @@
 
 .socialLink {
   width: 20px;
-  height: 20px;
+  height: auto;
+  max-height: 40px;
   padding: 4px;
   margin-right: 20px;
   border-radius: 4px;

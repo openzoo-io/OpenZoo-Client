@@ -2480,11 +2480,19 @@ export function ArtworkDetailPage() {
                 <ViewProofButton />
                 <ArtworkDetailPageDetailSection
                   info={info}
+                  bundleID={bundleID}
                   listings={listings.current}
                   transferHistory={transferHistory.current}
                   address={address}
                   tokenID={tokenID}
                   prices={prices}
+                  creatorInfoLoading={creatorInfoLoading}
+                  creatorInfo={creatorInfo}
+                  creator={creator}
+                  account={account}
+                  collection={collection}
+                  explorerUrl={explorerUrl}
+                  collectionRoyalty={collectionRoyalty}
                 />
 
                 <ArtworkDetailPagePriceSection
@@ -2495,7 +2503,8 @@ export function ArtworkDetailPage() {
                 <div className="hr2"></div>
                 <ArtworkDetailPageCreatorSection />
 
-                <div className="d-flex space-x-20">
+                <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
+                  <div></div>
                   {bestListing &&
                     bestListing?.owner.toLocaleLowerCase() !==
                       account?.toLocaleLowerCase() && (
@@ -2504,8 +2513,6 @@ export function ArtworkDetailPage() {
                           'btn btn-primary btn-lg',
                           buyingItem && styles.disabled
                         )}
-                        data-toggle="modal"
-                        data-target="#popup_buy"
                         onClick={
                           bundleID
                             ? handleBuyBundle
@@ -2515,6 +2522,93 @@ export function ArtworkDetailPage() {
                         Buy Now
                       </TxButton>
                     )}
+                  {isMine && (
+                    <>
+                      {auction.current?.resulted === false ? (
+                        <div
+                          className={cx(
+                            'btn btn-primary btn-lg',
+                            styles.headerButton,
+                            auctionCanceling && styles.disabled
+                          )}
+                          onClick={cancelCurrentAuction}
+                        >
+                          {auctionCancelConfirming ? (
+                            <ClipLoader color="#FFF" size={16} />
+                          ) : (
+                            'Cancel Auction'
+                          )}
+                        </div>
+                      ) : null}
+                      {!bundleID &&
+                        (!auction.current || !auction.current.resulted) &&
+                        !hasListing &&
+                        tokenType.current !== 1155 && (
+                          <div
+                            className={cx(
+                              'btn btn-primary btn-lg',
+                              styles.headerButton,
+                              (auctionStarting ||
+                                auctionUpdating ||
+                                auctionEnded) &&
+                                styles.disabled
+                            )}
+                            onClick={() => {
+                              !auctionEnded && setAuctionModalVisible(true);
+                            }}
+                          >
+                            {auctionStartConfirming ||
+                            auctionUpdateConfirming ? (
+                              <ClipLoader color="#FFF" size={16} />
+                            ) : auction.current ? (
+                              'Update Auction'
+                            ) : (
+                              'Start Auction'
+                            )}
+                          </div>
+                        )}
+                      {(!auction.current || auction.current.resulted) && (
+                        <>
+                          {hasListing ? (
+                            <div
+                              className={cx(
+                                'btn btn-primary btn-lg',
+                                styles.headerButton,
+                                cancelingListing && styles.disabled
+                              )}
+                              onClick={cancelList}
+                            >
+                              {cancelListingConfirming ? (
+                                <ClipLoader color="#FFF" size={16} />
+                              ) : (
+                                'Cancel Listing'
+                              )}
+                            </div>
+                          ) : null}
+                          <div
+                            className={cx(
+                              'btn btn-primary btn-lg',
+                              styles.headerButton,
+                              (listingItem || priceUpdating) && styles.disabled
+                            )}
+                            onClick={() =>
+                              !(listingItem || priceUpdating)
+                                ? setSellModalVisible(true)
+                                : null
+                            }
+                          >
+                            {listingConfirming ? (
+                              <ClipLoader color="#FFF" size={16} />
+                            ) : hasListing ? (
+                              'Update Listing'
+                            ) : (
+                              'Sell'
+                            )}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
                   {(!isMine ||
                     (tokenType.current === 1155 &&
                       myHolding.supply < tokenInfo.totalSupply)) &&
@@ -2548,6 +2642,32 @@ export function ArtworkDetailPage() {
         </div>
       </div>
       <Footer />
+      <TransferModal
+        visible={transferModalVisible}
+        totalSupply={tokenType.current === 1155 ? myHolding?.supply : null}
+        transferring={transferring}
+        onTransfer={handleTransfer}
+        onClose={() => setTransferModalVisible(false)}
+      />
+      <SellModal
+        visible={sellModalVisible}
+        onClose={() => setSellModalVisible(false)}
+        onSell={hasListing ? handleUpdateListing : handleListItem}
+        startPrice={
+          bundleID ? bundleListing.current?.price || 0 : myListing()?.price || 0
+        }
+        confirming={listingItem || priceUpdating}
+        approveContract={
+          bundleID
+            ? handleApproveBundleSalesContract
+            : handleApproveSalesContract
+        }
+        contractApproving={salesContractApproving}
+        contractApproved={
+          bundleID ? isBundleContractApproved : salesContractApproved
+        }
+        totalSupply={tokenType.current === 1155 ? myHolding?.supply : null}
+      />
       <OfferModal
         visible={offerModalVisible}
         onClose={() => setOfferModalVisible(false)}
@@ -2576,6 +2696,16 @@ export function ArtworkDetailPage() {
         confirming={bidPlacing}
         token={auction.current?.token}
         firstBid={bid?.bid ? false : minBid > 0 ? true : false}
+      />
+      <OwnersModal
+        visible={ownersModalVisible}
+        onClose={() => setOwnersModalVisible(false)}
+        holders={holders}
+      />
+      <LikesModal
+        visible={likesModalVisible}
+        onClose={() => setLikesModalVisible(false)}
+        users={likeUsersFetching ? new Array(5).fill(null) : likeUsers.current}
       />
     </div>
   );
