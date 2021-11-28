@@ -84,9 +84,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <p className="copyright text-center">
-          Copyright © 2021. Created with love by creabik.
-        </p>
+        <p className="copyright text-center">OpenZoo is a ZooKeeper project</p>
       </div>
     </footer>
   );
