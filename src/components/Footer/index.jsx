@@ -65,7 +65,7 @@ export function Footer() {
                 <Link to="/"> Creators </Link>
               </li>
               <li>
-                <Link to="/"> Colletctions </Link>
+                <Link to="/"> Collections </Link>
               </li>
               <li></li>
             </ul>
