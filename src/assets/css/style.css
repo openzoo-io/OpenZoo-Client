@@ -10646,6 +10646,16 @@ img {
   }
 }
 
+.rounded-10{
+  border-radius:10px!important
+}
+.rounded-15{
+  border-radius:15px!important
+}
+.rounded-20{
+  border-radius:20px!important
+}
+
 /* ===================
 2/ base
 =======================*/

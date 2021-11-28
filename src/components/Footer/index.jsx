@@ -65,7 +65,7 @@ export function Footer() {
                 <Link to="/"> Creators </Link>
               </li>
               <li>
-                <Link to="/"> Colletctions </Link>
+                <Link to="/"> Collections </Link>
               </li>
               <li></li>
             </ul>
@@ -84,9 +84,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <p className="copyright text-center">
-          Copyright © 2021. Created with love by creabik.
-        </p>
+        <p className="copyright text-center">OpenZoo is a ZooKeeper project</p>
       </div>
     </footer>
   );

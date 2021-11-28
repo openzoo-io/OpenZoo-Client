@@ -197,11 +197,7 @@ export function ArtworkDetailPageDetailSection(props) {
           <div className="tab-pane active" id="tabs-details" role="tabpanel">
             <p>{info?.description ?? '-'}</p>
           </div>
-          <div
-            className="tab-pane active"
-            id="tabs-price-history"
-            role="tabpanel"
-          >
+          <div className="tab-pane" id="tabs-price-history" role="tabpanel">
             <ArtworkDetailPagePriceHistoryTab data={data} />
           </div>
           <div className="tab-pane" id="tabs-listings" role="tabpanel">
