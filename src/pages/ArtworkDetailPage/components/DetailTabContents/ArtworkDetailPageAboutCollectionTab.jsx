@@ -6,7 +6,7 @@ import telegramIcon from 'assets/svgs/telegram.svg';
 import twitterIcon from 'assets/svgs/twitter.svg';
 import mediumIcon from 'assets/svgs/medium.svg';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 export function ArtworkDetailPageAboutCollectionTab(props) {
   const { collection } = props;

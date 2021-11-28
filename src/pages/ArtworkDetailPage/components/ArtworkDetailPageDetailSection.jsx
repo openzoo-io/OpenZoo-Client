@@ -1,6 +1,5 @@
 // import { DropdownButton } from 'components/DropdownButton';
 import React from 'react';
-import { ArtworkDetailPageHistoryItem } from './ArtworkDetailPageHistoryItem';
 import PropTypes from 'prop-types';
 import {
   ArtworkDetailPageAttributesView,
@@ -9,6 +8,9 @@ import {
   ArtworkDetailPageAboutCollectionTab,
   ArtworkDetailPageChainInfoTab,
   ArtworkDetailPageRoyaltyTab,
+  ArtworkDetailPageListingsTab,
+  ArtworkDetailPagePriceHistoryTab,
+  ArtworkDetailPageDirectOfferTab,
 } from './DetailTabContents';
 
 const propTypes = {
@@ -25,7 +27,6 @@ export function ArtworkDetailPageDetailSection(props) {
     info,
     bundleID,
     address,
-    listings,
     tokenID,
     creatorInfoLoading,
     creatorInfo,
@@ -34,6 +35,34 @@ export function ArtworkDetailPageDetailSection(props) {
     collection,
     explorerUrl,
     collectionRoyalty,
+    data,
+    tokenInfo,
+    listings,
+    bundleListing,
+    loading,
+    owner,
+    ownerInfo,
+    isMine,
+    buyingItem,
+    prices,
+    handleBuyBundle,
+    handleBuyItem,
+    offers,
+    now,
+    myHolding,
+    salesContractApproving,
+    offerAccepting,
+    isBundleContractApproved,
+    handleApproveBundleSalesContract,
+    salesContractApproved,
+    handleApproveSalesContract,
+    offerCanceling,
+    tokenType,
+    auction,
+    offerPlacing,
+    handleAcceptOffer,
+    handleCancelOffer,
+    setOfferModalVisible,
   } = props;
 
   return (
@@ -51,26 +80,36 @@ export function ArtworkDetailPageDetailSection(props) {
                 Details
               </a>
             </li>
-            <li className="nav-item mx-1.5 mb-2">
+            {/* <li className="nav-item mx-1.5 mb-2">
               <a
                 className="btn btn-white btn-sm"
                 data-toggle="tab"
-                href="#tabs-bids"
+                href="#tabs-price-history"
                 role="tab"
               >
-                Bids
+                Price History
               </a>
             </li>
             <li className="nav-item mx-1.5 mb-2">
               <a
                 className="btn btn-white btn-sm"
                 data-toggle="tab"
-                href="#tabs-history"
+                href="#tabs-listings"
                 role="tab"
               >
-                History
+                Listing
               </a>
             </li>
+            <li className="nav-item mx-1.5 mb-2">
+              <a
+                className="btn btn-white btn-sm"
+                data-toggle="tab"
+                href="#tabs-direct-offers"
+                role="tab"
+              >
+                Direct Offers
+              </a>
+            </li> */}
             {info?.attributes && (
               <li className="nav-item mx-1.5 mb-2">
                 <a
@@ -154,25 +193,59 @@ export function ArtworkDetailPageDetailSection(props) {
           /> */}
         </div>
         <div className="hr"></div>
-        <div className="tab-content">
+        <div className="tab-content pb-10">
           <div className="tab-pane active" id="tabs-details" role="tabpanel">
             <p>{info?.description ?? '-'}</p>
           </div>
-          <div className="tab-pane" id="tabs-bids" role="tabpanel">
-            <p>No active bids yet. Be the first to make a bid!</p>
-          </div>
           <div
-            className="tab-pane space-y-20"
-            id="tabs-history"
+            className="tab-pane active"
+            id="tabs-price-history"
             role="tabpanel"
           >
-            {listings?.map((listing, index) => (
-              <ArtworkDetailPageHistoryItem
-                key={`artwork-trade-history-listing-${index}`}
-                listing={listing}
-                prices={props.prices}
-              />
-            ))}
+            <ArtworkDetailPagePriceHistoryTab data={data} />
+          </div>
+          <div className="tab-pane" id="tabs-listings" role="tabpanel">
+            <ArtworkDetailPageListingsTab
+              tokenInfo={tokenInfo}
+              listings={listings}
+              bundleListing={bundleListing}
+              loading={loading}
+              owner={owner}
+              ownerInfo={ownerInfo}
+              isMine={isMine}
+              buyingItem={buyingItem}
+              prices={prices}
+              account={account}
+              handleBuyBundle={handleBuyBundle}
+              handleBuyItem={handleBuyItem}
+            />
+          </div>
+          <div className="tab-pane" id="tabs-direct-offers" role="tabpanel">
+            <ArtworkDetailPageDirectOfferTab
+              offers={offers}
+              tokenInfo={tokenInfo}
+              now={now}
+              prices={prices}
+              isMine={isMine}
+              myHolding={myHolding}
+              account={account}
+              salesContractApproving={salesContractApproving}
+              offerAccepting={offerAccepting}
+              bundleID={bundleID}
+              isBundleContractApproved={isBundleContractApproved}
+              handleApproveBundleSalesContract={
+                handleApproveBundleSalesContract
+              }
+              salesContractApproved={salesContractApproved}
+              handleApproveSalesContract={handleApproveSalesContract}
+              offerCanceling={offerCanceling}
+              tokenType={tokenType}
+              auction={auction}
+              offerPlacing={offerPlacing}
+              handleAcceptOffer={handleAcceptOffer}
+              handleCancelOffer={handleCancelOffer}
+              setOfferModalVisible={setOfferModalVisible}
+            />
           </div>
           <div className="tab-pane pb" id="tabs-attributes" role="tabpanel">
             {info?.attributes && (

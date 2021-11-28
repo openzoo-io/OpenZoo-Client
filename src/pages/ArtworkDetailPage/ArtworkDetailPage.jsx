@@ -19,6 +19,7 @@ import {
   ArtworkDetailPageCreatorSection,
   ArtworkDetailPageStateSection,
   ArtworkDetailPagePriceSection,
+  ArtworkDetailPageHistorySection,
 } from './components';
 import { useApi } from 'api';
 import useTokens from 'hooks/useTokens';
@@ -109,7 +110,7 @@ import iconArtion from 'assets/svgs/openzoo_icon.svg';
 import iconFacebook from 'assets/imgs/facebook.png';
 import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
-import styles from '../NFTItem/styles.module.scss';
+import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import {
   useZooBoosterContract,
@@ -2493,6 +2494,34 @@ export function ArtworkDetailPage() {
                   collection={collection}
                   explorerUrl={explorerUrl}
                   collectionRoyalty={collectionRoyalty}
+                  tokenInfo={tokenInfo}
+                  bundleListing={bundleListing.current}
+                  loading={loading}
+                  owner={owner}
+                  ownerInfo={ownerInfo}
+                  isMine={isMine}
+                  buyingItem={buyingItem}
+                  data={data}
+                  offers={offers.current}
+                  now={now}
+                  myHolding={myHolding}
+                  salesContractApproving={salesContractApproving}
+                  offerAccepting={offerAccepting}
+                  isBundleContractApproved={isBundleContractApproved}
+                  salesContractApproved={salesContractApproved}
+                  offerCanceling={offerCanceling}
+                  tokenType={tokenType.current}
+                  auction={auction.current}
+                  offerPlacing={offerPlacing}
+                  handleApproveBundleSalesContract={
+                    handleApproveBundleSalesContract
+                  }
+                  handleApproveSalesContract={handleApproveSalesContract}
+                  handleBuyBundle={handleBuyBundle}
+                  handleBuyItem={handleBuyItem}
+                  handleAcceptOffer={handleAcceptOffer}
+                  handleCancelOffer={handleCancelOffer}
+                  setOfferModalVisible={setOfferModalVisible}
                 />
 
                 <ArtworkDetailPagePriceSection
@@ -2502,6 +2531,481 @@ export function ArtworkDetailPage() {
 
                 <div className="hr2"></div>
                 <ArtworkDetailPageCreatorSection />
+
+                {(winner || auction.current?.resulted === false) && (
+                  <div className={styles.panelWrapper}>
+                    <Panel
+                      title={
+                        auctionStarted
+                          ? auctionEnded
+                            ? 'Sale ended'
+                            : `Sale ends in ${formatDuration(
+                                auction.current.endTime
+                              )} (${new Date(
+                                auction.current.endTime * 1000
+                              ).toLocaleString()})`
+                          : `Sale starts in ${formatDuration(
+                              auction.current.startTime
+                            )}`
+                      }
+                      fixed
+                    >
+                      <div className={styles.bids}>
+                        {auctionEnded ? (
+                          <div className={styles.result}>
+                            {auction.current.resulted ? (
+                              <>
+                                {'Winner: '}
+                                <Link to={`/account/${winner}`}>
+                                  {winner?.toLowerCase() ===
+                                  account?.toLowerCase()
+                                    ? 'Me'
+                                    : shortenAddress(winner)}
+                                </Link>
+                                &nbsp;(
+                                <img
+                                  src={winningToken?.icon}
+                                  className={styles.tokenIcon}
+                                />
+                                {formatNumber(winningBid)})
+                              </>
+                            ) : (
+                              'Auction has concluded'
+                            )}
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                        {bid ? (
+                          <div>
+                            <div className={styles.bidtitle}>
+                              Reserve Price :&nbsp;
+                              <img
+                                src={auction.current.token?.icon}
+                                className={styles.tokenIcon}
+                              />
+                              {formatNumber(auction.current.reservePrice)}
+                            </div>
+                            <br />
+                            <div className={styles.bidtitle}>
+                              Highest Bid :&nbsp;
+                              <img
+                                src={auction.current.token?.icon}
+                                className={styles.tokenIcon}
+                              />
+                              {formatNumber(bid.bid)}
+                              {bid.bid < auction.current.reservePrice
+                                ? ' -- Reserve price not met'
+                                : ''}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className={styles.bidtitle}>
+                            No bids yet (Reserve Price :&nbsp;
+                            <img
+                              src={auction.current.token?.icon}
+                              className={styles.tokenIcon}
+                            />
+                            {formatNumber(auction.current.reservePrice)}
+                            {minBid > 0 &&
+                              ` | First Bid
+                        should match reserve price`}
+                            )
+                          </div>
+                        )}
+                        {!isMine &&
+                          (!auctionActive() &&
+                          bid?.bidder?.toLowerCase() === account?.toLowerCase()
+                            ? now.getTime() / 1000 >=
+                                auction?.current?.endTime + 43200 && (
+                                <div
+                                  className={cx(
+                                    styles.withdrawBid,
+                                    bidWithdrawing && styles.disabled
+                                  )}
+                                  onClick={() => handleWithdrawBid()}
+                                >
+                                  {bidWithdrawing
+                                    ? 'Withdrawing Bid...'
+                                    : 'Withdraw Bid'}
+                                </div>
+                              )
+                            : // )
+                              !isMine &&
+                              bid?.bidder?.toLowerCase() !==
+                                account?.toLowerCase() &&
+                              auctionActive() && (
+                                <div
+                                  className={cx(
+                                    styles.placeBid,
+                                    bidPlacing && styles.disabled
+                                  )}
+                                  onClick={() => setBidModalVisible(true)}
+                                >
+                                  Place Bid
+                                </div>
+                              ))}
+                        {isMine && auctionEnded && !auction.current.resulted && (
+                          <div
+                            className={cx(
+                              styles.placeBid,
+                              resulting && styles.disabled
+                            )}
+                            onClick={
+                              bid === null ||
+                              bid?.bid < auction.current?.reservePrice
+                                ? cancelCurrentAuction
+                                : handleResultAuction
+                            }
+                          >
+                            {auctionCancelConfirming ? (
+                              <ClipLoader color="#FFF" size={16} />
+                            ) : bid === null ||
+                              bid?.bid < auction.current.reservePrice ? (
+                              'Reserve Price not met. Cancel Auction'
+                            ) : (
+                              'Accept highest bid'
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </Panel>
+                  </div>
+                )}
+                {!bundleID && (
+                  <div className={styles.panelWrapper}>
+                    <Panel title="Price History" icon={TimelineIcon}>
+                      <ReactResizeDetector>
+                        {({ width }) =>
+                          width > 0 ? (
+                            <div className={styles.chartWrapper}>
+                              <div className={styles.chart}>
+                                <LineChart
+                                  width={width}
+                                  height={250}
+                                  data={data}
+                                  margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                  }}
+                                >
+                                  <XAxis dataKey="date" />
+                                  <YAxis />
+                                  <ChartTooltip />
+                                  <CartesianGrid stroke="#eee" />
+                                  <Line
+                                    type="monotone"
+                                    dataKey="price"
+                                    stroke="#2479FA"
+                                  />
+                                </LineChart>
+                              </div>
+                            </div>
+                          ) : (
+                            <div>{width}</div>
+                          )
+                        }
+                      </ReactResizeDetector>
+                    </Panel>
+                  </div>
+                )}
+                <div className={styles.panelWrapper}>
+                  <Panel title="Listings" icon={LocalOfferIcon} expanded>
+                    <div className={styles.listings}>
+                      <div className={cx(styles.listing, styles.heading)}>
+                        <div className={styles.owner}>From</div>
+                        <div className={styles.price}>Price</div>
+                        {tokenInfo?.totalSupply > 1 && (
+                          <div className={styles.quantity}>Quantity</div>
+                        )}
+                        <div className={styles.buy} />
+                      </div>
+                      {console.log('!listings', listings)}
+                      {bundleID
+                        ? bundleListing.current && (
+                            <div className={styles.listing}>
+                              <div className={styles.owner}>
+                                {loading ? (
+                                  <Skeleton width={100} height={20} />
+                                ) : (
+                                  <Link to={`/account/${owner}`}>
+                                    <div className={styles.userAvatarWrapper}>
+                                      {ownerInfo?.imageHash ? (
+                                        <img
+                                          src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                          className={styles.userAvatar}
+                                        />
+                                      ) : (
+                                        <Identicon
+                                          account={owner}
+                                          size={24}
+                                          className={styles.userAvatar}
+                                        />
+                                      )}
+                                    </div>
+                                    {isMine
+                                      ? 'Me'
+                                      : ownerInfo?.alias ||
+                                        shortenAddress(owner)}
+                                  </Link>
+                                )}
+                              </div>
+                              <div className={styles.price}>
+                                {loading ? (
+                                  <Skeleton width={100} height={20} />
+                                ) : (
+                                  <>
+                                    <img
+                                      src={bundleListing.current.token?.icon}
+                                      className={styles.tokenIcon}
+                                    />
+                                    {formatNumber(bundleListing.current.price)}
+                                  </>
+                                )}
+                              </div>
+                              <div className={styles.buy}>
+                                {!isMine && (
+                                  <TxButton
+                                    className={cx(
+                                      'btn btn-primary btn-md',
+                                      styles.buyButton,
+                                      buyingItem && styles.disabled
+                                    )}
+                                    onClick={handleBuyBundle}
+                                  >
+                                    {buyingItem ? (
+                                      <ClipLoader color="#FFF" size={16} />
+                                    ) : (
+                                      'Buy'
+                                    )}
+                                  </TxButton>
+                                )}
+                              </div>
+                            </div>
+                          )
+                        : listings.current.map((listing, idx) => (
+                            <div className={styles.listing} key={idx}>
+                              <div className={styles.owner}>
+                                <Link to={`/account/${listing.owner}`}>
+                                  <div className={styles.userAvatarWrapper}>
+                                    {listing.image ? (
+                                      <img
+                                        src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                        className={styles.userAvatar}
+                                      />
+                                    ) : (
+                                      <Identicon
+                                        account={listing.owner}
+                                        size={24}
+                                        className={styles.userAvatar}
+                                      />
+                                    )}
+                                  </div>
+                                  {listing.alias || listing.owner?.substr(0, 6)}
+                                </Link>
+                              </div>
+                              <div className={styles.price}>
+                                <img
+                                  src={listing.token?.icon}
+                                  className={styles.tokenIcon}
+                                />
+                                {formatNumber(listing.price)}&nbsp;(
+                                {prices[listing.token?.address] !==
+                                undefined ? (
+                                  `$${(
+                                    listing.price *
+                                    prices[listing.token?.address]
+                                  ).toFixed(3)}`
+                                ) : (
+                                  <Skeleton width={60} height={24} />
+                                )}
+                                )
+                              </div>
+                              {tokenInfo?.totalSupply > 1 && (
+                                <div className={styles.quantity}>
+                                  {formatNumber(listing.quantity)}
+                                </div>
+                              )}
+                              <div className={styles.buy}>
+                                {listing.owner.toLowerCase() !==
+                                  account?.toLowerCase() && (
+                                  <TxButton
+                                    className={cx(
+                                      'btn btn-primary btn-md',
+                                      styles.buyButton,
+                                      buyingItem && styles.disabled
+                                    )}
+                                    onClick={() => handleBuyItem(listing)}
+                                  >
+                                    {buyingItem ? (
+                                      <ClipLoader color="#FFF" size={16} />
+                                    ) : (
+                                      'Buy'
+                                    )}
+                                  </TxButton>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                    </div>
+                  </Panel>
+                </div>
+                <div className={styles.panelWrapper}>
+                  <Panel title="Direct Offers" icon={TocIcon} expanded>
+                    <div className={styles.offers}>
+                      {offers.current.length ? (
+                        <>
+                          <div className={cx(styles.offer, styles.heading)}>
+                            <div className={styles.owner}>From</div>
+                            <div className={styles.price}>Price</div>
+                            {tokenInfo?.totalSupply > 1 && (
+                              <div className={styles.quantity}>Quantity</div>
+                            )}
+                            <div className={styles.deadline}>Expires In</div>
+                            <div className={styles.buy} />
+                          </div>
+                          {offers.current
+                            .filter(offer => offer.deadline > now.getTime())
+                            .sort((a, b) =>
+                              a.pricePerItem < b.pricePerItem ? 1 : -1
+                            )
+                            .map((offer, idx) => (
+                              <div className={styles.offer} key={idx}>
+                                <div className={styles.owner}>
+                                  <Link to={`/account/${offer.creator}`}>
+                                    <div className={styles.userAvatarWrapper}>
+                                      {offer.image ? (
+                                        <img
+                                          src={`https://openzoo.mypinata.cloud/ipfs/${offer.image}`}
+                                          className={styles.userAvatar}
+                                        />
+                                      ) : (
+                                        <Identicon
+                                          account={offer.creator}
+                                          size={24}
+                                          className={styles.userAvatar}
+                                        />
+                                      )}
+                                    </div>
+                                    {offer.alias || offer.creator?.substr(0, 6)}
+                                  </Link>
+                                </div>
+                                <div className={styles.price}>
+                                  <img
+                                    src={offer.token?.icon}
+                                    className={styles.tokenIcon}
+                                  />
+                                  {formatNumber(
+                                    offer.pricePerItem || offer.price
+                                  )}
+                                  &nbsp;(
+                                  {prices[offer.token.address] !== undefined ? (
+                                    `$${(
+                                      (offer.pricePerItem || offer.price) *
+                                      prices[offer.token.address]
+                                    ).toFixed(3)}`
+                                  ) : (
+                                    <Skeleton width={60} height={24} />
+                                  )}
+                                  )
+                                </div>
+                                {tokenInfo?.totalSupply > 1 && (
+                                  <div className={styles.quantity}>
+                                    {formatNumber(offer.quantity)}
+                                  </div>
+                                )}
+                                <div className={styles.deadline}>
+                                  {formatExpiration(offer.deadline)}
+                                </div>
+                                <div className={styles.buy}>
+                                  {(isMine ||
+                                    (myHolding &&
+                                      myHolding.supply >= offer.quantity)) &&
+                                    offer.creator?.toLowerCase() !==
+                                      account?.toLowerCase() && (
+                                      <div
+                                        className={cx(
+                                          'btn btn-primary btn-md',
+                                          styles.buyButton,
+                                          (salesContractApproving ||
+                                            offerAccepting) &&
+                                            styles.disabled
+                                        )}
+                                        onClick={
+                                          bundleID
+                                            ? isBundleContractApproved
+                                              ? () => handleAcceptOffer(offer)
+                                              : handleApproveBundleSalesContract
+                                            : salesContractApproved
+                                            ? () => handleAcceptOffer(offer)
+                                            : handleApproveSalesContract
+                                        }
+                                      >
+                                        {!(bundleID
+                                          ? isBundleContractApproved
+                                          : salesContractApproved) ? (
+                                          salesContractApproving ? (
+                                            <ClipLoader
+                                              color="#FFF"
+                                              size={16}
+                                            />
+                                          ) : (
+                                            'Approve'
+                                          )
+                                        ) : offerAccepting ? (
+                                          <ClipLoader color="#FFF" size={16} />
+                                        ) : (
+                                          'Accept'
+                                        )}
+                                      </div>
+                                    )}
+                                  {offer.creator?.toLowerCase() ===
+                                    account?.toLowerCase() && (
+                                    <div
+                                      className={cx(
+                                        'btn btn-primary btn-md',
+                                        styles.buyButton,
+                                        offerCanceling && styles.disabled
+                                      )}
+                                      onClick={() => handleCancelOffer()}
+                                    >
+                                      {offerCanceling ? (
+                                        <ClipLoader color="#FFF" size={16} />
+                                      ) : (
+                                        'Withdraw'
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                        </>
+                      ) : (
+                        <div className={styles.noOffers}>
+                          <div className={styles.noOffersLabel}>
+                            No Offers Yet
+                          </div>
+                          {(!isMine ||
+                            (tokenType.current === 1155 &&
+                              myHolding.supply < tokenInfo.totalSupply)) &&
+                            (!auction.current || auction.current.resulted) && (
+                              <TxButton
+                                className={cx(
+                                  styles.makeOffer,
+                                  offerPlacing && styles.disabled
+                                )}
+                                onClick={() => setOfferModalVisible(true)}
+                              >
+                                Make Offer
+                              </TxButton>
+                            )}
+                        </div>
+                      )}
+                    </div>
+                  </Panel>
+                </div>
 
                 <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
                   <div></div>
@@ -2639,6 +3143,13 @@ export function ArtworkDetailPage() {
               </div>
             </div>
           </div>
+          <ArtworkDetailPageHistorySection
+            historyLoading={historyLoading}
+            tokenType={tokenType}
+            tradeHistory={tradeHistory.current}
+            transferHistory={transferHistory.current}
+            onFilterChange={handleSelectFilter}
+          />
         </div>
       </div>
       <Footer />

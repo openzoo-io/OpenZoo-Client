@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { shortenAddress } from 'utils';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 export function ArtworkDetailPageBundleInfoTab(props) {
   const { creatorInfoLoading, creatorInfo, creator, account } = props;

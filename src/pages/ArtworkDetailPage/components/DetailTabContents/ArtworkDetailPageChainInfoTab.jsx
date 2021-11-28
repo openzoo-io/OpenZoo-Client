@@ -1,7 +1,7 @@
 import React from 'react';
 import { shortenAddress } from 'utils';
 
-import styles from '../../../NFTItem/styles.module.scss';
+import styles from '../../styles.module.scss';
 
 export function ArtworkDetailPageChainInfoTab(props) {
   const { explorerUrl, address } = props;

@@ -3,7 +3,7 @@ import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { formatNumber, shortenAddress } from 'utils';
-import styles from '../../NFTItem/styles.module.scss';
+import styles from '../styles.module.scss';
 import {
   People as PeopleIcon,
   ViewModule as ViewModuleIcon,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatNumber } from 'utils';
-import styles from '../../NFTItem/styles.module.scss';
+import styles from '../styles.module.scss';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -47,10 +47,7 @@ export function ArtworkDetailPagePriceSection(props) {
         <div className="col-lg-6">
           <div className="space-y-5">
             <p className="color_text">countdown</p>
-            <div
-              className="d-flex countdown_item
-													align-items-center"
-            >
+            <div className="d-flex countdown_item align-items-center">
               <div className="item">
                 <div className="number hours">
                   22<span></span>
