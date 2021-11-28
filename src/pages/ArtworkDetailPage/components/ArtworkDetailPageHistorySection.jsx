@@ -51,7 +51,7 @@ export function ArtworkDetailPageHistorySection(props) {
             />
           )}
         </div>
-        <div className={styles.histories}>
+        <div className={cx('bg-white rounded-15', styles.histories)}>
           <div className={cx(styles.history, styles.heading)}>
             {filter === 0 && <div className={styles.historyPrice}>Price</div>}
             {tokenType.current === 1155 && (
