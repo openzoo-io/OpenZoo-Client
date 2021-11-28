@@ -2474,6 +2474,20 @@ export function ArtworkDetailPage() {
                     </div>
                   </div>
                   <div className="space-x-10 d-flex align-items-center">
+                    {isMine && !bundleID && (
+                      <div
+                        className={cx(
+                          'rounded-circle bg-white',
+                          styles.itemMenuBtn
+                        )}
+                        onClick={onTransferClick}
+                      >
+                        <RedeemIcon
+                          src={shareIcon}
+                          className={styles.itemMenuIcon}
+                        />
+                      </div>
+                    )}
                     <ShareButton onShare={handleOnShare} />
                     <ReportButton />
                   </div>
