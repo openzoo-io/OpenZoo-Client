@@ -80,7 +80,7 @@ export function ArtworkDetailPageDetailSection(props) {
                 Details
               </a>
             </li>
-            <li className="nav-item mx-1.5 mb-2">
+            {/* <li className="nav-item mx-1.5 mb-2">
               <a
                 className="btn btn-white btn-sm"
                 data-toggle="tab"
@@ -109,7 +109,7 @@ export function ArtworkDetailPageDetailSection(props) {
               >
                 Direct Offers
               </a>
-            </li>
+            </li> */}
             {info?.attributes && (
               <li className="nav-item mx-1.5 mb-2">
                 <a
