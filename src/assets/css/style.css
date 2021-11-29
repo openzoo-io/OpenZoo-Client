@@ -13563,7 +13563,10 @@ label:active:after {
     margin-bottom: 30px;
   }
 }
-
+.card__item .card_title
+{
+  height: 50px;
+}
 .card__item .card_title a {
   font-size: 20px;
   text-overflow: ellipsis;
