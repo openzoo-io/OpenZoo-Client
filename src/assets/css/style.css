@@ -90,6 +90,7 @@ body {
   color: #183b56;
   -webkit-transition: 0.3s ease-in-out !important;
   transition: 0.3s ease-in-out !important;
+  background-color: #f5f5f5 !important;
 }
 
 body.modal-open {
