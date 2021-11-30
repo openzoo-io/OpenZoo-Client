@@ -14599,6 +14599,9 @@ label:active:after {
 .header__1 .header__btns {
   display: block;
 }
+.header__1 .header__btns i {
+  margin-right:5px;
+}
 
 @media screen and (max-width: 991px) {
   .header__1 .header__btns {
