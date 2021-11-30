@@ -29,7 +29,7 @@ import { NewExplorePage } from 'pages/NewExplorePage';
 import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
-
+import { CollectionList } from 'pages/CollectionList';
 const App = () => {
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
@@ -112,6 +112,9 @@ const App = () => {
           <Route path="/account/:uid" component={AccountProfilePage} />
           <Route path="/old-account/:uid" component={AccountDetails} />
           <Route path="/collections" component={CollectionsPage} />
+
+          <Route exact path="/collection/:addr" component={CollectionList} />
+
           <ProtectedRoute
             path="/collection/create"
             component={() => <CollectionCreate isRegister={false} />}
