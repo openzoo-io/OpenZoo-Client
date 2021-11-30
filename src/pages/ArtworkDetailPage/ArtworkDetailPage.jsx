@@ -1157,6 +1157,7 @@ export function ArtworkDetailPage() {
   useEffect(() => {
     if (address && tokenID) {
       addEventListeners();
+      
 
       if (fetchInterval) {
         clearInterval(fetchInterval);
@@ -1164,6 +1165,7 @@ export function ArtworkDetailPage() {
 
       updateCollections();
       setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
+ 
     }
 
     if (bundleID) {
@@ -2736,7 +2738,7 @@ export function ArtworkDetailPage() {
                         )}
                         <div className={styles.buy} />
                       </div>
-                      {console.log('!listings', listings)}
+                      {/*console.log('!listings', listings)*/}
                       {bundleID
                         ? bundleListing.current && (
                             <div className={styles.listing}>

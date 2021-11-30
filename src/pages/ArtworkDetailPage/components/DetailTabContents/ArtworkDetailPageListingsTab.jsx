@@ -37,7 +37,7 @@ export function ArtworkDetailPageListingsTab(props) {
         )}
         <div className={styles.buy} />
       </div>
-      {console.log('!listings', listings)}
+      {/*console.log('!listings', listings)*/}
       {bundleID
         ? bundleListing && (
             <div className={styles.listing}>
