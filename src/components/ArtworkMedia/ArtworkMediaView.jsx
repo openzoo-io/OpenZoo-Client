@@ -23,7 +23,7 @@ export function ArtworkMediaView(props) {
   } else {
     return (
       <Suspense
-        fallback={<Loader type="Oval" color="#007BFF" height={32} width={32} />}
+        fallback={<Loader type="Oval" color="#00A59A" height={32} width={32} />}
       >
         <SuspenseImg className={cx(styles.mediaInner, className)} src={image} />
       </Suspense>

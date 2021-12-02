@@ -1,10 +1,13 @@
 import React from 'react';
 
-import LogoSmallBlue from 'assets/svgs/openzoo_icon.svg';
-import { Link } from 'react-router-dom';
+//import LogoSmallBlue from 'assets/svgs/openzoo_icon.svg';
+//import { Link } from 'react-router-dom';
 
 export function Footer() {
+  return (<></>);
+  /*
   return (
+
     <footer className="footer__1">
       <div className="container">
         <div className="row">
@@ -88,4 +91,5 @@ export function Footer() {
       </div>
     </footer>
   );
+  */
 }

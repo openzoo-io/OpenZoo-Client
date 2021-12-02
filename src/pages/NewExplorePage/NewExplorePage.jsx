@@ -300,7 +300,7 @@ export function NewExplorePage() {
           <ExplorePageFillterStatus />
         </div>
       </div>
-      <div ref={ref}>
+      <div ref={ref} style={{paddingBottom:60}}>
         <ExplorePageArtworksSection
           items={tokens}
           category={category}

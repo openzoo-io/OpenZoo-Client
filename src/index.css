@@ -10,6 +10,7 @@
 body {
   margin: 0 !important;
   overflow: auto;
+  padding-bottom:100px;
 }
 .slick-slide {
   outline: none;

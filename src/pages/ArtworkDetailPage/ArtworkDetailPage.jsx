@@ -37,7 +37,7 @@ import {
   getRandomIPFS,
 } from 'utils';
 import axios from 'axios';
-import { CircularProgress } from '@material-ui/core';
+
 
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
@@ -2406,7 +2406,7 @@ export function ArtworkDetailPage() {
               alignItems: 'center',
             }}
           >
-            <CircularProgress size={'1.5rem'} color="primary" />
+            <Loader type="Oval" color="#00A59A" height={40} width={40} />
           </div>
         </div>
         <Footer />

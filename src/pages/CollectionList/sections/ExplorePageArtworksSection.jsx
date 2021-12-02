@@ -63,7 +63,7 @@ export function ExplorePageArtworksSection(props) {
         )}
       <div className={'d-flex justify-content-center'} ref={loadMoreRef}>
         {props.loading && (
-          <Loader type="Oval" color="#007BFF" height={32} width={32} />
+          <Loader type="Oval" color="#00A59A" height={32} width={32} />
         )}
       </div>
     </div>

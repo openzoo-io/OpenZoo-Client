@@ -2416,7 +2416,7 @@ const NFTItem = () => {
           fallback={
             <Loader
               type="Oval"
-              color="#007BFF"
+              color="#00A59A"
               height={32}
               width={32}
               className={styles.loader}
@@ -2837,7 +2837,7 @@ const NFTItem = () => {
         <div className={styles.bundleItemImage}>
           <Suspense
             fallback={
-              <Loader type="Oval" color="#007BFF" height={32} width={32} />
+              <Loader type="Oval" color="#00A59A" height={32} width={32} />
             }
           >
             <SuspenseImg
@@ -3133,7 +3133,7 @@ const NFTItem = () => {
                 {loading ? (
                   <Loader
                     type="Oval"
-                    color="#007BFF"
+                    color="#00A59A"
                     height={32}
                     width={32}
                     className={styles.loader}
@@ -3166,7 +3166,7 @@ const NFTItem = () => {
                             fallback={
                               <Loader
                                 type="Oval"
-                                color="#007BFF"
+                                color="#00A59A"
                                 height={32}
                                 width={32}
                                 className={styles.loader}

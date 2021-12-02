@@ -200,7 +200,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
               fallback={
                 <Loader
                   type="Oval"
-                  color="#007BFF"
+                  color="#00A59A"
                   height={32}
                   width={32}
                   className={styles.loader}
@@ -300,7 +300,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
                       fallback={
                         <Loader
                           type="Oval"
-                          color="#007BFF"
+                          color="#00A59A"
                           height={32}
                           width={32}
                           className={styles.loader}
