@@ -40,7 +40,7 @@ export function ExplorePageArtworksSection(props) {
           key={'explore-artwork-item-' + index.toString()}
           className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
         >
-          <AssetCard preset="five" item={item} />
+          <AssetCard preset="four" item={item} />
         </div>
       ))}
       {!props.loading &&

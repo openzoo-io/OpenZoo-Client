@@ -113,7 +113,7 @@ const App = () => {
           <Route path="/old-account/:uid" component={AccountDetails} />
           <Route path="/collections" component={CollectionsPage} />
 
-          <Route exact path="/collection/:addr" component={CollectionList} />
+          
 
           <ProtectedRoute
             path="/collection/create"
@@ -131,6 +131,9 @@ const App = () => {
             path="/settings/notification"
             component={NotificationSetting}
           />
+
+          <Route exact path="/collection/:addr" component={CollectionList} />
+
           <Route path="/404" component={NotFound} />
           <Route path="*">
             <Redirect to="/404" />
