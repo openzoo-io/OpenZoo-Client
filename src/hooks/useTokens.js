@@ -7,9 +7,9 @@ import iconZOO from 'assets/imgs/zoo32x32.png';
 // import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
 import iconUSDT from 'assets/imgs/wanUSDT.png';
-import iconUSDC from 'assets/imgs/wanUSDC.png';
-import iconETH from 'assets/imgs/wanETH.png';
-import iconWASP from 'assets/imgs/wasp.png';
+// import iconUSDC from 'assets/imgs/wanUSDC.png';
+// import iconETH from 'assets/imgs/wanETH.png';
+// import iconWASP from 'assets/imgs/wasp.png';
 
 
 // eslint-disable-next-line no-undef
