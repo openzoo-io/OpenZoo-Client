@@ -180,7 +180,7 @@ export function HeaderAvatarMenu(props) {
             <span> Register Existing Collection</span>
           </Link>
           <a onClick={handleOpenWrapStation}>
-            <i className="ri-pencil-line"></i> <span> WAN / WWAN Station</span>
+            <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
           </a>
 
           {(props.isAdmin || props.isModerator) && (
