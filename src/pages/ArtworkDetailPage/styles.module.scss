@@ -279,6 +279,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display:flex;
+  svg
+  {
+    margin-left:3px;
+  }
 }
 
 .itemName {

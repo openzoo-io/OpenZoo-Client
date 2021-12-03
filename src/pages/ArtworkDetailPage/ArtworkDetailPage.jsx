@@ -60,7 +60,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
-import { Menu, MenuItem } from '@material-ui/core';
+import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import {
   People as PeopleIcon,
   ViewModule as ViewModuleIcon,
@@ -2418,8 +2418,8 @@ export function ArtworkDetailPage() {
     <div className="overflow-hidden">
       <Header />
       <div className="container">
-        <Link to="/" className="btn btn-white btn-sm my-40">
-          Back to home
+        <Link to="/explore" className="btn btn-white btn-sm my-40">
+          Back to Explore
         </Link>
         <div className="item_details">
           <div className="row sm:space-y-20">
@@ -2443,6 +2443,7 @@ export function ArtworkDetailPage() {
                   }}
                 >
                   {collection?.collectionName || collection?.name || ''}
+                  {collection.isVerified ? <CheckCircleIcon /> : ''}
                 </div>
                 <h3>{info?.name || ''}</h3>
                 <ArtworkDetailPageStateSection
