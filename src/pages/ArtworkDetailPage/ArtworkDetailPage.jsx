@@ -2433,13 +2433,15 @@ export function ArtworkDetailPage() {
                   className={styles.itemCategory}
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
-                    history.push('/explore');
+                    history.push('/collection/'+address);
+                    /*
                     collection?.erc721Address &&
                       dispatch(
                         FilterActions.updateCollectionsFilter([
                           collection.erc721Address,
                         ])
                       );
+                      */
                   }}
                 >
                   {collection?.collectionName || collection?.name || ''}
