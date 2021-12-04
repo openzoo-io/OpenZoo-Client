@@ -607,7 +607,7 @@ const PaintBoard = () => {
             {fee !== null ? (
               <>
                 <InfoIcon />
-                &nbsp;{fee} WAN are charged to create a new NFT.
+                &nbsp;{fee} WANs are charged to create a new NFT.
               </>
             ) : (
               <Skeleton width={330} height={22} />
