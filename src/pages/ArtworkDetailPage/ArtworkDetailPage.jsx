@@ -57,10 +57,9 @@ import {
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
-import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import {
   People as PeopleIcon,
   ViewModule as ViewModuleIcon,
@@ -2445,7 +2444,7 @@ export function ArtworkDetailPage() {
                   }}
                 >
                   {collection?.collectionName || collection?.name || ''}
-                  {collection.isVerified ? <CheckCircleIcon /> : ''}
+                  {collection.isVerified ? <FontAwesomeIcon icon={faCheckCircle} /> : ''}
                 </div>
                 <h3>{info?.name || ''}</h3>
                 <ArtworkDetailPageStateSection
@@ -2717,7 +2716,7 @@ export function ArtworkDetailPage() {
                                   <Line
                                     type="monotone"
                                     dataKey="price"
-                                    stroke="#2479FA"
+                                    stroke="#00a59a"
                                   />
                                 </LineChart>
                               </div>

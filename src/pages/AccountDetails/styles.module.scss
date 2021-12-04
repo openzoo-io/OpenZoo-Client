@@ -128,7 +128,7 @@
   width: 80px;
   height: 26px;
   border-radius: 4px;
-  background-color: #2479FA;
+  background-color: #00a59a;
   color: #FFF;
   font-size: 14px;
   display: flex;
@@ -159,14 +159,14 @@
 .address {
   font-size: 14px;
   font-weight: 700;
-  color: #1969FF;
+  color: #00a59a;
 }
 
 .copyIcon {
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background-color: #1969FF;
+  background-color: #00a59a;
   margin-left: 20px;
   cursor: pointer;
   display: flex;
@@ -314,7 +314,7 @@
 
   .name,
   .owner {
-    color: #2479FA;
+    color: #00a59a;
     text-decoration: none;
   }
 }

@@ -605,7 +605,7 @@ const Header = () => {
                 <div className="header__btns">
                   <NavLink
                     to="/create"
-                    className={'btn btn-primary btn-sm'}
+                    className={'btn btn-warning btn-sm'}
                     activeClassName={styles.active}
                   >
                     Create

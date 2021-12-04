@@ -43,7 +43,7 @@ import { PageLayout } from 'components/Layouts';
 const CustomRadio = withStyles({
   root: {
     '&$checked': {
-      color: '#1969FF',
+      color: '#00a59a',
     },
   },
   checked: {},

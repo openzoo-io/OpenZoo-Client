@@ -3420,7 +3420,7 @@ const NFTItem = () => {
                               <Line
                                 type="monotone"
                                 dataKey="price"
-                                stroke="#2479FA"
+                                stroke="#00a59a"
                               />
                             </LineChart>
                           </div>

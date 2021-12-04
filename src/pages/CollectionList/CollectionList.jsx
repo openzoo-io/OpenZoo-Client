@@ -16,6 +16,7 @@ import usePrevious from 'hooks/usePrevious';
 import { PageLayout } from 'components/Layouts/PageLayout';
 import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
+import styles from './styles.module.scss';
 
 export function CollectionList() {
   const {
@@ -47,8 +48,8 @@ export function CollectionList() {
   const [cancelSource, setCancelSource] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
-  const [collectionName, setCollectionName] = useState('');
-  const [collectionDescription, setCollectionDescription] = useState('');
+  const [collectionData, setCollectionData] = useState({});
+
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { upFetching, downFetching, tokens, count, from, to } = useSelector(
     state => state.Tokens
@@ -109,11 +110,7 @@ export function CollectionList() {
         let cRes = await fetchCollection(addr);
         console.log('cres', cRes);
         dispatch(FilterActions.updateCollectionsFilter([addr]));
-
-        if (cRes.data.collectionName) {
-          setCollectionName(cRes.data.collectionName);
-          setCollectionDescription(cRes.data.description);
-        }
+        setCollectionData(cRes.data);
       }
 
       dispatch(CollectionsActions.fetchStart());
@@ -319,8 +316,19 @@ export function CollectionList() {
         <>
           <div className="hero_marketplace bg_white">
             <div className="container">
-              <h1>{collectionName}</h1>
-              <p>{collectionDescription}</p>
+              <div className={styles.collectionDescription}>
+                
+                <div className={styles.logo}>
+                  <img
+                    src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
+                  />
+                </div>
+                <div>
+                  <h1>{collectionData?.collectionName}</h1>
+                  <div className={styles.ownedby}>owned by{collectionData?.owner}</div>
+                  <p>{collectionData?.description}</p>
+                </div>
+              </div>
             </div>
           </div>
           {/*<ExplorePageFilterCategorySection />*/}

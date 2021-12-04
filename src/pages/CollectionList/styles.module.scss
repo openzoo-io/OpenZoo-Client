@@ -1,0 +1,24 @@
+.collectionDescription
+{
+  display:flex;
+  .logo img
+  {
+    border-radius: 15px;
+    width:100px;
+    height:100px;
+    margin-right:10px;
+  }
+  h1
+  {
+    font-size:20px;
+  }
+  .ownedby
+  {
+    font-size:14px;
+    color:#c8c8c8;
+    span
+    {
+      color: #00a59a;
+    }
+  }
+}
