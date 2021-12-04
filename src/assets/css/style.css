@@ -10696,7 +10696,7 @@ body {
 }
 
 body.is__dark {
-  background: #0b1b27;
+  background: #0b1b27 !important;
 }
 
 @media (min-width: 1400px) {
@@ -11013,7 +11013,7 @@ div.button {
   outline: none;
   position: relative;
   text-align: center;
-  border-radius: 100px !important;
+  /*border-radius: 100px !important;*/
   overflow: hidden;
   will-change: transform, box-shadow;
 }
@@ -11303,6 +11303,11 @@ input[type="submit"][disabled].btn-primary:hover {
   color: white;
   background-color: #f9bb32;
   border-color: #f9bb32;
+}
+.btn-warning:hover
+{
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 .btn-link {
@@ -20458,6 +20463,7 @@ label:active:after {
 .is__dark .community__items .item,
 .is__dark .hero__2 .wrapper,
 .is__dark .box,
+.is__dark .boxNoPad,
 .is__dark .has_number,
 .is__dark .header__result,
 .is__dark .search,

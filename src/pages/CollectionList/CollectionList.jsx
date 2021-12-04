@@ -17,13 +17,22 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
-
+import { shortenAddress } from 'utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationArrow, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTwitter,
+  faTelegramPlane,
+  faInstagram,
+  faMedium,
+} from '@fortawesome/free-brands-svg-icons';
 export function CollectionList() {
   const {
     fetchCollection,
     fetchCollections,
     fetchTokens,
     getItemsLiked,
+    explorerUrl,
   } = useApi();
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
@@ -317,7 +326,6 @@ export function CollectionList() {
           <div className="hero_marketplace bg_white">
             <div className="container">
               <div className={styles.collectionDescription}>
-                
                 <div className={styles.logo}>
                   <img
                     src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
@@ -325,9 +333,66 @@ export function CollectionList() {
                 </div>
                 <div>
                   <h1>{collectionData?.collectionName}</h1>
-                  <div className={styles.ownedby}>owned by{collectionData?.owner}</div>
-                  <p>{collectionData?.description}</p>
+                  <div className={styles.ownedby}>
+                    created by{' '}
+                    <span>{shortenAddress(collectionData?.owner)}</span>
+                  </div>
+                  <div className={styles.links}>
+                    <a
+                      href={explorerUrl + '/token/' + addr}
+                      className={styles.address}
+                    >
+                      {shortenAddress(addr)}{' '}
+                      <FontAwesomeIcon icon={faLocationArrow} />
+                    </a>
+                    {collectionData.siteUrl && (
+                      <a
+                        href={collectionData.siteUrl}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faGlobe} />
+                      </a>
+                    )}
+                    {collectionData.twitterHandle && (
+                      <a
+                        href={collectionData.twitterHandle}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faTwitter} />
+                      </a>
+                    )}
+                    {collectionData.telegram && (
+                      <a
+                        href={collectionData.telegram}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faTelegramPlane} />
+                      </a>
+                    )}
+                    {collectionData.mediumHandle && (
+                      <a
+                        href={collectionData.mediumHandle}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faMedium} />
+                      </a>
+                    )}
+                    {collectionData.faInstagram && (
+                      <a
+                        href={collectionData.faInstagram}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faInstagram} />
+                      </a>
+                    )}
+                  </div>
                 </div>
+              </div>
+
+              <div className={styles.collectionDescription}>
+                <p>
+                  {collectionData?.description}
+                </p>
               </div>
             </div>
           </div>
@@ -342,7 +407,7 @@ export function CollectionList() {
         </div>
       </div>
 
-      <div ref={ref}>
+      <div ref={ref} style={{ paddingBottom: 60 }}>
         <ExplorePageArtworksSection
           items={tokens}
           category={category}

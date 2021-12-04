@@ -2551,7 +2551,7 @@ export function ArtworkDetailPage() {
                 <ArtworkDetailPageCreatorSection />
 
                 {(winner || auction.current?.resulted === false) && (
-                  <div className={styles.panelWrapper}>
+                  <div className={`${styles.panelWrapper} boxNoPad`}>
                     <Panel
                       title={
                         auctionStarted
@@ -2691,7 +2691,7 @@ export function ArtworkDetailPage() {
                   </div>
                 )}
                 {!bundleID && (
-                  <div className={styles.panelWrapper}>
+                  <div className={`${styles.panelWrapper} boxNoPad`}>
                     <Panel title="Price History" icon={TimelineIcon}>
                       <ReactResizeDetector>
                         {({ width }) =>
@@ -2729,7 +2729,7 @@ export function ArtworkDetailPage() {
                     </Panel>
                   </div>
                 )}
-                <div className={styles.panelWrapper}>
+                <div className={`${styles.panelWrapper} boxNoPad`}>
                   <Panel title="Listings" icon={LocalOfferIcon} expanded>
                     <div className={styles.listings}>
                       <div className={cx(styles.listing, styles.heading)}>
@@ -2870,7 +2870,7 @@ export function ArtworkDetailPage() {
                     </div>
                   </Panel>
                 </div>
-                <div className={styles.panelWrapper}>
+                <div className={`${styles.panelWrapper} boxNoPad`}>
                   <Panel title="Direct Offers" icon={TocIcon} expanded>
                     <div className={styles.offers}>
                       {offers.current.length ? (
@@ -3137,7 +3137,7 @@ export function ArtworkDetailPage() {
                     (!auction.current || auction.current.resulted) && (
                       <TxButton
                         className={cx(
-                          'btn btn-grad btn-lg',
+                          'btn btn-primary btn-lg',
                           (offerPlacing || offerCanceling) && styles.disabled
                         )}
                         data-toggle="modal"

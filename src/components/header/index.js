@@ -615,7 +615,7 @@ const Header = () => {
             ) : (
               <div className="header__btns">
                 <a
-                  className="btn btn-grad btn-sm"
+                  className="btn btn-warning btn-sm"
                   onClick={handleConnectWallet}
                 >
                   <i className="ri-wallet-3-line"></i>
@@ -665,7 +665,7 @@ const Header = () => {
                 </div>
               ) : (
                 <a
-                  className="btn btn-grad btn-sm"
+                  className="btn btn-warning btn-sm"
                   onClick={handleConnectWallet}
                 >
                   Connect wallet

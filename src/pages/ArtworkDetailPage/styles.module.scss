@@ -27,8 +27,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #007BFF;
-  color: #FFF;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
   font-weight: 700;
   font-size: 18px;
@@ -128,7 +128,7 @@
   }
 
   &.active {
-    border-color: #007BFF;
+    border-color: #007bff;
 
     img {
       border-radius: 0px;
@@ -136,65 +136,56 @@
   }
 }
 
-
-.panelBodyAttribute
-{
-  width:100%;
-  padding:20px;
+.panelBodyAttribute {
+  width: 100%;
+  padding: 20px;
   box-sizing: border-box;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 @media only screen and (max-width: 425px) {
-  .attribute
-  {
-    width:90px !important;
-    .attributeLabel
-    {
-      font-size:11px !important;
+  .attribute {
+    width: 90px !important;
+    .attributeLabel {
+      font-size: 11px !important;
     }
-    .attributeValue{
-      
-      font-size:13px !important;
-
+    .attributeValue {
+      font-size: 13px !important;
     }
   }
-  
-
 }
 
-.attributeWrapper, .propertiesWrapper {
+.attributeWrapper,
+.propertiesWrapper {
   max-height: 300px;
   overflow: auto;
   justify-content: center;
 }
 
-.attribute
-{
-  display:flex;
+.attribute {
+  display: flex;
   align-items: center;
   flex-direction: column;
-  width:100px;
-  min-height:60px;
+  width: 100px;
+  min-height: 60px;
   max-height: 100px;
-  border:1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   border-radius: 10px;
   justify-content: center;
-  margin:4px;
-  .attributeLabel
-  {
-    font-weight:normal;
+  margin: 4px;
+  .attributeLabel {
+    font-weight: normal;
     text-align: center;
-    font-size:12px;
+    font-size: 12px;
     text-transform: uppercase;
   }
-  .attributeValue{
+  .attributeValue {
     font-weight: bold;
     text-align: center;
-    font-size:14px;
-    margin-top:5px;
+    font-size: 14px;
+    margin-top: 5px;
   }
 }
 
@@ -240,7 +231,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #EEE;
+    background-color: #eee;
   }
 
   &:last-child {
@@ -267,7 +258,7 @@
 .itemInfoCont {
   margin: 40px 0;
   border-radius: 10px;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   overflow: hidden;
 }
 
@@ -279,11 +270,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display:flex;
+  display: flex;
   align-items: center;
-  svg
-  {
-    margin-left:3px;
+  svg {
+    margin-left: 3px;
   }
 }
 
@@ -291,7 +281,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 32px;
-  color: #3D3D3D;
+  color: #3d3d3d;
   margin-top: 16px;
   margin-right: 110px;
   overflow: hidden;
@@ -303,7 +293,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
   margin-top: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -317,14 +307,14 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #A2A2AD;
+  color: #a2a2ad;
 }
 
 .itemOwner {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #A2A2AD;
+  color: #a2a2ad;
 }
 
 .ownerAvatar {
@@ -370,13 +360,13 @@
 }
 
 .liking {
-  color: #007BFF;
+  color: #007bff;
 }
 
 .favIcon {
   width: 16px !important;
   &:hover {
-    color: #007BFF;
+    color: #007bff;
   }
 }
 
@@ -385,8 +375,6 @@
   padding: 24px;
   box-sizing: border-box;
 }
-
-
 
 .panelLine {
   display: flex;
@@ -412,7 +400,7 @@
   padding-left: 21px;
   height: 50px;
   box-sizing: border-box;
-  border-bottom: 1px solid #EAEAF1;
+  border-bottom: 1px solid #eaeaf1;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -453,7 +441,7 @@
 
 .bundleItemCategory {
   font-size: 18px;
-  color: #007BFF;
+  color: #007bff;
 }
 
 .bundleItemCategory,
@@ -480,7 +468,7 @@
 .noOffersLabel {
   font-weight: 400;
   font-size: 14px;
-  color: #A2A2AD;
+  color: #a2a2ad;
 }
 
 .makeOffer {
@@ -494,12 +482,22 @@
   background-color: #00a59a;
   font-size: 16px;
   font-weight: 700;
-  color: #FFF;
+  color: #fff;
   cursor: pointer;
 }
 
 .heading {
-  background-color: #F6F7F9;
+  background-color: #f6f7f9;
+}
+
+:global {
+  .is__dark {
+    :local {
+      .heading {
+        background-color: #183b56 !important;
+      }
+    }
+  }
 }
 
 .owner {
@@ -566,7 +564,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  color: #FFF;
+  color: #fff;
   // background-color: #00a59a;
   // font-weight: 700;
   // font-size: 18px;
@@ -628,14 +626,14 @@
 }
 
 .placeBid {
-  background-color: #007BFF;
-  color: #FFF;
+  background-color: #007bff;
+  color: #fff;
 }
 
 .withdrawBid {
-  background-color: #FFF;
-  color: #007BFF;
-  border: 1px solid #007BFF;
+  background-color: #fff;
+  color: #007bff;
+  border: 1px solid #007bff;
 }
 
 .tradeHistoryWrapper {
@@ -679,7 +677,7 @@
   font-size: 14px;
   font-weight: 400;
   color: #121223;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   &.heading {
     height: 38px;
@@ -741,7 +739,7 @@
   top: 0;
   right: 0;
   display: flex;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   border-radius: 6px;
 }
 
@@ -750,8 +748,8 @@
   height: 3rem;
   width: 3rem;
   -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-          box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  border-right: 1px solid #EAEAF1;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border-right: 1px solid #eaeaf1;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -766,7 +764,7 @@
 .itemMenuIcon {
   width: 17px;
   height: 17px;
-  color: #183b56;;
+  color: #183b56;
 }
 
 .shareMenu {
@@ -799,7 +797,7 @@
   min-width: 550px;
   margin: 20px 0;
   border-radius: 10px;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   box-sizing: border-box;
   overflow: hidden;
   background-color: white;
@@ -828,14 +826,14 @@
   padding: 14px 20px 20px;
   margin: 20px 0;
   border-radius: 10px;
-  border: 1px solid #EAEAF1;
+  border: 1px solid #eaeaf1;
   box-sizing: border-box;
 }
 
 .currentPriceLabel {
   font-size: 18px;
   font-weight: 700;
-  color: #A2A2AD;
+  color: #a2a2ad;
 }
 
 .currentPriceWrapper {
@@ -866,7 +864,7 @@
 .currentPriceUSD {
   font-weight: 400;
   font-size: 14px;
-  color: #A2A2AD;
+  color: #a2a2ad;
 }
 
 .revealBtn,
@@ -878,7 +876,7 @@
   background-color: #00a59a;
   font-weight: 700;
   font-size: 16px;
-  color: #FFF;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -915,8 +913,8 @@
   width: 220px;
   padding: 24px;
   border-radius: 10px !important;
-  border: 1px solid rgba(0, 0, 0, .2);
-  box-shadow: 0 4px 40px rgba(0, 0, 0, .15);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
 }
 
 .menuList {
@@ -927,7 +925,7 @@
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
-  color: #3D3D3D;
+  color: #3d3d3d;
 }
 
 .menu {
@@ -937,7 +935,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
 
   img {
@@ -947,7 +945,7 @@
   }
 
   &.active {
-    color: rgba(0, 0, 0, .6);
+    color: rgba(0, 0, 0, 0.6);
 
     img {
       display: block;
