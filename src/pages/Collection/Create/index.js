@@ -925,7 +925,7 @@ const CollectionCreate = ({ isRegister }) => {
         {!isRegister && (
           <div className={styles.fee}>
             <InfoIcon />
-            &nbsp;100 WAN are charged to create a new collection.
+            &nbsp;100 WANs are charged to create a new collection.
           </div>
         )}
       </div>
