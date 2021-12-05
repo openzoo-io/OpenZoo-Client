@@ -41,6 +41,7 @@ const App = () => {
         // console.log({ resp });
         // dispatch(PriceActions.updatePrice(resp.rate));
         const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // TODO: UPDATE OPRACLE FOR MAINNET
         const oracle = new ethers.Contract(
           '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
           [
@@ -60,11 +61,11 @@ const App = () => {
       } else if (chainId === 999) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const oracle = new ethers.Contract(
-          '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
+          '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',
           [
             {
-              inputs: [],
-              name: 'latestAnswer',
+              inputs: [{internalType: 'address', type: 'address', name: '_token'}],
+              name: 'getPrice',
               outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
               stateMutability: 'view',
               type: 'function',
@@ -72,8 +73,9 @@ const App = () => {
           ],
           provider
         );
-        const _price = await oracle.latestAnswer();
-        const price = parseFloat(_price.toString()) / 10 ** 8;
+        const WWAN = '0x916283cc60fdaf05069796466af164876e35d21f';
+        const _price = await oracle.getPrice(WWAN);
+        const price = parseFloat(_price.toString()) / 10 ** 18;
         dispatch(PriceActions.updatePrice(price));
       }
     } catch (err) {
