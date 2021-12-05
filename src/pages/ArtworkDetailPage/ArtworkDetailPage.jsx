@@ -2476,6 +2476,9 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
+                    <div className={styles.royaltyFee}>
+                      Royaltee Fee {collectionRoyalty?.royalty || info?.properties.royalty}% goes to creator
+                    </div>
                   </div>
                   <div className="space-x-10 d-flex align-items-center">
                     {isMine && !bundleID && (

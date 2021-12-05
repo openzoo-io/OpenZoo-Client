@@ -39,7 +39,7 @@ import closeIcon from 'assets/svgs/close.svg';
 import styles from './styles.module.scss';
 import { formatError, isAddress } from 'utils';
 import { PageLayout } from 'components/Layouts';
-
+import { ADMIN_ADDRESS } from 'constants/index';
 const CustomRadio = withStyles({
   root: {
     '&$checked': {
@@ -54,7 +54,9 @@ const CollectionCreate = ({ isRegister }) => {
   const history = useHistory();
 
   const { account } = useWeb3React();
+  
   const { apiUrl, getNonce } = useApi();
+  const { isModerator } = useSelector(state => state.ConnectWallet);
   const {
     getFactoryContract,
     getPrivateFactoryContract,
@@ -91,7 +93,7 @@ const CollectionCreate = ({ isRegister }) => {
   const [instagramHandle, setInstagramHandle] = useState('');
   const [mediumHandle, setMediumHandle] = useState('');
   const [telegram, setTelegram] = useState('');
-  const [isPrivate, setIsPrivate] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(true);
   const [isSingle, setIsSingle] = useState(true);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -504,7 +506,7 @@ const CollectionCreate = ({ isRegister }) => {
           from the collection's official email address).
         </div>
 
-        {!isRegister && (
+        {!isRegister && (isModerator || account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()) && (
           <div className={styles.inputGroup}>
             <RadioGroup
               className={styles.inputWrapper}
@@ -711,7 +713,7 @@ const CollectionCreate = ({ isRegister }) => {
                 }}
                 value="true"
                 control={<CustomRadio color="primary" />}
-                label="Single Token Standard"
+                label="Single Token Standard (721)"
               />
               <FormControlLabel
                 classes={{
@@ -720,7 +722,7 @@ const CollectionCreate = ({ isRegister }) => {
                 }}
                 value="false"
                 control={<CustomRadio color="primary" />}
-                label="Multi Token Standard"
+                label="Multi Token Standard (1155)"
               />
             </RadioGroup>
           </div>

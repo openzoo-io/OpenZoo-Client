@@ -24,6 +24,7 @@ import {
   faTwitter,
   faTelegramPlane,
   faInstagram,
+  faDiscord,
   faMedium,
 } from '@fortawesome/free-brands-svg-icons';
 export function CollectionList() {
@@ -367,6 +368,14 @@ export function CollectionList() {
                         className={styles.external}
                       >
                         <FontAwesomeIcon icon={faTelegramPlane} />
+                      </a>
+                    )}
+                    {collectionData.discord && (
+                      <a
+                        href={collectionData.discord}
+                        className={styles.external}
+                      >
+                        <FontAwesomeIcon icon={faDiscord} />
                       </a>
                     )}
                     {collectionData.mediumHandle && (
