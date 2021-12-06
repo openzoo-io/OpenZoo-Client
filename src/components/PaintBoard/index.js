@@ -370,7 +370,7 @@ const PaintBoard = () => {
   };
 
   return (
-    <PageLayout containerClassName="form-container-page">
+    <PageLayout containerClassName="form-container-page box">
       <div className={styles.body}>
         <div className={styles.board}>
           <div {...getRootProps({ className: styles.uploadCont })}>

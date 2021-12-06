@@ -38,6 +38,19 @@
   position: relative;
 }
 
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .uploadCont {
+        border: 2px dashed rgba(255, 255, 255, .6);
+      }
+    }
+  }
+}
+
 .image {
   width: 100%;
   height: 100%;
@@ -70,7 +83,7 @@
 }
 
 .browse {
-  color: #00a59a;
+  color: #00a59a !important;
   cursor: pointer;
 }
 
@@ -145,7 +158,7 @@
   border-radius: 8px;
   font-weight: 700;
   font-size: 18px;
-  background-color: #00a59a;
+  background-color: #ffc107;
   color: #FFF;
   box-shadow: none;
   display: flex;

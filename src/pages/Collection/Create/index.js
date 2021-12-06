@@ -493,7 +493,7 @@ const CollectionCreate = ({ isRegister }) => {
   );
 
   return (
-    <PageLayout containerClassName="form-container-page">
+    <PageLayout containerClassName="form-container-page box">
       <div className={styles.inner}>
         <div className={styles.title}>
           {isRegister ? 'Register' : 'Create New'} Collection

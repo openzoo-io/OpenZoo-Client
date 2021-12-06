@@ -20373,6 +20373,18 @@ label:active:after {
 }
 
 
+.react-dropdown-select-dropdown
+{
+  top:52px !important;
+  left:-2px !important;
+  border-radius: 10px !important;
+}
+.is__dark .react-dropdown-select-dropdown, .is__dark .react-dropdown-select
+{
+  background: #0b1b27 !important;
+  border-color: #ffffff1f;
+}
+
 
 .is__dark .hero__index::before {
   background: transparent !important;

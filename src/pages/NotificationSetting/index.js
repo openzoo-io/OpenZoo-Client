@@ -232,7 +232,7 @@ const NotificationSetting = () => {
     settings[key] === undefined ? true : settings[key];
 
   return (
-    <PageLayout containerClassName="form-container-page">
+    <PageLayout containerClassName="form-container-page box">
       <div className={styles.inner}>
         <div className={styles.title}>Notification Settings</div>
 
