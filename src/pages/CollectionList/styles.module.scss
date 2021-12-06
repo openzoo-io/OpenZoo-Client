@@ -36,4 +36,38 @@
 
     }
   }
+
+  :global
+  {
+    .box:last-child
+    {
+      margin-right:0;
+    }
+    .box
+    {
+      flex:1;
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items:center;
+      margin-top:20px;
+      margin-bottom:10px;
+      border-radius: 10px;
+      background:#FCFCFC;
+      border:0;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+      margin-right:10px;
+      font-weight: bold;
+      color:#868686;
+      padding:10px;
+      text-align: center;
+      span
+      {
+        color:#00a59a;
+        
+        font-size:26px;
+      }
+    }
+  }
+
 }

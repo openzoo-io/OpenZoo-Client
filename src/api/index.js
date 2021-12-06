@@ -171,6 +171,18 @@ export const useApi = () => {
     return res.data;
   };
 
+  const fetchCollectionStatistic = async contractAddress => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/collection/getCollectionStatistic`,
+      data: JSON.stringify({ contractAddress }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.data;
+  };
+
   const fetchPendingCollections = async authToken => {
     const res = await axios({
       method: 'post',
@@ -842,6 +854,7 @@ export const useApi = () => {
     getTokenHolders,
     fetchCollections,
     fetchCollection,
+    fetchCollectionStatistic,
     fetchPendingCollections,
     approveCollection,
     rejectCollection,

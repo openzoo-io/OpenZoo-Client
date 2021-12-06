@@ -17,7 +17,7 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
-import { shortenAddress } from 'utils';
+import { shortenAddress, formatUSD, formatNumber } from 'utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationArrow, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -31,6 +31,7 @@ export function CollectionList() {
   const {
     fetchCollection,
     fetchCollections,
+    fetchCollectionStatistic,
     fetchTokens,
     getItemsLiked,
     explorerUrl,
@@ -59,6 +60,7 @@ export function CollectionList() {
   const [likeCancelSource, setLikeCancelSource] = useState(null);
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
   const [collectionData, setCollectionData] = useState({});
+  const [collectionStatisticData, setCollectionStatisticData] = useState({});
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -118,9 +120,12 @@ export function CollectionList() {
       // Filter by Address //
       if (addr) {
         let cRes = await fetchCollection(addr);
-        console.log('cres', cRes);
+
         dispatch(FilterActions.updateCollectionsFilter([addr]));
         setCollectionData(cRes.data);
+
+        let statisticRes = await fetchCollectionStatistic(addr);
+        setCollectionStatisticData(statisticRes.data);
       }
 
       dispatch(CollectionsActions.fetchStart());
@@ -326,82 +331,102 @@ export function CollectionList() {
         <>
           <div className="hero_marketplace bg_white">
             <div className="container">
-              <div className={styles.collectionDescription}>
-                <div className={styles.logo}>
-                  <img
-                    src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
-                  />
-                </div>
-                <div>
-                  <h1>{collectionData?.collectionName}</h1>
-                  <div className={styles.ownedby}>
-                    created by{' '}
-                    <span>{shortenAddress(collectionData?.owner)}</span>
+              <div className="col-lg-6">
+                <div className={styles.collectionDescription}>
+                  <div className={styles.logo}>
+                    <img
+                      src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
+                    />
                   </div>
-                  <div className={styles.links}>
-                    <a
-                      href={explorerUrl + '/token/' + addr}
-                      className={styles.address}
-                    >
-                      {shortenAddress(addr)}{' '}
-                      <FontAwesomeIcon icon={faLocationArrow} />
-                    </a>
-                    {collectionData.siteUrl && (
+                  <div>
+                    <h1>{collectionData?.collectionName}</h1>
+                    <div className={styles.ownedby}>
+                      created by{' '}
+                      <span>{shortenAddress(collectionData?.owner)}</span>
+                    </div>
+                    <div className={styles.links}>
                       <a
-                        href={collectionData.siteUrl}
-                        className={styles.external}
+                        href={explorerUrl + '/token/' + addr}
+                        className={styles.address}
                       >
-                        <FontAwesomeIcon icon={faGlobe} />
+                        {shortenAddress(addr)}{' '}
+                        <FontAwesomeIcon icon={faLocationArrow} />
                       </a>
-                    )}
-                    {collectionData.twitterHandle && (
-                      <a
-                        href={collectionData.twitterHandle}
-                        className={styles.external}
-                      >
-                        <FontAwesomeIcon icon={faTwitter} />
-                      </a>
-                    )}
-                    {collectionData.telegram && (
-                      <a
-                        href={collectionData.telegram}
-                        className={styles.external}
-                      >
-                        <FontAwesomeIcon icon={faTelegramPlane} />
-                      </a>
-                    )}
-                    {collectionData.discord && (
-                      <a
-                        href={collectionData.discord}
-                        className={styles.external}
-                      >
-                        <FontAwesomeIcon icon={faDiscord} />
-                      </a>
-                    )}
-                    {collectionData.mediumHandle && (
-                      <a
-                        href={collectionData.mediumHandle}
-                        className={styles.external}
-                      >
-                        <FontAwesomeIcon icon={faMedium} />
-                      </a>
-                    )}
-                    {collectionData.faInstagram && (
-                      <a
-                        href={collectionData.faInstagram}
-                        className={styles.external}
-                      >
-                        <FontAwesomeIcon icon={faInstagram} />
-                      </a>
-                    )}
+                      {collectionData.siteUrl && (
+                        <a
+                          href={collectionData.siteUrl}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faGlobe} />
+                        </a>
+                      )}
+                      {collectionData.twitterHandle && (
+                        <a
+                          href={collectionData.twitterHandle}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faTwitter} />
+                        </a>
+                      )}
+                      {collectionData.telegram && (
+                        <a
+                          href={collectionData.telegram}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faTelegramPlane} />
+                        </a>
+                      )}
+                      {collectionData.discord && (
+                        <a
+                          href={collectionData.discord}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faDiscord} />
+                        </a>
+                      )}
+                      {collectionData.mediumHandle && (
+                        <a
+                          href={collectionData.mediumHandle}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faMedium} />
+                        </a>
+                      )}
+                      {collectionData.faInstagram && (
+                        <a
+                          href={collectionData.faInstagram}
+                          className={styles.external}
+                        >
+                          <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+                <div className={styles.collectionDescription}>
+                  <div className="box">
+                    <span>{collectionStatisticData.countNFT?formatNumber(collectionStatisticData.countNFT):'N/A'}</span>
+                    items
+                  </div>
 
-              <div className={styles.collectionDescription}>
-                <p>
-                  {collectionData?.description}
-                </p>
+                  <div className="box">
+                    <span>{collectionStatisticData.countOwner?formatNumber(collectionStatisticData.countOwner):'N/A'}</span>
+                    owners
+                  </div>
+
+                  <div className="box">
+                    <span>{collectionStatisticData.floorPrice?formatUSD(collectionStatisticData.floorPrice,2):'N/A'}</span>
+                    floor price
+                  </div>
+
+                  <div className="box">
+                    <span>{collectionStatisticData.volumeTraded?formatUSD(collectionStatisticData.volumeTraded,2):'N/A'}</span>
+                    volume traded
+                  </div>
+                </div>
+                <div className={styles.collectionDescription}>
+                  <p>{collectionData?.description}</p>
+                </div>
               </div>
             </div>
           </div>

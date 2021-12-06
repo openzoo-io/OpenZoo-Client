@@ -2428,24 +2428,27 @@ export function ArtworkDetailPage() {
 
             <div className="col-lg-6">
               <div className="space-y-20">
-                <div
+                <a
                   className={styles.itemCategory}
                   style={{ cursor: 'pointer' }}
+                  href={'/collection/'+address}
+                  /*
                   onClick={() => {
                     history.push('/collection/'+address);
-                    /*
+                    
                     collection?.erc721Address &&
                       dispatch(
                         FilterActions.updateCollectionsFilter([
                           collection.erc721Address,
                         ])
                       );
-                      */
+                      
                   }}
+                  */
                 >
                   {collection?.collectionName || collection?.name || ''}
                   {collection.isVerified ? <FontAwesomeIcon icon={faCheckCircle} /> : ''}
-                </div>
+                </a>
                 <h3>{info?.name || ''}</h3>
                 <ArtworkDetailPageStateSection
                   data={{
