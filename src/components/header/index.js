@@ -33,7 +33,11 @@ import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faSun,
+  faMoon
+} from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -82,6 +86,24 @@ const Header = () => {
   const timer = useRef(null);
 
   const isMenuOpen = Boolean(anchorEl);
+
+  const [DarkMode, setDarkMode] = React.useState(() => {
+    const DarkValue = window.localStorage.getItem('darkmode');
+    return DarkValue !== null
+      ? JSON.parse(DarkValue)
+      : false;
+  });
+
+  useEffect(() => {
+    if (DarkMode === true) {
+      document.body.classList.add('is__dark');
+      window.localStorage.setItem('darkmode', true);
+    }
+    else {
+      document.body.classList.remove('is__dark');
+      window.localStorage.setItem('darkmode', false);
+    }
+  }, [DarkMode])
 
   const login = async () => {
     try {
@@ -341,41 +363,41 @@ const Header = () => {
       <div className={styles.menuSeparator} />
       {account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
         ? [
-            <div key={0} className={styles.menuItem} onClick={addMod}>
-              Add Mod
-            </div>,
-            <div key={1} className={styles.menuItem} onClick={removeMod}>
-              Remove Mod
-            </div>,
-            <div
-              key={2}
-              className={styles.menuItem}
-              onClick={reviewCollections}
-            >
-              Review Collections
-            </div>,
-            <div key={3} className={styles.menuItem} onClick={banCollection}>
-              Ban Collection
-            </div>,
-            <div key={4} className={styles.menuItem} onClick={unbanCollection}>
-              Unban Collection
-            </div>,
-            <div key={5} className={styles.menuItem} onClick={banItems}>
-              Ban Items
-            </div>,
-            <div key={6} className={styles.menuItem} onClick={banUser}>
-              Ban a user
-            </div>,
-            <div key={6} className={styles.menuItem} onClick={unbanUser}>
-              Unban a user
-            </div>,
-            <div key={7} className={styles.menuItem} onClick={boostCollection}>
-              Boost Collection
-            </div>,
-            <div key={8} className={styles.menuSeparator} />,
-          ]
+          <div key={0} className={styles.menuItem} onClick={addMod}>
+            Add Mod
+          </div>,
+          <div key={1} className={styles.menuItem} onClick={removeMod}>
+            Remove Mod
+          </div>,
+          <div
+            key={2}
+            className={styles.menuItem}
+            onClick={reviewCollections}
+          >
+            Review Collections
+          </div>,
+          <div key={3} className={styles.menuItem} onClick={banCollection}>
+            Ban Collection
+          </div>,
+          <div key={4} className={styles.menuItem} onClick={unbanCollection}>
+            Unban Collection
+          </div>,
+          <div key={5} className={styles.menuItem} onClick={banItems}>
+            Ban Items
+          </div>,
+          <div key={6} className={styles.menuItem} onClick={banUser}>
+            Ban a user
+          </div>,
+          <div key={6} className={styles.menuItem} onClick={unbanUser}>
+            Unban a user
+          </div>,
+          <div key={7} className={styles.menuItem} onClick={boostCollection}>
+            Boost Collection
+          </div>,
+          <div key={8} className={styles.menuSeparator} />,
+        ]
         : isModerator
-        ? [
+          ? [
             <div key={1} className={styles.menuItem} onClick={banCollection}>
               Ban Collection
             </div>,
@@ -390,7 +412,7 @@ const Header = () => {
             </div>,
             <div key={4} className={styles.menuSeparator} />,
           ]
-        : null}
+          : null}
       <div className={styles.signOut} onClick={handleSignOut}>
         Sign Out
       </div>
@@ -440,9 +462,8 @@ const Header = () => {
                 >
                   <img
                     className={styles.resultimg}
-                    src={`${getRandomIPFS('', true)}${
-                      collection.logoImageHash
-                    }`}
+                    src={`${getRandomIPFS('', true)}${collection.logoImageHash
+                      }`}
                   />
                   <div className={styles.resulttitle}>
                     {collection.collectionName}
@@ -550,6 +571,7 @@ const Header = () => {
           </div>
           <div className={cx('header__menu', styles.left)}>
             <ul className="d-flex space-x-20">
+
               <li>
                 <NavLink
                   to="/home"
@@ -580,6 +602,22 @@ const Header = () => {
             </ul>
           </div>
           {renderSearchBox()}
+          <div className={styles.darkmodeToggle}>
+            <span><FontAwesomeIcon icon={faSun} /></span>
+            <input
+              id="darkmode-toggle"
+              type="checkbox"
+              checked={DarkMode}
+              onChange={() => { setDarkMode(!DarkMode) }}
+            />
+            <label
+              className="toggle"
+              htmlFor={`darkmode-toggle`}
+            >
+              Toggle
+            </label>
+            <span><FontAwesomeIcon icon={faMoon} /></span>
+          </div>
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
             {account ? (
               <>

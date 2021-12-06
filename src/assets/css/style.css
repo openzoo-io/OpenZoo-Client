@@ -12453,8 +12453,10 @@ label.toggle:after {
   height: 20px;
   background: #fff;
   border-radius: 90px;
+  /*
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  */
 }
 
 input:checked + label {
@@ -12468,7 +12470,7 @@ input:checked + label:after {
 }
 
 label:active:after {
-  width: 44px;
+  width: 40px;
 }
 
 .choose_collection {
