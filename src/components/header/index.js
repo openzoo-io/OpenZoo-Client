@@ -602,23 +602,24 @@ const Header = () => {
             </ul>
           </div>
           {renderSearchBox()}
-          <div className={styles.darkmodeToggle}>
-            <span><FontAwesomeIcon icon={faSun} /></span>
-            <input
-              id="darkmode-toggle"
-              type="checkbox"
-              checked={DarkMode}
-              onChange={() => { setDarkMode(!DarkMode) }}
-            />
-            <label
-              className="toggle"
-              htmlFor={`darkmode-toggle`}
-            >
-              Toggle
-            </label>
-            <span><FontAwesomeIcon icon={faMoon} /></span>
-          </div>
+
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
+            <div className={styles.darkmodeToggle}>
+              <span><FontAwesomeIcon icon={faSun} /></span>
+              <input
+                id="darkmode-toggle"
+                type="checkbox"
+                checked={DarkMode}
+                onChange={() => { setDarkMode(!DarkMode) }}
+              />
+              <label
+                className="toggle"
+                htmlFor={`darkmode-toggle`}
+              >
+                Toggle
+              </label>
+              <span><FontAwesomeIcon icon={faMoon} /></span>
+            </div>
             {account ? (
               <>
                 {/*<HeaderNotificationMenu />*/}

@@ -20366,10 +20366,13 @@ label:active:after {
 .is__dark .hero__kit,
 .is__dark .bg_white,
 .is__dark .accordion,
+.is__dark .avatar_popup,
 .is__dark .hero__profile .infos {
   background: #183b56 !important;
   border-color: #ffffff1f;
 }
+
+
 
 .is__dark .hero__index::before {
   background: transparent !important;

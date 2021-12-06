@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import closeIcon from 'assets/svgs/close.svg';
+//import closeIcon from 'assets/svgs/close.svg';
 
 import styles from './styles.module.scss';
 
@@ -29,7 +29,7 @@ const Modal = ({
         <div className={styles.header}>
           <div className={styles.title}>{title}</div>
           <div className={styles.closeButton} onClick={onClose}>
-            <img src={closeIcon} />
+          ×
           </div>
         </div>
         <div className={styles.body}>{children}</div>

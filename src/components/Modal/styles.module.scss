@@ -5,7 +5,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
   align-items: center;
   justify-content: center;
@@ -19,10 +19,24 @@
   max-width: 90%;
   width: 600px;
   box-sizing: border-box;
-  border-radius: 10px;
-  background-color: #FFF;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background-color: #fff;
+
   position: relative;
+}
+
+:global {
+  .is__dark {
+    :local {
+      .modal {
+        background: #183b56 !important;
+      }
+      .closeButton {
+        background: #345a77 !important;
+        border: none !important;
+      }
+    }
+  }
 }
 
 .small {
@@ -30,33 +44,40 @@
 }
 
 .header {
-  height: 70px;
-  border-bottom: 1px solid #EAEAF1;
+  height: 24px;
+  /*border-bottom: 1px solid #eaeaf1;*/
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
+  margin-top:24px;
 }
 
 .body {
-  padding: 40px 24px;
+  padding: 24px 24px;
 }
 
 .title {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   color: #121223;
 }
 
 .closeButton {
-  width: 16px;
-  height: 16px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-
-  img {
-    width: 16px;
-    height: 16px;
-  }
+  background: white;
+  border: solid 1px #e2eef1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  font-size: 20px;
+  line-height: 1px;
 }
 
 .footer {
@@ -87,8 +108,8 @@
 }
 
 .submitButton {
-  background-color: #007BFF;
-  color: #FFF;
+  background-color: #007bff;
+  color: #fff;
 }
 
 .disabled {
