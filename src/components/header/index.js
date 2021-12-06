@@ -32,7 +32,7 @@ import iconSwap from 'assets/svgs/swap.svg';
 import styles from './styles.module.scss';
 import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
-import { HeaderNotificationMenu } from './HeaderNotificationMenu';
+//import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 
 const Header = () => {
   const history = useHistory();
@@ -583,7 +583,7 @@ const Header = () => {
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
             {account ? (
               <>
-                <HeaderNotificationMenu />
+                {/*<HeaderNotificationMenu />*/}
                 <HeaderAvatarMenu
                   user={user}
                   loading={loading}

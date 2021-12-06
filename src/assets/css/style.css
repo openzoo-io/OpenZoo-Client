@@ -14462,7 +14462,7 @@ label:active:after {
 }
 
 .header__1 .header__search {
-  background: #e2eef1;
+  background: transparent;
   height: 3rem;
   width: 20rem;
   border-radius: 10px;

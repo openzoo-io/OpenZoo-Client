@@ -2561,13 +2561,13 @@ export function ArtworkDetailPage() {
                       title={
                         auctionStarted
                           ? auctionEnded
-                            ? 'Sale ended'
-                            : `Sale ends in ${formatDuration(
+                            ? 'Auction ended'
+                            : `Auction ends in ${formatDuration(
                                 auction.current.endTime
                               )} (${new Date(
                                 auction.current.endTime * 1000
                               ).toLocaleString()})`
-                          : `Sale starts in ${formatDuration(
+                          : `Auction starts in ${formatDuration(
                               auction.current.startTime
                             )}`
                       }
