@@ -100,6 +100,21 @@ input[type='number'] {
  font-weight: bold;
 }
 
+.is__dark .dropdown-menu
+{
+  background: #0b1b27 !important;
+}
+
+.is__dark .dropdown-item:hover *
+{
+  color:#0b1b27;
+}
+
+.is__dark .recharts-default-tooltip
+{
+  background: #0b1b27 !important;
+}
+
 .rdt
 {
   flex:1;
