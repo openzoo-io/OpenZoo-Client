@@ -254,7 +254,7 @@ export function ArtworkDetailPageDetailSection(props) {
           </div>
           <div className="tab-pane" id="tabs-properties" role="tabpanel">
             {info?.properties && (
-              <ArtworkDetailPagePropertiesView properties={info?.properties} />
+              <ArtworkDetailPagePropertiesView properties={info?.properties} animationUrl={info?.animation_url}/>
             )}
           </div>
           <div className="tab-pane" id="tabs-bundleInfo" role="tabpanel">

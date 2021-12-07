@@ -9,8 +9,16 @@ export function ArtworkDetailPagePropertiesView(props) {
   const { explorerUrl } = useApi();
 
   const res = [];
+
+  res.push(
+    <div key="animation_url" className={styles.property}>
+      <div className={styles.propertyLabel}>animation_url : {props.animationUrl}</div>
+      <div className={styles.propertyValue}></div>
+    </div>
+  );
+
   Object.keys(properties).map((key, idx) => {
-    if (!['address', 'createdAt'].includes(key)) {
+    if (!['address'].includes(key)) {
       res.push(
         <div key={idx} className={styles.property}>
           <div className={styles.propertyLabel}>{key} : </div>

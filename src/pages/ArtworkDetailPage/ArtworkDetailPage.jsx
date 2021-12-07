@@ -44,7 +44,7 @@ import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
-import ReactPlayer from 'react-player';
+import { ArtworkMediaView } from 'components/ArtworkMedia';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
   LineChart,
@@ -2420,7 +2420,7 @@ export function ArtworkDetailPage() {
         <div className="item_details">
           <div className="row sm:space-y-20">
             <div className="col-lg-6">
-              <img className="item_img" src={info?.image} alt="" />
+              <ArtworkMediaView className="item_img" image={info.animation_url?info.animation_url:info?.image} alt="" />
             </div>
 
             <div className="col-lg-6">
@@ -2481,14 +2481,14 @@ export function ArtworkDetailPage() {
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
                     {(collectionRoyalty?.royalty ||
-                      info?.properties?.royalty) && (
+                      info?.properties?.royalty) ? (
                       <div className={styles.royaltyFee}>
                         Royaltee Fee{' '}
                         {collectionRoyalty?.royalty ||
                           info?.properties?.royalty}
                         % goes to creator
                       </div>
-                    )}
+                    ) : ''}
                   </div>
                   <div className="space-x-10 d-flex align-items-center">
                     {isMine && !bundleID && (
