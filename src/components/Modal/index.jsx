@@ -21,7 +21,7 @@ const Modal = ({
   };
 
   return (
-    <div className={cx(styles.container, visible ? styles.visible : null)}>
+    <div  onClick={onClose} className={cx(styles.container, visible ? styles.visible : null)}>
       <div
         className={cx(styles.modal, small && styles.small)}
         onClick={handleClick}

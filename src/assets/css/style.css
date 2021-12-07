@@ -13604,6 +13604,7 @@ label:active:after {
      object-fit: scale-down;
   -webkit-transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.03);
 }
 
 .card__item:hover {
@@ -13805,7 +13806,6 @@ label:active:after {
 }
 
 .card__item.three .card_head, .card__item.four .card_head {
-  max-height: 280px;
   position: relative;
 }
 
@@ -20371,6 +20371,7 @@ label:active:after {
   background: #183b56 !important;
   border-color: #ffffff1f;
 }
+
 
 
 .react-dropdown-select-dropdown

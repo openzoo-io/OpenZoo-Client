@@ -75,3 +75,27 @@ input[type='number'] {
   margin-top: 40px;
   border-radius: 20px;
 }
+
+.MuiPaper-root
+{
+  background: transparent !important;
+}
+
+.MuiPopover-paper
+{
+  background: white !important;
+}
+
+
+.is__dark .MuiPopover-paper
+{
+  background: #0b1b27 !important;
+  color:white;
+}
+
+.is__dark .MuiStepIcon-text
+{
+ color: #0b1b27 !important; 
+ fill: #0b1b27 !important; 
+ font-weight: bold;
+}

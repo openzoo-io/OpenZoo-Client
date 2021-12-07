@@ -6,6 +6,21 @@
   box-shadow: 0 4px 40px rgba(0, 0, 0, .1);
 }
 
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .toast
+      {
+        background-color: #183b56 !important;
+        border: solid 1px #ffffff1f;
+      }
+    }
+  }
+}
+
 .toastInner {
   margin: -4px -10px;
   padding: 24px;

@@ -25,16 +25,22 @@ import toast from 'utils/toast';
 import { useApi } from 'api';
 import { useFactoryContract, getSigner } from 'contracts';
 
-import webIcon from 'assets/svgs/web.svg';
-import discordIcon from 'assets/svgs/discord.svg';
-import telegramIcon from 'assets/svgs/telegram.svg';
-import twitterIcon from 'assets/svgs/twitter.svg';
-import instagramIcon from 'assets/svgs/instagram.svg';
-import mediumIcon from 'assets/svgs/medium.svg';
 import nftIcon from 'assets/svgs/nft_black.svg';
 import uploadIcon from 'assets/imgs/upload.png';
 import plusIcon from 'assets/svgs/plus.svg';
 import closeIcon from 'assets/svgs/close.svg';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGlobe,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faDiscord,
+  faTwitter,
+  faInstagram,
+  faMedium,
+  faTelegramPlane
+} from '@fortawesome/free-brands-svg-icons';
 
 import styles from './styles.module.scss';
 import { formatError, isAddress } from 'utils';
@@ -54,7 +60,7 @@ const CollectionCreate = ({ isRegister }) => {
   const history = useHistory();
 
   const { account } = useWeb3React();
-  
+
   const { apiUrl, getNonce } = useApi();
   const { isModerator } = useSelector(state => state.ConnectWallet);
   const {
@@ -139,7 +145,7 @@ const CollectionCreate = ({ isRegister }) => {
 
       const reader = new FileReader();
 
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         setLogo(e.target.result);
       };
 
@@ -204,7 +210,7 @@ const CollectionCreate = ({ isRegister }) => {
   };
 
   const handleMenuOpen = e => {
-    if (selected.length < 3) {
+    if (selected.length < 2) {
       setAnchorEl(e.currentTarget);
     }
   };
@@ -263,7 +269,7 @@ const CollectionCreate = ({ isRegister }) => {
     setCreating(true);
 
     const img = new Image();
-    img.onload = function() {
+    img.onload = function () {
       const w = this.width;
       const h = this.height;
       const size = Math.min(w, h);
@@ -362,8 +368,8 @@ const CollectionCreate = ({ isRegister }) => {
             ? await getPrivateFactoryContract()
             : await getFactoryContract()
           : isPrivate
-          ? await getPrivateArtFactoryContract()
-          : await getArtFactoryContract(),
+            ? await getPrivateArtFactoryContract()
+            : await getArtFactoryContract(),
         name,
         symbol,
         ethers.utils.parseEther('100'),
@@ -381,7 +387,7 @@ const CollectionCreate = ({ isRegister }) => {
           const address = ethers.utils.hexDataSlice(evt.data, 44);
 
           const img = new Image();
-          img.onload = function() {
+          img.onload = function () {
             const w = this.width;
             const h = this.height;
             const size = Math.min(w, h);
@@ -469,10 +475,10 @@ const CollectionCreate = ({ isRegister }) => {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      transformOrigin={{ vertical: 'top', horizontal: -2 }}
       open={isMenuOpen}
       onClose={handleMenuClose}
       classes={{
@@ -483,9 +489,12 @@ const CollectionCreate = ({ isRegister }) => {
         <MenuItem
           key={idx}
           className={styles.category}
-          onClick={() => selectCategory(cat.id)}
+          onClick={() => {
+            selectCategory(cat.id);
+            handleMenuClose(0);
+          }}
         >
-          <img src={cat.icon} />
+          <img src={cat.icon} className={styles.categoryImage}/>
           <span className={styles.categoryLabel}>{cat.label}</span>
         </MenuItem>
       ))}
@@ -747,7 +756,7 @@ const CollectionCreate = ({ isRegister }) => {
             <div
               className={cx(
                 styles.categoryButton,
-                selected.length === 3 && styles.disabled
+                selected.length === 2 && styles.disabled
               )}
               onClick={handleMenuOpen}
             >
@@ -798,7 +807,7 @@ const CollectionCreate = ({ isRegister }) => {
               )}
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={webIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faGlobe} size="lg"/>
                 </div>
                 <input
                   type="text"
@@ -810,7 +819,8 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={discordIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faDiscord} size="lg"/>
+
                 </div>
                 <input
                   type="text"
@@ -822,7 +832,7 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={twitterIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faTwitter} size="lg"/>
                 </div>
                 <input
                   type="text"
@@ -834,7 +844,7 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={instagramIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faInstagram} size="lg"/>
                 </div>
                 <input
                   type="text"
@@ -846,7 +856,7 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={mediumIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faMedium} size="lg"/>
                 </div>
                 <input
                   type="text"
@@ -858,7 +868,7 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
               <div className={styles.linkItem}>
                 <div className={styles.linkIconWrapper}>
-                  <img src={telegramIcon} className={styles.linkIcon} />
+                  <FontAwesomeIcon icon={faTelegramPlane} size="lg"/>
                 </div>
                 <input
                   type="text"

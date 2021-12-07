@@ -369,6 +369,7 @@ const PaintBoard = () => {
     resetMintingStatus();
   };
 
+
   return (
     <PageLayout containerClassName="form-container-page box">
       <div className={styles.body}>
