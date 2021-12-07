@@ -329,7 +329,7 @@ export const useApi = () => {
       },
     });
     console.log('!2 fetchItemDetails', res.data);
-
+    
     return res.data;
   };
 
