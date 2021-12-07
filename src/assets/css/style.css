@@ -13608,6 +13608,7 @@ label:active:after {
   transform: scale(1.03);
 }
 
+
 .card__item:hover {
   -webkit-transform: translateY(-5px);
           transform: translateY(-5px);
