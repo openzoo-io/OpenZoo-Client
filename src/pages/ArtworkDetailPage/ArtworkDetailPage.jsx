@@ -38,7 +38,6 @@ import {
 } from 'utils';
 import axios from 'axios';
 
-
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 import Loader from 'react-loader-spinner';
@@ -1156,7 +1155,6 @@ export function ArtworkDetailPage() {
   useEffect(() => {
     if (address && tokenID) {
       addEventListeners();
-      
 
       if (fetchInterval) {
         clearInterval(fetchInterval);
@@ -1164,7 +1162,6 @@ export function ArtworkDetailPage() {
 
       updateCollections();
       setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
- 
     }
 
     if (bundleID) {
@@ -2431,7 +2428,7 @@ export function ArtworkDetailPage() {
                 <a
                   className={styles.itemCategory}
                   style={{ cursor: 'pointer' }}
-                  href={'/collection/'+address}
+                  href={'/collection/' + address}
                   /*
                   onClick={() => {
                     history.push('/collection/'+address);
@@ -2447,7 +2444,11 @@ export function ArtworkDetailPage() {
                   */
                 >
                   {collection?.collectionName || collection?.name || ''}
-                  {collection.isVerified ? <FontAwesomeIcon icon={faCheckCircle} /> : ''}
+                  {collection.isVerified ? (
+                    <FontAwesomeIcon icon={faCheckCircle} />
+                  ) : (
+                    ''
+                  )}
                 </a>
                 <h3>{info?.name || ''}</h3>
                 <ArtworkDetailPageStateSection
@@ -2479,11 +2480,15 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
-                    {
-                      (collectionRoyalty?.royalty || info?.properties?.royalty) && <div className={styles.royaltyFee}>
-                      Royaltee Fee {collectionRoyalty?.royalty || info?.properties?.royalty}% goes to creator
-                    </div>
-                    }
+                    {(collectionRoyalty?.royalty ||
+                      info?.properties?.royalty) && (
+                      <div className={styles.royaltyFee}>
+                        Royaltee Fee{' '}
+                        {collectionRoyalty?.royalty ||
+                          info?.properties?.royalty}
+                        % goes to creator
+                      </div>
+                    )}
                   </div>
                   <div className="space-x-10 d-flex align-items-center">
                     {isMine && !bundleID && (
@@ -2505,6 +2510,40 @@ export function ArtworkDetailPage() {
                   </div>
                 </div>
                 <ViewProofButton />
+
+                {hasUnlockable && (
+                  <div className={`${styles.bestBuy} box`}>
+                    <div
+                      className={styles.unlockableLabel}
+                    >{`This item has unlockable content.${
+                      !isMine ? ' Only owners can see the content.' : ''
+                    }`}</div>
+                    {isMine ? (
+                      unlockableContent ? (
+                        <textarea
+                          className={styles.unlockableContent}
+                          value={unlockableContent}
+                          readOnly
+                        />
+                      ) : (
+                        <div
+                          className={cx(
+                            styles.revealBtn,
+                            revealing && styles.disabled
+                          )}
+                          onClick={handleRevealContent}
+                        >
+                          {revealing ? (
+                            <ClipLoader color="#FFF" size={16} />
+                          ) : (
+                            `Reveal Content`
+                          )}
+                        </div>
+                      )
+                    ) : null}
+                  </div>
+                )}
+
                 <ArtworkDetailPageDetailSection
                   info={info}
                   bundleID={bundleID}
