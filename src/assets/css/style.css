@@ -11945,6 +11945,7 @@ textarea,
   -webkit-transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
   transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
   outline: 0;
+
 }
 
 @media screen and (max-width: 576px) {
@@ -20434,9 +20435,14 @@ label:active:after {
   color: #ffffff !important;
 }
 
-.is__dark label,
+/*.is__dark label,*/
 .is__dark .btn-dark,
 .is__dark .header__1 .header__mobile {
+  background: #305571;
+}
+
+.is__dark .rdtPicker
+{
   background: #305571;
 }
 
