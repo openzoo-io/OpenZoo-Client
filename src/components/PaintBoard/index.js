@@ -121,6 +121,7 @@ const PaintBoard = () => {
   const [description, setDescription] = useState('');
   const [royalty, setRoyalty] = useState('');
   const [xtra, setXtra] = useState('');
+  const [animationUrl, setAnimationUrl] = useState('');
   const [supply, setSupply] = useState(0);
   const [hasUnlockableContent, setHasUnlockableContent] = useState(false);
   const [unlockableContent, setUnlockableContent] = useState('');
@@ -204,6 +205,21 @@ const PaintBoard = () => {
     });
   };
 
+  const [isAnimationError, setIsAnimationError] = useState(false);
+  const validateAnimationUrl = (url) =>{
+    url = url.trim();
+    // Check Youtube //
+    var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+    if(url.match(p) || url === ''){
+      setIsAnimationError(false);
+    }
+    else
+    {
+      setIsAnimationError(true);
+    }
+    setAnimationUrl(url);
+  };
+
   const validateMetadata = () => {
     return name !== '' && account !== '' && image;
   };
@@ -238,6 +254,12 @@ const PaintBoard = () => {
 
     if (isBanned) {
       showToast('error', 'You are banned from minting');
+      return;
+    }
+
+    if (isAnimationError)
+    {
+      showToast('error', 'Your Media URL still wrong');
       return;
     }
 
@@ -277,6 +299,7 @@ const PaintBoard = () => {
     formData.append('account', account);
     formData.append('description', description);
     formData.append('symbol', symbol);
+    formData.append('animation_url', animationUrl);
     formData.append('xtra', xtra);
     const _royalty = parseInt(royalty) * 100;
     formData.append('royalty', isNaN(_royalty) ? 0 : _royalty);
@@ -532,6 +555,30 @@ const PaintBoard = () => {
                   }
                   disabled={isMinting}
                 />
+              </div>
+              <div className={styles.formGroup}>
+                <p className={styles.formLabel}>
+                  Media URL (Optional)&nbsp;
+                  <BootstrapTooltip
+                    title="Youtube URL, MP4, 3D Files, MP3"
+                    placement="top"
+                  >
+                    <HelpOutlineIcon />
+                  </BootstrapTooltip>
+                </p>
+                <input
+                  type="text"
+                  className={styles.formInput}
+                  placeholder="Enter Link"
+                  value={animationUrl}
+                  onChange={e => validateAnimationUrl(e.target.value)}
+                  disabled={isMinting}
+                />
+                {
+                  isAnimationError && <div className={styles.lengthIndicator}>
+                  <a className="text-danger">Media Url is wrong!</a>
+                </div>
+                }
               </div>
               <div className={styles.formGroup}>
                 <p className={styles.formLabel}>
