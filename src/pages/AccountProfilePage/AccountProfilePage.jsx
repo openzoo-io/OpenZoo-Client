@@ -624,6 +624,21 @@ export function AccountProfilePage() {
 
   return (
     <div className="overflow-hidden">
+      <FollowersModal
+        visible={followersModalVisible || followingsModalVisible}
+        onClose={() => {
+          setFollowersModalVisible(false);
+          setFollowingsModalVisible(false);
+        }}
+        title={followersModalVisible ? 'Followers' : 'Followings'}
+        users={
+          followersLoading
+            ? new Array(5).fill(null)
+            : followersModalVisible
+            ? followers.current
+            : followings.current
+        }
+      />
       <Header />
       <AccountProfilePageHeader
         loading={loading}
@@ -631,6 +646,8 @@ export function AccountProfilePage() {
         uid={uid}
         user={user}
         isMe={isMe}
+        showFollowers={showFollowers}
+        showFollowings={showFollowings}
         following={following}
         followingInProgress={followingInProgress}
         onClickFollow={followUser}

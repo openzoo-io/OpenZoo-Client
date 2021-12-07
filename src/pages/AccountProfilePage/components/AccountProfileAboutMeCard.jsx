@@ -12,7 +12,7 @@ export function AccountProfileAboutMeCard(props) {
           <Skeleton width="100%" height={200} />
         ) : (
           <>
-            <p>{user?.bio}</p>
+            {user.bio && <p>{user.bio}</p>}
             <div className="row">
               <div className="col-6">
                 <span className="txt_sm color_text">Collections</span>

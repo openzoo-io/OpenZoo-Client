@@ -14,7 +14,7 @@ import Skeleton from 'react-loading-skeleton';
 import { ClipLoader } from 'react-spinners';
 import { makeStyles } from '@material-ui/styles';
 import { useApi } from 'api';
-
+import { formatFollowers } from 'utils';
 const propTypes = {
   loading: PropTypes.bool,
   isMe: PropTypes.bool.isRequired,
@@ -116,6 +116,37 @@ export function AccountProfilePageHeader(props) {
                     <Avatar account={uid} size="lg" user={user} />
                   </div>
                   <h5>{user?.alias ?? 'unnamed'}</h5>
+                </div>
+                <div className="avatars d-flex space-x-20 align-items-center">
+                  <div className="avatar_wrap"></div>
+                  <a
+                    style={{cursor:'pointer'}}
+                    className={styles.followers}
+                    onClick={props.showFollowers}
+                  >
+                    {loading ? (
+                      <Skeleton width={100} height={24} />
+                    ) : (
+                      <>
+                        <b>{formatFollowers(props.user.followers || 0)}</b>{' '}
+                        Followers
+                      </>
+                    )}
+                  </a>
+                  <a
+                   style={{cursor:'pointer'}}
+                    className={styles.followers}
+                    onClick={props.showFollowings}
+                  >
+                    {loading ? (
+                      <Skeleton width={100} height={24} />
+                    ) : (
+                      <>
+                        <b>{formatFollowers(props.user.followings || 0)}</b>{' '}
+                        Following
+                      </>
+                    )}
+                  </a>
                 </div>
               </div>
               <div className="col-md-auto">
