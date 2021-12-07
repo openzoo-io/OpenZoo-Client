@@ -557,6 +557,7 @@ const PaintBoard = () => {
                   Unlockable Content&nbsp;
                   <PurpleSwitch
                     checked={hasUnlockableContent}
+                    
                     onChange={e => {
                       setHasUnlockableContent(e.target.checked);
                       setUnlockableContent('');

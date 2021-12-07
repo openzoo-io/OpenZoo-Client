@@ -105,6 +105,10 @@ input[type='number'] {
   background: #0b1b27 !important;
 }
 
+.is__dark .dropdown-item:hover
+{
+  color:#0b1b27;
+}
 .is__dark .dropdown-item:hover *
 {
   color:#0b1b27;
@@ -118,4 +122,9 @@ input[type='number'] {
 .rdt
 {
   flex:1;
+}
+
+.MuiSwitch-input
+{
+  visibility: visible !important;
 }
