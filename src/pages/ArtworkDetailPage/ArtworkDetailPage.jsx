@@ -172,6 +172,8 @@ export function ArtworkDetailPage() {
     cancelOffer,
     acceptOffer,
     getCollectionRoyalty,
+    getNFTRoyalty,
+    getPlatformFee,
   } = useSalesContract();
   const {
     getAuctionContract,
@@ -238,7 +240,8 @@ export function ArtworkDetailPage() {
   const [collectionLoading, setCollectionLoading] = useState(false);
   const [fetchInterval, setFetchInterval] = useState(null);
   const [collectionRoyalty, setCollectionRoyalty] = useState(null);
-
+  const [nftRoyalty, setNftRoyalty] = useState(null);
+  const [platformFee, setPlatformFee] = useState(null);
   const [transferModalVisible, setTransferModalVisible] = useState(false);
   const [sellModalVisible, setSellModalVisible] = useState(false);
   const [offerModalVisible, setOfferModalVisible] = useState(false);
@@ -1227,6 +1230,34 @@ export function ArtworkDetailPage() {
       setCollectionRoyalty(null);
       return;
     }
+
+    getNFTRoyalty(address, tokenID)
+      .then(res => {
+        //alert(res);
+
+        if (resultAuction) {
+          setNftRoyalty({
+            royalty: res / 100,
+          });
+        } else {
+          setNftRoyalty(null);
+        }
+      })
+      .catch(console.log);
+
+    getPlatformFee()
+      .then(res => {
+        alert(res);
+
+        if (resultAuction) {
+          setPlatformFee({
+            royalty: res / 100,
+          });
+        } else {
+          setPlatformFee(null);
+        }
+      })
+      .catch(console.log);
 
     getCollectionRoyalty(address)
       .then(res => {
@@ -2420,7 +2451,11 @@ export function ArtworkDetailPage() {
         <div className="item_details">
           <div className="row sm:space-y-20">
             <div className="col-lg-6">
-              <ArtworkMediaView className="item_img" image={info.animation_url?info.animation_url:info?.image} alt="" />
+              <ArtworkMediaView
+                className="item_img"
+                image={info.animation_url ? info.animation_url : info?.image}
+                alt=""
+              />
             </div>
 
             <div className="col-lg-6">
@@ -2480,15 +2515,15 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
-                    {(collectionRoyalty?.royalty ||
-                      info?.properties?.royalty) ? (
+                    {collectionRoyalty?.royalty || nftRoyalty?.royalty || platformFee?.royalty ? (
                       <div className={styles.royaltyFee}>
                         Royaltee Fee{' '}
-                        {collectionRoyalty?.royalty ||
-                          info?.properties?.royalty}
-                        % goes to creator
+                        {collectionRoyalty?.royalty || nftRoyalty?.royalty || platformFee?.royalty}%
+                        goes to creator
                       </div>
-                    ) : ''}
+                    ) : (
+                      ''
+                    )}
                   </div>
                   <div className="space-x-10 d-flex align-items-center">
                     {isMine && !bundleID && (

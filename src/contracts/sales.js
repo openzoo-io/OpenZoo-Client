@@ -167,6 +167,16 @@ export const useSalesContract = () => {
     return await contract.collectionRoyalties(nftAddress);
   };
 
+  const getNFTRoyalty = async (nftAddress , tokenId) => {
+    const contract = await getSalesContract();
+    return await contract.royalties(nftAddress, tokenId);
+  };
+
+  const getPlatformFee  = async () => {
+    const contract = await getSalesContract();
+    return await contract.platformFee();
+  };
+
   return {
     getSalesContract,
     buyItemETH,
@@ -179,5 +189,7 @@ export const useSalesContract = () => {
     acceptOffer,
     registerRoyalty,
     getCollectionRoyalty,
+    getNFTRoyalty,
+    getPlatformFee
   };
 };
