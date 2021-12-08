@@ -9,13 +9,14 @@ export function ArtworkMediaView(props) {
   const { image, className } = props;
 
   const styles = useStyle();
-
-  if (image?.includes('youtube')) {
+  const ext = image.split('.').pop();
+  
+  if (["mp4","mp3"].indexOf(ext) != -1) {
     return (
       <div className='player-wrapper'>
       <ReactPlayer
         className={`${cx(styles.mediaInner, className)} react-player`}
-        
+        loop={true}
         url={image}
         controls={true}
         width="100%"

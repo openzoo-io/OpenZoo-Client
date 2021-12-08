@@ -36,8 +36,7 @@ import { Canvas } from "react-three-fiber";
 import { OrbitControls, Stage, Center } from "@react-three/drei";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
-const accept = ['.jpg', '.png', '.gif', '.webp'];
-const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf', 
+
 
 const mintSteps = [
   'Uploading to IPFS',
@@ -82,24 +81,26 @@ const MULTI_NFT_ABI = [
   },
 ];
 
-const PurpleSwitch = withStyles({
-  switchBase: {
-    color: '#00a59a',
-    '&$checked': {
-      color: '#00a59a',
-    },
-    '&$checked + $track': {
-      backgroundColor: '#00a59aaa',
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
+
 
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const accept = ['.jpg', '.png', '.gif', '.webp'];
+  const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf', 
+  const PurpleSwitch = withStyles({
+    switchBase: {
+      color: '#00a59a',
+      '&$checked': {
+        color: '#00a59a',
+      },
+      '&$checked + $track': {
+        backgroundColor: '#00a59aaa',
+      },
+    },
+    checked: {},
+    track: {},
+  })(Switch);
   const {
     explorerUrl,
     apiUrl,
