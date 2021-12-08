@@ -316,7 +316,7 @@ const PaintBoard = () => {
 
         let result = await axios({
           method: 'post',
-          url: `${apiUrl}/ipfs/uploadImage2Server222`, //TODO: need to change endpoint
+          url: `${apiUrl}/ipfs/uploadMedia2Server`, //TODO: need to change endpoint
           data: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -324,7 +324,7 @@ const PaintBoard = () => {
           },
         });
 
-        animation_url = result.data.animation_url;
+        animation_url = result.data;
       }
 
 
