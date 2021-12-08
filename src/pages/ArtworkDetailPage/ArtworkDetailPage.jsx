@@ -1247,7 +1247,7 @@ export function ArtworkDetailPage() {
 
     getPlatformFee()
       .then(res => {
-        alert(res);
+        //alert(res);
 
         if (resultAuction) {
           setPlatformFee({

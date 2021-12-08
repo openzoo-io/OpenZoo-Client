@@ -323,23 +323,21 @@ const PaintBoard = () => {
             Authorization: 'Bearer ' + authToken,
           },
         });
-
-        animation_url = result.data;
+        console.log('Media result',result);
+        animation_url = result.data.data;
       }
 
 
 
       let formData = new FormData();
+      
       const base64 = await imageToBase64();
-      if (media) {
-        formData.append('animation_url', animation_url);
-      }
       formData.append('image', base64);
       formData.append('name', name);
       formData.append('account', account);
       formData.append('description', description);
       formData.append('symbol', symbol);
-
+      formData.append('animation_url', animation_url);
       formData.append('xtra', xtra);
       const _royalty = parseInt(royalty) * 100;
       formData.append('royalty', isNaN(_royalty) ? 0 : _royalty);
