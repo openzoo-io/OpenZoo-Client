@@ -23,8 +23,9 @@
 }
 
 .uploadCont {
+  min-height: 100px;
   height: 100%;
-  border: 2px dashed rgba(0, 0, 0, .6);
+  border: 2px dashed rgba(0, 0, 0, 0.6);
   border-radius: 8px;
   box-sizing: border-box;
   display: flex;
@@ -34,18 +35,15 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
   position: relative;
 }
 
-:global
-{
-  .is__dark
-  {
-    :local
-    {
+:global {
+  .is__dark {
+    :local {
       .uploadCont {
-        border: 2px dashed rgba(255, 255, 255, .6);
+        border: 2px dashed rgba(255, 255, 255, 0.6);
       }
     }
   }
@@ -56,14 +54,29 @@
   height: 100%;
   object-fit: contain;
 }
-
+:global {
+  .react-player video {
+    border-radius: 8px !important;
+  }
+}
+.cornerClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 99;
+  cursor: pointer;
+}
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, .4);
+  background-color: rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,9 +90,9 @@
 }
 
 .remove {
-  width: 50px;
-  height: 50px;
-  color: #3D3D3D;
+  width: 50px !important;
+  height: 50px !important;
+  color: #3d3d3d;
 }
 
 .browse {
@@ -110,7 +123,7 @@
 .input {
   width: 100%;
   border-radius: 5px;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   padding: 0 22px 12px;
   margin-bottom: 20px;
 }
@@ -146,7 +159,7 @@
   margin-left: 12px;
   font-weight: 500;
   font-size: 16px;
-  color: #3D3D3D;
+  color: #3d3d3d;
 }
 
 .button {
@@ -159,7 +172,7 @@
   font-weight: 700;
   font-size: 18px;
   background-color: #ffc107;
-  color: #FFF;
+  color: #fff;
   box-shadow: none;
   display: flex;
   align-items: center;
@@ -171,7 +184,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3D3D3D;
+  color: #3d3d3d;
   opacity: 0.6;
 }
 
@@ -200,7 +213,7 @@
 .formLabel {
   margin: 0 0 8px;
   font-size: 18px;
-  color: #3D3D3D;
+  color: #3d3d3d;
   display: flex;
   align-items: center;
 }
@@ -226,7 +239,7 @@
   margin-top: 6px;
   margin-right: 6px;
   text-align: right;
-  color: rgba(0, 0, 0, .6);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .disabled {
@@ -237,7 +250,7 @@
 
 :global {
   .tui-image-editor {
-    border: 1px solid rgba(0, 0, 0, .2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -252,7 +265,7 @@
 .warningIcon {
   width: 100px !important;
   height: 100px !important;
-  color: #E15A5A;
+  color: #e15a5a;
 }
 
 .warningTitle {
@@ -260,7 +273,7 @@
   font-weight: 500;
   font-size: 24px;
   text-align: center;
-  color: #3D3D3D;
+  color: #3d3d3d;
 }
 
 .switchButton {
@@ -309,5 +322,24 @@
 
   .panelLeft {
     margin-right: 0;
+  }
+}
+
+canvas {
+  height: 300px !important;
+  max-width: 100% !important;
+  border-radius: 8px;
+  background:gray !important;
+}
+:global
+.is__dark
+{
+  :local
+  {
+    canvas
+    {
+      background:#0b1b27 !important;
+
+    }
   }
 }

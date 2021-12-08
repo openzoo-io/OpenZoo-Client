@@ -126,6 +126,8 @@ input[type='number'] {
 
 .MuiSwitch-input
 {
+  width:60px !important;
+  height:30px !important;
   visibility: visible !important;
 }
 
@@ -138,4 +140,15 @@ input[type='number'] {
   position: absolute;
   top: 0;
   left: 0;
+
+}
+
+.react-player iframe
+{
+  border-radius: 20px;
+}
+
+.react-player video
+{
+  border-radius:20px;
 }

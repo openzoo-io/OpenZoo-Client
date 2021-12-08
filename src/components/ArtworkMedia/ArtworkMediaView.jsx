@@ -12,14 +12,15 @@ export function ArtworkMediaView(props) {
 
   if (image?.includes('youtube')) {
     return (
-      <div className="player-wrapper">
-        <ReactPlayer
-          className="react-player"
-          url={image}
-          controls={false}
-          width="100%"
-          height="100%"
-        />
+      <div className='player-wrapper'>
+      <ReactPlayer
+        className={`${cx(styles.mediaInner, className)} react-player`}
+        
+        url={image}
+        controls={true}
+        width="100%"
+        height="100%"
+      />
       </div>
     );
   } else {

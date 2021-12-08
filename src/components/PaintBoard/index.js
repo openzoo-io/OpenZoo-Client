@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import cx from 'classnames';
@@ -7,6 +7,7 @@ import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { BigNumber, ethers } from 'ethers';
 import { useDropzone } from 'react-dropzone';
+import Dropzone from "react-dropzone";
 import Skeleton from 'react-loading-skeleton';
 // import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
@@ -30,7 +31,13 @@ import { useSalesContract, getSigner } from 'contracts';
 import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
 
-const accept = ['image/*'];
+import ReactPlayer from 'react-player';
+import { Canvas } from "react-three-fiber";
+import { OrbitControls, Stage, Center } from "@react-three/drei";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+
+const accept = ['.jpg', '.png', '.gif', '.webp'];
+const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf', 
 
 const mintSteps = [
   'Uploading to IPFS',
@@ -108,12 +115,15 @@ const PaintBoard = () => {
   const { account, chainId } = useWeb3React();
 
   const imageRef = useRef();
+  const imageMediaRef = useRef();
 
   const [selected, setSelected] = useState([]);
   const [collections, setCollections] = useState([]);
   const [nft, setNft] = useState();
   const [type, setType] = useState();
   const [image, setImage] = useState(null);
+  const [media, setMedia] = useState(null);
+  const [mediaExt, setMediaExt] = useState('');
   const [fee, setFee] = useState(null);
 
   const [name, setName] = useState('');
@@ -121,7 +131,7 @@ const PaintBoard = () => {
   const [description, setDescription] = useState('');
   const [royalty, setRoyalty] = useState('');
   const [xtra, setXtra] = useState('');
-  const [animationUrl, setAnimationUrl] = useState('');
+  ///const [animationUrl, setAnimationUrl] = useState('');
   const [supply, setSupply] = useState(0);
   const [hasUnlockableContent, setHasUnlockableContent] = useState(false);
   const [unlockableContent, setUnlockableContent] = useState('');
@@ -174,6 +184,16 @@ const PaintBoard = () => {
     dispatch(HeaderActions.toggleSearchbar(true));
   }, []);
 
+  // For Media URL //
+  const removeMedia = () => {
+    setMedia(null);
+    if (imageMediaRef.current) {
+      imageMediaRef.current.value = '';
+    }
+  };
+
+
+  // For main Image //
   const onDrop = useCallback(acceptedFiles => {
     setImage(acceptedFiles[0]);
   }, []);
@@ -205,19 +225,17 @@ const PaintBoard = () => {
     });
   };
 
-  const [isAnimationError, setIsAnimationError] = useState(false);
-  const validateAnimationUrl = (url) =>{
-    url = url.trim();
-    // Check Youtube //
-    var p = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-    if(url.match(p) || url === ''){
-      setIsAnimationError(false);
-    }
-    else
-    {
-      setIsAnimationError(true);
-    }
-    setAnimationUrl(url);
+  const mediaToBase64 = () => {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(media);
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = err => {
+        reject(err);
+      };
+    });
   };
 
   const validateMetadata = () => {
@@ -257,12 +275,6 @@ const PaintBoard = () => {
       return;
     }
 
-    if (isAnimationError)
-    {
-      showToast('error', 'Your Media URL still wrong');
-      return;
-    }
-
     setLastMintedTnxId('');
     // show stepper
     setIsMinting(true);
@@ -279,7 +291,7 @@ const PaintBoard = () => {
       const { data: nonce } = await getNonce(account, authToken);
       try {
         const signer = await getSigner();
-        const msg = `Approve Signature on Artion.io with nonce ${nonce}`;
+        const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
@@ -292,18 +304,46 @@ const PaintBoard = () => {
       }
     }
 
-    let formData = new FormData();
-    const base64 = await imageToBase64();
-    formData.append('image', base64);
-    formData.append('name', name);
-    formData.append('account', account);
-    formData.append('description', description);
-    formData.append('symbol', symbol);
-    formData.append('animation_url', animationUrl);
-    formData.append('xtra', xtra);
-    const _royalty = parseInt(royalty) * 100;
-    formData.append('royalty', isNaN(_royalty) ? 0 : _royalty);
+    // Upload Media First //
     try {
+      let animation_url = '';
+      if (media) {
+        let formData = new FormData();
+        
+        const mediaBase64 = await mediaToBase64();
+        formData.append('media', mediaBase64);
+        formData.append('mediaExt', mediaExt);
+
+        let result = await axios({
+          method: 'post',
+          url: `${apiUrl}/ipfs/uploadImage2Server222`, //TODO: need to change endpoint
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + authToken,
+          },
+        });
+
+        animation_url = result.data.animation_url;
+      }
+
+
+
+      let formData = new FormData();
+      const base64 = await imageToBase64();
+      if (media) {
+        formData.append('animation_url', animation_url);
+      }
+      formData.append('image', base64);
+      formData.append('name', name);
+      formData.append('account', account);
+      formData.append('description', description);
+      formData.append('symbol', symbol);
+
+      formData.append('xtra', xtra);
+      const _royalty = parseInt(royalty) * 100;
+      formData.append('royalty', isNaN(_royalty) ? 0 : _royalty);
+
       let result = await axios({
         method: 'post',
         url: `${apiUrl}/ipfs/uploadImage2Server`,
@@ -392,9 +432,31 @@ const PaintBoard = () => {
     resetMintingStatus();
   };
 
+  const [threeScence, setThreeScence] = useState(null);
+  const ThreeScence = (file) => {
+
+
+    const reader = new FileReader();
+    reader.addEventListener('load', function (event) {
+
+      const contents = event.target.result;
+
+      const loader = new GLTFLoader();
+      loader.parse(contents, '', function (gltf) {
+
+        const scene = gltf.scene;
+        console.log(scene);
+        setThreeScence(scene);
+      });
+
+    }, false);
+    reader.readAsArrayBuffer(file);
+  };
+
 
   return (
     <PageLayout containerClassName="form-container-page box">
+
       <div className={styles.body}>
         <div className={styles.board}>
           <div {...getRootProps({ className: styles.uploadCont })}>
@@ -421,7 +483,7 @@ const PaintBoard = () => {
                   </span>
                 </div>
                 <div className={styles.uploadsubtitle}>
-                  JPG, PNG, BMP, GIF Max 15mb.
+                  JPG, PNG, GIF, WEBP Max 15mb.
                 </div>
               </>
             )}
@@ -558,27 +620,100 @@ const PaintBoard = () => {
               </div>
               <div className={styles.formGroup}>
                 <p className={styles.formLabel}>
-                  Media URL (Optional)&nbsp;
-                  <BootstrapTooltip
-                    title="Youtube URL, MP4, 3D Files, MP3"
-                    placement="top"
-                  >
-                    <HelpOutlineIcon />
-                  </BootstrapTooltip>
+                  Media URL (Optional)
                 </p>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  placeholder="Enter Link"
-                  value={animationUrl}
-                  onChange={e => validateAnimationUrl(e.target.value)}
-                  disabled={isMinting}
-                />
+                <Dropzone onDrop={(acceptedFiles) => {
+                  console.log(acceptedFiles[0]);
+
+                  let re = /(?:\.([^.]+))?$/;
+                  let ext = re.exec(acceptedFiles[0].name)[1];
+
+                  if (ext) {
+                    setMediaExt(ext.toLowerCase());
+                    setMedia(acceptedFiles[0]);
+                    console.log(URL.createObjectURL(acceptedFiles[0]));
+                    // for 3d //
+                    if (ext === 'glb')// || ext === 'gltf')
+                      ThreeScence(acceptedFiles[0]);
+                  }
+                  else {
+                    setMediaExt(null);
+                    setMedia(null);
+                  }
+                }} name="mediaURL" multiple={false} maxSize="52428800"
+                  accept={media_accept.join(', ')}
+                >
+                  {({ getRootProps, getInputProps }) => (
+
+                    !media && (
+                      <div {...getRootProps({ className: styles.uploadCont })} >
+                        <input {...getInputProps()} ref={imageMediaRef} />
+                        <div className={styles.uploadtitle}>
+                          Drop files here or&nbsp;
+                          <span
+                            className={styles.browse}
+                            onClick={() => {
+                              imageMediaRef.current?.click();
+                              setThreeScence(null);
+                            }}
+                          >
+                            browse
+                          </span>
+                        </div>
+                        <div className={styles.uploadsubtitle}>
+                          MP3, MP4, GLB Max 50mb.
+                        </div>
+                      </div>
+                    )
+
+                  )}
+                </Dropzone>
+
                 {
-                  isAnimationError && <div className={styles.lengthIndicator}>
-                  <a className="text-danger">Media Url is wrong!</a>
-                </div>
+                  media && <div className={styles.uploadCont}>
+                    {
+                      ["mp4"].includes(mediaExt) && <div className='player-wrapper' style={{ width: '100%' }}>
+                        <ReactPlayer
+                          className={`${cx(styles.mediaInner)} react-player`}
+                          url={URL.createObjectURL(media)}
+                          controls={true}
+                          width="100%"
+                          height="100%"
+                        />
+                      </div>
+                    }
+                    {
+                      ["mp3"].includes(mediaExt) && <div style={{ width: '100%' }}>
+                        <ReactPlayer
+                          className={`${cx(styles.mediaInner)} react-player`}
+                          url={URL.createObjectURL(media)}
+                          controls={true}
+                          width="100%"
+                          height="100%"
+                        />
+                      </div>
+                    }
+                    {
+                      ["glb"].includes(mediaExt) && threeScence && <Canvas camera={{ fov: 50, near: 0.1, far: 2000 }}>
+
+                        <Suspense fallback={null}>
+                          <Center alignTop={false}>
+                            <Stage>
+                              <primitive object={threeScence} />
+                            </Stage>
+                          </Center>
+                        </Suspense>
+
+                        <OrbitControls autoRotate={true} />
+                      </Canvas>
+                    }
+                    <div className={styles.cornerClose}>
+                      <CloseIcon className={styles.remove} onClick={removeMedia} />
+                    </div>
+
+                  </div>
                 }
+
               </div>
               <div className={styles.formGroup}>
                 <p className={styles.formLabel}>
@@ -604,7 +739,7 @@ const PaintBoard = () => {
                   Unlockable Content&nbsp;
                   <PurpleSwitch
                     checked={hasUnlockableContent}
-                    
+
                     onChange={e => {
                       setHasUnlockableContent(e.target.checked);
                       setUnlockableContent('');
