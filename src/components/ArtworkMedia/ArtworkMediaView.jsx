@@ -54,7 +54,7 @@ export function ArtworkMediaView(props) {
     //const { scene } = useGLTF(image);
 
     return (
-      <div style={{ maxHeight: 676, height: '100%' }}>
+      <div style={{ maxHeight: 676, height: '100%',minHeight:320 }}>
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
           <Suspense fallback={null}>
             <Stage intensity={0.5} preset="upfront">
