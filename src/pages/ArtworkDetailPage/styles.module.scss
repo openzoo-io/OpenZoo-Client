@@ -362,9 +362,8 @@
 .liking {
   color: #007bff;
 }
-.royaltyFee
-{
-  flex:none;
+.royaltyFee {
+  flex: none;
 }
 .favIcon {
   width: 16px !important;
@@ -1095,5 +1094,15 @@
   .moreItem {
     width: calc(100vw - 130px);
     flex-basis: calc(100vw - 130px);
+  }
+}
+
+:global {
+  .artwork_detial_page {
+    canvas {
+      height: 100% !important;
+      max-width: 100% !important;
+      background: gray !important;
+    }
   }
 }

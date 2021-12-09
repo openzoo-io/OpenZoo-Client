@@ -1170,7 +1170,7 @@ export function ArtworkDetailPage() {
     if (bundleID) {
       addBundleEventListeners();
     }
-
+    
     setInterval(() => {
       setNow(new Date());
     }, 1000);
@@ -2442,7 +2442,7 @@ export function ArtworkDetailPage() {
   }
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden artwork_detail_page">
       <Header />
       <div className="container">
         <Link to="/explore" className="btn btn-white btn-sm my-40">
