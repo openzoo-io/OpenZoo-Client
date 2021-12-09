@@ -14321,7 +14321,6 @@ label:active:after {
 .header__1 {
   position: relative;
   background: #ffffff;
-  border-bottom: solid 1px #e2eef1;
   width: 100%;
   white-space: nowrap;
 }
