@@ -4,12 +4,14 @@ import ReactPlayer from 'react-player';
 import Loader from 'components/Loader';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Stage,useAnimations } from '@react-three/drei';
+import { Canvas,useLoader } from '@react-three/fiber';
+import { OrbitControls, Stage,useAnimations } from '@react-three/drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+
 
 function Model({ url }) {
-  const { scene, animations } = useGLTF(url);
-  
+  const { scene, animations } = useLoader(GLTFLoader, url)
+
   
   const copiedScene = useMemo(() => {
     return scene.clone();
