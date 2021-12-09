@@ -6,8 +6,12 @@ import Skeleton from 'react-loading-skeleton';
 import Identicon from 'components/Identicon';
 import { Link } from 'react-router-dom';
 import { DropdownButton } from 'components/DropdownButton';
+import { ClipLoader } from 'react-spinners';
+import Panel from 'components/Panel';
 
 import styles from '../styles.module.scss';
+import { ViewModule as ViewModuleIcon } from '@material-ui/icons';
+import { AssetCard } from 'components/NFTAssetCard/AssetCard';
 
 const filtersItems = [
   { id: 0, label: 'Trade History' },
@@ -21,6 +25,8 @@ export function ArtworkDetailPageHistorySection(props) {
     tokenType,
     tradeHistory,
     transferHistory,
+    moreItems,
+    loading,
     onFilterChange,
   } = props;
   const { bundleID } = useParams();
@@ -152,7 +158,7 @@ export function ArtworkDetailPageHistorySection(props) {
             );
           })}
         </div>
-        {/* {!bundleID && (
+        {!bundleID && (
           <div className={styles.panelWrapper}>
             <Panel
               title="More from this collection"
@@ -168,7 +174,7 @@ export function ArtworkDetailPageHistorySection(props) {
                   <div className={styles.itemsList}>
                     {moreItems?.map((item, idx) => (
                       <div key={idx} className={styles.moreItem}>
-                        <NFTCard item={item} />
+                        <AssetCard preset="three" item={item} />
                       </div>
                     ))}
                   </div>
@@ -176,7 +182,7 @@ export function ArtworkDetailPageHistorySection(props) {
               </div>
             </Panel>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

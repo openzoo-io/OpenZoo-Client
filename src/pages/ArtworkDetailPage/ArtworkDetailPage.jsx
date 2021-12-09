@@ -3244,6 +3244,8 @@ export function ArtworkDetailPage() {
             </div>
           </div>
           <ArtworkDetailPageHistorySection
+            moreItems={moreItems.current}
+            loading={loading}
             historyLoading={historyLoading}
             tokenType={tokenType}
             tradeHistory={tradeHistory.current}
