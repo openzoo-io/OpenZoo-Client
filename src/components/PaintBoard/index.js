@@ -205,7 +205,7 @@ const PaintBoard = () => {
   // For Media URL //
   const removeMedia = () => {
     setMedia(null);
-
+    setMediaExt('');
     if (imageMediaRef.current) {
       imageMediaRef.current.value = '';
     }
@@ -332,10 +332,11 @@ const PaintBoard = () => {
         const mediaBase64 = await mediaToBase64();
         formData.append('media', mediaBase64);
         formData.append('mediaExt', mediaExt);
-
+        //console.log(mediaBase64);
+        //console.log(mediaExt);
         let result = await axios({
           method: 'post',
-          url: `${apiUrl}/ipfs/uploadMedia2Server`, //TODO: need to change endpoint
+          url: `${apiUrl}/ipfs/uploadMedia2Server`, 
           data: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -724,9 +725,9 @@ const PaintBoard = () => {
                     }
                     {
                       ["glb"].includes(mediaExt) && threeScence &&
-                      <Canvas camera={{ fov: 50, near: 0.1, far: 2000 }}  className="create-3dcanvas">
+                      <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}  className="create-3dcanvas">
                         <Suspense fallback={null}>
-                          <Stage>
+                          <Stage intensity={0.5} preset="upfront">
 
                             <Model scene={threeScence} animations={threeAnimations} />
 
