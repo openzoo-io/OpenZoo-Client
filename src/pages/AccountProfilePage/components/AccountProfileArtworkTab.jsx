@@ -50,28 +50,6 @@ const TabListComponent = props => {
             </li>
           ))}
         </ul>
-        <div className="dropdown d-none d-sm-block">
-          <button
-            className="btn btn-white btn-sm dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Recent Active
-          </button>
-          <div className="dropdown-menu">
-            <a className="dropdown-item" href="#">
-              Action
-            </a>
-            <a className="dropdown-item" href="#">
-              Another action
-            </a>
-            <a className="dropdown-item" href="#">
-              Something else here
-            </a>
-          </div>
-        </div>
       </div>
     </>
   );

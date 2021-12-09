@@ -6,7 +6,8 @@ import Skeleton from 'react-loading-skeleton';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import { formatDateTimeAgo } from 'utils';
-import styles from '../../AccountDetails/styles.module.scss';
+import cx from 'classnames';
+import styles from '../styles.module.scss';
 
 export function AccountProfileMyOffersList(props) {
   const { bids, bidsLoading, now } = props;
@@ -38,13 +39,13 @@ export function AccountProfileMyOffersList(props) {
 
   return (
     <>
-      <div className={styles.activityHeader}>
+      <div className={cx(styles.activityHeader)}>
         <div className={styles.name}>Item</div>
         <div className={styles.price}>Price</div>
         <div className={styles.quantity}>Quantity</div>
         <div className={styles.date}>Date</div>
       </div>
-      <div className={styles.activityList}>
+      <div className={cx('bg-white', styles.activityList)}>
         {(bidsLoading
           ? new Array(5).fill(null)
           : bids?.filter(bid => bid.deadline * 1000 > now.getTime())

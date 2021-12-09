@@ -33,7 +33,7 @@ import CollectionsActions from 'actions/collections.actions';
 import IconHeart from 'assets/icons/iconHeart';
 import IconClock from 'assets/icons/iconClock';
 
-import styles from '../AccountDetails/styles.module.scss';
+import styles from './styles.module.scss';
 import { Footer } from 'components/Footer';
 import {
   AccountProfileAboutMeCard,

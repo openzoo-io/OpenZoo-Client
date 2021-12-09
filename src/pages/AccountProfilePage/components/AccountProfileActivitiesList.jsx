@@ -7,7 +7,8 @@ import Skeleton from 'react-loading-skeleton';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import { formatDateTimeAgo, shortenAddress } from 'utils';
-import styles from '../../AccountDetails/styles.module.scss';
+import cx from 'classnames';
+import styles from '../styles.module.scss';
 
 export function AccountProfileActivitiesList(props) {
   const { activityLoading, activities } = props;
@@ -38,7 +39,7 @@ export function AccountProfileActivitiesList(props) {
   };
 
   return (
-    <div className={styles.tableWapper}>
+    <div className={cx('bg-white', styles.tableWapper)}>
       <div className={styles.activityHeader}>
         <div className={styles.event}>Event</div>
         <div className={styles.name}>Item</div>

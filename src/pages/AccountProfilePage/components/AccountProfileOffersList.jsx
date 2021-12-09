@@ -7,7 +7,8 @@ import Skeleton from 'react-loading-skeleton';
 import ReactPlayer from 'react-player';
 import { Link } from 'react-router-dom';
 import { formatDateTimeAgo, shortenAddress } from 'utils';
-import styles from '../../AccountDetails/styles.module.scss';
+import cx from 'classnames';
+import styles from '../styles.module.scss';
 
 export function AccountProfileOffersList(props) {
   const { offers, offersLoading, now } = props;
@@ -46,7 +47,7 @@ export function AccountProfileOffersList(props) {
         <div className={styles.quantity}>Quantity</div>
         <div className={styles.date}>Date</div>
       </div>
-      <div className={styles.activityList}>
+      <div className={cx('bg-white', styles.activityList)}>
         {(offersLoading
           ? new Array(5).fill(null)
           : offers?.filter(offer => offer.deadline * 1000 > now.getTime())
