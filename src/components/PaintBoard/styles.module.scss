@@ -324,13 +324,20 @@
     margin-right: 0;
   }
 }
-
-canvas {
-  height: 300px !important;
-  max-width: 100% !important;
-  border-radius: 8px;
-  background:gray !important;
+:global
+.create-3dcanvas 
+{
+  :local
+  {
+    canvas {
+      height: 300px !important;
+      max-width: 100% !important;
+      border-radius: 8px;
+      background:gray !important;
+    }
+  }
 }
+
 :global
 .is__dark
 {

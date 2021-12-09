@@ -4,22 +4,26 @@ import ReactPlayer from 'react-player';
 import Loader from 'components/Loader';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Stage,useAnimations } from '@react-three/drei';
 
 function Model({ url }) {
-  const { scene } = useLoader(GLTFLoader, url);
-
+  const { scene, animations } = useGLTF(url);
+  
+  
   const copiedScene = useMemo(() => {
-    console.log(scene);
     return scene.clone();
   }, [scene]);
+
+  const { names, actions } = useAnimations(animations, scene);
+  if (names[0])
+  actions[names[0]].play()
+ 
 
   if (copiedScene) {
     return (
       <>
-        <primitive object={copiedScene} />
+        <primitive object={scene} />
       </>
     );
   } else {
@@ -58,7 +62,7 @@ export function ArtworkMediaView(props) {
             </Stage>
           </Suspense>
 
-          <OrbitControls autoRotate={true} />
+          <OrbitControls makeDefault  autoRotate={true}/>
         </Canvas>
       </div>
     );

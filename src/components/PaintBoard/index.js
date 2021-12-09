@@ -33,7 +33,7 @@ import { PageLayout } from 'components/Layouts';
 
 import ReactPlayer from 'react-player';
 import { Canvas } from "react-three-fiber";
-import { OrbitControls, Stage, Center } from "@react-three/drei";
+import { OrbitControls, Stage, useAnimations } from "@react-three/drei";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 
@@ -81,7 +81,24 @@ const MULTI_NFT_ABI = [
   },
 ];
 
+function Model({ scene, animations }) {
 
+  console.log('In Modal Scene', scene);
+  console.log('In Modal Animations', animations);
+
+
+  const { names, actions } = useAnimations(animations, scene);
+  if (names[0])
+    actions[names[0]].play()
+
+
+  return (
+    <>
+      <primitive object={scene} />
+    </>
+  );
+
+}
 
 const PaintBoard = () => {
   const dispatch = useDispatch();
@@ -188,6 +205,7 @@ const PaintBoard = () => {
   // For Media URL //
   const removeMedia = () => {
     setMedia(null);
+
     if (imageMediaRef.current) {
       imageMediaRef.current.value = '';
     }
@@ -310,7 +328,7 @@ const PaintBoard = () => {
       let animation_url = '';
       if (media) {
         let formData = new FormData();
-        
+
         const mediaBase64 = await mediaToBase64();
         formData.append('media', mediaBase64);
         formData.append('mediaExt', mediaExt);
@@ -324,14 +342,14 @@ const PaintBoard = () => {
             Authorization: 'Bearer ' + authToken,
           },
         });
-        console.log('Media result',result);
+        console.log('Media result', result);
         animation_url = result.data.data;
       }
 
 
 
       let formData = new FormData();
-      
+
       const base64 = await imageToBase64();
       formData.append('image', base64);
       formData.append('name', name);
@@ -431,9 +449,12 @@ const PaintBoard = () => {
     resetMintingStatus();
   };
 
-  const [threeScence, setThreeScence] = useState(null);
-  const ThreeScence = (file) => {
+  const [threeScence, setThreeScence] = useState([]);
+  const [threeAnimations, setThreeAnimations] = useState([]);
 
+
+
+  const ThreeScence = (file) => {
 
     const reader = new FileReader();
     reader.addEventListener('load', function (event) {
@@ -444,13 +465,21 @@ const PaintBoard = () => {
       loader.parse(contents, '', function (gltf) {
 
         const scene = gltf.scene;
-        console.log(scene);
+
+        const animations = gltf.animations;
+
+        console.log('Scene', scene);
+        console.log('animations', animations);
         setThreeScence(scene);
+        setThreeAnimations(animations)
+        //animations[0].play();
       });
 
     }, false);
     reader.readAsArrayBuffer(file);
   };
+
+
 
 
   return (
@@ -654,6 +683,7 @@ const PaintBoard = () => {
                             onClick={() => {
                               imageMediaRef.current?.click();
                               setThreeScence(null);
+                              setThreeAnimations(null);
                             }}
                           >
                             browse
@@ -693,17 +723,16 @@ const PaintBoard = () => {
                       </div>
                     }
                     {
-                      ["glb"].includes(mediaExt) && threeScence && <Canvas camera={{ fov: 50, near: 0.1, far: 2000 }}>
-
+                      ["glb"].includes(mediaExt) && threeScence &&
+                      <Canvas camera={{ fov: 50, near: 0.1, far: 2000 }}  className="create-3dcanvas">
                         <Suspense fallback={null}>
-                          <Center alignTop={false}>
-                            <Stage>
-                              <primitive object={threeScence} />
-                            </Stage>
-                          </Center>
-                        </Suspense>
+                          <Stage>
 
-                        <OrbitControls autoRotate={true} />
+                            <Model scene={threeScence} animations={threeAnimations} />
+
+                          </Stage>
+                        </Suspense>
+                        <OrbitControls makeDefault autoRotate={true} />
                       </Canvas>
                     }
                     <div className={styles.cornerClose}>

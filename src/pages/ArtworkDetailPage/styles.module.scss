@@ -1097,11 +1097,18 @@
   }
 }
 
+canvas {
+  max-height: 676px !important;
+  max-width: 100% !important;
+  background: gray !important;
+  height: 100% !important;
+  border-radius: 20px;
+}
 
-  canvas {
-    max-height: 676px !important;
-    max-width: 100% !important;
-    background: gray !important;
-    height:100% !important;
+:global .is__dark {
+  :local {
+    canvas {
+      background: #0b1b27 !important;
+    }
   }
-
+}
