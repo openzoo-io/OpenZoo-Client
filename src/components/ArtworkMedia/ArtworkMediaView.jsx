@@ -5,7 +5,7 @@ import Loader from 'components/Loader';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { Canvas,useLoader } from '@react-three/fiber';
-import { OrbitControls, Stage,useAnimations } from '@react-three/drei';
+import { OrbitControls, Stage,useAnimations,useProgress,Html } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 
@@ -20,7 +20,7 @@ function Model({ url }) {
   const { names, actions } = useAnimations(animations, scene);
   if (names[0])
   actions[names[0]].play()
- 
+  
 
   if (copiedScene) {
     return (
@@ -33,11 +33,18 @@ function Model({ url }) {
   }
 }
 
+function Loader3D() {
+  const { progress } = useProgress()
+  return <Html center style={{color:'white'}}>{progress.toFixed(2)}%</Html>
+}
+
 export function ArtworkMediaView(props) {
   const { image, className } = props;
 
   const styles = useStyle();
   const ext = image ? image.split('.').pop() : '';
+
+
 
   if (['mp4', 'mp3'].indexOf(ext) != -1) {
     return (
@@ -55,10 +62,12 @@ export function ArtworkMediaView(props) {
   } else if (['glb'].indexOf(ext) != -1) {
     //const { scene } = useGLTF(image);
 
+
+
     return (
       <div style={{ maxHeight: 676, height: '100%',minHeight:320 }}>
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
-          <Suspense fallback={null}>
+          <Suspense fallback={<Loader3D/>}>
             <Stage intensity={0.5} preset="upfront">
               <Model url={image} />
             </Stage>
