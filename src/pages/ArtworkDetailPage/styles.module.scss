@@ -1097,12 +1097,11 @@
   }
 }
 
-:global {
-  .artwork_detial_page {
-    canvas {
-      height: 100% !important;
-      max-width: 100% !important;
-      background: gray !important;
-    }
+
+  canvas {
+    max-height: 676px !important;
+    max-width: 100% !important;
+    background: gray !important;
+    height:100% !important;
   }
-}
+

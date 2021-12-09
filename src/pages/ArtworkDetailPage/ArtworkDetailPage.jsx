@@ -1170,10 +1170,10 @@ export function ArtworkDetailPage() {
     if (bundleID) {
       addBundleEventListeners();
     }
-    
+
     setInterval(() => {
       setNow(new Date());
-    }, 1000);
+    }, 5000);
 
     return () => {
       if (address && tokenID) {

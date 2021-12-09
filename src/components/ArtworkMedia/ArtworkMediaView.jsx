@@ -1,18 +1,40 @@
 import SuspenseImg from 'components/SuspenseImg';
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import ReactPlayer from 'react-player';
 import Loader from 'components/Loader';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { Canvas } from 'react-three-fiber';
-import { OrbitControls, Stage, Center, useGLTF } from '@react-three/drei';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { OrbitControls, Stage } from '@react-three/drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
+function Model({ url }) {
+  const { scene } = useLoader(
+    GLTFLoader,
+    url
+  );
+
+  const copiedScene = useMemo(() => {
+    console.log(scene);
+    return scene.clone();
+  }, [scene]);
+
+  if (copiedScene) {
+    return (
+      <>
+        <primitive object={copiedScene} />
+      </>
+    );
+  } else {
+    return <></>;
+  }
+}
 
 export function ArtworkMediaView(props) {
   const { image, className } = props;
 
   const styles = useStyle();
   const ext = image ? image.split('.').pop() : '';
-
 
   if (['mp4', 'mp3'].indexOf(ext) != -1) {
     return (
@@ -28,20 +50,21 @@ export function ArtworkMediaView(props) {
       </div>
     );
   } else if (['glb'].indexOf(ext) != -1) {
-    const { scene } = useGLTF(image);
+    //const { scene } = useGLTF(image);
 
-      return (
+    return (
+      <div style={{ maxHeight: 676, height:'100%' }}>
         <Canvas camera={{ fov: 50, near: 0.1, far: 2000 }}>
-          <Center alignTop={false}>
+          <Suspense fallback={null}>
             <Stage>
-              <Suspense fallback={null}>
-                <primitive object={scene} />
-              </Suspense>
+              <Model url={image}/>
             </Stage>
-          </Center>
+          </Suspense>
+
           <OrbitControls autoRotate={true} />
         </Canvas>
-      );
+      </div>
+    );
   } else {
     return (
       <Suspense
