@@ -28,10 +28,6 @@ function AccountProfileArtworksListComponent(props) {
     [props.items, props.count, props.loading]
   );
 
-  const handleOnLike = () => {
-    //
-  };
-
   return (
     <div className="tab-content">
       <div className="tab-pane active">
@@ -41,7 +37,7 @@ function AccountProfileArtworksListComponent(props) {
               key={item?.tokenID + index.toString()}
               className="col-xl-4 col-lg-6 col-md-6"
             >
-              <AssetCard preset="three" item={item} onLike={handleOnLike} />
+              <AssetCard preset="three" item={item} />
             </div>
           ))}
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>

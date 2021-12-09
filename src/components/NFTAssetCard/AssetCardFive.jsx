@@ -10,13 +10,16 @@ import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
-  loading: PropTypes.object,
+  info: PropTypes.object,
+  liked: PropTypes.number,
+  isLike: PropTypes.bool,
+  loading: PropTypes.bool,
   style: PropTypes.object,
   onLike: PropTypes.func,
 };
 
 export function AssetCardFive(props) {
-  const { item } = props;
+  const { item, info } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
@@ -42,7 +45,7 @@ export function AssetCardFive(props) {
       <div className="card_body space-y-10 space-x-10 d-flex">
         <div className="card_head">
           <Link to={assetUrl}>
-            <ArtworkMediaView image={item?.imageURL ?? ExampleImage} alt="" />
+            <ArtworkMediaView image={info?.image ?? item?.imageURL ?? ExampleImage} alt="" />
           </Link>
           <div className="details d-flex justify-content-between">
             <div className="progress">
@@ -60,7 +63,7 @@ export function AssetCardFive(props) {
         <div className="d-flex flex-column justify-content-center w-100 space-y-10">
           <h6>
             <Link to={assetUrl} className={'color_black'}>
-              {item?.name}
+              {info?.name ?? item?.name}
             </Link>
           </h6>
           <div className="hr"></div>

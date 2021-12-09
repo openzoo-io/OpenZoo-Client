@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Skeleton from 'react-loading-skeleton';
@@ -9,9 +9,16 @@ import { AssetCardThree } from './AssetCardThree';
 
 import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 import faker from 'faker';
+import { useApi } from 'api';
+import { useSelector } from 'react-redux';
+import { getRandomIPFS } from 'utils';
+import { useAuctionContract } from 'contracts';
+import useTokens from 'hooks/useTokens';
+import { ethers } from 'ethers';
+import axios from 'axios';
 
 const propTypes = {
-  preset: PropTypes.oneOf('two', 'three', 'four', 'five'),
+  preset: PropTypes.oneOf(['two', 'three', 'four', 'five']),
   item: PropTypes.object.isRequired,
   loading: PropTypes.object,
   style: PropTypes.object,
@@ -42,19 +49,173 @@ const fakerAsset = () => {
 };
 
 function AssetCardComponent(props) {
-  const { preset, item, ...rest } = props;
+  const { preset, item, loading, onLike, ...rest } = props;
+
+  const { likeItem, likeBundle } = useApi();
+  const { getAuction } = useAuctionContract();
+  const { getTokenByAddress } = useTokens();
+  const { authToken } = useSelector(state => state.ConnectWallet);
+
+  const [fetching, setFetching] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
+  const [liked, setLiked] = useState(0);
+  const [isLike, setIsLike] = useState(false);
+  const [info, setInfo] = useState(null);
+  const [auction, setAuction] = useState(null);
 
   // TODO: delete faker code
   const _item = item && Object.keys(item).length > 0 ? item : fakerAsset();
 
+  useEffect(() => {
+    async function fetchMyAPI() {
+      if (item && !item.name) {
+        await getTokenURI(item.tokenURI);
+      }
+      if (item) {
+        if (item.imageURL) {
+          // eslint-disable-next-line require-atomic-updates
+          item.imageURL = getRandomIPFS(item.imageURL);
+        }
+
+        setLiked(item.liked);
+        if (item.items) {
+          setAuction(null);
+        } else {
+          getCurrentAuction();
+        }
+      }
+    }
+    fetchMyAPI();
+  }, [item]);
+
+  useEffect(() => {
+    if (item?.isLiked != null) {
+      setIsLike(item.isLiked);
+    }
+  }, [item?.isLiked]);
+
+  const getTokenURI = async tokenURI => {
+    setFetching(true);
+    try {
+      tokenURI = getRandomIPFS(tokenURI);
+
+      const { data } = await axios.get(tokenURI);
+
+      if (data[Object.keys(data)[0]].image) {
+        data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
+        data.name = data[Object.keys(data)[0]].name;
+      }
+
+      if (data.properties && data.properties.image) {
+        data.image = getRandomIPFS(data.properties.image.description);
+      }
+
+      setInfo(data);
+    } catch {
+      setInfo(null);
+    }
+    setFetching(false);
+  };
+
+  const getCurrentAuction = async () => {
+    try {
+      const _auction = await getAuction(item.contractAddress, item.tokenID);
+      if (_auction.endTime !== 0) {
+        const token = getTokenByAddress(_auction.payToken);
+        _auction.reservePrice = parseFloat(
+          ethers.utils.formatUnits(_auction.reservePrice, token.decimals)
+        );
+        _auction.token = token;
+        setAuction(_auction);
+      }
+    } catch {
+      //
+    }
+  };
+
+  const toggleFavorite = async () => {
+    if (isLiking) return;
+
+    setIsLiking(true);
+    try {
+      if (item.items) {
+        const { data } = await likeBundle(item._id, authToken);
+        setLiked(data);
+      } else {
+        const { data } = await likeItem(
+          item.contractAddress,
+          item.tokenID,
+          authToken
+        );
+        setLiked(data);
+      }
+    } catch (err) {
+      console.log('toggleFavorite err', err);
+    }
+    setIsLike(!isLike);
+    setIsLiking(false);
+  };
+
+  const handleClickLike = () => {
+    if (onLike) {
+      onLike(props.item);
+    } else {
+      toggleFavorite();
+    }
+  };
+
   if (preset === 'two') {
-    return <AssetCardTwo item={_item} {...rest} />;
+    return (
+      <AssetCardTwo
+        item={_item}
+        info={info}
+        liked={liked}
+        isLike={isLike}
+        auction={auction}
+        loading={fetching || loading}
+        onLike={handleClickLike}
+        {...rest}
+      />
+    );
   } else if (preset === 'three') {
-    return <AssetCardThree item={_item} {...rest} />;
+    return (
+      <AssetCardThree
+        item={_item}
+        info={info}
+        liked={liked}
+        isLike={isLike}
+        auction={auction}
+        loading={fetching || loading}
+        onLike={handleClickLike}
+        {...rest}
+      />
+    );
   } else if (preset === 'four') {
-    return <AssetCardFour item={_item} {...rest} />;
+    return (
+      <AssetCardFour
+        item={_item}
+        info={info}
+        liked={liked}
+        isLike={isLike}
+        auction={auction}
+        loading={fetching || loading}
+        onLike={handleClickLike}
+        {...rest}
+      />
+    );
   } else if (preset === 'five') {
-    return <AssetCardFive item={_item} {...rest} />;
+    return (
+      <AssetCardFive
+        item={_item}
+        info={info}
+        liked={liked}
+        isLike={isLike}
+        auction={auction}
+        loading={fetching || loading}
+        onLike={handleClickLike}
+        {...rest}
+      />
+    );
   }
 
   return (

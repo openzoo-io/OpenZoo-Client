@@ -3,17 +3,21 @@ import PropTypes from 'prop-types';
 import { StackAvatars } from 'components/Avatar/StackAvatars';
 import { Link } from 'react-router-dom';
 import { formatNumber } from 'utils';
+import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
-  loading: PropTypes.object,
+  info: PropTypes.object,
+  liked: PropTypes.number,
+  isLike: PropTypes.bool,
+  loading: PropTypes.bool,
   style: PropTypes.object,
   onLike: PropTypes.func,
 };
 
 export function AssetCardThree(props) {
-  const { item } = props;
+  const { item, info, liked, isLike } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
@@ -23,15 +27,17 @@ export function AssetCardThree(props) {
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <ArtworkMediaView image={item?.imageURL} />
+            <ArtworkMediaView image={info?.image || item?.imageURL} />
           </Link>
 
           <div
             className="cursor-pointer likes space-x-3"
             onClick={props.onLike}
           >
-            <i className="ri-heart-3-fill"></i>
-            <span className="txt_sm">{item?.liked ?? 0}</span>
+            <i
+              className={cx(isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line')}
+            ></i>
+            <span className="txt_sm">{liked || item?.liked || 0}</span>
           </div>
           <div className="action">
             <a
@@ -47,7 +53,7 @@ export function AssetCardThree(props) {
         </div>
         <h6 className="card_title">
           <Link to={assetUrl} className="color_black">
-            {item?.name}
+            {info?.name || item?.name}
           </Link>
         </h6>
 
@@ -66,7 +72,7 @@ export function AssetCardThree(props) {
             <p className="color_text txt_sm" style={{ width: 'auto' }}>
               Highest bid
             </p>
-            <span className="color_black txt_sm">0.0022 ETH</span>
+            <span className="color_black txt_sm">0.0022 WAN</span>
           </a>
         </div>
       </div>

@@ -10,13 +10,16 @@ import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
-  loading: PropTypes.object,
+  info: PropTypes.object,
+  liked: PropTypes.number,
+  isLike: PropTypes.bool,
+  loading: PropTypes.bool,
   style: PropTypes.object,
   onLike: PropTypes.func,
 };
 
 export function AssetCardTwo(props) {
-  const { item } = props;
+  const { info, item } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
@@ -40,7 +43,7 @@ export function AssetCardTwo(props) {
       <div className="card_body space-y-10">
         <div className="card_head">
           <Link to={assetUrl}>
-            <ArtworkMediaView image={item?.imageURL} alt="" />
+            <ArtworkMediaView image={info?.image ?? item?.imageURL} alt="" />
           </Link>
           <div className="block_timer">
             <div className="d-flex justify-content-center align-items-center">
@@ -78,7 +81,7 @@ export function AssetCardTwo(props) {
         </div>
         <h6 className="card_title">
           <Link className="color_black" to={assetUrl}>
-            {item?.name}
+            {info?.name ?? item?.name}
           </Link>
         </h6>
         <div className="hr"></div>

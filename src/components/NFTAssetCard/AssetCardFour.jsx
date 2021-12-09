@@ -4,17 +4,21 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
+import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
-  loading: PropTypes.object,
+  info: PropTypes.object,
+  liked: PropTypes.number,
+  isLike: PropTypes.bool,
+  loading: PropTypes.bool,
   style: PropTypes.object,
   onLike: PropTypes.func,
 };
 
 export function AssetCardFour(props) {
-  const { item } = props;
+  const { item, info, liked, isLike } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
@@ -62,21 +66,23 @@ export function AssetCardFour(props) {
         </div>
         <div className="card_head">
           <Link to={assetUrl}>
-            <ArtworkMediaView image={item?.imageURL} alt="" />
+            <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
           </Link>
 
           <div
             className="cursor-pointer likes space-x-3"
             onClick={props.onLike}
           >
-            <i className="ri-heart-3-fill"></i>
-            <span className="txt_sm">{item?.liked ?? 0}</span>
+            <i
+              className={cx(isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line')}
+            ></i>
+            <span className="txt_sm">{liked || item?.liked || 0}</span>
           </div>
         </div>
 
         <h6 className="card_title">
           <Link to={assetUrl} className={'color_black'}>
-            {item?.name}
+            {info?.name || item?.name}
           </Link>
         </h6>
 

@@ -35,12 +35,14 @@ export function ExplorePageArtworksSection(props) {
 
   return (
     <div className="row mb-30_reset" ref={props.ref}>
-      {props.items?.map((item, index) => (
+      {props.items?.map(item => (
         <div
-          key={'explore-artwork-item-' + index.toString()}
+          key={
+            item.items ? item._id : `${item.contractAddress}-${item.tokenID}`
+          }
           className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
         >
-          <AssetCard preset="four" item={item} />
+          <AssetCard preset="four" item={item} isLiked={item.isLiked} />
         </div>
       ))}
       {!props.loading &&
