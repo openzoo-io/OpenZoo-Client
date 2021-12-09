@@ -9,9 +9,9 @@ export function ArtworkMediaView(props) {
   const { image, className } = props;
 
   const styles = useStyle();
-  const ext = image.split('.').pop();
+  const ext = image?.split('.').pop();
   
-  if (["mp4","mp3"].indexOf(ext) != -1) {
+  if (ext != null && ["mp4","mp3"].indexOf(ext) != -1) {
     return (
       <div className='player-wrapper'>
       <ReactPlayer
