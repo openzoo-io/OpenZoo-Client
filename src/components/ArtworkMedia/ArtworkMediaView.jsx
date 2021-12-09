@@ -9,7 +9,7 @@ export function ArtworkMediaView(props) {
   const { image, className } = props;
 
   const styles = useStyle();
-  const ext = image.split('.').pop();
+  const ext = image && image.split('.').pop();
   
   if (["mp4","mp3"].indexOf(ext) != -1) {
     return (
