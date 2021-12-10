@@ -1100,9 +1100,10 @@
 canvas {
   max-height: 676px !important;
   max-width: 100% !important;
-  background: gray !important;
+  background: white !important;
   height: 100% !important;
   border-radius: 20px;
+  border:solid 1px #e2eef1;
 }
 
 :global .is__dark {
