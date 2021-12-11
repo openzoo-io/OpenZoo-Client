@@ -49,12 +49,13 @@ export function CollectionList() {
   const conRef = useRef();
 
   // Reset to unfilterd //
+  /*
   useEffect(() => {
-    
+    return () => {
       dispatch(FilterActions.updateCollectionsFilter([]));
-    
+    };
   }, []);
-
+*/
   const [fetchInterval, setFetchInterval] = useState(null);
   const [cancelSource, setCancelSource] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
