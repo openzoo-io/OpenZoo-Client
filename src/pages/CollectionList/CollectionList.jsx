@@ -50,9 +50,9 @@ export function CollectionList() {
 
   // Reset to unfilterd //
   useEffect(() => {
-    return () => {
+    
       dispatch(FilterActions.updateCollectionsFilter([]));
-    };
+    
   }, []);
 
   const [fetchInterval, setFetchInterval] = useState(null);
