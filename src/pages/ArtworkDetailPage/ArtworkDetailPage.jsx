@@ -56,7 +56,7 @@ import {
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
 import {
@@ -114,6 +114,7 @@ import {
   useZooBoosterContract,
   useZooElixirContract,
 } from 'contracts/zookeeper';
+import { AssetCard } from 'components/NFTAssetCard/AssetCard';
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -2449,136 +2450,14 @@ export function ArtworkDetailPage() {
           Back to Explore
         </Link>
         <div className="item_details">
-          <div className="row sm:space-y-20">
-            <div className="col-lg-6">
-              <ArtworkMediaView
-                className="item_img"
-                image={info.animation_url ? info.animation_url : info?.image}
-                alt=""
-              />
-            </div>
-
+          <div className="row md:space-y-20">
             <div className="col-lg-6">
               <div className="space-y-20">
-                <a
-                  className={styles.itemCategory}
-                  style={{ cursor: 'pointer' }}
-                  href={'/collection/' + address}
-                  /*
-                  onClick={() => {
-                    history.push('/collection/'+address);
-                    
-                    collection?.erc721Address &&
-                      dispatch(
-                        FilterActions.updateCollectionsFilter([
-                          collection.erc721Address,
-                        ])
-                      );
-                      
-                  }}
-                  */
-                >
-                  {collection?.collectionName || collection?.name || ''}
-                  {collection.isVerified ? (
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  ) : (
-                    ''
-                  )}
-                </a>
-                <h3>{info?.name || ''}</h3>
-                <ArtworkDetailPageStateSection
-                  data={{
-                    ownerInfoLoading,
-                    tokenOwnerLoading,
-                    owner,
-                    tokenInfo,
-                    tokenType,
-                    bundleID,
-                    ownerInfo,
-                    isMine,
-                    holders,
-                    views,
-                  }}
-                  setOwnersModalVisible={setOwnersModalVisible}
+                <ArtworkMediaView
+                  className="item_img"
+                  image={info.animation_url ? info.animation_url : info?.image}
+                  alt=""
                 />
-                <div className="d-flex justify-content-between">
-                  <div className="space-x-10 d-flex align-items-center">
-                    <p>1 of 1</p>
-                    <div
-                      className="cursor-pointer likes space-x-3"
-                      onClick={toggleFavorite}
-                    >
-                      <i
-                        className={cx(
-                          isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line'
-                        )}
-                      ></i>
-                      <span className="txt_sm">{formatNumber(liked || 0)}</span>
-                    </div>
-                    {collectionRoyalty?.royalty || nftRoyalty?.royalty || platformFee?.royalty ? (
-                      <div className={styles.royaltyFee}>
-                        Royaltee Fee{' '}
-                        {collectionRoyalty?.royalty || nftRoyalty?.royalty || platformFee?.royalty}%
-                        goes to creator
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                  <div className="space-x-10 d-flex align-items-center">
-                    {isMine && !bundleID && (
-                      <div
-                        className={cx(
-                          'rounded-circle bg-white',
-                          styles.itemMenuBtn
-                        )}
-                        onClick={onTransferClick}
-                      >
-                        <RedeemIcon
-                          src={shareIcon}
-                          className={styles.itemMenuIcon}
-                        />
-                      </div>
-                    )}
-                    <ShareButton onShare={handleOnShare} />
-                    <ReportButton />
-                  </div>
-                </div>
-                <ViewProofButton />
-
-                {hasUnlockable && (
-                  <div className={`${styles.bestBuy} box`}>
-                    <div
-                      className={styles.unlockableLabel}
-                    >{`This item has unlockable content.${
-                      !isMine ? ' Only owners can see the content.' : ''
-                    }`}</div>
-                    {isMine ? (
-                      unlockableContent ? (
-                        <textarea
-                          className={styles.unlockableContent}
-                          value={unlockableContent}
-                          readOnly
-                        />
-                      ) : (
-                        <div
-                          className={cx(
-                            styles.revealBtn,
-                            revealing && styles.disabled
-                          )}
-                          onClick={handleRevealContent}
-                        >
-                          {revealing ? (
-                            <ClipLoader color="#FFF" size={16} />
-                          ) : (
-                            `Reveal Content`
-                          )}
-                        </div>
-                      )
-                    ) : null}
-                  </div>
-                )}
-
                 <ArtworkDetailPageDetailSection
                   info={info}
                   bundleID={bundleID}
@@ -2622,15 +2501,178 @@ export function ArtworkDetailPage() {
                   handleAcceptOffer={handleAcceptOffer}
                   handleCancelOffer={handleCancelOffer}
                   setOfferModalVisible={setOfferModalVisible}
+                  onTransferClick={onTransferClick}
                 />
+              </div>
+            </div>
 
+            <div className="col-lg-6">
+              <div className="space-y-20">
+                <div className="row space-y-10">
+                  <div className="col-sm-10 space-y-10">
+                    <div className="d-flex">
+                      <a
+                        className={cx(
+                          styles.itemCategory,
+                          'btn rounded-pill bg_brand'
+                        )}
+                        style={{ cursor: 'pointer' }}
+                        href={'/collection/' + address}
+                        /*
+                    onClick={() => {
+                      history.push('/collection/'+address);
+                      
+                      collection?.erc721Address &&
+                        dispatch(
+                          FilterActions.updateCollectionsFilter([
+                            collection.erc721Address,
+                          ])
+                        );
+                        
+                    }}
+                    */
+                      >
+                        {collection?.collectionName || collection?.name || ''}
+                        {collection.isVerified ? (
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        ) : (
+                          ''
+                        )}
+                      </a>
+                    </div>
+                    <div>
+                      <h3>{info?.name || ''}</h3>
+                      <small className="color_text">1 edition</small>
+                    </div>
+                  </div>
+                  <div className="col-sm-2 space-y-5">
+                    <div
+                      className="cursor-pointer likes space-x-3 justify-content-center"
+                      onClick={toggleFavorite}
+                    >
+                      <i
+                        className={cx(
+                          isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line'
+                        )}
+                      ></i>
+                      <span className="txt_sm">{formatNumber(liked || 0)}</span>
+                    </div>
+                    <small className="color_text">
+                      <FontAwesomeIcon icon={faEye} color="#A2A2AD" />
+                      &nbsp;
+                      {isNaN(views) ? (
+                        <Skeleton width={80} height={20} />
+                      ) : (
+                        `${formatNumber(views)} view${views !== 1 ? 's' : ''}`
+                      )}
+                    </small>
+                  </div>
+                </div>
                 <ArtworkDetailPagePriceSection
                   bestListing={bestListing}
                   prices={prices}
+                  account={account}
+                  buyingItem={buyingItem}
+                  bundleID={bundleID}
+                  isMine={isMine}
+                  auction={auction}
+                  auctionCanceling={auctionCanceling}
+                  cancelCurrentAuction={cancelCurrentAuction}
+                  auctionCancelConfirming={auctionCancelConfirming}
+                  hasListing={hasListing}
+                  tokenType={tokenType}
+                  auctionStarting={auctionStarting}
+                  auctionUpdating={auctionUpdating}
+                  auctionEnded={auctionEnded}
+                  setAuctionModalVisible={setAuctionModalVisible}
+                  auctionStartConfirming={auctionStartConfirming}
+                  auctionUpdateConfirming={auctionUpdateConfirming}
+                  cancelingListing={cancelingListing}
+                  cancelList={cancelList}
+                  cancelListingConfirming={cancelListingConfirming}
+                  listingItem={listingItem}
+                  myHolding={myHolding}
+                  priceUpdating={priceUpdating}
+                  setSellModalVisible={setSellModalVisible}
+                  listingConfirming={listingConfirming}
+                  tokenInfo={tokenInfo}
+                  offerPlacing={offerPlacing}
+                  offerCanceling={offerCanceling}
+                  handleBuyBundle={handleBuyBundle}
+                  handleCancelOffer={handleCancelOffer}
+                  setOfferModalVisible={setOfferModalVisible}
+                  offerConfirming={offerConfirming}
+                  hasMyOffer={hasMyOffer}
+                  handleBuyItem={handleBuyItem}
                 />
+                <ArtworkDetailPageStateSection
+                  data={{
+                    ownerInfoLoading,
+                    tokenOwnerLoading,
+                    owner,
+                    tokenInfo,
+                    tokenType,
+                    bundleID,
+                    ownerInfo,
+                    isMine,
+                    holders,
+                    views,
+                    creator,
+                    creatorInfo,
+                    creatorInfoLoading,
+                  }}
+                  setOwnersModalVisible={setOwnersModalVisible}
+                />
+                <div className="d-flex justify-content-between">
+                  <div className="space-x-10 d-flex align-items-center">
+                    {collectionRoyalty?.royalty ||
+                    nftRoyalty?.royalty ||
+                    platformFee?.royalty ? (
+                      <div className={styles.royaltyFee}>
+                        Royaltee Fee{' '}
+                        {collectionRoyalty?.royalty ||
+                          nftRoyalty?.royalty ||
+                          platformFee?.royalty}
+                        % goes to creator
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
 
-                <div className="hr2"></div>
-                <ArtworkDetailPageCreatorSection />
+                {hasUnlockable && (
+                  <div className={`${styles.bestBuy} box`}>
+                    <div
+                      className={styles.unlockableLabel}
+                    >{`This item has unlockable content.${
+                      !isMine ? ' Only owners can see the content.' : ''
+                    }`}</div>
+                    {isMine ? (
+                      unlockableContent ? (
+                        <textarea
+                          className={styles.unlockableContent}
+                          value={unlockableContent}
+                          readOnly
+                        />
+                      ) : (
+                        <div
+                          className={cx(
+                            styles.revealBtn,
+                            revealing && styles.disabled
+                          )}
+                          onClick={handleRevealContent}
+                        >
+                          {revealing ? (
+                            <ClipLoader color="#FFF" size={16} />
+                          ) : (
+                            `Reveal Content`
+                          )}
+                        </div>
+                      )
+                    ) : null}
+                  </div>
+                )}
 
                 {(winner || auction.current?.resulted === false) && (
                   <div className={`${styles.panelWrapper} boxNoPad`}>
@@ -2812,9 +2854,21 @@ export function ArtworkDetailPage() {
                   </div>
                 )}
                 <div className={`${styles.panelWrapper} boxNoPad`}>
-                  <Panel title="Listings" icon={LocalOfferIcon} expanded>
+                  <Panel
+                    title="Listings"
+                    icon={LocalOfferIcon}
+                    expanded
+                    containerClassName="px-20 border-none"
+                    headerClassName="px-0"
+                  >
                     <div className={styles.listings}>
-                      <div className={cx(styles.listing, styles.heading)}>
+                      <div
+                        className={cx(
+                          styles.listing,
+                          styles.heading,
+                          'bg-white'
+                        )}
+                      >
                         <div className={styles.owner}>From</div>
                         <div className={styles.price}>Price</div>
                         {tokenInfo?.totalSupply > 1 && (
@@ -2952,12 +3006,24 @@ export function ArtworkDetailPage() {
                     </div>
                   </Panel>
                 </div>
-                <div className={`${styles.panelWrapper} boxNoPad`}>
-                  <Panel title="Direct Offers" icon={TocIcon} expanded>
+                <div className={`${styles.panelWrapper} boxNoPad rounded-15`}>
+                  <Panel
+                    title="Direct Offers"
+                    icon={TocIcon}
+                    expanded
+                    containerClassName="px-20 border-none"
+                    headerClassName="px-0"
+                  >
                     <div className={styles.offers}>
                       {offers.current.length ? (
                         <>
-                          <div className={cx(styles.offer, styles.heading)}>
+                          <div
+                            className={cx(
+                              styles.offer,
+                              styles.heading,
+                              'bg-white'
+                            )}
+                          >
                             <div className={styles.owner}>From</div>
                             <div className={styles.price}>Price</div>
                             {tokenInfo?.totalSupply > 1 && (
@@ -3106,153 +3172,44 @@ export function ArtworkDetailPage() {
                     </div>
                   </Panel>
                 </div>
-
-                <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
-                  <div></div>
-                  {bestListing &&
-                    bestListing?.owner.toLocaleLowerCase() !==
-                      account?.toLocaleLowerCase() && (
-                      <TxButton
-                        className={cx(
-                          'btn btn-primary btn-lg',
-                          buyingItem && styles.disabled
-                        )}
-                        onClick={
-                          bundleID
-                            ? handleBuyBundle
-                            : () => handleBuyItem(bestListing)
-                        }
-                      >
-                        Buy Now
-                      </TxButton>
-                    )}
-                  {isMine && (
-                    <>
-                      {auction.current?.resulted === false ? (
-                        <div
-                          className={cx(
-                            'btn btn-primary btn-lg',
-                            styles.headerButton,
-                            auctionCanceling && styles.disabled
-                          )}
-                          onClick={cancelCurrentAuction}
-                        >
-                          {auctionCancelConfirming ? (
-                            <ClipLoader color="#FFF" size={16} />
-                          ) : (
-                            'Cancel Auction'
-                          )}
-                        </div>
-                      ) : null}
-                      {!bundleID &&
-                        (!auction.current || !auction.current.resulted) &&
-                        !hasListing &&
-                        tokenType.current !== 1155 && (
-                          <div
-                            className={cx(
-                              'btn btn-primary btn-lg',
-                              styles.headerButton,
-                              (auctionStarting ||
-                                auctionUpdating ||
-                                auctionEnded) &&
-                                styles.disabled
-                            )}
-                            onClick={() => {
-                              !auctionEnded && setAuctionModalVisible(true);
-                            }}
-                          >
-                            {auctionStartConfirming ||
-                            auctionUpdateConfirming ? (
-                              <ClipLoader color="#FFF" size={16} />
-                            ) : auction.current ? (
-                              'Update Auction'
-                            ) : (
-                              'Start Auction'
-                            )}
-                          </div>
-                        )}
-                      {(!auction.current || auction.current.resulted) && (
-                        <>
-                          {hasListing ? (
-                            <div
-                              className={cx(
-                                'btn btn-primary btn-lg',
-                                styles.headerButton,
-                                cancelingListing && styles.disabled
-                              )}
-                              onClick={cancelList}
-                            >
-                              {cancelListingConfirming ? (
-                                <ClipLoader color="#FFF" size={16} />
-                              ) : (
-                                'Cancel Listing'
-                              )}
-                            </div>
-                          ) : null}
-                          <div
-                            className={cx(
-                              'btn btn-primary btn-lg',
-                              styles.headerButton,
-                              (listingItem || priceUpdating) && styles.disabled
-                            )}
-                            onClick={() =>
-                              !(listingItem || priceUpdating)
-                                ? setSellModalVisible(true)
-                                : null
-                            }
-                          >
-                            {listingConfirming ? (
-                              <ClipLoader color="#FFF" size={16} />
-                            ) : hasListing ? (
-                              'Update Listing'
-                            ) : (
-                              'Sell'
-                            )}
-                          </div>
-                        </>
-                      )}
-                    </>
-                  )}
-                  {(!isMine ||
-                    (tokenType.current === 1155 &&
-                      myHolding.supply < tokenInfo.totalSupply)) &&
-                    (!auction.current || auction.current.resulted) && (
-                      <TxButton
-                        className={cx(
-                          'btn btn-primary btn-lg',
-                          (offerPlacing || offerCanceling) && styles.disabled
-                        )}
-                        data-toggle="modal"
-                        data-target="#popup_bid"
-                        onClick={
-                          hasMyOffer
-                            ? handleCancelOffer
-                            : () => setOfferModalVisible(true)
-                        }
-                      >
-                        {offerConfirming ? (
-                          <ClipLoader color="#FFF" size={16} />
-                        ) : hasMyOffer ? (
-                          'Withdraw Offer'
-                        ) : (
-                          'Make Offer'
-                        )}
-                      </TxButton>
-                    )}
-                </div>
+                <ArtworkDetailPageHistorySection
+                  moreItems={moreItems.current}
+                  loading={loading}
+                  historyLoading={historyLoading}
+                  tokenType={tokenType}
+                  tradeHistory={tradeHistory.current}
+                  transferHistory={transferHistory.current}
+                  onFilterChange={handleSelectFilter}
+                />
               </div>
             </div>
           </div>
-          <ArtworkDetailPageHistorySection
-            moreItems={moreItems.current}
-            loading={loading}
-            historyLoading={historyLoading}
-            tokenType={tokenType}
-            tradeHistory={tradeHistory.current}
-            transferHistory={transferHistory.current}
-            onFilterChange={handleSelectFilter}
-          />
         </div>
+        {!bundleID && (
+          <div className={styles.panelWrapper}>
+            <Panel
+              title="More from this collection"
+              icon={ViewModuleIcon}
+              responsive
+            >
+              <div className={styles.panelBody}>
+                {loading ? (
+                  <div className={styles.loadingIndicator}>
+                    <ClipLoader color="#007BFF" size={16} />
+                  </div>
+                ) : (
+                  <div className={styles.itemsList}>
+                    {moreItems.current?.map((item, idx) => (
+                      <div key={idx} className={styles.moreItem}>
+                        <AssetCard preset="three" item={item} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Panel>
+          </div>
+        )}
       </div>
       <Footer />
       <TransferModal

@@ -265,8 +265,7 @@
 .itemCategory {
   font-size: 18px;
   font-weight: bold;
-  color: #00a59a !important;
-  margin-right: 110px;
+  color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -664,7 +663,6 @@
 }
 
 .histories {
-  margin-top: 40px;
   max-height: 458px;
   overflow-x: auto;
   overflow-y: auto;
@@ -682,13 +680,16 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   &.heading {
-    height: 38px;
-    border-bottom: none;
+    height: 50px;
 
     .from,
     .to {
       color: inherit;
     }
+  }
+
+  &:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   &:last-child {
@@ -799,7 +800,7 @@
   min-width: 550px;
   margin: 20px 0;
   border-radius: 10px;
-  border: 1px solid #eaeaf1;
+  // border: 1px solid #eaeaf1;
   box-sizing: border-box;
   overflow: hidden;
   background-color: white;
@@ -845,9 +846,9 @@
 }
 
 .tokenLogo {
-  width: 24px;
-  height: 24px;
-  margin-right: 8px;
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
 
   img {
     width: 100%;
@@ -952,6 +953,23 @@
     img {
       display: block;
     }
+  }
+}
+
+.tradeHistoryButton {
+  background-color: transparent !important;
+  color: #183b56 !important;
+  padding: 6px 10px;
+
+  &:active {
+    color: #00a59a !important;
+  }
+  &.active {
+    color: #00a59a !important;
+  }
+
+  &:hover {
+    background-color: transparent !important;
   }
 }
 
