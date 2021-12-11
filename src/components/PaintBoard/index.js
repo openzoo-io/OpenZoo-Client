@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, useCallback, Suspense } from 'react';
+/* eslint-disable no-unused-vars */
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  Suspense,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import cx from 'classnames';
@@ -7,14 +14,22 @@ import { useWeb3React } from '@web3-react/core';
 import axios from 'axios';
 import { BigNumber, ethers } from 'ethers';
 import { useDropzone } from 'react-dropzone';
-import Dropzone from "react-dropzone";
+import Dropzone from 'react-dropzone';
 import Skeleton from 'react-loading-skeleton';
 // import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
 
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
-import { Stepper, Step, StepLabel, Switch } from '@material-ui/core';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 
@@ -32,11 +47,9 @@ import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
 
 import ReactPlayer from 'react-player';
-import { Canvas } from "react-three-fiber";
-import { OrbitControls, Stage, useAnimations } from "@react-three/drei";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-
-
+import { Canvas } from 'react-three-fiber';
+import { OrbitControls, Stage, useAnimations } from '@react-three/drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const mintSteps = [
   'Uploading to IPFS',
@@ -81,30 +94,37 @@ const MULTI_NFT_ABI = [
   },
 ];
 
-function Model({ scene, animations }) {
+const CustomCheckbox = withStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&$checked': {
+      color: '#00a59a',
+    },
+  },
+  checked: {},
+})(props => <Checkbox color="default" {...props} />);
 
+function Model({ scene, animations }) {
   console.log('In Modal Scene', scene);
   console.log('In Modal Animations', animations);
 
-
   const { names, actions } = useAnimations(animations, scene);
-  if (names[0])
-    actions[names[0]].play()
-
+  if (names[0]) actions[names[0]].play();
 
   return (
     <>
       <primitive object={scene} />
     </>
   );
-
 }
 
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const accept = ['.jpg', '.png', '.gif', '.webp'];
-  const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf', 
+  const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
       color: '#00a59a',
@@ -156,6 +176,9 @@ const PaintBoard = () => {
 
   const [currentMintingStep, setCurrentMintingStep] = useState(0);
   const [isMinting, setIsMinting] = useState(false);
+
+  const [isAcceptUploadRight, setIsAcceptUploadRight] = useState(false);
+  const [isAcceptTerms, setIsAcceptTerms] = useState(false);
 
   const [lastMintedTnxId, setLastMintedTnxId] = useState('');
 
@@ -210,7 +233,6 @@ const PaintBoard = () => {
       imageMediaRef.current.value = '';
     }
   };
-
 
   // For main Image //
   const onDrop = useCallback(acceptedFiles => {
@@ -287,6 +309,15 @@ const PaintBoard = () => {
       return;
     }
 
+    if (!isAcceptUploadRight) {
+      showToast('info', 'Please Accept Owner right.');
+      return;
+    }
+    if (!isAcceptTerms) {
+      showToast('info', 'Please Accept Terms and Conditions');
+      return;
+    }
+
     let isBanned = await checkBan(account, authToken);
 
     if (isBanned) {
@@ -336,7 +367,7 @@ const PaintBoard = () => {
         //console.log(mediaExt);
         let result = await axios({
           method: 'post',
-          url: `${apiUrl}/ipfs/uploadMedia2Server`, 
+          url: `${apiUrl}/ipfs/uploadMedia2Server`,
           data: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -346,8 +377,6 @@ const PaintBoard = () => {
         console.log('Media result', result);
         animation_url = result.data.data;
       }
-
-
 
       let formData = new FormData();
 
@@ -450,45 +479,53 @@ const PaintBoard = () => {
     resetMintingStatus();
   };
 
+  const handleClickAddCollection = () => {
+    history.push('/collection/create');
+  };
+
   const [threeScence, setThreeScence] = useState([]);
   const [threeAnimations, setThreeAnimations] = useState([]);
 
-
-
-  const ThreeScence = (file) => {
-
+  const ThreeScence = file => {
     const reader = new FileReader();
-    reader.addEventListener('load', function (event) {
+    reader.addEventListener(
+      'load',
+      function(event) {
+        const contents = event.target.result;
 
-      const contents = event.target.result;
+        const loader = new GLTFLoader();
+        loader.parse(contents, '', function(gltf) {
+          const scene = gltf.scene;
 
-      const loader = new GLTFLoader();
-      loader.parse(contents, '', function (gltf) {
+          const animations = gltf.animations;
 
-        const scene = gltf.scene;
-
-        const animations = gltf.animations;
-
-        console.log('Scene', scene);
-        console.log('animations', animations);
-        setThreeScence(scene);
-        setThreeAnimations(animations)
-        //animations[0].play();
-      });
-
-    }, false);
+          console.log('Scene', scene);
+          console.log('animations', animations);
+          setThreeScence(scene);
+          setThreeAnimations(animations);
+          //animations[0].play();
+        });
+      },
+      false
+    );
     reader.readAsArrayBuffer(file);
   };
 
-
-
-
   return (
     <PageLayout containerClassName="form-container-page box">
-
-      <div className={styles.body}>
-        <div className={styles.board}>
-          <div {...getRootProps({ className: styles.uploadCont })}>
+      <div className={cx('row', 'justify-content-center')}>
+        <div className={'col-lg-4 col-md-8 md:mb-20'}>
+          <h4 className="mb-2">NFT CREATOR</h4>
+          <p className="mb-40">
+            NFTs can represent essentially any type of digital file, with artist
+            creating NFTs featuring pictures, videos, gifs, audio files and
+            mixture of them all.
+          </p>
+          <div
+            {...getRootProps({
+              className: cx(styles.uploadCont, 'md:mx-auto'),
+            })}
+          >
             <input {...getInputProps()} ref={imageRef} />
             {image ? (
               <>
@@ -508,174 +545,192 @@ const PaintBoard = () => {
                     className={styles.browse}
                     onClick={() => imageRef.current?.click()}
                   >
-                    browse
+                    Browse
                   </span>
                 </div>
-                <div className={styles.uploadsubtitle}>
-                  JPG, PNG, GIF, WEBP Max 15mb.
+                <div className={cx(styles.uploadsubtitle, 'text-center')}>
+                  <strong>JPG, PNG, GIF, BMP, MP4, OBJ</strong>
+                  <p className="color_brand">Max 15mb.</p>
                 </div>
               </>
             )}
           </div>
+          <FormGroup className="mt-20">
+            <FormControlLabel
+              control={
+                <CustomCheckbox
+                  classes={{ root: 'pt-0' }}
+                  onChange={e => setIsAcceptUploadRight(event.target.checked)}
+                />
+              }
+              label="I approve that I'm the owner or have the right publication and sale."
+              className="align-items-start"
+              classes={{ root: 'pt-20' }}
+            />
+            <FormControlLabel
+              control={
+                <CustomCheckbox
+                  classes={{ root: 'pt-0' }}
+                  onChange={e => setIsAcceptTerms(event.target.checked)}
+                />
+              }
+              label="I approve OpenZoo's Terms and Conditions"
+              className="align-items-start"
+            />
+          </FormGroup>
         </div>
-        <div className={styles.panel}>
-          <div className={styles.panelInputs}>
-            <div className={styles.panelLeft}>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>Collection</p>
-                <Select
-                  options={collections}
-                  disabled={isMinting}
-                  values={selected}
-                  onChange={([col]) => {
-                    setSelected([col]);
-                    setNft(col.erc721Address);
-                    setType(col.type);
+        <div className={'col-lg-4 col-md-8'}>
+          <div className={styles.formGroup}>
+            <div className="d-flex align-items-center">
+              <span className={cx(styles.formLabel)}>Collection</span>
+              <button
+                className="btn btn-primary btn-sm rounded-pill px-20 ml-20 mb-10"
+                onClick={handleClickAddCollection}
+              >
+                <i className="ri-add-line"></i>
+              </button>
+            </div>
+            <Select
+              options={collections}
+              disabled={isMinting}
+              values={selected}
+              onChange={([col]) => {
+                setSelected([col]);
+                setNft(col.erc721Address);
+                setType(col.type);
+              }}
+              className={styles.select}
+              placeholder="Choose Collection"
+              itemRenderer={({ item, methods }) => (
+                <div
+                  key={item.erc721Address}
+                  className={styles.collection}
+                  onClick={() => {
+                    methods.clearAll();
+                    methods.addItem(item);
                   }}
-                  className={styles.select}
-                  placeholder="Choose Collection"
-                  itemRenderer={({ item, methods }) => (
-                    <div
-                      key={item.erc721Address}
-                      className={styles.collection}
-                      onClick={() => {
-                        methods.clearAll();
-                        methods.addItem(item);
-                      }}
-                    >
-                      <img
+                >
+                  {/* <img
                         src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
                         className={styles.collectionLogo}
-                      />
-                      <div className={styles.collectionName}>
-                        {item.collectionName}
-                      </div>
-                    </div>
-                  )}
-                  contentRenderer={({ props: { values } }) =>
-                    values.length > 0 ? (
-                      <div className={styles.collection}>
-                        <img
-                          src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
-                          className={styles.collectionLogo}
-                        />
-                        <div className={styles.collectionName}>
-                          {values[0].collectionName}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={styles.collection} />
-                    )
-                  }
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>Name</p>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  maxLength={40}
-                  placeholder="Name"
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  disabled={isMinting}
-                />
-                <div className={styles.lengthIndicator}>{name.length}/40</div>
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>Symbol</p>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  maxLength={20}
-                  placeholder="Symbol"
-                  value={symbol}
-                  onChange={e => setSymbol(e.target.value)}
-                  disabled={isMinting}
-                />
-                <div className={styles.lengthIndicator}>{symbol.length}/20</div>
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>Description</p>
-                <textarea
-                  className={cx(styles.formInput, styles.longInput)}
-                  maxLength={120}
-                  placeholder="Description"
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                  disabled={isMinting}
-                />
-                <div className={styles.lengthIndicator}>
-                  {description.length}/120
-                </div>
-              </div>
-            </div>
-            <div className={styles.panelRight}>
-              {type === 1155 && (
-                <div className={styles.formGroup}>
-                  <p className={styles.formLabel}>Supply</p>
-                  <PriceInput
-                    className={styles.formInput}
-                    placeholder="Supply"
-                    decimals={0}
-                    value={'' + supply}
-                    onChange={setSupply}
-                    disabled={isMinting}
-                  />
+                      /> */}
+                  <div className={styles.collectionName}>
+                    <strong>{item.collectionName}</strong>
+                  </div>
                 </div>
               )}
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>
-                  Royalty (%)&nbsp;
-                  <BootstrapTooltip
-                    title="If you set a royalty here, you will get X percent of sales price each time an NFT is sold on our platform."
-                    placement="top"
-                  >
-                    <HelpOutlineIcon />
-                  </BootstrapTooltip>
-                </p>
-                <PriceInput
-                  className={styles.formInput}
-                  placeholder="Royalty"
-                  decimals={2}
-                  value={'' + royalty}
-                  onChange={val =>
-                    val[val.length - 1] === '.'
-                      ? setRoyalty(val)
-                      : setRoyalty(Math.min(100, +val))
-                  }
-                  disabled={isMinting}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>
-                  Media URL (Optional)
-                </p>
-                <Dropzone onDrop={(acceptedFiles) => {
-                  console.log(acceptedFiles[0]);
+              contentRenderer={({ props: { values } }) =>
+                values.length > 0 ? (
+                  <div className={styles.collection}>
+                    {/* <img
+                          src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
+                          className={styles.collectionLogo}
+                        /> */}
+                    <div className={styles.collectionName}>
+                      <strong>{values[0].collectionName}</strong>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={styles.collection} />
+                )
+              }
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Name</p>
+            <input
+              type="text"
+              className={styles.formInput}
+              maxLength={40}
+              placeholder="Name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              disabled={isMinting}
+            />
+            <div className={styles.lengthIndicator}>{name.length}/40</div>
+          </div>
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Symbol</p>
+            <input
+              type="text"
+              className={styles.formInput}
+              maxLength={20}
+              placeholder="Symbol"
+              value={symbol}
+              onChange={e => setSymbol(e.target.value)}
+              disabled={isMinting}
+            />
+            <div className={styles.lengthIndicator}>{symbol.length}/20</div>
+          </div>
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Description</p>
+            <textarea
+              className={cx(styles.formInput, styles.longInput)}
+              maxLength={120}
+              placeholder="Description"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              disabled={isMinting}
+            />
+            <div className={styles.lengthIndicator}>
+              {description.length}/120
+            </div>
+          </div>
+        </div>
+        <div className={'col-lg-4 col-md-8'}>
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>
+              Royalty (%)&nbsp;
+              <BootstrapTooltip
+                title="If you set a royalty here, you will get X percent of sales price each time an NFT is sold on our platform."
+                placement="top"
+              >
+                <HelpOutlineIcon />
+              </BootstrapTooltip>
+            </p>
+            <PriceInput
+              className={styles.formInput}
+              placeholder="Royalty"
+              decimals={2}
+              value={'' + royalty}
+              onChange={val =>
+                val[val.length - 1] === '.'
+                  ? setRoyalty(val)
+                  : setRoyalty(Math.min(100, +val))
+              }
+              disabled={isMinting}
+            />
+          </div>
+          {/* <div className={styles.formGroup}>
+                <p className={styles.formLabel}>Media URL (Optional)</p>
+                <Dropzone
+                  onDrop={acceptedFiles => {
+                    console.log(acceptedFiles[0]);
 
-                  let re = /(?:\.([^.]+))?$/;
-                  let ext = re.exec(acceptedFiles[0].name)[1];
+                    let re = /(?:\.([^.]+))?$/;
+                    let ext = re.exec(acceptedFiles[0].name)[1];
 
-                  if (ext) {
-                    setMediaExt(ext.toLowerCase());
-                    setMedia(acceptedFiles[0]);
-                    console.log(URL.createObjectURL(acceptedFiles[0]));
-                    // for 3d //
-                    if (ext === 'glb')// || ext === 'gltf')
-                      ThreeScence(acceptedFiles[0]);
-                  }
-                  else {
-                    setMediaExt(null);
-                    setMedia(null);
-                  }
-                }} name="mediaURL" multiple={false} maxSize="52428800"
+                    if (ext) {
+                      setMediaExt(ext.toLowerCase());
+                      setMedia(acceptedFiles[0]);
+                      console.log(URL.createObjectURL(acceptedFiles[0]));
+                      // for 3d //
+                      if (ext === 'glb')
+                        // || ext === 'gltf')
+                        ThreeScence(acceptedFiles[0]);
+                    } else {
+                      setMediaExt(null);
+                      setMedia(null);
+                    }
+                  }}
+                  name="mediaURL"
+                  multiple={false}
+                  maxSize="52428800"
                   accept={media_accept.join(', ')}
                 >
-                  {({ getRootProps, getInputProps }) => (
-
+                  {({ getRootProps, getInputProps }) =>
                     !media && (
-                      <div {...getRootProps({ className: styles.uploadCont })} >
+                      <div {...getRootProps({ className: styles.uploadCont })}>
                         <input {...getInputProps()} ref={imageMediaRef} />
                         <div className={styles.uploadtitle}>
                           Drop files here or&nbsp;
@@ -695,14 +750,13 @@ const PaintBoard = () => {
                         </div>
                       </div>
                     )
-
-                  )}
+                  }
                 </Dropzone>
 
-                {
-                  media && <div className={styles.uploadCont}>
-                    {
-                      ["mp4"].includes(mediaExt) && <div className='player-wrapper' style={{ width: '100%' }}>
+                {media && (
+                  <div className={styles.uploadCont}>
+                    {['mp4'].includes(mediaExt) && (
+                      <div className="player-wrapper" style={{ width: '100%' }}>
                         <ReactPlayer
                           className={`${cx(styles.mediaInner)} react-player`}
                           url={URL.createObjectURL(media)}
@@ -711,9 +765,9 @@ const PaintBoard = () => {
                           height="100%"
                         />
                       </div>
-                    }
-                    {
-                      ["mp3"].includes(mediaExt) && <div style={{ width: '100%' }}>
+                    )}
+                    {['mp3'].includes(mediaExt) && (
+                      <div style={{ width: '100%' }}>
                         <ReactPlayer
                           className={`${cx(styles.mediaInner)} react-player`}
                           url={URL.createObjectURL(media)}
@@ -722,72 +776,93 @@ const PaintBoard = () => {
                           height="100%"
                         />
                       </div>
-                    }
-                    {
-                      ["glb"].includes(mediaExt) && threeScence &&
-                      <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}  className="create-3dcanvas">
+                    )}
+                    {['glb'].includes(mediaExt) && threeScence && (
+                      <Canvas
+                        camera={{ fov: 50, near: 0.01, far: 2000 }}
+                        className="create-3dcanvas"
+                      >
                         <Suspense fallback={null}>
                           <Stage intensity={0.5} preset="upfront">
-
-                            <Model scene={threeScence} animations={threeAnimations} />
-
+                            <Model
+                              scene={threeScence}
+                              animations={threeAnimations}
+                            />
                           </Stage>
                         </Suspense>
                         <OrbitControls makeDefault autoRotate={true} />
                       </Canvas>
-                    }
+                    )}
                     <div className={styles.cornerClose}>
-                      <CloseIcon className={styles.remove} onClick={removeMedia} />
+                      <CloseIcon
+                        className={styles.remove}
+                        onClick={removeMedia}
+                      />
                     </div>
-
                   </div>
-                }
-
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>
-                  Link to IP Rights Document (Optional)&nbsp;
-                  <BootstrapTooltip
-                    title="Link to the document which proves your ownership of this image."
-                    placement="top"
-                  >
-                    <HelpOutlineIcon />
-                  </BootstrapTooltip>
-                </p>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  placeholder="Enter Link"
-                  value={xtra}
-                  onChange={e => setXtra(e.target.value)}
-                  disabled={isMinting}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <p className={styles.formLabel}>
-                  Unlockable Content&nbsp;
-                  <PurpleSwitch
-                    checked={hasUnlockableContent}
-
-                    onChange={e => {
-                      setHasUnlockableContent(e.target.checked);
-                      setUnlockableContent('');
-                    }}
-                    name="unlockableContent"
-                  />
-                </p>
-                {hasUnlockableContent && (
-                  <textarea
-                    className={cx(styles.formInput, styles.longInput)}
-                    maxLength={500}
-                    placeholder="Unlockable Content"
-                    value={unlockableContent}
-                    onChange={e => setUnlockableContent(e.target.value)}
-                    disabled={isMinting}
-                  />
                 )}
-              </div>
-            </div>
+              </div> */}
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>
+              Optional IP Right document&nbsp;
+              <BootstrapTooltip
+                title="Link to the document which proves your ownership of this image."
+                placement="top"
+              >
+                <HelpOutlineIcon />
+              </BootstrapTooltip>
+            </p>
+            <input
+              type="text"
+              className={styles.formInput}
+              placeholder="Enter Link"
+              value={xtra}
+              onChange={e => setXtra(e.target.value)}
+              disabled={isMinting}
+            />
+          </div>
+          {/* {type === 1155 && ( */}
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Supply</p>
+            <PriceInput
+              className={styles.formInput}
+              placeholder="Supply"
+              decimals={0}
+              value={'' + supply}
+              onChange={setSupply}
+              disabled={isMinting}
+            />
+          </div>
+          {/* )} */}
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>
+              Unlockable Content&nbsp;
+              <PurpleSwitch
+                checked={hasUnlockableContent}
+                onChange={e => {
+                  setHasUnlockableContent(e.target.checked);
+                  setUnlockableContent('');
+                }}
+                name="unlockableContent"
+              />
+            </p>
+            {hasUnlockableContent && (
+              <textarea
+                className={cx(styles.formInput, styles.longInput)}
+                maxLength={500}
+                placeholder="Unlockable Content"
+                value={unlockableContent}
+                onChange={e => setUnlockableContent(e.target.value)}
+                disabled={isMinting}
+              />
+            )}
+          </div>
+          <div className="mb-25">
+            <strong>Note</strong>
+            <p>
+              The process on minting NFT is an irreversible process make sure
+              all the the above detail are right.
+            </p>
           </div>
 
           {isMinting && (
@@ -813,7 +888,7 @@ const PaintBoard = () => {
             {isMinting ? (
               <ClipLoader size="16" color="white"></ClipLoader>
             ) : (
-              'Mint'
+              'MINT'
             )}
           </div>
           <div className={styles.fee}>
@@ -826,19 +901,19 @@ const PaintBoard = () => {
               <Skeleton width={330} height={22} />
             )}
           </div>
-          <div className={styles.mintStatusContainer}>
-            {lastMintedTnxId !== '' && (
-              <a
-                className={styles.tnxAnchor}
-                target="_blank"
-                rel="noopener noreferrer"
-                href={`${explorerUrl}/tx/${lastMintedTnxId}`}
-              >
-                You can track the last transaction here ...
-              </a>
-            )}
-          </div>
         </div>
+      </div>
+      <div className={styles.mintStatusContainer}>
+        {lastMintedTnxId !== '' && (
+          <a
+            className={styles.tnxAnchor}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${explorerUrl}/tx/${lastMintedTnxId}`}
+          >
+            You can track the last transaction here ...
+          </a>
+        )}
       </div>
     </PageLayout>
   );
