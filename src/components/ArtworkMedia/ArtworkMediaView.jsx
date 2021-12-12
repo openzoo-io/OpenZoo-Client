@@ -46,7 +46,7 @@ export function ArtworkMediaView(props) {
 
 
 
-  if (['mp4', 'mp3'].indexOf(ext) != -1) {
+  if (['mp4'].indexOf(ext) != -1) {
     return (
       <div className="player-wrapper">
         <ReactPlayer
@@ -54,6 +54,20 @@ export function ArtworkMediaView(props) {
           loop={true}
           url={image}
           controls={true}
+          width="100%"
+          height="100%"
+        />
+      </div>
+    );
+  }else if ([ 'mp3'].indexOf(ext) != -1) {
+    return (
+      <div className="player-wrapper audio">
+        <ReactPlayer
+          className={`${cx(styles.mediaInner, className)} react-player`}
+          loop={true}
+          url={image}
+          controls={true}
+
           width="100%"
           height="100%"
         />
