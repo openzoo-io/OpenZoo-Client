@@ -216,6 +216,10 @@ img {
   background-color: #f9fbfc;
 }
 
+.bg_input {
+  background-color: #f2f7fa !important;
+}
+
 .bg_body {
   background-color: #ecf1f9;
 }
@@ -332,6 +336,10 @@ img {
 
 .txt_xs._bold {
   font-family: "circular_bold";
+}
+
+.border-none {
+  border: none !important;
 }
 
 .border-b {

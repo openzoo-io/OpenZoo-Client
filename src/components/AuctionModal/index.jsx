@@ -18,12 +18,13 @@ import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
 import { useSalesContract } from 'contracts';
 
-import Modal from '../Modal';
+import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
 
 const AuctionModal = ({
   visible,
+  info,
   onClose,
   onStartAuction,
   auction,
@@ -84,6 +85,9 @@ const AuctionModal = ({
 
   const CustomCheckbox = withStyles({
     root: {
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
       '&$checked': {
         color: '#00a59a',
       },
@@ -126,7 +130,7 @@ const AuctionModal = ({
   return (
     <Modal
       visible={visible}
-      title={auction ? 'Update Auction' : 'Start Auction'}
+      title={auction ? 'UPDATE AUCTION' : 'START AUCTION'}
       onClose={onClose}
       submitDisabled={
         contractApproving ||
@@ -139,14 +143,14 @@ const AuctionModal = ({
           confirming ? (
             <ClipLoader color="#FFF" size={16} />
           ) : auction ? (
-            'Update Auction'
+            'UPDATE AUCTION'
           ) : (
-            'Start Auction'
+            'START AUCTION'
           )
         ) : contractApproving ? (
-          'Approving Item'
+          'APPROVING ITEM'
         ) : (
-          'Approve Item'
+          'APPROVE ITEM'
         )
       }
       onSubmit={() =>
@@ -163,6 +167,13 @@ const AuctionModal = ({
           : approveContract()
       }
     >
+      {info?.name && (
+        <p>
+          You are about to start an auction for
+          <br />
+          <span className="color_brand">{info?.name}</span>
+        </p>
+      )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>
           Reserve Price&nbsp;
@@ -173,7 +184,12 @@ const AuctionModal = ({
             <HelpOutlineIcon />
           </BootstrapTooltip>
         </div>
-        <div className={cx(styles.formInputCont, focused && styles.focused)}>
+        <div
+          className={cx(
+            'd-flex rounded-15 bg_input align-items-center',
+            focused && styles.focused
+          )}
+        >
           <Select
             options={options}
             disabled={auction || confirming}
@@ -230,51 +246,50 @@ const AuctionModal = ({
         </div>
         <InputError text={inputError} />
       </div>
-      <div className={styles.formGroupDates}>
-        <div className={styles.formGroup}>
-          <div className={styles.formLabel}>Start Time</div>
-          <div className={styles.formInputCont}>
-            <Datetime
-              value={startTime}
-              className={'calendarAboveInput'}
-              onChange={val => setStartTime(val.toDate())}
-              inputProps={{
-                className: styles.formInput,
-                onKeyDown: e => e.preventDefault(),
-                disabled: auctionStarted || contractApproving || confirming,
-              }}
-              closeOnSelect
-              isValidDate={cur =>
-                cur.valueOf() > now.getTime() - 1000 * 60 * 60 * 24
-              }
-            />
-          </div>
+      <div className={styles.formGroup}>
+        <div className={styles.formLabel}>Start Time</div>
+        <div className={'d-flex rounded-15 bg_input align-items-center'}>
+          <Datetime
+            value={startTime}
+            className={'calendarAboveInput'}
+            onChange={val => setStartTime(val.toDate())}
+            inputProps={{
+              className: styles.formInput,
+              onKeyDown: e => e.preventDefault(),
+              disabled: auctionStarted || contractApproving || confirming,
+            }}
+            closeOnSelect
+            isValidDate={cur =>
+              cur.valueOf() > now.getTime() - 1000 * 60 * 60 * 24
+            }
+          />
         </div>
-        <div className={styles.formGroup}>
-          <div className={styles.formLabel}>Auction Expiration</div>
-          <div className={styles.formInputCont}>
-            <Datetime
-              value={endTime}
-              className={'calendarAboveInput'}
-              onChange={val => setEndTime(val.toDate())}
-              inputProps={{
-                className: styles.formInput,
-                onKeyDown: e => e.preventDefault(),
-                disabled: contractApproving || confirming,
-              }}
-              closeOnSelect
-              isValidDate={cur =>
-                cur.valueOf() > startTime.getTime() - 1000 * 60 * 60 * 23
-              }
-            />
-          </div>
+      </div>
+      <div className={styles.formGroup}>
+        <div className={styles.formLabel}>Auction Expiration</div>
+        <div className={'d-flex rounded-15 bg_input align-items-center'}>
+          <Datetime
+            value={endTime}
+            className={'calendarAboveInput'}
+            onChange={val => setEndTime(val.toDate())}
+            inputProps={{
+              className: styles.formInput,
+              onKeyDown: e => e.preventDefault(),
+              disabled: contractApproving || confirming,
+            }}
+            closeOnSelect
+            isValidDate={cur =>
+              cur.valueOf() > startTime.getTime() - 1000 * 60 * 60 * 23
+            }
+          />
         </div>
       </div>
       <FormControlLabel
-        className={cx(styles.formControl, styles.selected)}
+        className={cx(styles.formControl, styles.selected, 'align-items-start')}
         classes={{ label: styles.groupTitle }}
         control={
           <CustomCheckbox
+            classes={{ root: 'pt-0' }}
             checked={minBidReserve}
             onChange={() => setMinBidReserve(prevState => !prevState)}
           />
