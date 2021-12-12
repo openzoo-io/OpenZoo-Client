@@ -2514,7 +2514,7 @@ export function ArtworkDetailPage() {
                       <a
                         className={cx(
                           styles.itemCategory,
-                          'btn rounded-pill bg_brand'
+                          'btn btn-sm rounded-pill bg_brand'
                         )}
                         style={{ cursor: 'pointer' }}
                         href={'/collection/' + address}
