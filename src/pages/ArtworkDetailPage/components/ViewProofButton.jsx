@@ -4,14 +4,13 @@ export function ViewProofButton() {
   return (
     <div className="dropdown">
       <button
-        className="btn btn-white btn-sm
-										dropdown-toggle"
+        className="btn btn-sm btn-primary rounded-pill dropdown-toggle"
         type="button"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
       >
-        View proof of authenticity
+        Proof
       </button>
       <div className="dropdown-menu">
         <a

@@ -5,13 +5,8 @@ import { formatDateTimeAgo, formatNumber } from 'utils';
 import Skeleton from 'react-loading-skeleton';
 import Identicon from 'components/Identicon';
 import { Link } from 'react-router-dom';
-import { DropdownButton } from 'components/DropdownButton';
-import { ClipLoader } from 'react-spinners';
-import Panel from 'components/Panel';
 
 import styles from '../styles.module.scss';
-import { ViewModule as ViewModuleIcon } from '@material-ui/icons';
-import { AssetCard } from 'components/NFTAssetCard/AssetCard';
 
 const filtersItems = [
   { id: 0, label: 'Trade History' },
@@ -25,40 +20,93 @@ export function ArtworkDetailPageHistorySection(props) {
     tokenType,
     tradeHistory,
     transferHistory,
-    moreItems,
-    loading,
     onFilterChange,
   } = props;
   const { bundleID } = useParams();
 
   const [filter, setFilter] = useState(0);
+  // eslint-disable-next-line no-unused-vars
+  const [expanded, setExpanded] = useState(true);
 
   useEffect(() => {
     onFilterChange?.(filter);
   }, [filter]);
 
-  const handleSelectFilter = item => {
-    setFilter(item.id);
+  const handleClickFilter = id => () => {
+    setFilter(id);
+    setTimeout(() => {
+      setExpanded(true);
+    }, 100);
+  };
+
+  const handleClickExpand = () => {
+    setExpanded(old => !old);
   };
 
   return (
     <div className="mt-20">
-      <div className={styles.tradeHistoryWrapper}>
-        <div className={styles.tradeHistoryHeader}>
-          <div className={styles.tradeHistoryTitle}>
-            {filtersItems[filter].label}
+      <div className={'bg_white rounded-15 py-10 px-20'}>
+        <div className={cx(styles.tradeHistoryHeader, 'py-1')}>
+          <div className={cx('d-flex space-x-10 sm:space-x-10')}>
+            <i className="ri-arrow-left-right-line txt_lg"></i>&nbsp;
+            <button
+              className={cx(
+                styles.tradeHistoryButton,
+                'btn btn-sm btn-link',
+                filter === 0 && styles.active
+              )}
+              onClick={handleClickFilter(0)}
+            >
+              {filtersItems[0].label}
+            </button>
+            <div
+              style={{ borderRight: '1.5px solid #183b56', margin: '5px 0' }}
+            ></div>
+            {!bundleID && (
+              <button
+                className={cx(
+                  styles.tradeHistoryButton,
+                  'btn btn-sm btn-link',
+                  filter === 1 && styles.active
+                )}
+                onClick={handleClickFilter(1)}
+              >
+                {filtersItems[1].label}
+              </button>
+            )}
           </div>
-          {!bundleID && (
+          <div className="cursor-pointer" onClick={handleClickExpand}>
+            <svg
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              color="#A2A2AD"
+            >
+              {expanded ? (
+                <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"></path>
+              ) : (
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+              )}
+            </svg>
+          </div>
+          {/* {!bundleID && (
             <DropdownButton
               value={filter}
               items={filtersItems}
               btnClassName="btn-white"
               onClickItem={handleSelectFilter}
             />
-          )}
+          )} */}
         </div>
-        <div className={cx('bg-white rounded-15', styles.histories)}>
-          <div className={cx(styles.history, styles.heading)}>
+        <div
+          className={cx(
+            'bg-white collapse mt-3',
+            expanded && 'show',
+            styles.histories
+          )}
+        >
+          <div className={cx(styles.history, styles.heading, 'bg_white')}>
             {filter === 0 && <div className={styles.historyPrice}>Price</div>}
             {tokenType.current === 1155 && (
               <div className={styles.quantity}>Quantity</div>
@@ -158,31 +206,6 @@ export function ArtworkDetailPageHistorySection(props) {
             );
           })}
         </div>
-        {!bundleID && (
-          <div className={styles.panelWrapper}>
-            <Panel
-              title="More from this collection"
-              icon={ViewModuleIcon}
-              responsive
-            >
-              <div className={styles.panelBody}>
-                {loading ? (
-                  <div className={styles.loadingIndicator}>
-                    <ClipLoader color="#007BFF" size={16} />
-                  </div>
-                ) : (
-                  <div className={styles.itemsList}>
-                    {moreItems?.map((item, idx) => (
-                      <div key={idx} className={styles.moreItem}>
-                        <AssetCard preset="three" item={item} />
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </Panel>
-          </div>
-        )}
       </div>
     </div>
   );

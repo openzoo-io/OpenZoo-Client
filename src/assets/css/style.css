@@ -8279,8 +8279,8 @@ img {
 }
 
 .px-20 {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .py-25 {
@@ -8299,8 +8299,8 @@ img {
 }
 
 .px-30 {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
 }
 
 .py-35 {
@@ -8319,8 +8319,8 @@ img {
 }
 
 .px-40 {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
 
 .py-45 {
@@ -11946,6 +11946,10 @@ textarea,
   transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
   outline: 0;
 
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 @media screen and (max-width: 576px) {
