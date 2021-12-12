@@ -134,6 +134,7 @@ export function ArtworkDetailPage() {
   const {
     explorerUrl,
     storageUrl,
+    apiUrl,
     getBundleDetails,
     fetchItemDetails,
     increaseBundleViewCount,
@@ -481,6 +482,32 @@ export function ArtworkDetailPage() {
         data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
         data.name = data[Object.keys(data)[0]].name;
         data.description = data[Object.keys(data)[0]].description;
+      }
+
+      // Sync when content type is media and have animation url //
+      if (contentType.current==='image' && data.animation_url)
+      {
+        let contentType = 'image';
+        let ext = data.animation_url ? data.animation_url.split('.').pop() : '';
+        switch(ext)
+        {
+          case 'mp4':contentType="video";break;
+          case 'mp3':contentType="sound";break;
+          case 'glb':contentType="model";break;
+        }
+
+        await axios({
+          method: 'post',
+          url: `${apiUrl}/nftitems/setContentType`,
+          data: JSON.stringify({
+            contractAddress: address,
+            tokenID: tokenID,
+            contentType: contentType,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
       }
 
       if (data.properties?.royalty) {
