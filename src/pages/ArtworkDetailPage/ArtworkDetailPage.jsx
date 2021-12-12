@@ -3213,7 +3213,7 @@ export function ArtworkDetailPage() {
           </div>
         </div>
         {!bundleID && (
-          <div className={styles.panelWrapper}>
+          <div className={`${styles.panelWrapper} boxNoPad`}>
             <Panel
               title="More from this collection"
               icon={ViewModuleIcon}

@@ -20378,6 +20378,10 @@ label:active:after {
   border-color: #ffffff1f;
 }
 
+.is__dark .hr, .is__dark .hr2
+{
+  background: white !important;
+}
 
 
 .react-dropdown-select-dropdown

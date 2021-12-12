@@ -550,7 +550,7 @@ const PaintBoard = () => {
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
                   <strong>JPG, PNG, GIF</strong>
-                  <p className="color_brand">Max 15mb.</p>
+                  <p>Max 15mb.</p>
                 </div>
               </>
             )}
