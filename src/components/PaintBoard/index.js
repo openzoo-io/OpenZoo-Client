@@ -821,7 +821,7 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          {/* {type === 1155 && ( */}
+          { type === 1155 && ( 
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>Supply</p>
             <PriceInput
@@ -833,7 +833,7 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          {/* )} */}
+           )}
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
               Unlockable Content&nbsp;
