@@ -123,7 +123,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const accept = ['.jpg', '.png', '.gif', '.webp'];
+  const accept = ['.jpg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -549,7 +549,7 @@ const PaintBoard = () => {
                   </span>
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
-                  <strong>JPG, PNG, GIF, BMP, MP4, OBJ</strong>
+                  <strong>JPG, PNG, GIF</strong>
                   <p className="color_brand">Max 15mb.</p>
                 </div>
               </>
@@ -701,7 +701,7 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          {/* <div className={styles.formGroup}>
+           <div className={styles.formGroup}>
                 <p className={styles.formLabel}>Media URL (Optional)</p>
                 <Dropzone
                   onDrop={acceptedFiles => {
@@ -730,7 +730,7 @@ const PaintBoard = () => {
                 >
                   {({ getRootProps, getInputProps }) =>
                     !media && (
-                      <div {...getRootProps({ className: styles.uploadCont })}>
+                      <div {...getRootProps({ className: styles.uploadMediaCont })}>
                         <input {...getInputProps()} ref={imageMediaRef} />
                         <div className={styles.uploadtitle}>
                           Drop files here or&nbsp;
@@ -754,7 +754,7 @@ const PaintBoard = () => {
                 </Dropzone>
 
                 {media && (
-                  <div className={styles.uploadCont}>
+                  <div className={styles.uploadMediaCont}>
                     {['mp4'].includes(mediaExt) && (
                       <div className="player-wrapper" style={{ width: '100%' }}>
                         <ReactPlayer
@@ -801,7 +801,7 @@ const PaintBoard = () => {
                     </div>
                   </div>
                 )}
-              </div> */}
+              </div>
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
               Optional IP Right document&nbsp;

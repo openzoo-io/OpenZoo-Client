@@ -30,7 +30,7 @@ import iconEdit from 'assets/svgs/edit.svg';
 import iconSwap from 'assets/svgs/swap.svg';
 
 import styles from './styles.module.scss';
-import FilterActions from '../../actions/filter.actions';
+//import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -215,9 +215,11 @@ const Header = () => {
     }
   };
 
+  /*
   const handleSelectCollection = addr => {
     dispatch(FilterActions.updateCollectionsFilter([addr]));
   };
+  */
 
   const handleSearch = word => {
     if (timer.current) {
@@ -457,9 +459,10 @@ const Header = () => {
                   key={idx}
                   className={styles.result}
                   onClick={() =>
-                    handleSelectCollection(collection.erc721Address)
+                    history.push('/collection/'+collection.erc721Address)
+                    //handleSelectCollection(collection.erc721Address)
                   }
-                >
+                > 
                   <img
                     className={styles.resultimg}
                     src={`${getRandomIPFS('', true)}${collection.logoImageHash

@@ -14506,6 +14506,7 @@ label:active:after {
   height: 100%;
   background: transparent !important;
   border: none !important;
+  border:1px solid #e2eef1 !important;
   padding-left: calc(2rem + 20px);
 }
 

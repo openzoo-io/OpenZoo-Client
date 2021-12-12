@@ -65,7 +65,7 @@ export function ArtworkMediaView(props) {
 
 
     return (
-      <div style={{ maxHeight: 676, height: '100%',minHeight:320 }}>
+      <div style={{ maxHeight: 676, height:380 }}>
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
           <Suspense fallback={<Loader3D/>}>
             <Stage intensity={0.5} preset="upfront">
