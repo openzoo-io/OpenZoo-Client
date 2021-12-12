@@ -49,12 +49,13 @@ export function CollectionList() {
   const conRef = useRef();
 
   // Reset to unfilterd //
+  /*
   useEffect(() => {
     return () => {
       dispatch(FilterActions.updateCollectionsFilter([]));
     };
   }, []);
-
+*/
   const [fetchInterval, setFetchInterval] = useState(null);
   const [cancelSource, setCancelSource] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
@@ -81,8 +82,11 @@ export function CollectionList() {
 
   const numPerRow = Math.floor(gridWidth / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
+ 
 
   useEffect(() => {
+    // Filter by Address //
+    dispatch(FilterActions.updateCollectionsFilter([addr]));
     if (fetchInterval) {
       clearInterval(fetchInterval);
     }
@@ -118,15 +122,15 @@ export function CollectionList() {
   const updateCollections = async () => {
     try {
       // Filter by Address //
-      if (addr) {
-        let cRes = await fetchCollection(addr);
+      
+      let cRes = await fetchCollection(addr);
 
-        dispatch(FilterActions.updateCollectionsFilter([addr]));
-        setCollectionData(cRes.data);
+      
+      setCollectionData(cRes.data);
 
-        let statisticRes = await fetchCollectionStatistic(addr);
-        setCollectionStatisticData(statisticRes.data);
-      }
+      let statisticRes = await fetchCollectionStatistic(addr);
+      setCollectionStatisticData(statisticRes.data);
+    
 
       dispatch(CollectionsActions.fetchStart());
       const res = await fetchCollections();

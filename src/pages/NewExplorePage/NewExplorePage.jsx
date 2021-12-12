@@ -14,6 +14,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import usePrevious from 'hooks/usePrevious';
 import { PageLayout } from 'components/Layouts/PageLayout';
+import FilterActions from 'actions/filter.actions';
 
 export function NewExplorePage() {
   const { fetchCollections, fetchTokens, getItemsLiked } = useApi();
@@ -55,7 +56,7 @@ export function NewExplorePage() {
     if (fetchInterval) {
       clearInterval(fetchInterval);
     }
-
+    dispatch(FilterActions.updateCollectionsFilter([]));
     updateCollections();
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
 
