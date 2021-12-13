@@ -6,6 +6,13 @@ import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
 import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faImage,
+  faMusic,
+  faVideo,
+  faCubes
+} from '@fortawesome/free-solid-svg-icons';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -22,6 +29,8 @@ export function AssetCardFour(props) {
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
+
+  
 
   if (props.loading) {
     return (
@@ -77,6 +86,13 @@ export function AssetCardFour(props) {
               className={cx(isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line')}
             ></i>
             <span className="txt_sm">{liked || item?.liked || 0}</span>
+          </div>
+
+          <div className="cursor-pointer contentType space-x-3">
+            {item?.contentType && item.contentType==='image' && <><FontAwesomeIcon icon={faImage}/></>}
+            {item?.contentType && item.contentType==='video' && <><FontAwesomeIcon icon={faVideo}/></>}
+            {item?.contentType && item.contentType==='sound' && <><FontAwesomeIcon icon={faMusic}/></>}
+            {item?.contentType && item.contentType==='model' && <><FontAwesomeIcon icon={faCubes}/></>}
           </div>
         </div>
 

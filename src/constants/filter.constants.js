@@ -25,37 +25,42 @@ export const Categories = [
   {
     id: 0,
     icon: iconArt,
-    label: 'Art',
+    label: 'Gaming Assets',
   },
   {
     id: 1,
     icon: iconCollectibles,
-    label: 'Collectibles',
+    label: 'Digital Art',
   },
   {
     id: 2,
     icon: iconSports,
-    label: 'Sports',
+    label: 'Traditional Art',
   },
   {
     id: 3,
     icon: iconUtility,
-    label: 'Utility',
+    label: 'Charity',
   },
   {
     id: 4,
     icon: iconTrading,
-    label: 'Trading Cards',
+    label: 'Music',
   },
   {
     id: 5,
     icon: iconVirtual,
-    label: 'Virtual Worlds',
+    label: 'Utilities',
   },
   {
     id: 6,
     icon: iconDomain,
-    label: 'Domain Names',
+    label: '3D assets',
+  },
+  {
+    id: 7,
+    icon: iconDomain,
+    label: 'Video',
   },
 ];
 

@@ -593,6 +593,7 @@ const Header = () => {
                   Explore
                 </NavLink>
               </li>
+              {/* 
               <li>
                 <NavLink
                   to="/collections"
@@ -602,6 +603,7 @@ const Header = () => {
                   Collections
                 </NavLink>
               </li>
+              */}
             </ul>
           </div>
           {renderSearchBox()}
@@ -689,11 +691,15 @@ const Header = () => {
                     Explore
                   </NavLink>
                 </li>
+                {
+                  /*
                 <li>
                   <NavLink className="color_black" to="/collections">
                     Collections
                   </NavLink>
                 </li>
+                */
+                }
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">

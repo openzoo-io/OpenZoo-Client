@@ -47,6 +47,20 @@
   margin-top: 16px;
 }
 
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .option
+      {
+        background:#0b1b27 !important
+      }
+    }
+  }
+}
+
 .option {
   margin: 0;
   width: 100%;
