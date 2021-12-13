@@ -159,4 +159,8 @@ input[type='number'] {
   border-radius:20px;
 }
 
+.MuiStepIcon-root.MuiStepIcon-active,.MuiStepIcon-root.MuiStepIcon-completed
+{
+  color:#00a59a !important;
+}
 

@@ -39,7 +39,7 @@ const Header = () => {
 
   const {
     apiUrl,
-    storageUrl,
+    /*storageUrl,*/
     getAuthToken,
     getAccountDetails,
     getIsModerator,
@@ -403,13 +403,16 @@ const Header = () => {
                     {tokenDetailsLoading ? (
                       <Skeleton width={40} height={40} />
                     ) : (
-                      tk.thumbnailPath &&
+                      tk.thumbnailPath && <><img src={tk.imageURL} /></>
+                      
+                    )}
+                    {/*
                       (tk.thumbnailPath.length > 10 ? (
                         <img src={`${storageUrl}/image/${tk.thumbnailPath}`} />
                       ) : tk.thumbnailPath === '.' ? (
                         <img src={tk.imageURL} />
                       ) : null)
-                    )}
+                      */}
                   </div>
                   <div className={styles.resulttitle}>{tk.name}</div>
                 </Link>

@@ -280,7 +280,7 @@ const PaintBoard = () => {
   };
 
   const validateMetadata = () => {
-    return name !== '' && account !== '' && image;
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false  && isAcceptTerms !== false;
   };
 
   const resetMintingStatus = () => {
@@ -388,8 +388,8 @@ const PaintBoard = () => {
       formData.append('symbol', symbol);
       formData.append('animation_url', animation_url);
       formData.append('xtra', xtra);
-      const _royalty = parseInt(royalty) * 100;
-      formData.append('royalty', isNaN(_royalty) ? 0 : _royalty);
+      const _royalty = parseFloat(royalty) * 100;
+      formData.append('royalty', isNaN(_royalty) ? 0 : _royalty.toFixed(0));
 
       let result = await axios({
         method: 'post',
@@ -445,7 +445,7 @@ const PaintBoard = () => {
         const royaltyTx = await registerRoyalty(
           nft,
           mintedTkId.toNumber(),
-          isNaN(_royalty) ? 0 : _royalty
+          isNaN(_royalty) ? 0 : _royalty.toFixed(0)
         );
         await royaltyTx.wait();
 
@@ -563,7 +563,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptUploadRight(event.target.checked)}
                 />
               }
-              label="I approve that I'm the owner or have the right publication and sale."
+              label="I approve that I'm the owner or have the right publication and sale. *"
               className="align-items-start"
               classes={{ root: 'pt-20' }}
             />
@@ -574,7 +574,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptTerms(event.target.checked)}
                 />
               }
-              label="I approve OpenZoo's Terms and Conditions"
+              label="I approve OpenZoo's Terms and Conditions *"
               className="align-items-start"
             />
           </FormGroup>
@@ -610,10 +610,10 @@ const PaintBoard = () => {
                     methods.addItem(item);
                   }}
                 >
-                  {/* <img
+                  <img
                         src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
                         className={styles.collectionLogo}
-                      /> */}
+                      />
                   <div className={styles.collectionName}>
                     <strong>{item.collectionName}</strong>
                   </div>
@@ -637,7 +637,7 @@ const PaintBoard = () => {
             />
           </div>
           <div className={styles.formGroup}>
-            <p className={styles.formLabel}>Name</p>
+            <p className={styles.formLabel}>Name*</p>
             <input
               type="text"
               className={styles.formInput}
@@ -663,7 +663,7 @@ const PaintBoard = () => {
             <div className={styles.lengthIndicator}>{symbol.length}/20</div>
           </div>
           <div className={styles.formGroup}>
-            <p className={styles.formLabel}>Description</p>
+            <p className={styles.formLabel}>Description*</p>
             <textarea
               className={cx(styles.formInput, styles.longInput)}
               maxLength={120}
