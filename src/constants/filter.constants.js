@@ -22,6 +22,7 @@ export const GroupFilters = [
 ];
 
 export const Categories = [
+  
   {
     id: 0,
     icon: iconArt,

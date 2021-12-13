@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   ExplorePageArtworksSection,
-  ExplorePageFilterCategorySection,
+  //ExplorePageFilterCategorySection,
   ExplorePageFillterStatus,
 } from './sections';
 import { useResizeDetector } from 'react-resize-detector';
@@ -286,18 +286,21 @@ export function NewExplorePage() {
       ref={conRef}
       cover={
         <>
+        {/* 
           <div className="hero_marketplace bg_white">
             <div className="container">
               <h1 className="text-center">NFT Marketplace</h1>
             </div>
           </div>
           <ExplorePageFilterCategorySection />
+        
+        */}
         </>
       }
     >
-      <div className="section mt-100">
+      <div className="section mt-40"> {/* mt-100 previous */}
         <div className="section__head">
-          <h2 className="section__title mb-20"> Artworks</h2>
+          {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
           <ExplorePageFillterStatus />
         </div>
       </div>
