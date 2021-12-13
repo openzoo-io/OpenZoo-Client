@@ -1,18 +1,21 @@
-import { Avatar } from 'components/Avatar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-import { formatNumber } from 'utils';
+// import { formatNumber } from 'utils';
 import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AssetCardFourPriceTag } from './AssetCardFourPriceTag';
 import {
   faImage,
   faMusic,
   faVideo,
-  faCubes
+  faCubes,
 } from '@fortawesome/free-solid-svg-icons';
+import { StackAvatars } from 'components/Avatar/StackAvatars';
+import { useState } from 'react';
+import moment from 'moment';
 
 const propTypes = {
   item: PropTypes.object.isRequired,
@@ -25,14 +28,52 @@ const propTypes = {
 };
 
 export function AssetCardFour(props) {
-  const { item, info, liked, isLike } = props;
+  const {
+    loading,
+    item,
+    info,
+    auction,
+    auctionActive,
+    liked,
+    isLike,
+    onClickMakeOffer,
+  } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
 
-  
+  const [endAuctionIn, setEndAuctionIn] = useState();
 
-  if (props.loading) {
+  useEffect(() => {
+    if (auction?.endTime == null || !auction?.endTime || !auctionActive) {
+      setEndAuctionIn(undefined);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      const end = moment(auction?.endTime * 1000);
+      const now = moment();
+      var duration = moment.duration(end.diff(now));
+
+      setEndAuctionIn({
+        years: duration.years(),
+        months: duration.months(),
+        days: duration.days(),
+        hours: duration.hours(),
+        minutes: duration.minutes(),
+        seconds: duration.seconds(),
+        humanize: duration.humanize(),
+        humanizeSuffix: duration.humanize(true),
+      });
+    }, 1000);
+
+    return () => {
+      setEndAuctionIn(undefined);
+      clearInterval(timer);
+    };
+  }, [auction?.endTime]);
+
+  if (loading) {
     return (
       <div className="card__item four">
         <div className="card_body space-y-10">
@@ -57,20 +98,23 @@ export function AssetCardFour(props) {
       <div className="card_body space-y-10">
         <div className="creators space-x-10">
           <div className="avatars space-x-3">
-            <Link to="/account/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f">
-              <Avatar size="sm" user={{}} />
-            </Link>
-            <Link to="/account/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36">
-              <p className="avatars_name txt_xs">@mickel_fenn</p>
-            </Link>
+            <StackAvatars
+              users={new Array(2).fill({
+                address: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
+              })}
+            />
           </div>
-          <div className="avatars space-x-3">
-            <Link to="/account/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36">
-              <Avatar size="sm" user={{}} />
-            </Link>
-            <Link to="/account/0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f/36">
-              <p className="avatars_name txt_xs">@mickel_fenn</p>
-            </Link>
+          <div
+            className="cursor-pointer likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10 "
+            onClick={props.onLike}
+          >
+            <i
+              className={cx(
+                isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line',
+                'color_red'
+              )}
+            ></i>
+            <span className="txt_sm">{liked || item?.liked || 0}</span>
           </div>
         </div>
         <div className="card_head">
@@ -78,21 +122,46 @@ export function AssetCardFour(props) {
             <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
           </Link>
 
-          <div
-            className="cursor-pointer likes space-x-3"
-            onClick={props.onLike}
-          >
-            <i
-              className={cx(isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line')}
-            ></i>
-            <span className="txt_sm">{liked || item?.liked || 0}</span>
-          </div>
+          {endAuctionIn && (
+            <div className="countdownWrapper space-x-3">
+              {endAuctionIn.days && (
+                <div className="countdown-item rounded-pill">
+                  {endAuctionIn.days}
+                </div>
+              )}
+              <div className="countdown-item rounded-pill">
+                {endAuctionIn.hours}
+              </div>
+              <div className="countdown-item rounded-pill">
+                {endAuctionIn.minutes}
+              </div>
+              <div className="countdown-item rounded-pill">
+                {endAuctionIn.seconds}
+              </div>
+            </div>
+          )}
 
           <div className="cursor-pointer contentType space-x-3">
-            {item?.contentType && item.contentType==='image' && <><FontAwesomeIcon icon={faImage}/></>}
-            {item?.contentType && item.contentType==='video' && <><FontAwesomeIcon icon={faVideo}/></>}
-            {item?.contentType && item.contentType==='sound' && <><FontAwesomeIcon icon={faMusic}/></>}
-            {item?.contentType && item.contentType==='model' && <><FontAwesomeIcon icon={faCubes}/></>}
+            {item?.contentType && item.contentType === 'image' && (
+              <>
+                <FontAwesomeIcon icon={faImage} />
+              </>
+            )}
+            {item?.contentType && item.contentType === 'video' && (
+              <>
+                <FontAwesomeIcon icon={faVideo} />
+              </>
+            )}
+            {item?.contentType && item.contentType === 'sound' && (
+              <>
+                <FontAwesomeIcon icon={faMusic} />
+              </>
+            )}
+            {item?.contentType && item.contentType === 'model' && (
+              <>
+                <FontAwesomeIcon icon={faCubes} />
+              </>
+            )}
           </div>
         </div>
 
@@ -102,7 +171,16 @@ export function AssetCardFour(props) {
           </Link>
         </h6>
 
-        <div className="card_footer d-block space-y-10">
+        <AssetCardFourPriceTag
+          loading={loading}
+          auction={auction}
+          item={item}
+          durationHumanize={endAuctionIn?.humanize}
+          auctionActive={auctionActive}
+          onClickMakeOffer={onClickMakeOffer}
+        />
+
+        {/* <div className="card_footer d-block space-y-10">
           <div className="card_footer justify-content-between">
             <div className="creators">
               <p className="txt_sm"> 4 in stock</p>
@@ -135,7 +213,7 @@ export function AssetCardFour(props) {
               Place Bid
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

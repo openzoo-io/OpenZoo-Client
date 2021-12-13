@@ -346,6 +346,10 @@ img {
   border-bottom: 1px solid #e2eef1;
 }
 
+.border-r {
+  border-right: 1px solid #e2eef1;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -13974,6 +13978,27 @@ label:active:after {
     display:flex;
     align-items: center;
 }
+
+.card__item .card_head .countdownWrapper {
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  bottom: 10px;
+  left: 10px;
+  justify-content: space-between;
+}
+
+.card__item .card_head .countdownWrapper .countdown-item {
+  display: flex;
+  min-width: 30px;
+  height: 30px;
+  padding: 5px;
+  background-color: white;
+  color: #00a59a;
+  justify-content: center;
+  align-items: center;
+}
+
 .is__dark label.toggle
 {
   background: #305571;
