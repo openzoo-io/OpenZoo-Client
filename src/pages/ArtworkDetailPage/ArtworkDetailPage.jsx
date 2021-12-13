@@ -2450,11 +2450,13 @@ export function ArtworkDetailPage() {
       <div className="overflow-hidden">
         <Header />
         <div className="container">
+          {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
             Back to home
-          </Link>
+          </Link>*/
+          }
           <div
-            className="item_details"
+            className="item_details my-40"
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -2473,10 +2475,12 @@ export function ArtworkDetailPage() {
     <div className="overflow-hidden artwork_detail_page">
       <Header />
       <div className="container">
-        <Link to="/explore" className="btn btn-white btn-sm my-40">
+        {
+        /*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
-        </Link>
-        <div className="item_details">
+        </Link>*/
+        }
+        <div className="item_details my-40">
           <div className="row md:space-y-20">
             <div className="col-lg-6">
               <div className="space-y-20">
