@@ -2647,6 +2647,7 @@ export function ArtworkDetailPage() {
                     creator,
                     creatorInfo,
                     creatorInfoLoading,
+                    account
                   }}
                   setOwnersModalVisible={setOwnersModalVisible}
                 />

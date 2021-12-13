@@ -1,11 +1,12 @@
 import Identicon from 'components/Identicon';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import { formatNumber, shortenAddress } from 'utils';
 import styles from '../styles.module.scss';
 import {
   People as PeopleIcon,
+  Person as PersonIcon,
   ViewModule as ViewModuleIcon,
 } from '@material-ui/icons';
 import cx from 'classnames';
@@ -26,7 +27,22 @@ export function ArtworkDetailPageStateSection(props) {
     creator,
     creatorInfo,
     creatorInfoLoading,
+    account
   } = props.data;
+
+  const [mine, setMine] = useState(0);
+  useEffect(()=>{
+    if (holders.length > 0)
+    {
+      let myAccount = account?.toLowerCase();
+      holders.map((v)=>{
+        if (v.address === myAccount)
+        {
+          setMine(v.supply);
+        }
+      });
+    }
+  },[holders]);
 
   return (
     <div
@@ -62,7 +78,18 @@ export function ArtworkDetailPageStateSection(props) {
                 </Link>
               </>
             ) : tokenInfo ? (
+              
               <>
+                {
+                  account && <div
+                  className={cx(styles.itemViews)}
+                
+                >
+                  <PersonIcon style={styles.itemIcon} />
+                  &nbsp;{formatNumber(mine)}
+                  &nbsp;{holders.length > 1 ? 'Items are' : 'Item is'} mine
+                </div>
+                }
                 <div
                   className={cx(styles.itemViews, styles.clickable)}
                   onClick={() => setOwnersModalVisible(true)}

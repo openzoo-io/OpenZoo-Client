@@ -12,7 +12,7 @@ export function ArtworkDetailPageAboutCollectionTab(props) {
   const { collection } = props;
 
   return (
-    <div className={styles.panelBody}>
+    <div>
       <div className={styles.collectionDescription}>
         {collection?.description || 'Unverified Collection'}
       </div>
