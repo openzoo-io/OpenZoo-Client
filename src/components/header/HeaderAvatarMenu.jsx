@@ -19,7 +19,6 @@ import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 
-
 const propTypes = {
   user: PropTypes.object,
   account: PropTypes.string,
@@ -32,11 +31,11 @@ const propTypes = {
 
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'ZOO';
-  const {getERC20Contract} = useNFTContract();
+  const { getERC20Contract } = useNFTContract();
   //const dispatch = useDispatch();
   const { account, chainId } = useWeb3React();
   //const { getWFTMBalance } = useWFTMContract();
-  
+
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
@@ -69,17 +68,16 @@ export function HeaderAvatarMenu(props) {
       999: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
     };
 
-    const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId])
-   
+    const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId]);
+
     let [ftmBal, /*wftmBal,*/ zooBal] = await Promise.all([
       await provider.getBalance(account),
-     // await getWFTMBalance(account),
-      await zooContract.balanceOf(account)
+      // await getWFTMBalance(account),
+      await zooContract.balanceOf(account),
     ]);
 
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
     setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
-
 
     // setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
 
@@ -126,7 +124,8 @@ export function HeaderAvatarMenu(props) {
           <Skeleton width={100} height="100%" />
         ) : (
           <span>
-            <img src="zoo32x32.png"/> {formatNumber(parseBalance(zooBalance),2)}
+            <img src="/zoo32x32.png" />{' '}
+            {formatNumber(parseBalance(zooBalance), 2)}
           </span>
         )}
       </div>
@@ -195,13 +194,11 @@ export function HeaderAvatarMenu(props) {
             <i className="ri-edit-line"></i>{' '}
             <span> Register Existing Collection</span>
           </Link>
-          {
-            /*
+          {/*
           <a onClick={handleOpenWrapStation}>
             <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
           </a>
-          */
-          }
+          */}
           {(props.isAdmin || props.isModerator) && (
             <div className="hr mt-2"></div>
           )}
@@ -222,28 +219,41 @@ export function HeaderAvatarMenu(props) {
           )}
           {(props.isAdmin || props.isModerator) && (
             <>
-              <div className="cursor-pointer" onClick={props.banCollection}>
-                <span> Ban Collection</span>
+              <div className="cursor-pointer" onClick={props.verifyCollection}>
+                <span>Verify Collection</span>
               </div>
+
+              <div
+                className="cursor-pointer"
+                onClick={props.unverifyCollection}
+              >
+                <span>Un-Verfiy Collection</span>
+              </div>
+
+              <div className="cursor-pointer" onClick={props.banCollection}>
+                <span>Ban Collection</span>
+              </div>
+
               {props.isAdmin && (
                 <div className="cursor-pointer" onClick={props.unbanCollection}>
-                  <span> Unban Collection</span>
+                  <span>Unban Collection</span>
                 </div>
               )}
+
               <div className="cursor-pointer" onClick={props.banItems}>
-                <span> Ban Items</span>
+                <span>Ban Items</span>
               </div>
               <div className="cursor-pointer" onClick={props.banUser}>
-                <span> Ban a user</span>
+                <span>Ban a user</span>
               </div>
               <div className="cursor-pointer" onClick={props.unbanUser}>
-                <span> Unban a user</span>
+                <span>Unban a user</span>
               </div>
             </>
           )}
           {props.isAdmin && (
             <div className="cursor-pointer" onClick={props.boostCollection}>
-              <span> Boost Collection</span>
+              <span>Boost Collection</span>
             </div>
           )}
 

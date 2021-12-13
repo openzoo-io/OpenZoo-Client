@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, withRouter, NavLink, Link } from 'react-router-dom';
 import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
-import { Menu } from '@material-ui/core';
 import { useWeb3React } from '@web3-react/core';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -15,6 +14,7 @@ import { useApi } from 'api';
 import { ADMIN_ADDRESS } from 'constants/index';
 import WFTMModal from 'components/WFTMModal';
 import ModModal from 'components/ModModal';
+import VerifyCollectionModal from 'components/VerifyCollectionModal';
 import BanCollectionModal from 'components/BanCollectionModal';
 import BanItemModal from 'components/BanItemModal';
 import BanUserModal from 'components/BanUserModal';
@@ -23,11 +23,6 @@ import ConnectWalletModal from 'components/ConnectWalletModal';
 import Identicon from 'components/Identicon';
 
 import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
-import iconUser from 'assets/svgs/user.svg';
-import iconNotification from 'assets/svgs/notification.svg';
-import iconAdd from 'assets/svgs/add.svg';
-import iconEdit from 'assets/svgs/edit.svg';
-import iconSwap from 'assets/svgs/swap.svg';
 
 import styles from './styles.module.scss';
 //import FilterActions from '../../actions/filter.actions';
@@ -58,13 +53,17 @@ const Header = () => {
     state => state.Modal
   );
 
-  const [anchorEl, setAnchorEl] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [searchBarActive, setSearchBarActive] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [modModalVisible, setModModalVisible] = useState(false);
   const [isBan, setIsBan] = useState(false);
   const [banCollectionModalVisible, setBanCollectionModalVisible] = useState(
+    false
+  );
+  const [isVerify, setIsVerfiy] = useState(false);
+  const [verifyCollectionModalVisible, setVerifyCollectionModalVisible] = useState(
     false
   );
   const [banItemModalVisible, setBanItemModalVisible] = useState(false);
@@ -84,8 +83,6 @@ const Header = () => {
   const [bundles, setBundles] = useState([]);
   const [tokenDetailsLoading, setTokenDetailsLoading] = useState(false);
   const timer = useRef(null);
-
-  const isMenuOpen = Boolean(anchorEl);
 
   const [DarkMode, setDarkMode] = React.useState(() => {
     const DarkValue = window.localStorage.getItem('darkmode');
@@ -233,193 +230,79 @@ const Header = () => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-    handleMenuClose();
+   
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const handleProfileMenuOpen = e => {
-    setAnchorEl(e.currentTarget);
-  };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const goToMyProfile = () => {
-    history.push(`/account/${account}`);
-    handleMenuClose();
-  };
-
-  const goToNotificationSettings = () => {
-    history.push(`/settings/notification`);
-    handleMenuClose();
-  };
-
-  const handleCreateCollection = () => {
-    history.push('/collection/create');
-    handleMenuClose();
-  };
-
-  const handleRegisterCollection = () => {
-    history.push('/collection/register');
-    handleMenuClose();
-  };
 
   const handleClickBurgerMenu = () => {
     setBurgerActive(previousValue => !previousValue);
   };
 
-  const openWrapStation = () => {
-    dispatch(ModalActions.showWFTMModal());
-    handleMenuClose();
-  };
+
 
   const addMod = () => {
     setIsAdding(true);
     setModModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const removeMod = () => {
     setIsAdding(false);
     setModModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const reviewCollections = () => {
     history.push('/collection/review');
-    handleMenuClose();
+   
   };
 
   const banCollection = () => {
     setIsBan(true);
     setBanCollectionModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const unbanCollection = () => {
     setIsBan(false);
     setBanCollectionModalVisible(true);
-    handleMenuClose();
+   
+  };
+
+  const verifyCollection = () => {
+    setIsVerfiy(true);
+    setVerifyCollectionModalVisible(true);
+   
+  };
+
+  const unverifyCollection = () => {
+    setIsVerfiy(false);
+    setVerifyCollectionModalVisible(true);
+   
   };
 
   const banItems = () => {
     setBanItemModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const banUser = () => {
     setBanUserModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const unbanUser = () => {
     setUnbanUserModalVisible(true);
-    handleMenuClose();
+   
   };
 
   const boostCollection = () => {
     setBoostCollectionModalVisible(true);
-    handleMenuClose();
+   
   };
 
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-      classes={{
-        paper: styles.profilemenu,
-        list: styles.menuList,
-      }}
-    >
-      {account && (
-        <div
-          className={cx(styles.menuItem, styles.topItem)}
-          onClick={goToMyProfile}
-        >
-          <img src={iconUser} className={styles.menuIcon} />
-          My Profile
-        </div>
-      )}
-      <div className={styles.menuItem} onClick={goToNotificationSettings}>
-        <img src={iconNotification} className={styles.menuIcon} />
-        Notification Settings
-      </div>
-      <div className={styles.menuItem} onClick={handleCreateCollection}>
-        <img src={iconAdd} className={styles.menuIcon} />
-        Create New Collection
-      </div>
-      <div className={styles.menuItem} onClick={handleRegisterCollection}>
-        <img src={iconEdit} className={styles.menuIcon} />
-        Register Existing Collection
-      </div>
-      <div className={styles.menuItem} onClick={openWrapStation}>
-        <img src={iconSwap} className={styles.menuIcon} />
-        WAN / WWAN Station
-      </div>
 
-      <div className={styles.menuSeparator} />
-      {account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase()
-        ? [
-          <div key={0} className={styles.menuItem} onClick={addMod}>
-            Add Mod
-          </div>,
-          <div key={1} className={styles.menuItem} onClick={removeMod}>
-            Remove Mod
-          </div>,
-          <div
-            key={2}
-            className={styles.menuItem}
-            onClick={reviewCollections}
-          >
-            Review Collections
-          </div>,
-          <div key={3} className={styles.menuItem} onClick={banCollection}>
-            Ban Collection
-          </div>,
-          <div key={4} className={styles.menuItem} onClick={unbanCollection}>
-            Unban Collection
-          </div>,
-          <div key={5} className={styles.menuItem} onClick={banItems}>
-            Ban Items
-          </div>,
-          <div key={6} className={styles.menuItem} onClick={banUser}>
-            Ban a user
-          </div>,
-          <div key={6} className={styles.menuItem} onClick={unbanUser}>
-            Unban a user
-          </div>,
-          <div key={7} className={styles.menuItem} onClick={boostCollection}>
-            Boost Collection
-          </div>,
-          <div key={8} className={styles.menuSeparator} />,
-        ]
-        : isModerator
-          ? [
-            <div key={1} className={styles.menuItem} onClick={banCollection}>
-              Ban Collection
-            </div>,
-            <div key={2} className={styles.menuItem} onClick={banItems}>
-              Ban Items
-            </div>,
-            <div key={3} className={styles.menuItem} onClick={banUser}>
-              Ban a user
-            </div>,
-            <div key={6} className={styles.menuItem} onClick={unbanUser}>
-              Unban a user
-            </div>,
-            <div key={4} className={styles.menuSeparator} />,
-          ]
-          : null}
-      <div className={styles.signOut} onClick={handleSignOut}>
-        Sign Out
-      </div>
-    </Menu>
-  );
 
   const renderSearchBox = () => (
     <div className={cx(styles.searchcont)}>
@@ -641,6 +524,8 @@ const Header = () => {
                   reviewCollections={reviewCollections}
                   banCollection={banCollection}
                   unbanCollection={unbanCollection}
+                  verifyCollection={verifyCollection}
+                  unverifyCollection={unverifyCollection}
                   banItems={banItems}
                   banUser={banUser}
                   unbanUser={unbanUser}
@@ -739,7 +624,6 @@ const Header = () => {
             <div className="header__mobile__menu">{renderSearchResult()}</div>
           </div>
 
-          {renderMenu}
           <WFTMModal
             visible={wftmModalVisible}
             onClose={() => dispatch(ModalActions.hideWFTMModal())}
@@ -748,6 +632,11 @@ const Header = () => {
             isAdding={isAdding}
             visible={modModalVisible}
             onClose={() => setModModalVisible(false)}
+          />
+          <VerifyCollectionModal
+            visible={verifyCollectionModalVisible}
+            isVerify={isVerify}
+            onClose={() => setVerifyCollectionModalVisible(false)}
           />
           <BanCollectionModal
             visible={banCollectionModalVisible}
