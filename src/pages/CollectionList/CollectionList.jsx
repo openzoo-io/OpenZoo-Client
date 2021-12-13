@@ -331,7 +331,9 @@ export function CollectionList() {
       updateItems();
     }
   }, [tokens, authToken]);
-
+  function addDefaultSrc(ev){
+    ev.target.src = '/notfound.png'
+  }
   return (
     <PageLayout
       ref={conRef}
@@ -343,6 +345,7 @@ export function CollectionList() {
                 <div className={styles.collectionDescription}>
                   <div className={styles.logo}>
                     <img
+                      onError={addDefaultSrc}
                       src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
                     />
                   </div>
