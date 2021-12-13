@@ -27,7 +27,8 @@ export function ArtworkDetailPageStateSection(props) {
     creator,
     creatorInfo,
     creatorInfoLoading,
-    account
+    account,
+    tokenUri
   } = props.data;
 
   const [mine, setMine] = useState(0);
@@ -136,7 +137,7 @@ export function ArtworkDetailPageStateSection(props) {
         )}
       </div>
       <div>
-        <ViewProofButton />
+        <ViewProofButton tokenUri={tokenUri}/>
       </div>
     </div>
   );

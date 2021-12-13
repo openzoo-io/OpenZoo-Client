@@ -235,6 +235,7 @@ export function ArtworkDetailPage() {
   const tokenType = useRef();
   const contentType = useRef();
   const [tokenInfo, setTokenInfo] = useState();
+  const [tokenUri, setTokenUri] = useState('');
   const [holders, setHolders] = useState([]);
   const likeUsers = useRef([]);
   const [collections, setCollections] = useState([]);
@@ -472,7 +473,7 @@ export function ArtworkDetailPage() {
         data = JSON.parse(string);
       } else {
         const realUri = getRandomIPFS(uri);
-
+        setTokenUri(realUri);
         new URL(realUri);
         const response = await axios.get(realUri);
         data = response.data;
@@ -529,7 +530,7 @@ export function ArtworkDetailPage() {
         const contract = await getERC721Contract(address);
         const tokenURI = await contract.tokenURI(tokenID);
         const realUri = getRandomIPFS(tokenURI);
-
+        setTokenUri(realUri);
         const { data } = await axios.get(realUri);
 
         if (data.image) {
@@ -2588,7 +2589,7 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
-                    <small className="color_text">
+                    <small className="color_text" style={{textAlign:'center',display:'block'}}>
                       <FontAwesomeIcon icon={faEye} color="#A2A2AD" />
                       &nbsp;
                       {isNaN(views) ? (
@@ -2651,7 +2652,8 @@ export function ArtworkDetailPage() {
                     creator,
                     creatorInfo,
                     creatorInfoLoading,
-                    account
+                    account,
+                    tokenUri
                   }}
                   setOwnersModalVisible={setOwnersModalVisible}
                 />
