@@ -17,16 +17,19 @@ import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts/PageLayout';
 
 const selfSettings = [
+  /*
   {
     value: 'sBundleBuy',
     title: 'Bundle Purchased',
     description: 'You have purchased a bundle.',
   },
+  
   {
     value: 'sBundleSell',
     title: 'Bundle Sold',
     description: 'Your bundle is sold.',
   },
+  
   {
     value: 'sBundleOffer',
     title: 'Get a new offer for your bundle',
@@ -37,6 +40,7 @@ const selfSettings = [
     title: 'An offer to you bundle called off',
     description: 'An offer to your bundle is canceled.',
   },
+  */
   {
     value: 'sNftAuctionPrice',
     title: "Your bid's Auction Price update",
@@ -85,6 +89,7 @@ const selfSettings = [
 ];
 
 const followerSettings = [
+  /*
   {
     value: 'fBundleCreation',
     title: 'New bundle creation by follower',
@@ -100,6 +105,7 @@ const followerSettings = [
     title: 'Bundle Price Update by follower',
     description: 'Updated the bundle sale price.',
   },
+  */
   {
     value: 'fNftAuctionPrice',
     title: 'NFT Auction Price update by follower',
