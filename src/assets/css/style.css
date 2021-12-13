@@ -20787,4 +20787,28 @@ label:active:after {
   background: linear-gradient(transparent, #0b1b2773, #0b1b27d6, #0b1b27);
 }
 
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+.animate-spin-slow
+{
+  position:absolute;
+  left:calc(50% - 16px);
+  top:calc(50% - 16px);
+  
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+
+}
+
+
 /*# sourceMappingURL=style.css.map */
+
+
