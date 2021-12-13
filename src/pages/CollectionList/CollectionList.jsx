@@ -27,6 +27,7 @@ import {
   faDiscord,
   faMedium,
 } from '@fortawesome/free-brands-svg-icons';
+import { Categories } from 'constants/filter.constants';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -47,6 +48,8 @@ export function CollectionList() {
   const { addr } = useParams();
 
   const conRef = useRef();
+
+  const [collectionType, setCollectionType] = useState('721');
 
   // Reset to unfilterd //
   /*
@@ -82,7 +85,6 @@ export function CollectionList() {
 
   const numPerRow = Math.floor(gridWidth / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
- 
 
   useEffect(() => {
     // Filter by Address //
@@ -122,15 +124,13 @@ export function CollectionList() {
   const updateCollections = async () => {
     try {
       // Filter by Address //
-      
+
       let cRes = await fetchCollection(addr);
 
-      
       setCollectionData(cRes.data);
 
       let statisticRes = await fetchCollectionStatistic(addr);
       setCollectionStatisticData(statisticRes.data);
-    
 
       dispatch(CollectionsActions.fetchStart());
       const res = await fetchCollections();
@@ -193,6 +193,10 @@ export function CollectionList() {
         cancelTokenSource.token
       );
 
+      // Set collection type by first NFT //
+      if (data.tokens[0]) {
+        setCollectionType(data.tokens[0].tokenType);
+      }
       let newTokens =
         dir > 0
           ? [...tokens, ...data.tokens]
@@ -405,26 +409,61 @@ export function CollectionList() {
                         </a>
                       )}
                     </div>
+                    <div className={styles.linksAlt}>
+                      {
+                        collectionType === '721'?
+                        <div className={styles.bullet}>SINGLE TOKEN - WRC721</div>:
+                        <div className={styles.bullet}>MULTI TOKEN - WRC1155</div>
+                      }
+                     
+                      {
+                        (collectionData.categories && Categories) && Categories.map(v=>{
+                         
+                          if (collectionData.categories.includes(v.id+''))
+                          {
+                            return <div className={styles.bullet}>{v.label}</div>
+                            
+                          }
+                        })
+                      
+                      }
+                    </div>
                   </div>
                 </div>
                 <div className={styles.collectionDescription}>
                   <div className="box">
-                    <span>{collectionStatisticData.countNFT?formatNumber(collectionStatisticData.countNFT):'N/A'}</span>
+                    <span>
+                      {collectionStatisticData.countNFT
+                        ? formatNumber(collectionStatisticData.countNFT)
+                        : 'N/A'}
+                    </span>
                     items
                   </div>
 
                   <div className="box">
-                    <span>{collectionStatisticData.countOwner?formatNumber(collectionStatisticData.countOwner):'N/A'}</span>
+                    <span>
+                      {collectionStatisticData.countOwner
+                        ? formatNumber(collectionStatisticData.countOwner)
+                        : 'N/A'}
+                    </span>
                     owners
                   </div>
 
                   <div className="box">
-                    <span>{collectionStatisticData.floorPrice?formatUSD(collectionStatisticData.floorPrice,2):'N/A'}</span>
+                    <span>
+                      {collectionStatisticData.floorPrice
+                        ? formatUSD(collectionStatisticData.floorPrice, 2)
+                        : 'N/A'}
+                    </span>
                     floor price
                   </div>
 
                   <div className="box">
-                    <span>{collectionStatisticData.volumeTraded?formatUSD(collectionStatisticData.volumeTraded,2):'N/A'}</span>
+                    <span>
+                      {collectionStatisticData.volumeTraded
+                        ? formatUSD(collectionStatisticData.volumeTraded, 2)
+                        : 'N/A'}
+                    </span>
                     volume traded
                   </div>
                 </div>
