@@ -20409,9 +20409,9 @@ label:active:after {
   border-color: #ffffff1f;
 }
 
-.is__dark .hr, .is__dark .hr2
+#body.is__dark .hr, #body.is__dark .hr2
 {
-  background: white !important;
+  background: rgba(255,255,255,0.1) !important;
 }
 
 
