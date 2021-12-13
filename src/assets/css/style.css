@@ -13595,7 +13595,7 @@ label:active:after {
 
 .card__item .card_head {
   border-radius: 30px;
-  background-color: #ecf1f9;
+  /*background-color: #ecf1f9;*/
   height: 280px;
   overflow: hidden;
   position: relative;
