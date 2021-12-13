@@ -4,23 +4,25 @@ import ReactPlayer from 'react-player';
 import Loader from 'components/Loader';
 import cx from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
-import { Canvas,useLoader } from '@react-three/fiber';
-import { OrbitControls, Stage,useAnimations,useProgress,Html } from '@react-three/drei';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-
+import { Canvas, useLoader } from '@react-three/fiber';
+import {
+  OrbitControls,
+  Stage,
+  useAnimations,
+  useProgress,
+  Html,
+} from '@react-three/drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 function Model({ url }) {
-  const { scene, animations } = useLoader(GLTFLoader, url)
+  const { scene, animations } = useLoader(GLTFLoader, url);
 
-  
   const copiedScene = useMemo(() => {
     return scene.clone();
   }, [scene]);
 
   const { names, actions } = useAnimations(animations, scene);
-  if (names[0])
-  actions[names[0]].play()
-  
+  if (names[0]) actions[names[0]].play();
 
   if (copiedScene) {
     return (
@@ -34,8 +36,16 @@ function Model({ url }) {
 }
 
 function Loader3D() {
-  const { progress } = useProgress()
-  return <Html center style={{color:'white'}}>{progress.toFixed(2)}%</Html>
+  const { progress } = useProgress();
+  return (
+    <Html center style={{ color: 'white' }}>
+      {progress.toFixed(2)}%
+    </Html>
+  );
+}
+
+function addDefaultSrc(ev){
+  ev.target.src = '/notfound.png'
 }
 
 export function ArtworkMediaView(props) {
@@ -44,11 +54,22 @@ export function ArtworkMediaView(props) {
   const styles = useStyle();
   const ext = image ? image.split('.').pop() : '';
 
-
-
-  if (['mp4', 'mp3'].indexOf(ext) != -1) {
+  if (['mp4'].indexOf(ext) != -1) {
     return (
       <div className="player-wrapper">
+        <ReactPlayer
+          className={`${cx(styles.mediaInner, className)} react-player`}
+          loop={true}
+          url={image}
+          controls={true}
+          width="100%"
+          height="100%"
+        />
+      </div>
+    );
+  } else if (['mp3'].indexOf(ext) != -1) {
+    return (
+      <div className="player-wrapper audio">
         <ReactPlayer
           className={`${cx(styles.mediaInner, className)} react-player`}
           loop={true}
@@ -62,29 +83,35 @@ export function ArtworkMediaView(props) {
   } else if (['glb'].indexOf(ext) != -1) {
     //const { scene } = useGLTF(image);
 
-
-
     return (
-      <div style={{ maxHeight: 676, height:380 }}>
+      <div style={{ maxHeight: 676, height: 380 }}>
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
-          <Suspense fallback={<Loader3D/>}>
+          <Suspense fallback={<Loader3D />}>
             <Stage intensity={0.5} preset="upfront">
               <Model url={image} />
             </Stage>
           </Suspense>
 
-          <OrbitControls makeDefault  autoRotate={true}/>
+          <OrbitControls makeDefault autoRotate={true} />
         </Canvas>
       </div>
     );
   } else {
-    return (
-      <Suspense
-        fallback={<Loader type="Oval" color="#00A59A" height={32} width={32} />}
-      >
-        <SuspenseImg className={cx(styles.mediaInner, className)} src={image} />
-      </Suspense>
-    );
+    if (image) {
+      return (
+        <Suspense fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}>
+          <SuspenseImg
+            className={cx(styles.mediaInner, className)}
+            src={image}
+            onError={addDefaultSrc}
+          />
+        </Suspense>
+      );
+    }
+    else
+    {
+      return <></>
+    }
   }
 }
 

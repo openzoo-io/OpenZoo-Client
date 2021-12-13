@@ -137,6 +137,11 @@ input[type='number'] {
   padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
 }
 
+.player-wrapper.audio {
+  padding-top:0;
+  height:50px;
+}
+
 .react-player {
   position: absolute;
   top: 0;

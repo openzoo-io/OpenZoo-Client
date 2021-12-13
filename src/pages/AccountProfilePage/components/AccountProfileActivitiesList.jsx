@@ -71,7 +71,9 @@ export function AccountProfileActivitiesList(props) {
                         : activity.imageURL
                     )}
                   </div>
+                  <div>
                   {activity.name}
+                  </div>
                 </Link>
               ) : (
                 <div className={styles.name}>

@@ -72,7 +72,7 @@ export function ArtworkDetailPageDetailSection(props) {
       <div className="box">
         <div className="space-y-20">
           <div className="d-flex justify-content-between mb-30_reset">
-            <ul className="nav nav-tabs d-flex mb-30" role="tablist">
+            <ul className="nav nav-tabs d-flex mb-30" role="tablist" style={{gap:5}}>
               <li className="nav-item mx-1.5 mb-2">
                 <a
                   className="btn btn-white btn-sm active"
@@ -157,11 +157,11 @@ export function ArtworkDetailPageDetailSection(props) {
                     href="#tabs-collection-detail"
                     role="tab"
                   >
-                    About {collection?.collectionName || collection?.name}
+                    About Collection{/*collection?.collectionName || collection?.name*/}
                   </a>
                 </li>
               )}
-              {!bundleID && (
+              {!bundleID && false && (
                 <li className="nav-item mx-1.5 mb-2">
                   <a
                     className="btn btn-white btn-sm"
@@ -282,7 +282,8 @@ export function ArtworkDetailPageDetailSection(props) {
                 <ArtworkDetailPageAboutCollectionTab collection={collection} />
               )}
             </div>
-            <div className="tab-pane" id="tabs-chain-info" role="tabpanel">
+            {
+            false && <div className="tab-pane" id="tabs-chain-info" role="tabpanel">
               {!bundleID && (
                 <ArtworkDetailPageChainInfoTab
                   explorerUrl={explorerUrl}
@@ -290,6 +291,7 @@ export function ArtworkDetailPageDetailSection(props) {
                 />
               )}
             </div>
+            }
             <div
               className="tab-pane"
               id="tabs-collection-royalty"

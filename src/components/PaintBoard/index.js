@@ -550,7 +550,7 @@ const PaintBoard = () => {
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
                   <strong>JPG, PNG, GIF</strong>
-                  <p className="color_brand">Max 15mb.</p>
+                  <p>Max 15mb.</p>
                 </div>
               </>
             )}
@@ -821,7 +821,7 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          {/* {type === 1155 && ( */}
+          { type === 1155 && ( 
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>Supply</p>
             <PriceInput
@@ -833,7 +833,7 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          {/* )} */}
+           )}
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
               Unlockable Content&nbsp;

@@ -134,6 +134,7 @@ export function ArtworkDetailPage() {
   const {
     explorerUrl,
     storageUrl,
+    apiUrl,
     getBundleDetails,
     fetchItemDetails,
     increaseBundleViewCount,
@@ -234,6 +235,7 @@ export function ArtworkDetailPage() {
   const tokenType = useRef();
   const contentType = useRef();
   const [tokenInfo, setTokenInfo] = useState();
+  const [tokenUri, setTokenUri] = useState('');
   const [holders, setHolders] = useState([]);
   const likeUsers = useRef([]);
   const [collections, setCollections] = useState([]);
@@ -471,7 +473,7 @@ export function ArtworkDetailPage() {
         data = JSON.parse(string);
       } else {
         const realUri = getRandomIPFS(uri);
-
+        setTokenUri(realUri);
         new URL(realUri);
         const response = await axios.get(realUri);
         data = response.data;
@@ -481,6 +483,32 @@ export function ArtworkDetailPage() {
         data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
         data.name = data[Object.keys(data)[0]].name;
         data.description = data[Object.keys(data)[0]].description;
+      }
+
+      // Sync when content type is media and have animation url //
+      if (contentType.current==='image' && data.animation_url)
+      {
+        let contentType = 'image';
+        let ext = data.animation_url ? data.animation_url.split('.').pop() : '';
+        switch(ext)
+        {
+          case 'mp4':contentType="video";break;
+          case 'mp3':contentType="sound";break;
+          case 'glb':contentType="model";break;
+        }
+
+        await axios({
+          method: 'post',
+          url: `${apiUrl}/nftitems/setContentType`,
+          data: JSON.stringify({
+            contractAddress: address,
+            tokenID: tokenID,
+            contentType: contentType,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
       }
 
       if (data.properties?.royalty) {
@@ -502,7 +530,7 @@ export function ArtworkDetailPage() {
         const contract = await getERC721Contract(address);
         const tokenURI = await contract.tokenURI(tokenID);
         const realUri = getRandomIPFS(tokenURI);
-
+        setTokenUri(realUri);
         const { data } = await axios.get(realUri);
 
         if (data.image) {
@@ -2423,11 +2451,13 @@ export function ArtworkDetailPage() {
       <div className="overflow-hidden">
         <Header />
         <div className="container">
+          {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
             Back to home
-          </Link>
+          </Link>*/
+          }
           <div
-            className="item_details"
+            className="item_details my-40"
             style={{
               display: 'flex',
               justifyContent: 'center',
@@ -2446,10 +2476,12 @@ export function ArtworkDetailPage() {
     <div className="overflow-hidden artwork_detail_page">
       <Header />
       <div className="container">
-        <Link to="/explore" className="btn btn-white btn-sm my-40">
+        {
+        /*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
-        </Link>
-        <div className="item_details">
+        </Link>*/
+        }
+        <div className="item_details my-40">
           <div className="row md:space-y-20">
             <div className="col-lg-6">
               <div className="space-y-20">
@@ -2514,7 +2546,7 @@ export function ArtworkDetailPage() {
                       <a
                         className={cx(
                           styles.itemCategory,
-                          'btn rounded-pill bg_brand'
+                          'btn btn-sm rounded-pill bg_brand'
                         )}
                         style={{ cursor: 'pointer' }}
                         href={'/collection/' + address}
@@ -2557,7 +2589,7 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
-                    <small className="color_text">
+                    <small className="color_text" style={{textAlign:'center',display:'block'}}>
                       <FontAwesomeIcon icon={faEye} color="#A2A2AD" />
                       &nbsp;
                       {isNaN(views) ? (
@@ -2620,6 +2652,8 @@ export function ArtworkDetailPage() {
                     creator,
                     creatorInfo,
                     creatorInfoLoading,
+                    account,
+                    tokenUri
                   }}
                   setOwnersModalVisible={setOwnersModalVisible}
                 />
@@ -3189,7 +3223,7 @@ export function ArtworkDetailPage() {
           </div>
         </div>
         {!bundleID && (
-          <div className={styles.panelWrapper}>
+          <div className={`${styles.panelWrapper} boxNoPad`}>
             <Panel
               title="More from this collection"
               icon={ViewModuleIcon}

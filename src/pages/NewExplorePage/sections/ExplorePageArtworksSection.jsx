@@ -42,6 +42,7 @@ export function ExplorePageArtworksSection(props) {
           }
           className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
         >
+          
           <AssetCard preset="four" item={item} isLiked={item.isLiked} />
         </div>
       ))}

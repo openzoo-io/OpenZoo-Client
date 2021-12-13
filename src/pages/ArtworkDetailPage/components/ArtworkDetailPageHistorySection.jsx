@@ -133,7 +133,7 @@ export function ArtworkDetailPageHistorySection(props) {
                           className={styles.tokenIcon}
                         />
                         {formatNumber(history.price)}
-                        &nbsp;( ${formatNumber(history.priceInUSD.toFixed(3))} )
+                        &nbsp;(${formatNumber(history.priceInUSD.toFixed(3))})
                       </>
                     ) : (
                       <Skeleton width={100} height={20} />

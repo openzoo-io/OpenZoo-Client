@@ -13611,6 +13611,7 @@ label:active:after {
 }
 
 .card__item .card_head img {
+  border-radius: 30px;
   width: 100%;
   height: 100%;
   -o-object-fit: scale-down;
@@ -13956,6 +13957,36 @@ label:active:after {
 
 .card__item.six .card_body .card_footer .details .card_title {
   font-size: 19px;
+}
+
+/*Add Content Type*/
+.card__item .card_head .contentType
+{
+  position: absolute;
+    background: hsla(0,0%,100%,.966);
+    padding: 3px 12px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 0 rgb(0,0,0,0.2);
+    z-index: 1;
+    bottom: 10px;
+    right: 10px;
+    color: #00a59a;
+    display:flex;
+    align-items: center;
+}
+.is__dark label.toggle
+{
+  background: #305571;
+}
+.is__dark .card__item .card_head .contentType
+{
+  
+    background: #183b56 !important
+}
+.is__dark .card__item .card_head .contentType svg path
+{
+  
+    color: white !important
 }
 
 @media screen and (max-width: 576px) {
@@ -20386,6 +20417,10 @@ label:active:after {
   border-color: #ffffff1f;
 }
 
+.is__dark .hr, .is__dark .hr2
+{
+  background: white !important;
+}
 
 
 .react-dropdown-select-dropdown
@@ -20760,4 +20795,28 @@ label:active:after {
   background: linear-gradient(transparent, #0b1b2773, #0b1b27d6, #0b1b27);
 }
 
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
+.animate-spin-slow
+{
+  position:absolute;
+  left:calc(50% - 16px);
+  top:calc(50% - 16px);
+  
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+
+}
+
+
 /*# sourceMappingURL=style.css.map */
+
+
