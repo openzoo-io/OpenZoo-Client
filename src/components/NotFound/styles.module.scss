@@ -17,12 +17,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 80px;
+  padding-top: 120px;
   z-index: 1;
 }
 
 .main {
-  margin-bottom: 120px;
+  
 }
 
 .title {
@@ -65,6 +65,11 @@
   }
 }
 
+.man {
+  
+  max-width:600px;
+}
+
 @media only screen and (max-width: 1100px) {
   .main {
     margin-right: -80px;
@@ -72,6 +77,7 @@
 
   .man {
     margin-right: -30px;
+    max-width:600px;
   }
 
   .title {

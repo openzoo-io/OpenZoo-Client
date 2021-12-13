@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import HeaderActions from 'actions/header.actions';
 import Header from 'components/header';
 
-import man from 'assets/imgs/404_man.png';
+import openzooicon from 'assets/svgs/openzoo_icon.svg';
 
 import styles from './styles.module.scss';
 
@@ -23,13 +23,13 @@ const NotFound = () => {
         <div className={styles.main}>
           <div className={styles.title}>404</div>
           <div className={styles.subtitle}>
-            Oooooops! We couldn’t find the page you’re looking for :(
+            Oops! The page you&apos;re looking for doesn&apos;t exist.
           </div>
           <Link to="/" className={styles.button}>
             Back To Home
           </Link>
         </div>
-        <img src={man} alt="man" className={styles.man} />
+        <img src={openzooicon} alt="man" className={styles.man} />
       </div>
     </div>
   );

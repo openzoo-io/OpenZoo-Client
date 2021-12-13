@@ -12,11 +12,13 @@ import { Tooltip } from '@material-ui/core';
 import WWAN_IMAGE from 'assets/imgs/wwan.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import ModalActions from 'actions/modal.actions';
+//import { useDispatch } from 'react-redux';
+//import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
-import { useWFTMContract } from 'contracts';
+import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
+import { formatNumber } from 'utils';
+
 
 const propTypes = {
   user: PropTypes.object,
@@ -29,15 +31,16 @@ const propTypes = {
 };
 
 export function HeaderAvatarMenu(props) {
-  const coinCurrency = 'WAN';
-
-  const dispatch = useDispatch();
+  //const coinCurrency = 'ZOO';
+  const {getERC20Contract} = useNFTContract();
+  //const dispatch = useDispatch();
   const { account, chainId } = useWeb3React();
-  const { getWFTMBalance } = useWFTMContract();
-
+  //const { getWFTMBalance } = useWFTMContract();
+  
   const styles = useStyle();
 
   const [balance, setBalance] = useState(0);
+  const [zooBalance, setZooBalance] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -51,7 +54,7 @@ export function HeaderAvatarMenu(props) {
     getBalances();
   }, [account, chainId]);
 
-  const parseBalance = (bal, fractionDigits = 4) => {
+  const parseBalance = (bal, fractionDigits = 2) => {
     return bal.toFixed(fractionDigits);
   };
 
@@ -61,19 +64,30 @@ export function HeaderAvatarMenu(props) {
     await window.ethereum.enable();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    let [ftmBal, wftmBal] = await Promise.all([
+    const ZOO_ADDRESS = {
+      888: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
+      999: '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135',
+    };
+
+    const zooContract = await getERC20Contract(ZOO_ADDRESS[chainId])
+   
+    let [ftmBal, /*wftmBal,*/ zooBal] = await Promise.all([
       await provider.getBalance(account),
-      await getWFTMBalance(account),
+     // await getWFTMBalance(account),
+      await zooContract.balanceOf(account)
     ]);
 
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
+    setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);
+
+
     // setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
 
     setGettingBalance(false);
 
     return [
       parseFloat(ftmBal.toString()) / 10 ** 18,
-      parseFloat(wftmBal.toString()) / 10 ** 18,
+      //parseFloat(wftmBal.toString()) / 10 ** 18,
     ];
   };
 
@@ -94,9 +108,11 @@ export function HeaderAvatarMenu(props) {
     setTooltipOpen(on);
   };
 
+  /*
   const handleOpenWrapStation = () => {
     dispatch(ModalActions.showWFTMModal());
   };
+  */
 
   return (
     <div
@@ -110,7 +126,7 @@ export function HeaderAvatarMenu(props) {
           <Skeleton width={100} height="100%" />
         ) : (
           <span>
-            {parseBalance(balance)} <strong>{coinCurrency}</strong>
+            <img src="zoo32x32.png"/> {formatNumber(parseBalance(zooBalance),2)}
           </span>
         )}
       </div>
@@ -160,7 +176,7 @@ export function HeaderAvatarMenu(props) {
             <p className="text-sm font-book text-gray-400">Balance</p>
             <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
               balance
-            )} ${coinCurrency}`}</p>
+            )} WAN`}</p>
           </div>
         </div>
         <div className="hr"></div>
@@ -179,10 +195,13 @@ export function HeaderAvatarMenu(props) {
             <i className="ri-edit-line"></i>{' '}
             <span> Register Existing Collection</span>
           </Link>
+          {
+            /*
           <a onClick={handleOpenWrapStation}>
             <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
           </a>
-
+          */
+          }
           {(props.isAdmin || props.isModerator) && (
             <div className="hr mt-2"></div>
           )}
