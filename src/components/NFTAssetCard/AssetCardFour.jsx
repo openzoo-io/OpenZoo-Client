@@ -7,16 +7,18 @@ import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AssetCardFourPriceTag } from './AssetCardFourPriceTag';
+
 import {
   faImage,
   faMusic,
   faVideo,
   faCubes,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar/StackAvatars';
 import { useState } from 'react';
 import moment from 'moment';
-
+import { useSelector } from 'react-redux';
 const propTypes = {
   item: PropTypes.object.isRequired,
   info: PropTypes.object,
@@ -31,6 +33,7 @@ export function AssetCardFour(props) {
   const {
     loading,
     item,
+
     info,
     auction,
     auctionActive,
@@ -42,8 +45,14 @@ export function AssetCardFour(props) {
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
 
-  const [endAuctionIn, setEndAuctionIn] = useState();
+  const { collections } = useSelector(state => state.Collections);
 
+  const collection = collections.find(
+    col => col.address === item?.contractAddress
+  );
+
+  const [endAuctionIn, setEndAuctionIn] = useState();
+  console.log(item);
   useEffect(() => {
     if (auction?.endTime == null || !auction?.endTime || !auctionActive) {
       setEndAuctionIn(undefined);
@@ -100,7 +109,7 @@ export function AssetCardFour(props) {
           <div className="avatars space-x-3">
             <StackAvatars
               users={new Array(2).fill({
-                address: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
+                address:'',
               })}
             />
           </div>
@@ -166,6 +175,11 @@ export function AssetCardFour(props) {
         </div>
 
         <h6 className="card_title">
+          
+          <Link to={'collection/'+item?.contractAddress} className={'card_subtitle'}>
+           {collection?.collectionName || collection?.name}
+           {collection?.isVerified && <FontAwesomeIcon icon={faCheckCircle}/>}
+          </Link>
           <Link to={assetUrl} className={'color_black'}>
             {info?.name || item?.name}
           </Link>

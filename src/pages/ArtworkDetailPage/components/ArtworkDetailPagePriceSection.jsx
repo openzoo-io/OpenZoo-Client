@@ -50,9 +50,11 @@ export function ArtworkDetailPagePriceSection(props) {
     handleBuyItem,
   } = props;
 
+  /*
   if (bestListing == null) {
     return null;
   }
+  */
 
   return (
     <div className="numbers">
@@ -84,7 +86,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 account?.toLocaleLowerCase() && (
                 <TxButton
                   className={cx(
-                    'btn btn-primary btn-lg',
+                    'btn btn-warning btn-lg',
                     buyingItem && styles.disabled
                   )}
                   onClick={
@@ -96,12 +98,20 @@ export function ArtworkDetailPagePriceSection(props) {
                   Buy Now
                 </TxButton>
               )}
+          </div>
+        </div>
+      )}
+
+      {!bestListing && (
+        <div className="d-flex space-x-10 justify-content-between align-items-center">
+          <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
+          <div></div>
             {isMine && (
               <>
                 {auction.current?.resulted === false ? (
                   <div
                     className={cx(
-                      'btn btn-primary btn-lg',
+                      'btn btn-warning btn-lg',
                       styles.headerButton,
                       auctionCanceling && styles.disabled
                     )}
@@ -120,7 +130,7 @@ export function ArtworkDetailPagePriceSection(props) {
                   tokenType.current !== 1155 && (
                     <div
                       className={cx(
-                        'btn btn-primary btn-lg',
+                        'btn btn-warning btn-lg',
                         styles.headerButton,
                         (auctionStarting || auctionUpdating || auctionEnded) &&
                           styles.disabled
@@ -143,7 +153,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     {hasListing ? (
                       <div
                         className={cx(
-                          'btn btn-primary btn-lg',
+                          'btn btn-warning btn-lg',
                           styles.headerButton,
                           cancelingListing && styles.disabled
                         )}
@@ -158,7 +168,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     ) : null}
                     <div
                       className={cx(
-                        'btn btn-primary btn-lg',
+                        'btn btn-warning btn-lg',
                         styles.headerButton,
                         (listingItem || priceUpdating) && styles.disabled
                       )}
@@ -186,7 +196,7 @@ export function ArtworkDetailPagePriceSection(props) {
               (!auction.current || auction.current.resulted) && (
                 <TxButton
                   className={cx(
-                    'btn btn-primary btn-lg',
+                    'btn btn-warning btn-lg',
                     (offerPlacing || offerCanceling) && styles.disabled
                   )}
                   data-toggle="modal"

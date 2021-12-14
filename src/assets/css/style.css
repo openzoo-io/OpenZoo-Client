@@ -13528,7 +13528,7 @@ label:active:after {
 .card__item {
   background: #ffffff;
   border: solid 1px #e2eef1;
-  padding: 20px;
+  padding: 12px;
   border-radius: 20px;
   -webkit-box-shadow: 0px 17px 13px 0px #192c4b05;
           box-shadow: 0px 17px 13px 0px #192c4b05;
@@ -13595,10 +13595,31 @@ label:active:after {
 }
 .card__item .card_title
 {
-  height: 50px;
+  height: 60px;
+  display:flex;
+  flex-direction: column;
+  margin-left:5px;
+  margin-right:5px;
+}
+.card__item .card_title .card_subtitle
+{
+  font-size: 12px;
+    color: #aaa;
+    font-weight: normal;
+}
+.card__item .card_title .card_subtitle svg
+{
+  color:#00a59a;
+  margin-left:3px;
+}
+.card__item .card_title .card_subtitle path
+{
+  color:#00a59a;
+  margin-left:3px;
 }
 .card__item .card_title a {
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
@@ -13606,16 +13627,16 @@ label:active:after {
 }
 
 .card__item .card_head {
-  border-radius: 30px;
+  border-radius: 15px;
   background-color: #ecf1f9;
-  height: 280px;
+  height: 300px;
   overflow: hidden;
   position: relative;
   z-index: 0;
 }
 
 .card__item .card_head img {
-  border-radius: 30px;
+  border-radius: 15px;
   width: 100%;
   height: 100%;
   -o-object-fit: scale-down;
@@ -14062,7 +14083,7 @@ label:active:after {
   
   max-height: 676px;
   max-width: 676px;
-  border: 1px solid #e2eef1;
+  /*border: 1px solid #e2eef1;*/
   background: #fff;
   box-shadow: 0 17px 13px 0 rgb(25 44 75 / 2%);
 }
