@@ -150,6 +150,10 @@ input[type='number'] {
   color: #00a59a !important;
 }
 
+.card_body .bg_light
+{
+  background:#F7F7F7;
+}
 .is__dark .card_body .bg_light {
   background: #0b1b27 !important;
 }
@@ -158,3 +162,4 @@ input[type='number'] {
 {
   border-right:1px solid rgba(255,255,255,0.2) !important;
 }
+
