@@ -41,7 +41,7 @@ export function AssetCardFourPriceTag(props) {
             {!item.price ? <>Not for Sale</> : ''}
           </span>
         </div>
-        <div className="d-flex space-x-5 align-items-center">
+        <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
           {auction ? (
             <>
               <img
@@ -61,10 +61,11 @@ export function AssetCardFourPriceTag(props) {
               <strong className={cx(styles.tokenSymbol, 'color_brand')}>
                 {auction?.token?.symbol}
               </strong>
+              
             </>
           ) : (
             <>
-              {item.price ? (
+              {item.price ? (<>
                 <strong className={cx(styles.tokenPrice, 'color_brand')}>
                   <img
                     src={getTokenByAddress(item?.paymentToken)?.icon}
@@ -72,6 +73,9 @@ export function AssetCardFourPriceTag(props) {
                   />{' '}
                   {item.price} {getTokenByAddress(item?.paymentToken).symbol}
                 </strong>
+                
+                <div className={styles.dollar}>=${formatNumber(item.priceInUSD)}</div>
+                </>
               ) : (
                 <div
                   className="cursor-pointer color_brand"
@@ -146,4 +150,8 @@ const useStyle = makeStyles(() => ({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  dollar:{
+    fontSize:11,
+    marginTop:'-5px'
+  }
 }));

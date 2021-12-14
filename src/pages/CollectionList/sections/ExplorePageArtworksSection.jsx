@@ -20,7 +20,7 @@ export function ExplorePageArtworksSection(props) {
 
   const loadMoreRef = React.useCallback(
     node => {
-      const hasMore = props.items.length !== props.count;
+      const hasMore = props.items.length !== props.count-1;
       if (props.loading) return;
       if (observer.current) observer.current?.disconnect();
       observer.current = new IntersectionObserver(entries => {

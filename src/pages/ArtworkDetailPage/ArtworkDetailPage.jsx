@@ -2565,7 +2565,7 @@ export function ArtworkDetailPage() {
                     */
                       >
                         {collection?.collectionName || collection?.name || ''}
-                        {collection.isVerified ? (
+                        {collection?.isVerified ? (
                           <FontAwesomeIcon icon={faCheckCircle} />
                         ) : (
                           ''

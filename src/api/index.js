@@ -83,6 +83,20 @@ export const useApi = () => {
     return res.data;
   };
 
+  const getUserAccountAlias = async address => {
+    const data = { address };
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/account/getuseraccountalias`,
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return res.data;
+  };
+
   const getUserFigures = async address => {
     const res = await axios({
       method: 'get',
@@ -885,6 +899,7 @@ export const useApi = () => {
     getIsModerator,
     getAccountDetails,
     getUserAccountDetails,
+    getUserAccountAlias,
     getUserFigures,
     updateAccountDetails,
     updateBanner,

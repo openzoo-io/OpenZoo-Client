@@ -13623,7 +13623,8 @@ label:active:after {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
-  display: block ruby;
+  display: block;
+  width: fit-content;
 }
 
 .card__item .card_head {
@@ -14023,6 +14024,10 @@ label:active:after {
 .is__dark label.toggle
 {
   background: #305571;
+}
+.is__dark input:checked + label
+{
+  background: #00a59a;
 }
 .is__dark .card__item .card_head .contentType
 {

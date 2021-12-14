@@ -30,6 +30,7 @@ const propTypes = {
 };
 
 export function AssetCardFour(props) {
+
   const {
     loading,
     item,
@@ -52,7 +53,7 @@ export function AssetCardFour(props) {
   );
 
   const [endAuctionIn, setEndAuctionIn] = useState();
-  console.log(item);
+  //console.log(item);
   useEffect(() => {
     if (auction?.endTime == null || !auction?.endTime || !auctionActive) {
       setEndAuctionIn(undefined);
@@ -102,6 +103,8 @@ export function AssetCardFour(props) {
     );
   }
 
+
+
   return (
     <div className="card__item four">
       <div className="card_body space-y-10">
@@ -109,7 +112,7 @@ export function AssetCardFour(props) {
           <div className="avatars space-x-3">
             <StackAvatars
               users={new Array(2).fill({
-                address:'',
+                address: item?.owner,
               })}
             />
           </div>
