@@ -41,9 +41,9 @@ export function AssetCardFourPriceTag(props) {
             {!item.price ? <>Not for Sale</> : ''}
           </span>
         </div>
-        <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
+        
           {auction ? (
-            <>
+            <div className="d-flex space-x-5 align-items-center justify-content-center">
               <img
                 src={
                   auctionActive
@@ -56,15 +56,13 @@ export function AssetCardFourPriceTag(props) {
               <strong className={cx(styles.tokenPrice, 'color_brand')}>
                 {formatNumber(
                   auctionActive ? auction.reservePrice : item.price.toFixed(2)
-                )}
-              </strong>
-              <strong className={cx(styles.tokenSymbol, 'color_brand')}>
-                {auction?.token?.symbol}
+                )} {auction?.token?.symbol}
               </strong>
               
-            </>
+              
+            </div>
           ) : (
-            <>
+            <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
               {item.price ? (<>
                 <strong className={cx(styles.tokenPrice, 'color_brand')}>
                   <img
@@ -84,10 +82,10 @@ export function AssetCardFourPriceTag(props) {
                   Make Offer
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
-      </div>
+ 
       {(durationHumanize || item?.lastSalePrice > 0) && (
         <div className="d-flex px-10 justify-content-between">
           <div>
