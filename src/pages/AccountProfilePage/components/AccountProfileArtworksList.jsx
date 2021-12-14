@@ -31,7 +31,7 @@ function AccountProfileArtworksListComponent(props) {
   return (
     <div className="tab-content">
       <div className="tab-pane active">
-        <div className="row mb-30_reset">
+        <div className="row">
           {props.items?.map((item, index) => (
             <div
               key={item?.tokenID + index.toString()}
