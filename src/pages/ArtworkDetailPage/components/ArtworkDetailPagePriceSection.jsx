@@ -79,7 +79,7 @@ export function ArtworkDetailPagePriceSection(props) {
             </span>
           </div>
 
-          <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
+          <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
             <div></div>
             {bestListing &&
               bestListing?.owner.toLocaleLowerCase() !==
@@ -98,14 +98,41 @@ export function ArtworkDetailPagePriceSection(props) {
                   Buy Now
                 </TxButton>
               )}
+
+            {(!isMine ||
+              (tokenType.current === 1155 &&
+                myHolding.supply < tokenInfo.totalSupply)) &&
+              (!auction.current || auction.current.resulted) && (
+                <TxButton
+                  className={cx(
+                    'btn btn-warning btn-lg',
+                    (offerPlacing || offerCanceling) && styles.disabled
+                  )}
+                  data-toggle="modal"
+                  data-target="#popup_bid"
+                  onClick={
+                    hasMyOffer
+                      ? handleCancelOffer
+                      : () => setOfferModalVisible(true)
+                  }
+                >
+                  {offerConfirming ? (
+                    <ClipLoader color="#FFF" size={16} />
+                  ) : hasMyOffer ? (
+                    'Withdraw Offer'
+                  ) : (
+                    'Make Offer'
+                  )}
+                </TxButton>
+              )}
           </div>
         </div>
       )}
 
       {!bestListing && (
         <div className="d-flex space-x-10 justify-content-between align-items-center">
-          <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 space-y-10 sm:-ml-5 md:-ml-10 -ml-20">
-          <div></div>
+          <div className="d-flex flex-wrap sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
+            <div></div>
             {isMine && (
               <>
                 {auction.current?.resulted === false ? (
@@ -190,6 +217,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 )}
               </>
             )}
+
             {(!isMine ||
               (tokenType.current === 1155 &&
                 myHolding.supply < tokenInfo.totalSupply)) &&

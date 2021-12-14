@@ -79,7 +79,7 @@ export function Avatar(props) {
         `https://openzoo.mypinata.cloud/ipfs/${props.user?.imageHash}`
       }
       alt="Avatar"
-      className={cx('avatar', `avatar-${props.size}, props.className`)}
+      className={cx('avatar', `avatar-${props.size}` , props.className)}
     />
   );
 }
