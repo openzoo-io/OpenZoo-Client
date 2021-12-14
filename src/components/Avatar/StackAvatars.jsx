@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar } from './Avatar';
 import { Link } from 'react-router-dom';
+import { shortenAddress } from 'utils';
 
 const propTypes = {
   users: PropTypes.array,
@@ -28,7 +29,9 @@ export function StackAvatars(props) {
           />
         ))}
       </div>
-      <p className="avatars_name txt_sm">{latestUser?.alias || 'Unnamed'}</p>
+      <p className="avatars_name txt_sm">
+        {latestUser?.alias || shortenAddress(latestUser?.address) || 'Unnamed'}
+      </p>
     </Link>
   );
 }

@@ -5,18 +5,20 @@ import { ClipLoader } from 'react-spinners';
 import Select from 'react-dropdown-select';
 import Skeleton from 'react-loading-skeleton';
 import { ethers } from 'ethers';
+import cx from 'classnames';
 
 import { formatNumber } from 'utils';
 import useTokens from 'hooks/useTokens';
 import { useSalesContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 
-import Modal from '../Modal';
+import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
 
 const OfferModal = ({
   visible,
+  info,
   onClose,
   onMakeOffer,
   confirming,
@@ -106,19 +108,27 @@ const OfferModal = ({
   return (
     <Modal
       visible={visible}
-      title="Place your offer"
+      title="PLACE YOUR OFFER"
       onClose={onClose}
       submitDisabled={confirming || !validateInput() || inputError}
       submitLabel={
-        confirming ? <ClipLoader color="#FFF" size={16} /> : 'Place Offer'
+        confirming ? <ClipLoader color="#FFF" size={16} /> : 'PLACE OFFER'
       }
       onSubmit={() =>
         !confirming && validateInput() ? handleMakeOffer() : null
       }
     >
+      {info?.name && (
+        <p>
+          You are about to place an offer for
+          <br />
+          <span className="color_brand">{info?.name}</span>
+        </p>
+      )}
+
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price</div>
-        <div className={styles.formInputCont}>
+        <div className="d-flex rounded-15 bg_input align-items-center">
           <Select
             options={options}
             disabled={confirming}
@@ -126,7 +136,7 @@ const OfferModal = ({
             onChange={tk => {
               setSelected(tk);
             }}
-            className={styles.select}
+            className={cx(styles.select, 'bg_input')}
             placeholder=""
             itemRenderer={({ item, itemIndex, methods }) => (
               <div
@@ -176,7 +186,7 @@ const OfferModal = ({
       {totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
-          <div className={styles.formInputCont}>
+          <div className="d-flex rounded-15 bg_input align-items-center">
             <input
               className={styles.formInput}
               placeholder={totalSupply}
@@ -189,7 +199,7 @@ const OfferModal = ({
       )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Offer Expiration</div>
-        <div className={styles.formInputCont}>
+        <div className="d-flex rounded-15 bg_input align-items-center">
           <Datetime
             value={endTime}
             onChange={val => setEndTime(val.toDate())}

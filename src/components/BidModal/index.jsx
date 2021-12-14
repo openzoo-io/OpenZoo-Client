@@ -10,12 +10,13 @@ import useTokens from 'hooks/useTokens';
 import { useSalesContract } from 'contracts';
 import PriceInput from 'components/PriceInput';
 
-import Modal from '../Modal';
+import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import styles from '../Modal/common.module.scss';
 import InputError from '../InputError';
 
 const BidModal = ({
   visible,
+  info,
   onClose,
   onPlaceBid,
   minBidAmount,
@@ -79,17 +80,31 @@ const BidModal = ({
   return (
     <Modal
       visible={visible}
-      title="Place Bid"
+      title="PLACE YOUR BID"
       onClose={onClose}
       submitDisabled={confirming || !validateInput() || inputError}
-      submitLabel={confirming ? <ClipLoader color="#FFF" size={16} /> : 'Place'}
+      submitLabel={
+        confirming ? <ClipLoader color="#FFF" size={16} /> : 'PLACE BID'
+      }
       onSubmit={() =>
         !confirming && validateInput() ? onPlaceBid(price) : null
       }
     >
+      {info?.name && (
+        <p>
+          You are about to place a bid for
+          <br />
+          <span className="color_brand">{info?.name}</span>
+        </p>
+      )}
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price</div>
-        <div className={cx(styles.formInputCont, focused && styles.focused)}>
+        <div
+          className={cx(
+            'd-flex rounded-15 bg_input align-items-center',
+            focused && styles.focused
+          )}
+        >
           <Select
             options={options}
             disabled

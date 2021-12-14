@@ -2725,6 +2725,8 @@ export function ArtworkDetailPage() {
                             )}`
                       }
                       fixed
+                      containerClassName="px-20 border-none"
+                      headerClassName="px-0"
                     >
                       <div className={styles.bids}>
                         {auctionEnded ? (
@@ -2814,7 +2816,8 @@ export function ArtworkDetailPage() {
                                 <div
                                   className={cx(
                                     styles.placeBid,
-                                    bidPlacing && styles.disabled
+                                    bidPlacing && styles.disabled,
+                                    'bg_brand'
                                   )}
                                   onClick={() => setBidModalVisible(true)}
                                 >
@@ -3274,6 +3277,7 @@ export function ArtworkDetailPage() {
       />
       <OfferModal
         visible={offerModalVisible}
+        info={info}
         onClose={() => setOfferModalVisible(false)}
         onMakeOffer={handleMakeOffer}
         confirming={offerPlacing}
@@ -3281,6 +3285,7 @@ export function ArtworkDetailPage() {
       />
       <AuctionModal
         visible={auctionModalVisible}
+        info={info}
         onClose={() => setAuctionModalVisible(false)}
         onStartAuction={
           auction.current ? handleUpdateAuction : handleStartAuction
@@ -3294,6 +3299,7 @@ export function ArtworkDetailPage() {
       />
       <BidModal
         visible={bidModalVisible}
+        info={info}
         onClose={() => setBidModalVisible(false)}
         onPlaceBid={handlePlaceBid}
         minBidAmount={bid?.bid ? bid?.bid : minBid}

@@ -56,6 +56,7 @@ function AssetCardComponent(props) {
   const { getTokenByAddress } = useTokens();
   const { authToken } = useSelector(state => state.ConnectWallet);
 
+  const [now, setNow] = useState(new Date());
   const [fetching, setFetching] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [liked, setLiked] = useState(0);
@@ -65,6 +66,18 @@ function AssetCardComponent(props) {
 
   // TODO: delete faker code
   const _item = item && Object.keys(item).length > 0 ? item : fakerAsset();
+
+  const auctionStarted = now.getTime() / 1000 >= auction?.startTime;
+
+  const auctionEnded = auction?.endTime <= now.getTime() / 1000;
+
+  const auctionActive = auctionStarted && !auctionEnded;
+
+  useEffect(() => {
+    setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -198,6 +211,7 @@ function AssetCardComponent(props) {
         liked={liked}
         isLike={isLike}
         auction={auction}
+        auctionActive={auctionActive}
         loading={fetching || loading}
         onLike={handleClickLike}
         {...rest}
