@@ -2820,7 +2820,7 @@ export function ArtworkDetailPage() {
                                   className={cx(
                                     styles.placeBid,
                                     bidPlacing && styles.disabled,
-                                    'bg_brand'
+                                    ' btn btn-warning btn-lg'
                                   )}
                                   onClick={() => setBidModalVisible(true)}
                                 >
