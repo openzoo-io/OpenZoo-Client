@@ -61,7 +61,7 @@ export function AssetCardFourPriceTag(props) {
             </strong>
           </div>
         ) : (
-          <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
+          <div className="d-flex flex-column space-x-5 align-items-end justify-content-center px-10">
             {item.price ? (
               <>
                 <strong className={cx(styles.tokenPrice, 'color_brand')}>
@@ -73,7 +73,7 @@ export function AssetCardFourPriceTag(props) {
                 </strong>
 
                 <div className={styles.dollar}>
-                  =${formatNumber(item.priceInUSD)}
+                  =${formatNumber(item.priceInUSD.toFixed(2))}
                 </div>
               </>
             ) : (
