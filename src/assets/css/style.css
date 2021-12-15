@@ -20757,8 +20757,9 @@ label:active:after {
 .is__dark .btn-white:hover,
 .is__dark .tags:hover,
 .is__dark .light_bg:hover {
-  border: solid 1px #345a77;
-  background: #345a77;
+  border: solid 1px #345a77 !important;
+  background: #345a77 !important;
+  color:white  !important;
 }
 
 .is__dark .card__item .view_history:hover {

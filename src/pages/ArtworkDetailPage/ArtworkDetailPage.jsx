@@ -2601,6 +2601,7 @@ export function ArtworkDetailPage() {
                   </div>
                 </div>
                 <ArtworkDetailPagePriceSection
+                  bid={bid}
                   bestListing={bestListing}
                   prices={prices}
                   account={account}
@@ -2765,7 +2766,6 @@ export function ArtworkDetailPage() {
                               />
                               {formatNumber(auction.current.reservePrice)}
                             </div>
-                            <br />
                             <div className={styles.bidtitle}>
                               Highest Bid :&nbsp;
                               <img
@@ -2800,10 +2800,10 @@ export function ArtworkDetailPage() {
                             ? now.getTime() / 1000 >=
                                 auction?.current?.endTime + 43200 && (
                                 <div
-                                  className={cx(
+                                  className={`${cx(
                                     styles.withdrawBid,
                                     bidWithdrawing && styles.disabled
-                                  )}
+                                  )} btn btn-warning btn-lg`}
                                   onClick={() => handleWithdrawBid()}
                                 >
                                   {bidWithdrawing
@@ -2829,10 +2829,10 @@ export function ArtworkDetailPage() {
                               ))}
                         {isMine && auctionEnded && !auction.current.resulted && (
                           <div
-                            className={cx(
+                            className={`${cx(
                               styles.placeBid,
                               resulting && styles.disabled
-                            )}
+                            )} btn btn-warning btn-lg`}
                             onClick={
                               bid === null ||
                               bid?.bid < auction.current?.reservePrice

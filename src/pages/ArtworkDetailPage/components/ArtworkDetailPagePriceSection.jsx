@@ -13,6 +13,7 @@ const propTypes = {
 
 export function ArtworkDetailPagePriceSection(props) {
   const {
+    bid,
     bestListing,
     prices,
     account,
@@ -147,7 +148,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     {auctionCancelConfirming ? (
                       <ClipLoader color="#FFF" size={16} />
                     ) : (
-                      'Cancel Auction'
+                      bid?.bid < auction.current.reservePrice ? 'Cancel Auction' :'Accept highest bid'
                     )}
                   </div>
                 ) : null}
