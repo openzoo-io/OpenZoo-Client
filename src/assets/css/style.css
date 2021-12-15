@@ -201,7 +201,7 @@ img {
 }
 
 .color_red {
-  color: #eb5757;
+  color: #eb5757 !important;
 }
 
 .bg_brand {
