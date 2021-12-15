@@ -28,11 +28,7 @@ import styles from './styles.module.scss';
 //import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSun,
-  faMoon
-} from '@fortawesome/free-solid-svg-icons';
+
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -493,26 +489,13 @@ const Header = () => {
           {renderSearchBox()}
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
-            <div className={styles.darkmodeToggle}>
-              <span><FontAwesomeIcon icon={faSun} /></span>
-              <input
-                id="darkmode-toggle"
-                type="checkbox"
-                checked={DarkMode}
-                onChange={() => { setDarkMode(!DarkMode) }}
-              />
-              <label
-                className="toggle"
-                htmlFor={`darkmode-toggle`}
-              >
-                Toggle
-              </label>
-              <span><FontAwesomeIcon icon={faMoon} /></span>
-            </div>
+
             {account ? (
               <>
                 {/*<HeaderNotificationMenu />*/}
                 <HeaderAvatarMenu
+                  DarkMode={DarkMode}
+                  setDarkMode={setDarkMode}
                   user={user}
                   loading={loading}
                   isAdmin={

@@ -167,3 +167,8 @@ input[type='number'] {
 {
   background:#0b1b27 !important;
 }
+
+.modal
+{
+  padding-left:15px;
+}

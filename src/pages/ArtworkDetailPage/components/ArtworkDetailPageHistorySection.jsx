@@ -60,7 +60,7 @@ export function ArtworkDetailPageHistorySection(props) {
               {filtersItems[0].label}
             </button>
             <div
-              style={{ borderRight: '1.5px solid #183b56', margin: '5px 0' }}
+              style={{ borderRight: '1px solid rgba(255, 255, 255, 0.1)', margin: '5px 0' }}
             ></div>
             {!bundleID && (
               <button

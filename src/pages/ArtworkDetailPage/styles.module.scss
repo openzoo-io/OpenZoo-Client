@@ -723,13 +723,13 @@
 .itemsList {
   display: flex;
   overflow-x: auto;
-  padding-bottom: 20px;
+  //padding-bottom: 20px;
   margin-bottom: -20px;
 }
 
 .moreItem {
-  width: 240px;
-  flex: 0 0 240px;
+  width: 320px;
+  flex: 0 0 320px;
   margin-right: 20px;
 }
 
@@ -985,7 +985,7 @@
 
 .moreNftCardHeader {
   height: auto;
-  max-width: 250px;
+  max-width: 320px;
 }
 
 @media only screen and (max-width: 1180px) {
@@ -1091,11 +1091,12 @@
     margin: 0 30px 30px;
   }
 
+  /*
   .itemStats {
     flex-direction: column;
     align-items: flex-start;
   }
-
+*/
   .itemOwner {
     flex-flow: wrap;
   }
@@ -1124,10 +1125,12 @@
     min-width: 550px;
   }
 
+  /*
   .moreItem {
     width: calc(100vw - 130px);
     flex-basis: calc(100vw - 130px);
   }
+  */
 }
 
 canvas {
