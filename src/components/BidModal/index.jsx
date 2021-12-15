@@ -73,7 +73,7 @@ const BidModal = ({
       parseFloat(price) > 0 &&
       (firstBid
         ? parseFloat(price) >= currentBid
-        : parseFloat(price) > currentBid)
+        : parseFloat(price) >= currentBid)
     );
   };
 
