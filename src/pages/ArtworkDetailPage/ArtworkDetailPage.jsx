@@ -2664,7 +2664,7 @@ export function ArtworkDetailPage() {
                     nftRoyalty?.royalty ||
                     platformFee?.royalty ? (
                       <div className={styles.royaltyFee}>
-                        Royaltee Fee{' '}
+                        Royalty Fee{' '}
                         {collectionRoyalty?.royalty ||
                           nftRoyalty?.royalty ||
                           platformFee?.royalty}
