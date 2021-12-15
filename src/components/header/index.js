@@ -326,7 +326,7 @@ const Header = () => {
   );
 
   const renderSearchResult = () => {
-    if (!searchBarActive) {
+    if (!searchBarActive || keyword.length===0) {
       return null;
     }
 
@@ -338,13 +338,10 @@ const Header = () => {
             <div className={styles.separator} />
             <div className={styles.resultlist}>
               {collections.map((collection, idx) => (
-                <div
+                <Link
                   key={idx}
                   className={styles.result}
-                  onClick={() =>
-                    history.push('/collection/'+collection.erc721Address)
-                    //handleSelectCollection(collection.erc721Address)
-                  }
+                  to={'/collection/'+collection.erc721Address}
                 > 
                   <img
                     className={styles.resultimg}
@@ -354,7 +351,7 @@ const Header = () => {
                   <div className={styles.resulttitle}>
                     {collection.collectionName}
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -445,6 +442,7 @@ const Header = () => {
           bundles.length === 0 && (
             <div className={styles.noResults}>No Results</div>
           )}
+          
       </div>
     );
   };

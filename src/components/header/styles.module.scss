@@ -103,6 +103,22 @@
   padding:20px;
 }
 
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .resultcont {
+        
+        background: #183b56!important;
+        
+        
+      }
+    }
+  }
+}
+
 .resultsection {
   margin-bottom: 6px;
 
