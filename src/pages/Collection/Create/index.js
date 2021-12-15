@@ -11,7 +11,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CloseIcon from '@material-ui/icons/Close';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import InfoIcon from '@material-ui/icons/Info';
 import { ClipLoader } from 'react-spinners';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
@@ -30,11 +29,11 @@ import nftIcon from 'assets/svgs/nft_black.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import {
+  faDiscord,
   faTwitter,
-  faYoutube,
-  faBehance,
-  faVimeo,
-  faLinkedinIn,
+  faInstagram,
+  faMedium,
+  faTelegramPlane
 } from '@fortawesome/free-brands-svg-icons';
 
 import styles from './styles.module.scss';
@@ -118,10 +117,9 @@ const CollectionCreate = ({ isRegister }) => {
   const [siteUrl, setSiteUrl] = useState('');
   const [discord, setDiscord] = useState('');
   const [twitterHandle, setTwitterHandle] = useState('');
-  const [linkedin, setLinkedin] = useState('');
-  const [vimeo, setVimeo] = useState('');
-  const [behance, setBehance] = useState('');
-  const [youtube, setYoutube] = useState('');
+  const [instagramHandle, setInstagramHandle] = useState('');
+  const [mediumHandle, setMediumHandle] = useState('');
+  const [telegram, setTelegram] = useState('');
   const [isPrivate, setIsPrivate] = useState(true);
   const [isSingle, setIsSingle] = useState(true);
   const [isAcceptUploadRight, setIsAcceptUploadRight] = useState(false);
@@ -150,10 +148,9 @@ const CollectionCreate = ({ isRegister }) => {
     setSiteUrl('');
     setDiscord('');
     setTwitterHandle('');
-    setLinkedin('');
-    setVimeo('');
-    setBehance('');
-    setYoutube('');
+    setInstagramHandle('');
+    setMediumHandle('');
+    setTelegram('');
   }, [isRegister]);
 
   const options = Categories.filter(cat => selected.indexOf(cat.id) === -1);
@@ -299,7 +296,7 @@ const CollectionCreate = ({ isRegister }) => {
     setCreating(true);
 
     const img = new Image();
-    img.onload = function() {
+    img.onload = function () {
       const w = this.width;
       const h = this.height;
       const size = Math.min(w, h);
@@ -314,7 +311,7 @@ const CollectionCreate = ({ isRegister }) => {
 
           try {
             const signer = await getSigner();
-            const msg = `Approve Signature on Artion.io with nonce ${nonce}`;
+            const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
 
             signature = await signer.signMessage(msg);
             signatureAddress = ethers.utils.verifyMessage(msg, signature);
@@ -352,10 +349,9 @@ const CollectionCreate = ({ isRegister }) => {
             siteUrl,
             discord,
             twitterHandle,
-            linkedin,
-            vimeo,
-            behance,
-            youtube,
+            instagramHandle,
+            mediumHandle,
+            telegram,
             signature,
             signatureAddress,
             royalty,
@@ -387,10 +383,11 @@ const CollectionCreate = ({ isRegister }) => {
         }
       });
     };
-    img.src = logo;
+    img.src = URL.createObjectURL(logo);
   };
 
   const handleCreate = async () => {
+    
     setDeploying(true);
     try {
       const tx = await createNFTContract(
@@ -399,14 +396,15 @@ const CollectionCreate = ({ isRegister }) => {
             ? await getPrivateFactoryContract()
             : await getFactoryContract()
           : isPrivate
-          ? await getPrivateArtFactoryContract()
-          : await getArtFactoryContract(),
+            ? await getPrivateArtFactoryContract()
+            : await getArtFactoryContract(),
         name,
         symbol,
-        ethers.utils.parseEther('100'),
+        ethers.utils.parseEther('0'),
         account
       );
       const res = await tx.wait();
+      console.log(res);
       res.events.map(evt => {
         if (
           evt.topics[0] ===
@@ -418,7 +416,7 @@ const CollectionCreate = ({ isRegister }) => {
           const address = ethers.utils.hexDataSlice(evt.data, 44);
 
           const img = new Image();
-          img.onload = function() {
+          img.onload = function () {
             const w = this.width;
             const h = this.height;
             const size = Math.min(w, h);
@@ -432,7 +430,7 @@ const CollectionCreate = ({ isRegister }) => {
                 try {
                   const signer = await getSigner();
                   signature = await signer.signMessage(
-                    `Approve Signature on Artion.io with nonce ${nonce}`
+                    `Approve Signature on OpenZoo.io with nonce ${nonce}`
                   );
                 } catch (err) {
                   toast(
@@ -467,10 +465,9 @@ const CollectionCreate = ({ isRegister }) => {
                   siteUrl,
                   discord,
                   twitterHandle,
-                  linkedin,
-                  vimeo,
-                  behance,
-                  youtube,
+                  instagramHandle,
+                  mediumHandle,
+                  telegram,
                   signature,
                 };
                 await axios({
@@ -493,7 +490,7 @@ const CollectionCreate = ({ isRegister }) => {
               }
             });
           };
-          img.src = logo;
+          img.src = URL.createObjectURL(logo);
         }
       });
     } catch (err) {
@@ -538,7 +535,8 @@ const CollectionCreate = ({ isRegister }) => {
       containerClassName="form-container-page box"
       cover={
         !isRegister && (
-          <div className="container">
+          <div className="container" style={{paddingLeft:0,paddingRight:0}}>
+            
             <div className="d-flex justify-content-between mt-40 space-x-40 sm:space-x-20">
               <TokenChoiceCard
                 title="SINGLE TOKEN"
@@ -625,7 +623,7 @@ const CollectionCreate = ({ isRegister }) => {
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
                   <strong>JPG, PNG</strong>
-                  <p className="color_brand">300x300 recommend</p>
+                  <p>300x300 recommend</p>
                 </div>
               </>
             )}
@@ -858,6 +856,20 @@ const CollectionCreate = ({ isRegister }) => {
                 <div className={styles.linkItem}>
                   <div className={styles.linkIconWrapper}>
                     <div className={styles.linkIcon}>
+                      <FontAwesomeIcon icon={faDiscord} size="lg" />
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    className={styles.linkInput}
+                    placeholder="Discord"
+                    value={discord}
+                    onChange={e => setDiscord(e.target.value)}
+                  />
+                </div>
+                <div className={styles.linkItem}>
+                  <div className={styles.linkIconWrapper}>
+                    <div className={styles.linkIcon}>
                       <FontAwesomeIcon icon={faTwitter} size="lg" />
                     </div>
                   </div>
@@ -872,59 +884,48 @@ const CollectionCreate = ({ isRegister }) => {
                 <div className={styles.linkItem}>
                   <div className={styles.linkIconWrapper}>
                     <div className={styles.linkIcon}>
-                      <FontAwesomeIcon icon={faLinkedinIn} size="lg" />
+                      <FontAwesomeIcon icon={faInstagram} size="lg" />
                     </div>
                   </div>
                   <input
                     type="text"
                     className={styles.linkInput}
-                    placeholder="LinkedIn"
-                    value={linkedin}
-                    onChange={e => setLinkedin(e.target.value)}
+                    placeholder="Instagram"
+                    value={instagramHandle}
+                    onChange={e => setInstagramHandle(e.target.value)}
                   />
                 </div>
                 <div className={styles.linkItem}>
                   <div className={styles.linkIconWrapper}>
                     <div className={styles.linkIcon}>
-                      <FontAwesomeIcon icon={faVimeo} size="lg" />
+                      <FontAwesomeIcon icon={faMedium} size="lg" />
                     </div>
                   </div>
                   <input
                     type="text"
                     className={styles.linkInput}
-                    placeholder="Vimeo"
-                    value={vimeo}
-                    onChange={e => setVimeo(e.target.value)}
+                    placeholder="Medium"
+                    value={mediumHandle}
+                    onChange={e => setMediumHandle(e.target.value)}
                   />
                 </div>
                 <div className={styles.linkItem}>
                   <div className={styles.linkIconWrapper}>
                     <div className={styles.linkIcon}>
-                      <FontAwesomeIcon icon={faBehance} size="lg" />
+                      <FontAwesomeIcon icon={faTelegramPlane} size="lg" />
                     </div>
                   </div>
                   <input
                     type="text"
                     className={styles.linkInput}
-                    placeholder="Behance"
-                    value={behance}
-                    onChange={e => setBehance(e.target.value)}
+                    placeholder="Telegram"
+                    value={telegram}
+                    onChange={e => setTelegram(e.target.value)}
                   />
                 </div>
-                <div className={styles.linkItem}>
-                  <div className={styles.linkIconWrapper}>
-                    <div className={styles.linkIcon}>
-                      <FontAwesomeIcon icon={faYoutube} size="lg" />
-                    </div>
-                  </div>
-                  <input
-                    type="text"
-                    className={styles.linkInput}
-                    placeholder="Youtube"
-                    value={youtube}
-                    onChange={e => setYoutube(e.target.value)}
-                  />
-                </div>
+
+  
+ 
               </div>
             </div>
           </div>
@@ -992,12 +993,7 @@ const CollectionCreate = ({ isRegister }) => {
               </div>
             )}
           </div>
-          {!isRegister && (
-            <div className={styles.fee}>
-              <InfoIcon />
-              &nbsp;100 WANs are charged to create a new collection.
-            </div>
-          )}
+         
         </div>
       </div>
       {renderMenu}

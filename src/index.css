@@ -172,3 +172,8 @@ input[type='number'] {
 {
   padding-left:15px;
 }
+
+.is__dark .ri-checkbox-blank-circle-fill.color_brand:before
+{
+  color:#00a59a;
+}
