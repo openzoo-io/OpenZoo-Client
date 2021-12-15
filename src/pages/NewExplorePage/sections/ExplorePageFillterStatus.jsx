@@ -102,6 +102,7 @@ export function ExplorePageFillterStatus(props) {
           items={filterStatusItems}
           values={selectedValues}
           className={'align-items-center'}
+          multiple={false}
           onChange={handleOnChange}
         />
       </div>
