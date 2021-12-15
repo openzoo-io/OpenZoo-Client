@@ -37,8 +37,13 @@ export function FilterMenu(props) {
       setSelectedValues(cpValues);
       props.onChange?.(cpValues);
     } else {
-      setSelectedValues([item.value]);
-      props.onChange?.([item.value]);
+      if (index >= 0) {
+        setSelectedValues([]);
+        props.onChange?.([]);
+      } else {
+        setSelectedValues([item.value]);
+        props.onChange?.([item.value]);
+      }
     }
   };
 
