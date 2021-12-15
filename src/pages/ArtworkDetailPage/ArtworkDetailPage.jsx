@@ -3238,7 +3238,12 @@ export function ArtworkDetailPage() {
                   <div className={styles.itemsList}>
                     {moreItems.current?.map((item, idx) => (
                       <div key={idx} className={styles.moreItem}>
-                        <AssetCard preset="three" item={item} />
+                        <AssetCard
+                          preset="four"
+                          item={item}
+                          isLike={item.isLiked}
+                          cardHeaderClassName={styles.moreNftCardHeader}
+                        />
                       </div>
                     ))}
                   </div>
