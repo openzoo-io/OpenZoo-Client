@@ -15,7 +15,7 @@ import {
   faCubes,
   faCheckCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { StackAvatars } from 'components/Avatar/StackAvatars';
+import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -39,6 +39,7 @@ export function AssetCardFour(props) {
     auctionActive,
     liked,
     isLike,
+    cardHeaderClassName,
     onClickMakeOffer,
   } = props;
   const assetUrl = item
@@ -107,18 +108,21 @@ export function AssetCardFour(props) {
       <div className="card_body space-y-10">
         <div className="creators space-x-10">
           <div className="avatars space-x-3">
-            <StackAvatars
-              users={new Array(2).fill({
-                address: item?.owner,
-                alias:
-                  item.ownerAlias && item.ownerAlias[0]
-                    ? item.ownerAlias[0]
-                    : null,
-                imageHash: item.ownerAlias && item.ownerAlias[0]
-                ? item.ownerAlias[1]
-                : null,
-              })}
-            />
+            {item?.owner && (
+              <StackAvatars
+                users={new Array(1).fill({
+                  address: item?.owner,
+                  alias:
+                    item.ownerAlias && item.ownerAlias[0]
+                      ? item.ownerAlias[0]
+                      : null,
+                  imageHash:
+                    item.ownerAlias && item.ownerAlias[0]
+                      ? item.ownerAlias[1]
+                      : null,
+                })}
+              />
+            )}
           </div>
           <div
             className="cursor-pointer likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10 "
@@ -133,18 +137,18 @@ export function AssetCardFour(props) {
             <span className="txt_sm">{liked || item?.liked || 0}</span>
           </div>
         </div>
-        <div className="card_head">
+        <div className={cx('card_head', cardHeaderClassName)}>
           <Link to={assetUrl}>
             <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
           </Link>
 
           {endAuctionIn && (
             <div className="countdownWrapper space-x-3">
-              {endAuctionIn.days && (
+              {endAuctionIn.days ? (
                 <div className="countdown-item rounded-pill">
                   {endAuctionIn.days}
                 </div>
-              )}
+              ) : null}
               <div className="countdown-item rounded-pill">
                 {endAuctionIn.hours}
               </div>

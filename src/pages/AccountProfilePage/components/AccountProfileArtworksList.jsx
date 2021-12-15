@@ -37,7 +37,7 @@ function AccountProfileArtworksListComponent(props) {
               key={item?.tokenID + index.toString()}
               className="col-xl-4 col-lg-6 col-md-6"
             >
-              <AssetCard preset="three" item={item} />
+              <AssetCard preset="four" item={item} />
             </div>
           ))}
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>

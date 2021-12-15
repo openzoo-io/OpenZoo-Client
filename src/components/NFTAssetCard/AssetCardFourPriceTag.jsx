@@ -41,51 +41,53 @@ export function AssetCardFourPriceTag(props) {
             {!item.price ? <>Not for Sale</> : ''}
           </span>
         </div>
-        
-          {auction ? (
-            <div className="d-flex space-x-5 align-items-center justify-content-center">
-              <img
-                src={
-                  auctionActive
-                    ? auction?.token?.icon
-                    : getTokenByAddress(item?.paymentToken)?.icon || wFTMLogo
-                }
-                alt={auction?.token?.symbol}
-                className={styles.tokenIcon}
-              />
-              <strong className={cx(styles.tokenPrice, 'color_brand')}>
-                {formatNumber(
-                  auctionActive ? auction.reservePrice : item.price.toFixed(2)
-                )} {auction?.token?.symbol}
-              </strong>
-              
-              
-            </div>
-          ) : (
-            <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
-              {item.price ? (<>
+
+        {auction ? (
+          <div className="d-flex space-x-5 align-items-center justify-content-center">
+            <img
+              src={
+                auctionActive
+                  ? auction?.token?.icon
+                  : getTokenByAddress(item?.paymentToken)?.icon || wFTMLogo
+              }
+              alt={auction?.token?.symbol}
+              className={styles.tokenIcon}
+            />
+            <strong className={cx(styles.tokenPrice, 'color_brand')}>
+              {formatNumber(
+                auctionActive ? auction.reservePrice : item.price.toFixed(2)
+              )}{' '}
+              {auction?.token?.symbol}
+            </strong>
+          </div>
+        ) : (
+          <div className="d-flex flex-column space-x-5 align-items-end justify-content-center">
+            {item.price ? (
+              <>
                 <strong className={cx(styles.tokenPrice, 'color_brand')}>
                   <img
                     src={getTokenByAddress(item?.paymentToken)?.icon}
                     className={`${styles.tokenIcon}`}
                   />{' '}
-                  {item.price} {getTokenByAddress(item?.paymentToken).symbol}
+                  {item.price} {getTokenByAddress(item?.paymentToken)?.symbol}
                 </strong>
-                
-                <div className={styles.dollar}>=${formatNumber(item.priceInUSD)}</div>
-                </>
-              ) : (
-                <div
-                  className="cursor-pointer color_brand"
-                  onClick={onClickMakeOffer}
-                >
-                  Make Offer
+
+                <div className={styles.dollar}>
+                  =${formatNumber(item.priceInUSD)}
                 </div>
-              )}
-            </div>
-          )}
-        </div>
- 
+              </>
+            ) : (
+              <div
+                className="cursor-pointer color_brand"
+                onClick={onClickMakeOffer}
+              >
+                Make Offer
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       {(durationHumanize || item?.lastSalePrice > 0) && (
         <div className="d-flex px-10 justify-content-between">
           <div>
@@ -148,8 +150,8 @@ const useStyle = makeStyles(() => ({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  dollar:{
-    fontSize:11,
-    marginTop:'-5px'
-  }
+  dollar: {
+    fontSize: 11,
+    marginTop: '-5px',
+  },
 }));

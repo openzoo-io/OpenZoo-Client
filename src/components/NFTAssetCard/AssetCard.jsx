@@ -49,7 +49,7 @@ const fakerAsset = () => {
 };
 
 function AssetCardComponent(props) {
-  const { preset, item, loading, onLike, ...rest } = props;
+  const { preset, item, loading, onLike, cardHeaderClassName, ...rest } = props;
 
   const { likeItem, likeBundle } = useApi();
   const { getAuction } = useAuctionContract();
@@ -134,7 +134,7 @@ function AssetCardComponent(props) {
     try {
       const _auction = await getAuction(item.contractAddress, item.tokenID);
       if (_auction.endTime !== 0) {
-        const token = getTokenByAddress(_auction.payToken);
+        const token = getTokenByAddress?.(_auction.payToken);
         _auction.reservePrice = parseFloat(
           ethers.utils.formatUnits(_auction.reservePrice, token.decimals)
         );
@@ -213,6 +213,7 @@ function AssetCardComponent(props) {
         auction={auction}
         auctionActive={auctionActive}
         loading={fetching || loading}
+        cardHeaderClassName={cardHeaderClassName}
         onLike={handleClickLike}
         {...rest}
       />

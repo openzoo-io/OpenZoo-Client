@@ -27,14 +27,24 @@ export function FilterMenu(props) {
 
   const handleOnChange = item => () => {
     const index = selectedValues.findIndex(v => v === item.value);
-    const cpValues = [...selectedValues];
-    if (index >= 0) {
-      cpValues.splice(index, 1);
+    if (props.multiple) {
+      const cpValues = [...selectedValues];
+      if (index >= 0) {
+        cpValues.splice(index, 1);
+      } else {
+        cpValues.push(item.value);
+      }
+      setSelectedValues(cpValues);
+      props.onChange?.(cpValues);
     } else {
-      cpValues.push(item.value);
+      if (index >= 0) {
+        setSelectedValues([]);
+        props.onChange?.([]);
+      } else {
+        setSelectedValues([item.value]);
+        props.onChange?.([item.value]);
+      }
     }
-    setSelectedValues(cpValues);
-    props.onChange?.(cpValues);
   };
 
   return (

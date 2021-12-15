@@ -338,6 +338,10 @@ img {
   font-family: "circular_bold";
 }
 
+.txt_align-center {
+  text-align: center;
+}
+
 .border-none {
   border: none !important;
 }
@@ -348,6 +352,13 @@ img {
 
 .border-r {
   border-right: 1px solid #e2eef1;
+}
+
+.border_brand {
+  border: 1px solid #00a59a;
+}
+.border_brand_5 {
+  border: 5px solid #00a59a;
 }
 
 .m-0 {
