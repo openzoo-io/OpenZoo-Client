@@ -2757,6 +2757,7 @@ export function ArtworkDetailPage() {
                         {bid ? (
                           <div>
                             <div className={styles.bidtitle}>
+                             
                               Reserve Price :&nbsp;
                               <img
                                 src={auction.current.token?.icon}
@@ -2779,6 +2780,7 @@ export function ArtworkDetailPage() {
                           </div>
                         ) : (
                           <div className={styles.bidtitle}>
+                            <div>
                             No bids yet (Reserve Price :&nbsp;
                             <img
                               src={auction.current.token?.icon}
@@ -2789,6 +2791,7 @@ export function ArtworkDetailPage() {
                               ` | First Bid
                         should match reserve price`}
                             )
+                            </div>
                           </div>
                         )}
                         {!isMine &&

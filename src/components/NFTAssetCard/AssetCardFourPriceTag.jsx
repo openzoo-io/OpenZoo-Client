@@ -38,7 +38,7 @@ export function AssetCardFourPriceTag(props) {
             {auction && auctionActive ? <>Current Bid</> : ''}
             {auction && !auctionActive ? <>Closing Price</> : ''}
             {item.price && !auction && !auctionActive ? <>Price</> : ''}
-            {!item.price ? <>Not for Sale</> : ''}
+            {(!item.price && !auction) ? <>Not for Sale</> : ''}
           </span>
         </div>
 
