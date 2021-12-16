@@ -19,10 +19,7 @@ import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faSun,
-  faMoon
-} from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 const propTypes = {
   user: PropTypes.object,
   account: PropTypes.string,
@@ -194,17 +191,22 @@ export function HeaderAvatarMenu(props) {
           <Link to="/collection/create">
             <i className="ri-add-line"></i> <span> Create New Collection</span>
           </Link>
-          <Link to="/collection/register">
-            <i className="ri-edit-line"></i>{' '}
-            <span> Register Existing Collection</span>
-          </Link>
+
           {/*
           <a onClick={handleOpenWrapStation}>
             <i className="ri-refresh-fill"></i> <span> WAN / WWAN Station</span>
           </a>
           */}
+
           {(props.isAdmin || props.isModerator) && (
             <div className="hr mt-2"></div>
+          )}
+
+          {props.isAdmin && (
+            <Link to="/collection/register">
+              <i className="ri-edit-line"></i>{' '}
+              <span> Register Existing Collection</span>
+            </Link>
           )}
 
           {props.isAdmin && (
@@ -266,7 +268,7 @@ export function HeaderAvatarMenu(props) {
           )}
 
           <div className={styles.darkmodeToggle}>
-            <span style={{marginRight:5,display:'flex'}}>
+            <span style={{ marginRight: 5, display: 'flex' }}>
               <FontAwesomeIcon icon={faSun} />
             </span>
             <input
@@ -277,10 +279,14 @@ export function HeaderAvatarMenu(props) {
                 props.setDarkMode(!props.DarkMode);
               }}
             />
-            <label style={{marginBottom:0}} className="toggle" htmlFor={`darkmode-toggle`}>
+            <label
+              style={{ marginBottom: 0 }}
+              className="toggle"
+              htmlFor={`darkmode-toggle`}
+            >
               Toggle
             </label>
-            <span  style={{marginLeft:5,display:'flex'}}>
+            <span style={{ marginLeft: 5, display: 'flex' }}>
               <FontAwesomeIcon icon={faMoon} />
             </span>
           </div>
@@ -308,12 +314,10 @@ const useStyle = makeStyles(() => ({
     width: 36,
     height: 36,
   },
-  darkmodeToggle :{
-    display:'flex',
-    alignItems:'center',
-    
-  }
-
+  darkmodeToggle: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 HeaderAvatarMenu.propTypes = propTypes;
