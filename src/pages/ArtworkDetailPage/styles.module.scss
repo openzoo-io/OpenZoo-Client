@@ -34,7 +34,8 @@
   font-size: 18px;
   user-select: none;
   margin-right: 16px;
-
+  line-height:18px;
+  flex:1;
   &:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   }
