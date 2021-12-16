@@ -165,7 +165,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
                   {offer.creator?.toLowerCase() === account?.toLowerCase() && (
                     <div
                       className={cx(
-                        'btn btn-primary btn-md',
+                        'btn btn-primary btn-md rounded-20',
                         styles.buyButton,
                         offerCanceling && styles.disabled
                       )}
@@ -190,7 +190,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
             (!auction || auction.resulted) && (
               <TxButton
                 className={cx(
-                  'btn btn-primary btn-md',
+                  'btn btn-primary btn-md rounded-20',
                   styles.makeOffer,
                   offerPlacing && styles.disabled
                 )}

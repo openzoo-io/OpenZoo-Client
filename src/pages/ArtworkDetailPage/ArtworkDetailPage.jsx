@@ -2803,7 +2803,7 @@ export function ArtworkDetailPage() {
                                   className={`${cx(
                                     styles.withdrawBid,
                                     bidWithdrawing && styles.disabled
-                                  )} btn btn-warning btn-lg`}
+                                  )} btn btn-warning btn-lg rounded-20`}
                                   onClick={() => handleWithdrawBid()}
                                 >
                                   {bidWithdrawing
@@ -2820,7 +2820,7 @@ export function ArtworkDetailPage() {
                                   className={cx(
                                     styles.placeBid,
                                     bidPlacing && styles.disabled,
-                                    ' btn btn-warning btn-lg'
+                                    ' btn btn-warning btn-lg rounded-20'
                                   )}
                                   onClick={() => setBidModalVisible(true)}
                                 >
@@ -2832,7 +2832,7 @@ export function ArtworkDetailPage() {
                             className={`${cx(
                               styles.placeBid,
                               resulting && styles.disabled
-                            )} btn btn-warning btn-lg`}
+                            )} btn btn-warning btn-lg rounded-20`}
                             onClick={
                               bid === null ||
                               bid?.bid < auction.current?.reservePrice
@@ -2963,7 +2963,7 @@ export function ArtworkDetailPage() {
                                 {!isMine && (
                                   <TxButton
                                     className={cx(
-                                      'btn btn-primary btn-md',
+                                      'btn btn-primary btn-md rounded-20',
                                       styles.buyButton,
                                       buyingItem && styles.disabled
                                     )}
@@ -3027,7 +3027,7 @@ export function ArtworkDetailPage() {
                                   account?.toLowerCase() && (
                                   <TxButton
                                     className={cx(
-                                      'btn btn-primary btn-md',
+                                      'btn btn-primary btn-md rounded-20',
                                       styles.buyButton,
                                       buyingItem && styles.disabled
                                     )}
@@ -3046,7 +3046,7 @@ export function ArtworkDetailPage() {
                     </div>
                   </Panel>
                 </div>
-                <div className={`${styles.panelWrapper} boxNoPad rounded-15`}>
+                <div className={`${styles.panelWrapper} boxNoPad rounded-20`}>
                   <Panel
                     title="Direct Offers"
                     icon={TocIcon}
@@ -3133,7 +3133,7 @@ export function ArtworkDetailPage() {
                                       account?.toLowerCase() && (
                                       <div
                                         className={cx(
-                                          'btn btn-primary btn-md',
+                                          'btn btn-primary btn-md rounded-20',
                                           styles.buyButton,
                                           (salesContractApproving ||
                                             offerAccepting) &&
@@ -3171,7 +3171,7 @@ export function ArtworkDetailPage() {
                                     account?.toLowerCase() && (
                                     <div
                                       className={cx(
-                                        'btn btn-primary btn-md',
+                                        'btn btn-primary btn-md rounded-20',
                                         styles.buyButton,
                                         offerCanceling && styles.disabled
                                       )}
@@ -3200,6 +3200,7 @@ export function ArtworkDetailPage() {
                               <TxButton
                                 className={cx(
                                   styles.makeOffer,
+                                  'rounded-20',
                                   offerPlacing && styles.disabled
                                 )}
                                 onClick={() => setOfferModalVisible(true)}
