@@ -29,6 +29,21 @@
   }
 }
 
+:global
+{
+  .is__dark
+  {
+    :local
+    {
+      .formInputCont
+      {
+        background:#0b1b27 !important;
+        border:none;
+      }
+    }
+  }
+}
+
 .formGroupDates {
   display: grid;
   grid-template-columns: 1fr 1fr;

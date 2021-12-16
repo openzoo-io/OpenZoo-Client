@@ -769,7 +769,7 @@ export function ArtworkDetailPage() {
           }
           newHolders.push(buyerInfo);
         }
-        if (newHolders[sellerIndex].supply === 0) {
+        if (sellerIndex > -1 && newHolders[sellerIndex].supply === 0) {
           newHolders.splice(sellerIndex, 1);
         }
         setHolders(newHolders);
@@ -2694,6 +2694,7 @@ export function ArtworkDetailPage() {
                         <div
                           className={cx(
                             styles.revealBtn,
+                            ' btn btn-warning btn-lg',
                             revealing && styles.disabled
                           )}
                           onClick={handleRevealContent}
@@ -3200,6 +3201,7 @@ export function ArtworkDetailPage() {
                               <TxButton
                                 className={cx(
                                   styles.makeOffer,
+                                  'btn btn-warning btn-lg',
                                   offerPlacing && styles.disabled
                                 )}
                                 onClick={() => setOfferModalVisible(true)}

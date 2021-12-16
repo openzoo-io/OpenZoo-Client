@@ -152,7 +152,7 @@ export function ArtworkDetailPagePriceSection(props) {
                       <div
                         className={cx(
                           'btn btn-warning btn-lg',
-
+                          styles.headerButton,
                           cancelingListing && styles.disabled
                         )}
                         onClick={cancelList}
@@ -319,6 +319,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 <TxButton
                   className={cx(
                     'btn btn-warning btn-lg',
+                    styles.headerButton,
                     (offerPlacing || offerCanceling) && styles.disabled
                   )}
                   data-toggle="modal"

@@ -13,6 +13,7 @@ export function AccountProfileAboutMeCard(props) {
         ) : (
           <>
             {user.bio && <p>{user.bio}</p>}
+            {/**
             <div className="row">
               <div className="col-6">
                 <span className="txt_sm color_text">Collections</span>
@@ -22,7 +23,7 @@ export function AccountProfileAboutMeCard(props) {
                 <span className="txt_sm color_text">Creations</span>
                 <h4>406</h4>
               </div>
-            </div>
+            </div> */}
           </>
         )}
       </div>

@@ -50,7 +50,7 @@ import { AssetCard } from 'components/NFTAssetCard';
 const TAB_ITEMS = [
   {
     id: 0,
-    title: 'Single Items',
+    title: 'My NFTs',
   },
   {
     id: 2,
@@ -661,7 +661,7 @@ export function AccountProfilePage() {
               <div className="space-y-40">
                 <AccountProfileAboutMeCard user={user} loading={loading} />
               </div>
-              <p className="text-center txt_sm mt-20 color_text">Since 2021</p>
+              {/*<p className="text-center txt_sm mt-20 color_text">Since 2021</p>*/}
             </div>
           </div>
 
