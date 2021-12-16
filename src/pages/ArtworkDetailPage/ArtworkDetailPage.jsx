@@ -3273,6 +3273,7 @@ export function ArtworkDetailPage() {
         startPrice={
           bundleID ? bundleListing.current?.price || 0 : myListing()?.price || 0
         }
+        myListing={myListing()}
         confirming={listingItem || priceUpdating}
         approveContract={
           bundleID

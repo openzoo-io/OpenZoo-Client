@@ -82,6 +82,7 @@ export function ArtworkDetailPagePriceSection(props) {
 
           <div className="d-flex sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
             <div></div>
+           
             {bestListing &&
               bestListing?.owner.toLocaleLowerCase() !==
                 account?.toLocaleLowerCase() && (
