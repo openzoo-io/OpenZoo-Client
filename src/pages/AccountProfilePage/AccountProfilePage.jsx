@@ -50,7 +50,7 @@ import { AssetCard } from 'components/NFTAssetCard';
 const TAB_ITEMS = [
   {
     id: 0,
-    title: 'My NFTs',
+    title: 'NFTs',
   },
   {
     id: 2,
