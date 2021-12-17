@@ -523,7 +523,7 @@ const CollectionCreate = ({ isRegister }) => {
             handleMenuClose(0);
           }}
         >
-          <img src={cat.icon} className={styles.categoryImage} />
+          {/*<img src={cat.icon} className={styles.categoryImage} />*/}
           <span className={styles.categoryLabel}>{cat.label}</span>
         </MenuItem>
       ))}
@@ -675,7 +675,7 @@ const CollectionCreate = ({ isRegister }) => {
                   key={idx}
                   onClick={() => deselectCategory(cat.id)}
                 >
-                  <img src={cat.icon} className={styles.categoryIcon} />
+                  {/*<img src={cat.icon} className={styles.categoryIcon} />*/}
                   <span className={styles.categoryLabel}>{cat.label}</span>
                   <CloseIcon className={styles.closeIcon} />
                 </div>
@@ -809,7 +809,7 @@ const CollectionCreate = ({ isRegister }) => {
 
         <div className="col-lg-4 col-md-8 space-y-20">
           <div className={styles.inputGroup}>
-            <div className={styles.inputTitle}>Links *</div>
+            <div className={styles.inputTitle}>Links (complete URL)*</div>
             <div className={styles.inputWrapper}>
               <div className={cx(styles.linksWrapper, 'space-y-10')}>
                 {isRegister && (

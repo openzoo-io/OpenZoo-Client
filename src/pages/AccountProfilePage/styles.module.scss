@@ -308,6 +308,16 @@
   background-color: #f6f7f9;
 }
 
+:global {
+  .is__dark {
+    :local {
+      .activityHeader {
+        background-color: #183b56 !important;
+      }
+    }
+  }
+}
+
 .activity {
   padding: 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -370,6 +380,7 @@
 
 .quantity {
   flex: 2 0 0;
+  text-align: center;
 }
 
 .owner {

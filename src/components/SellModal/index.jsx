@@ -24,6 +24,7 @@ const SellModal = ({
   contractApproving,
   contractApproved,
   totalSupply,
+  myListing
 }) => {
   const { tokens } = useTokens();
   const { getSalesContract } = useSalesContract();
@@ -41,7 +42,21 @@ const SellModal = ({
     setPrice(startPrice > 0 ? startPrice.toString() : '');
     setQuantity('1');
     if (visible && tokens?.length) {
+     
       setSelected([tokens[0]]);
+      if (myListing)
+      {
+        
+        tokens.map((v,i) => {
+          
+          if (myListing.paymentToken?.toLowerCase() === v.address?.toLowerCase())
+          {
+           
+            setSelected([tokens[i]]);
+          }
+        });
+      }
+     
     }
   }, [visible]);
 
@@ -138,6 +153,7 @@ const SellModal = ({
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price</div>
         <div className={cx(styles.formInputCont, focused && styles.focused)}>
+          
           <Select
             options={options}
             disabled={confirming}
@@ -194,7 +210,8 @@ const SellModal = ({
         </div>
         <InputError text={inputError} />
       </div>
-      {totalSupply !== null && (
+      
+      {startPrice === 0 && totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
           <div className={styles.formInputCont}>

@@ -190,7 +190,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
             (!auction || auction.resulted) && (
               <TxButton
                 className={cx(
-                  'btn btn-primary btn-md rounded-20',
+                  'btn btn-warning btn-md rounded-20',
                   styles.makeOffer,
                   offerPlacing && styles.disabled
                 )}

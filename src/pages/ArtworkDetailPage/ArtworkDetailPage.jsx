@@ -769,7 +769,7 @@ export function ArtworkDetailPage() {
           }
           newHolders.push(buyerInfo);
         }
-        if (newHolders[sellerIndex].supply === 0) {
+        if (sellerIndex > -1 && newHolders[sellerIndex].supply === 0) {
           newHolders.splice(sellerIndex, 1);
         }
         setHolders(newHolders);
@@ -2694,6 +2694,7 @@ export function ArtworkDetailPage() {
                         <div
                           className={cx(
                             styles.revealBtn,
+                            ' btn btn-warning btn-lg',
                             revealing && styles.disabled
                           )}
                           onClick={handleRevealContent}
@@ -3200,7 +3201,7 @@ export function ArtworkDetailPage() {
                               <TxButton
                                 className={cx(
                                   styles.makeOffer,
-                                  'rounded-20',
+                                  'btn btn-warning btn-lg rounded-20',
                                   offerPlacing && styles.disabled
                                 )}
                                 onClick={() => setOfferModalVisible(true)}
@@ -3272,6 +3273,7 @@ export function ArtworkDetailPage() {
         startPrice={
           bundleID ? bundleListing.current?.price || 0 : myListing()?.price || 0
         }
+        myListing={myListing()}
         confirming={listingItem || priceUpdating}
         approveContract={
           bundleID
