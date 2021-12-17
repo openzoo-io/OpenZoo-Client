@@ -13640,7 +13640,7 @@ label:active:after {
 }
 
 .card__item .card_head {
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #ecf1f9;
   height: 300px;
   overflow: hidden;
@@ -13649,7 +13649,7 @@ label:active:after {
 }
 
 .card__item .card_head img {
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
   -o-object-fit: scale-down;
@@ -14092,7 +14092,7 @@ label:active:after {
 }
 
 .item_details .item_img {
-  border-radius: 10px;
+  border-radius: 20px;
   width: 100%;
   height: 100%;
   -o-object-fit: scale-down;
