@@ -18,8 +18,7 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+
 const propTypes = {
   user: PropTypes.object,
   account: PropTypes.string,
@@ -267,31 +266,6 @@ export function HeaderAvatarMenu(props) {
             <div className="hr mt-2"></div>
           )}
 
-          <div className={styles.darkmodeToggle}>
-            <span style={{ marginRight: 5, display: 'flex' }}>
-              <FontAwesomeIcon icon={faSun} />
-            </span>
-            <input
-              id="darkmode-toggle"
-              type="checkbox"
-              checked={props.DarkMode}
-              onChange={() => {
-                props.setDarkMode(!props.DarkMode);
-              }}
-            />
-            <label
-              style={{ marginBottom: 0 }}
-              className="toggle"
-              htmlFor={`darkmode-toggle`}
-            >
-              Toggle
-            </label>
-            <span style={{ marginLeft: 5, display: 'flex' }}>
-              <FontAwesomeIcon icon={faMoon} />
-            </span>
-          </div>
-
-          <div className="hr mt-2"></div>
 
           <a onClick={props.onClickSignOut}>
             <i className="ri-logout-circle-line"></i> <span> Logout</span>
