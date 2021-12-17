@@ -45,7 +45,7 @@ export function ArtworkDetailPageHistorySection(props) {
 
   return (
     <div className="mt-20">
-      <div className={'bg_white rounded-15 py-10 px-20'}>
+      <div className={'bg_white rounded-20 py-10 px-20'}>
         <div className={cx(styles.tradeHistoryHeader, 'py-1')}>
           <div className={cx('d-flex space-x-10 sm:space-x-10')}>
             <i className="ri-arrow-left-right-line txt_lg"></i>&nbsp;

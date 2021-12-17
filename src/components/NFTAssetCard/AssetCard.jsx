@@ -169,11 +169,10 @@ function AssetCardComponent(props) {
     setIsLiking(false);
   };
 
-  const handleClickLike = () => {
+  const handleClickLike = async () => {
+    await toggleFavorite();
     if (onLike) {
       onLike(props.item);
-    } else {
-      toggleFavorite();
     }
   };
 

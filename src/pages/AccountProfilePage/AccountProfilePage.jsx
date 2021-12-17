@@ -618,6 +618,13 @@ export function AccountProfilePage() {
     setFollowingInProgress(false);
   };
 
+  const handleOnLike = async () => {
+    if (tab == 2) {
+      likes.current = [];
+      fetchLikes(0);
+    }
+  };
+
   if (!isAddress(uid)) {
     return <Redirect to="/404" />;
   }
@@ -688,6 +695,7 @@ export function AccountProfilePage() {
                       loading={
                         tab === 0 ? fetching : tab === 2 ? favFetching : []
                       }
+                      onLike={handleOnLike}
                       onReachBottom={handleOnArtworksReachBottom}
                     />
                   ) : tab === 3 ? (

@@ -69,7 +69,7 @@ export function ArtworkDetailPageDetailSection(props) {
 
   return (
     <>
-      <div className="box">
+      <div className="box border-none rounded-20">
         <div className="space-y-20">
           <div className="d-flex justify-content-between mb-30_reset">
             <ul className="nav nav-tabs d-flex mb-30" role="tablist" style={{gap:5}}>

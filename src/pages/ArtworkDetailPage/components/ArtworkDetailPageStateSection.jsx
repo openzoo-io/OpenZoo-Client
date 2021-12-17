@@ -49,7 +49,7 @@ export function ArtworkDetailPageStateSection(props) {
     <div
       className={cx(
         styles.itemStats,
-        'p-15 bg_white rounded-10 justify-content-between'
+        'p-15 bg_white rounded-20 justify-content-between'
       )}
     >
       <div className={cx('space-x-10')}>
