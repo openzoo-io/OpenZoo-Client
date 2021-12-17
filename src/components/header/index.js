@@ -346,7 +346,7 @@ const Header = () => {
                       }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName}
+                    {collection.collectionName} {collection?.isVerified && <img src="/verified.svg"/>}
                   </div>
                 </Link>
               ))}
