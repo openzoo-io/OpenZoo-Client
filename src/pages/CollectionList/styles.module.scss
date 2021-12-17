@@ -22,6 +22,15 @@
   }
   h1 {
     font-size: 20px;
+    display:flex;
+    align-items: center;
+    img
+    {
+      width: 20px;
+    height:20px;
+      margin-left:5px;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+    }
   }
   p {
     margin-top: 10px;

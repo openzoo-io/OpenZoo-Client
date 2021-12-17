@@ -350,7 +350,7 @@ export function CollectionList() {
                     />
                   </div>
                   <div>
-                    <h1>{collectionData?.collectionName}</h1>
+                    <h1>{collectionData?.collectionName} {collectionData?.isVerified && <img src="/verified.svg"/>}</h1>
                     <div className={styles.ownedby}>
                       created by{' '}
                       <span>{shortenAddress(collectionData?.owner)}</span>

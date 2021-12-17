@@ -2566,7 +2566,7 @@ export function ArtworkDetailPage() {
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
-                          <FontAwesomeIcon icon={faCheckCircle} />
+                          <img src="/verified.svg"/>
                         ) : (
                           ''
                         )}

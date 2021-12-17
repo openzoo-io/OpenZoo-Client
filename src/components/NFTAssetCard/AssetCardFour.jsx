@@ -13,7 +13,7 @@ import {
   faMusic,
   faVideo,
   faCubes,
-  faCheckCircle,
+
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
@@ -191,7 +191,7 @@ export function AssetCardFour(props) {
             className={'card_subtitle'}
           >
             {collection?.collectionName || collection?.name}
-            {collection?.isVerified && <FontAwesomeIcon icon={faCheckCircle} />}
+            {collection?.isVerified && <img src="/verified.svg"/>}
           </Link>
           <Link to={assetUrl} className={'color_black'}>
             {info?.name || item?.name}
