@@ -104,6 +104,7 @@ export function AssetCardFour(props) {
   }
 
   return (
+    <div className="card__root">
     <div className="card__item four">
       <div className="card_body space-y-10">
         <div className="creators space-x-10">
@@ -242,6 +243,10 @@ export function AssetCardFour(props) {
           </div>
         </div> */}
       </div>
+    </div>
+    {
+      item.tokenType === 1155 && <><div className="card__item four"></div><div className="card__item four"></div></>
+    }
     </div>
   );
 }
