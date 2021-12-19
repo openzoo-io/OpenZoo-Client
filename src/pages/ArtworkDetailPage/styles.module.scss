@@ -403,7 +403,7 @@
 .offer,
 .bundleItem {
   padding-left: 21px;
-  height: 50px;
+  height: 60px;
   box-sizing: border-box;
   border-bottom: 1px solid #eaeaf1;
   display: flex;
@@ -539,16 +539,32 @@
 .price {
   flex: 2;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  div
+  {
+    font-weight:bold;
+    font-size:14px;
+    line-height:15px;
+    span
+    {
+      font-size:12px;
+      font-weight:normal
+    }
+  }
+
 }
 
 .quantity {
   flex: 2;
-  text-align: center;
+}
+
+.total {
+  flex: 2;
+
 }
 
 .deadline {
-  flex: 3;
+  flex: 2;
 }
 
 .buy {

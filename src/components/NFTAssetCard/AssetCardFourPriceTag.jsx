@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
 import useTokens from 'hooks/useTokens';
 import { formatNumber } from 'utils';
-
+import { Link } from 'react-router-dom';
 import wFTMLogo from 'assets/imgs/wftm.png';
 import { useWeb3React } from '@web3-react/core';
 export function AssetCardFourPriceTag(props) {
@@ -80,12 +80,12 @@ export function AssetCardFourPriceTag(props) {
                 </div>
               </>
             ) : (
-              <a
+              <Link to={assetUrl}
                 className="cursor-pointer color_brand"
-                href={assetUrl}
+        
               >
                 {(owner && account && owner?.toLowerCase() === account?.toLowerCase())?'Sell an Item':'Make Offer'}
-              </a>
+              </Link>
             )}
           </div>
         )}

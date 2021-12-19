@@ -81,13 +81,13 @@ export function ArtworkDetailPageListingsTab(props) {
                 {!isMine && (
                   <TxButton
                     className={cx(
-                      'btn btn-primary btn-md',
+                      'btn btn-warning btn-md',
                       styles.buyButton,
                       buyingItem && styles.disabled
                     )}
                     onClick={handleBuyBundle}
                   >
-                    {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy'}
+                    {buyingItem ? <ClipLoader color="#FFF" size={16} /> : (tokenInfo?.totalSupply > 1 ? 'Buy All' : 'Buy')}
                   </TxButton>
                 )}
               </div>
@@ -135,13 +135,13 @@ export function ArtworkDetailPageListingsTab(props) {
                 {listing.owner.toLowerCase() !== account?.toLowerCase() && (
                   <TxButton
                     className={cx(
-                      'btn btn-primary btn-md',
+                      'btn btn-warning btn-md',
                       styles.buyButton,
                       buyingItem && styles.disabled
                     )}
                     onClick={() => handleBuyItem(listing)}
                   >
-                    {buyingItem ? <ClipLoader color="#FFF" size={16} /> : 'Buy'}
+                    {buyingItem ? <ClipLoader color="#FFF" size={16} /> : (tokenInfo?.totalSupply > 1 ? 'Buy All' : 'Buy')}
                   </TxButton>
                 )}
               </div>

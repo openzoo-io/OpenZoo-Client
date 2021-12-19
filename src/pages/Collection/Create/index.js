@@ -569,7 +569,7 @@ const CollectionCreate = ({ isRegister }) => {
           </p>
           {!isRegister &&
             (isModerator ||
-              account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase()) !== -1) && (
+              account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())) && (
               <div className={styles.inputGroup}>
                 <RadioGroup
                   className={styles.inputWrapper}

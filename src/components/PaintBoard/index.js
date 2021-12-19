@@ -441,7 +441,7 @@ const PaintBoard = () => {
             ethers.utils.hexDataSlice(confirmedTnx.logs[1].data, 0, 32)
           );
         }
-
+        console.log('royalty',nft,mintedTkId.toNumber(),_royalty);
         const royaltyTx = await registerRoyalty(
           nft,
           mintedTkId.toNumber(),
@@ -892,13 +892,13 @@ const PaintBoard = () => {
             )}
           </div>
           <div className={styles.fee}>
-            {fee !== null ? (
+            {fee !== null && fee > 0 ? (
               <>
                 <InfoIcon />
                 &nbsp;{fee} WANs are charged to create a new NFT.
               </>
             ) : (
-              <Skeleton width={330} height={22} />
+              fee > 0 ? <Skeleton width={330} height={22} /> :''
             )}
           </div>
         </div>

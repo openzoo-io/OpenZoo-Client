@@ -486,15 +486,19 @@ export function ArtworkDetailPage() {
       }
 
       // Sync when content type is media and have animation url //
-      if (contentType.current==='image' && data.animation_url)
-      {
+      if (contentType.current === 'image' && data.animation_url) {
         let contentType = 'image';
         let ext = data.animation_url ? data.animation_url.split('.').pop() : '';
-        switch(ext)
-        {
-          case 'mp4':contentType="video";break;
-          case 'mp3':contentType="sound";break;
-          case 'glb':contentType="model";break;
+        switch (ext) {
+          case 'mp4':
+            contentType = 'video';
+            break;
+          case 'mp3':
+            contentType = 'sound';
+            break;
+          case 'glb':
+            contentType = 'model';
+            break;
         }
 
         await axios({
@@ -2454,8 +2458,7 @@ export function ArtworkDetailPage() {
           {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
             Back to home
-          </Link>*/
-          }
+          </Link>*/}
           <div
             className="item_details my-40"
             style={{
@@ -2476,11 +2479,9 @@ export function ArtworkDetailPage() {
     <div className="overflow-hidden artwork_detail_page">
       <Header />
       <div className="container">
-        {
-        /*<Link to="/explore" className="btn btn-white btn-sm my-40">
+        {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
-        </Link>*/
-        }
+        </Link>*/}
         <div className="item_details my-40">
           <div className="row md:space-y-20">
             <div className="col-lg-6">
@@ -2566,7 +2567,7 @@ export function ArtworkDetailPage() {
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
-                          <img src="/verified.svg"/>
+                          <img src="/verified.svg" />
                         ) : (
                           ''
                         )}
@@ -2589,7 +2590,10 @@ export function ArtworkDetailPage() {
                       ></i>
                       <span className="txt_sm">{formatNumber(liked || 0)}</span>
                     </div>
-                    <small className="color_text" style={{textAlign:'center',display:'block'}}>
+                    <small
+                      className="color_text"
+                      style={{ textAlign: 'center', display: 'block' }}
+                    >
                       <FontAwesomeIcon icon={faEye} color="#A2A2AD" />
                       &nbsp;
                       {isNaN(views) ? (
@@ -2654,7 +2658,7 @@ export function ArtworkDetailPage() {
                     creatorInfo,
                     creatorInfoLoading,
                     account,
-                    tokenUri
+                    tokenUri,
                   }}
                   setOwnersModalVisible={setOwnersModalVisible}
                 />
@@ -2759,7 +2763,6 @@ export function ArtworkDetailPage() {
                         {bid ? (
                           <div>
                             <div className={styles.bidtitle}>
-                             
                               Reserve Price :&nbsp;
                               <img
                                 src={auction.current.token?.icon}
@@ -2782,16 +2785,16 @@ export function ArtworkDetailPage() {
                         ) : (
                           <div className={styles.bidtitle}>
                             <div>
-                            No bids yet (Reserve Price :&nbsp;
-                            <img
-                              src={auction.current.token?.icon}
-                              className={styles.tokenIcon}
-                            />
-                            {formatNumber(auction.current.reservePrice)}
-                            {minBid > 0 &&
-                              ` | First Bid
+                              No bids yet (Reserve Price :&nbsp;
+                              <img
+                                src={auction.current.token?.icon}
+                                className={styles.tokenIcon}
+                              />
+                              {formatNumber(auction.current.reservePrice)}
+                              {minBid > 0 &&
+                                ` | First Bid
                         should match reserve price`}
-                            )
+                              )
                             </div>
                           </div>
                         )}
@@ -2910,11 +2913,14 @@ export function ArtworkDetailPage() {
                           'bg-white'
                         )}
                       >
-                        <div className={styles.owner}>From</div>
                         <div className={styles.price}>Price</div>
                         {tokenInfo?.totalSupply > 1 && (
                           <div className={styles.quantity}>Quantity</div>
                         )}
+                        {tokenInfo?.totalSupply > 1 && (
+                          <div className={styles.total}>Total</div>
+                        )}
+                        <div className={styles.owner}>From</div>
                         <div className={styles.buy} />
                       </div>
                       {/*console.log('!listings', listings)*/}
@@ -2982,6 +2988,58 @@ export function ArtworkDetailPage() {
                           )
                         : listings.current.map((listing, idx) => (
                             <div className={styles.listing} key={idx}>
+                              <div className={styles.price}>
+                                <img
+                                  src={listing.token?.icon}
+                                  className={styles.tokenIcon}
+                                />
+                                <div>
+                                {formatNumber(listing.price)}
+                                <br /><span>(
+                                {prices[listing.token?.address] !==
+                                undefined ? (
+                                  `$${(
+                                    listing.price *
+                                    prices[listing.token?.address]
+                                  ).toFixed(2)}`
+                                ) : (
+                                  <Skeleton width={60} height={24} />
+                                )}
+                                )
+                                </span>
+                                </div>
+                              </div>
+                              {tokenInfo?.totalSupply > 1 && (
+                                <div className={styles.quantity}>
+                                  {formatNumber(listing.quantity)}
+                                </div>
+                              )}
+                              {tokenInfo?.totalSupply > 1 && (
+                                <div className={styles.price}>
+                                  <img
+                                    src={listing.token?.icon}
+                                    className={styles.tokenIcon}
+                                  />
+                                  <div>
+                                  {formatNumber(
+                                    listing.price * listing.quantity
+                                  )}
+                                  
+                                  <br /><span>(
+                                  {prices[listing.token?.address] !==
+                                  undefined ? (
+                                    `$${(
+                                      listing.quantity *
+                                      listing.price *
+                                      prices[listing.token?.address]
+                                    ).toFixed(2)}`
+                                  ) : (
+                                    <Skeleton width={60} height={24} />
+                                  )}
+                                  )</span>
+                                  </div>
+                                </div>
+                              )}
                               <div className={styles.owner}>
                                 <Link to={`/account/${listing.owner}`}>
                                   <div className={styles.userAvatarWrapper}>
@@ -3001,34 +3059,12 @@ export function ArtworkDetailPage() {
                                   {listing.alias || listing.owner?.substr(0, 6)}
                                 </Link>
                               </div>
-                              <div className={styles.price}>
-                                <img
-                                  src={listing.token?.icon}
-                                  className={styles.tokenIcon}
-                                />
-                                {formatNumber(listing.price)}&nbsp;(
-                                {prices[listing.token?.address] !==
-                                undefined ? (
-                                  `$${(
-                                    listing.price *
-                                    prices[listing.token?.address]
-                                  ).toFixed(3)}`
-                                ) : (
-                                  <Skeleton width={60} height={24} />
-                                )}
-                                )
-                              </div>
-                              {tokenInfo?.totalSupply > 1 && (
-                                <div className={styles.quantity}>
-                                  {formatNumber(listing.quantity)}
-                                </div>
-                              )}
                               <div className={styles.buy}>
                                 {listing.owner.toLowerCase() !==
                                   account?.toLowerCase() && (
                                   <TxButton
                                     className={cx(
-                                      'btn btn-primary btn-md rounded-20',
+                                      'btn btn-warning btn-md rounded-20',
                                       styles.buyButton,
                                       buyingItem && styles.disabled
                                     )}
@@ -3036,6 +3072,12 @@ export function ArtworkDetailPage() {
                                   >
                                     {buyingItem ? (
                                       <ClipLoader color="#FFF" size={16} />
+                                    ) : tokenInfo?.totalSupply > 1 ? (
+                                      listing.quantity > 1 ? (
+                                        'Buy All'
+                                      ) : (
+                                        'Buy'
+                                      )
                                     ) : (
                                       'Buy'
                                     )}
@@ -3065,12 +3107,15 @@ export function ArtworkDetailPage() {
                               'bg-white'
                             )}
                           >
-                            <div className={styles.owner}>From</div>
                             <div className={styles.price}>Price</div>
                             {tokenInfo?.totalSupply > 1 && (
                               <div className={styles.quantity}>Quantity</div>
                             )}
+                            {tokenInfo?.totalSupply > 1 && (
+                              <div className={styles.total}>Total</div>
+                            )}
                             <div className={styles.deadline}>Expires In</div>
+                            <div className={styles.owner}>From</div>
                             <div className={styles.buy} />
                           </div>
                           {offers.current
@@ -3080,6 +3125,71 @@ export function ArtworkDetailPage() {
                             )
                             .map((offer, idx) => (
                               <div className={styles.offer} key={idx}>
+                                <div className={styles.price}>
+                                  <img
+                                    src={offer.token?.icon}
+                                    className={styles.tokenIcon}
+                                  />
+                                  <div>
+                                    {formatNumber(
+                                      offer.pricePerItem || offer.price
+                                    )}
+
+                                    <br />
+                                    <span>
+                                      (
+                                      {prices[offer.token.address] !==
+                                      undefined ? (
+                                        `$${(
+                                          (offer.pricePerItem || offer.price) *
+                                          prices[offer.token.address]
+                                        ).toFixed(3)}`
+                                      ) : (
+                                        <Skeleton width={60} height={24} />
+                                      )}
+                                      )
+                                    </span>
+                                  </div>
+                                </div>
+                                {tokenInfo?.totalSupply > 1 && (
+                                  <div className={styles.quantity}>
+                                    {formatNumber(offer.quantity)}
+                                  </div>
+                                )}
+                                {tokenInfo?.totalSupply > 1 && (
+                                  <div className={styles.price}>
+                                    <img
+                                      src={offer.token?.icon}
+                                      className={styles.tokenIcon}
+                                    />
+                                    <div>
+                                      {formatNumber(
+                                        offer.quantity *
+                                          (offer.pricePerItem || offer.price)
+                                      )}
+
+                                      <br />
+                                      <span>
+                                        (
+                                        {prices[offer.token.address] !==
+                                        undefined ? (
+                                          `$${(
+                                            offer.quantity *
+                                            (offer.pricePerItem ||
+                                              offer.price) *
+                                            prices[offer.token.address]
+                                          ).toFixed(3)}`
+                                        ) : (
+                                          <Skeleton width={60} height={24} />
+                                        )}
+                                        )
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                                <div className={styles.deadline}>
+                                  {formatExpiration(offer.deadline)}
+                                </div>
                                 <div className={styles.owner}>
                                   <Link to={`/account/${offer.creator}`}>
                                     <div className={styles.userAvatarWrapper}>
@@ -3099,33 +3209,6 @@ export function ArtworkDetailPage() {
                                     {offer.alias || offer.creator?.substr(0, 6)}
                                   </Link>
                                 </div>
-                                <div className={styles.price}>
-                                  <img
-                                    src={offer.token?.icon}
-                                    className={styles.tokenIcon}
-                                  />
-                                  {formatNumber(
-                                    offer.pricePerItem || offer.price
-                                  )}
-                                  &nbsp;(
-                                  {prices[offer.token.address] !== undefined ? (
-                                    `$${(
-                                      (offer.pricePerItem || offer.price) *
-                                      prices[offer.token.address]
-                                    ).toFixed(3)}`
-                                  ) : (
-                                    <Skeleton width={60} height={24} />
-                                  )}
-                                  )
-                                </div>
-                                {tokenInfo?.totalSupply > 1 && (
-                                  <div className={styles.quantity}>
-                                    {formatNumber(offer.quantity)}
-                                  </div>
-                                )}
-                                <div className={styles.deadline}>
-                                  {formatExpiration(offer.deadline)}
-                                </div>
                                 <div className={styles.buy}>
                                   {(isMine ||
                                     (myHolding &&
@@ -3134,7 +3217,7 @@ export function ArtworkDetailPage() {
                                       account?.toLowerCase() && (
                                       <div
                                         className={cx(
-                                          'btn btn-primary btn-md rounded-20',
+                                          'btn btn-warning btn-md rounded-20',
                                           styles.buyButton,
                                           (salesContractApproving ||
                                             offerAccepting) &&
@@ -3163,6 +3246,8 @@ export function ArtworkDetailPage() {
                                           )
                                         ) : offerAccepting ? (
                                           <ClipLoader color="#FFF" size={16} />
+                                        ) : offer?.quantity > 1 ? (
+                                          'Accept All'
                                         ) : (
                                           'Accept'
                                         )}
@@ -3172,7 +3257,7 @@ export function ArtworkDetailPage() {
                                     account?.toLowerCase() && (
                                     <div
                                       className={cx(
-                                        'btn btn-primary btn-md rounded-20',
+                                        'btn btn-warning btn-md rounded-20',
                                         styles.buyButton,
                                         offerCanceling && styles.disabled
                                       )}

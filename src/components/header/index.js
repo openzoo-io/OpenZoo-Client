@@ -528,7 +528,7 @@ const Header = () => {
                   user={user}
                   loading={loading}
                   isAdmin={
-                    account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase()) !== -1
+                    account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())
                   }
                   isModerator={isModerator}
                   onClickSignOut={handleSignOut}
