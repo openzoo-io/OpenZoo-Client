@@ -1,70 +1,100 @@
 import { FilterMenu } from 'components/FilterMenu';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DropdownButton } from 'components/DropdownButton/DropdownButton';
+import { useState } from 'react';
 
 const filterStatusItems = [
   {
-    value: 'statusBuyNow',
-    label: 'Buy Now',
+    value: 'onlyVerified',
+    label: 'SHOW ONLY VERIFIED',
+  },
+];
+
+const categorySortByItems = [
+  {
+    id: '',
+    label: 'CATEGORY',
   },
   {
-    value: 'statusHasBids',
-    label: 'Has Bids',
+    id: 'name',
+    label: 'CATEGORY NAME',
   },
   {
-    value: 'statusHasOffers',
-    label: 'Has Offers',
+    id: 'category2',
+    label: 'CATEGORY 2',
   },
   {
-    value: 'statusOnAuction',
-    label: 'On Auction',
+    id: 'category3',
+    label: 'CATEGORY 3',
+  },
+];
+
+const sortByItems = [
+  {
+    id: '',
+    label: 'Order by',
+  },
+  {
+    id: 'price',
+    label: 'PRICE',
+  },
+  {
+    id: 'order2',
+    label: 'Order 2',
+  },
+  {
+    id: 'order3',
+    label: 'Order 3',
   },
 ];
 
 const propTypes = {
-  onChange: PropTypes.func,
+  onFilterChange: PropTypes.func,
+  onCategorySortChange: PropTypes.func,
 };
 
 export function CollectionsPageFilterStatus(props) {
-  const handleOnChange = values => {
-    props.onChange?.(values);
+  const [categorySortedBy, setCategorySortedBy] = useState(categorySortByItems[0]);
+  const [sortedBy, setSortedBy] = useState(sortByItems[0]);
+
+  const handleOnFilterChange = values => {
+    props.onFilterChange?.(values);
+  };
+
+  const handleCategoryOnSelectSortBy = value => {
+    setCategorySortedBy(value);
+    props.onCategorySortChange?.(value);
+  };
+
+  const handleOnSelectSortBy = value => {
+    setSortedBy(value);
   };
 
   return (
     <div className="row justify-content-between align-items-center">
       <div className="col-lg-auto">
         <FilterMenu
+          title=""
           name="explore-collection-filter-status"
           items={filterStatusItems}
           className={'align-items-center'}
-          onChange={handleOnChange}
+          onChange={handleOnFilterChange}
         />
       </div>
       <div className="col-lg-auto">
         <div className="d-flex space-x-10 align-items-center sm:mt-20">
-          <span className="color_text txt_sm"> SORT BY: </span>
-          <div className="dropdown">
-            <button
-              className="btn btn-dark btn-sm dropdown-toggle"
-              type="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Recent Active
-            </button>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="#">
-                Action
-              </a>
-              <a className="dropdown-item" href="#">
-                Another action
-              </a>
-              <a className="dropdown-item" href="#">
-                Something else here
-              </a>
-            </div>
-          </div>
+          <DropdownButton
+            value={categorySortedBy?.id}
+            items={categorySortByItems}
+            onClick={handleCategoryOnSelectSortBy}
+          />
+
+          <DropdownButton
+            value={sortedBy?.id}
+            items={sortByItems}
+            onClick={handleOnSelectSortBy}
+          />
         </div>
       </div>
     </div>

@@ -1,25 +1,44 @@
 import React from 'react';
 
 import ExampleImage from 'assets/imgs/exampleZooGenes.png';
-import { Avatar } from 'components/Avatar';
-import { Link } from 'react-router-dom';
+// import { Avatar } from 'components/Avatar';
+// import { Link } from 'react-router-dom';
 
 export function NFTCollection() {
   return (
-    <div className="collections space-y-10 mb-30">
-      <Link to="#">
-        <div className="collections_item">
-          <div className="images-box space-y-10">
-            <div className="top_imgs">
-              <img src={ExampleImage} alt="" />
-              <img src={ExampleImage} alt="" />
-              <img src={ExampleImage} alt="" />
+    <div className="collections mb-30">
+      <div className="d-flex space-x-10 collections_item">
+        <div className="images-box">
+          <img src={ExampleImage} alt="" />
+        </div>
+        <div className="detail">
+          <h3>Creative Art collection</h3>
+          <div className="txt _bold color_light_grey">
+            created by <span className="color_brand owner">Genshimoro</span>
+          </div>
+          <div className="categories d-flex space-x-5 space-y-5 -ml-5">
+            <div></div>
+            <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
+              Category 01
             </div>
-            <img src={ExampleImage} alt="" />
+            <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
+              Category 02
+            </div>
+          </div>
+          <div className="d-flex mt-10 space-x-10 space-y-10 -ml-10 flex-wrap">
+            <div></div>
+            <div className="stat-card shadow-sm">
+              <h2 className="color_brand">224</h2>
+              <span className="txt_xs color_text">items</span>
+            </div>
+            <div className="stat-card shadow-sm">
+              <h2 className="color_brand">3.4k</h2>
+              <span className="txt_xs color_text">Owners</span>
+            </div>
           </div>
         </div>
-      </Link>
-      <div className="collections_footer justify-content-between">
+      </div>
+      {/* <div className="collections_footer justify-content-between">
         <h5 className="collection_title">
           <Link to="#">Creative Art collection</Link>
         </h5>
@@ -38,7 +57,7 @@ export function NFTCollection() {
         <Link to="#">
           <p className="avatars_name txt_sm"> @william_jamy... </p>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

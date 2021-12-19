@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 const propTypes = {
+  title: PropTypes.string,
   name: PropTypes.string.isRequired,
   values: PropTypes.arrayOf(PropTypes.string),
   items: PropTypes.arrayOf(
@@ -49,12 +50,14 @@ export function FilterMenu(props) {
 
   return (
     <div className={cx('d-flex align-items-center', props.className)}>
-      <span
-        className="color_text txt_sm d-none d-sm-block mr-10"
-        style={{ minWidth: 'max-content' }}
-      >
-        FILTER BY:
-      </span>
+      {props.title && (
+        <span
+          className="color_text txt_sm d-none d-sm-block mr-10"
+          style={{ minWidth: 'max-content' }}
+        >
+          {props.title}
+        </span>
+      )}
       <ul className="menu_categories">
         {props.items?.map(item => (
           <li
@@ -83,5 +86,6 @@ export function FilterMenu(props) {
 
 FilterMenu.propTypes = propTypes;
 FilterMenu.defaultProps = {
+  title: 'FILTER BY:',
   multiple: true,
 };
