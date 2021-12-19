@@ -223,6 +223,9 @@ const SellModal = ({
               disabled={contractApproving || confirming || totalSupply === 1}
             />
           </div>
+          <p style={{fontSize:14,marginTop:5,marginLeft:10}}>
+            Your Supply: <b>{totalSupply}</b> NFT(s)
+          </p>
         </div>
       )}
     </Modal>

@@ -2694,7 +2694,7 @@ export function ArtworkDetailPage() {
                         <div
                           className={cx(
                             styles.revealBtn,
-                            ' btn btn-warning btn-lg',
+                            ' btn btn-warning btn-lg rounded-20',
                             revealing && styles.disabled
                           )}
                           onClick={handleRevealContent}

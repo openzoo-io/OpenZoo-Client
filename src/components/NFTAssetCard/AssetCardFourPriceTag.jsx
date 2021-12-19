@@ -6,15 +6,18 @@ import useTokens from 'hooks/useTokens';
 import { formatNumber } from 'utils';
 
 import wFTMLogo from 'assets/imgs/wftm.png';
-
+import { useWeb3React } from '@web3-react/core';
 export function AssetCardFourPriceTag(props) {
+  const { account } = useWeb3React();
   const {
     loading,
     auction,
     item,
     durationHumanize,
     auctionActive,
-    onClickMakeOffer,
+
+    owner,
+    assetUrl,
   } = props;
   const styles = useStyle();
 
@@ -77,12 +80,12 @@ export function AssetCardFourPriceTag(props) {
                 </div>
               </>
             ) : (
-              <div
+              <a
                 className="cursor-pointer color_brand"
-                onClick={onClickMakeOffer}
+                href={assetUrl}
               >
-                Make Offer
-              </div>
+                {(owner && account && owner?.toLowerCase() === account?.toLowerCase())?'Sell an Item':'Make Offer'}
+              </a>
             )}
           </div>
         )}

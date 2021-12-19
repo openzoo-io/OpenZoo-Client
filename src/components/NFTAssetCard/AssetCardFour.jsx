@@ -40,7 +40,7 @@ export function AssetCardFour(props) {
     liked,
     isLike,
     cardHeaderClassName,
-    onClickMakeOffer,
+
   } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
@@ -205,7 +205,9 @@ export function AssetCardFour(props) {
           item={item}
           durationHumanize={endAuctionIn?.humanize}
           auctionActive={auctionActive}
-          onClickMakeOffer={onClickMakeOffer}
+        
+          owner={item?.owner}
+          assetUrl={assetUrl}
         />
 
         {/* <div className="card_footer d-block space-y-10">

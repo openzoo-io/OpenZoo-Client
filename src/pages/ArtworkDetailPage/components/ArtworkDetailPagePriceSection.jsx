@@ -107,7 +107,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 {auction.current?.resulted === false ? (
                   <div
                     className={cx(
-                      'btn btn-warning btn-lg',
+                      'btn btn-warning btn-lg rounded-20',
                       styles.headerButton,
                       auctionCanceling && styles.disabled
                     )}
@@ -129,7 +129,7 @@ export function ArtworkDetailPagePriceSection(props) {
                   tokenType.current !== 1155 && (
                     <div
                       className={cx(
-                        'btn btn-warning btn-lg',
+                        'btn btn-warning btn-lg rounded-20',
                         styles.headerButton,
                         (auctionStarting || auctionUpdating || auctionEnded) &&
                           styles.disabled
@@ -152,7 +152,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     {hasListing ? (
                       <div
                         className={cx(
-                          'btn btn-warning btn-lg',
+                          'btn btn-warning btn-lg rounded-20',
                           styles.headerButton,
                           cancelingListing && styles.disabled
                         )}
@@ -167,7 +167,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     ) : null}
                     <div
                       className={cx(
-                        'btn btn-warning btn-lg',
+                        'btn btn-warning btn-lg rounded-20',
                         styles.headerButton,
                         (listingItem || priceUpdating) && styles.disabled
                       )}
