@@ -175,9 +175,19 @@
   font-size: 16px;
   line-height: 16px;
   color: #3d3d3d;
-  overflow: hidden;
+  /*overflow: hidden;*/
   text-overflow: ellipsis;
   white-space: nowrap;
+  display:flex;
+  align-items: center;
+  
+  img
+    {
+      width: 20px;
+    height:20px;
+      margin-left:5px;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+    }
 }
 
 .noResults {

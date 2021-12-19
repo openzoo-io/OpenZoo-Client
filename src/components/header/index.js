@@ -28,7 +28,8 @@ import styles from './styles.module.scss';
 //import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -226,7 +227,7 @@ const Header = () => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-   
+
   };
 
 
@@ -240,62 +241,62 @@ const Header = () => {
   const addMod = () => {
     setIsAdding(true);
     setModModalVisible(true);
-   
+
   };
 
   const removeMod = () => {
     setIsAdding(false);
     setModModalVisible(true);
-   
+
   };
 
   const reviewCollections = () => {
     history.push('/collection/review');
-   
+
   };
 
   const banCollection = () => {
     setIsBan(true);
     setBanCollectionModalVisible(true);
-   
+
   };
 
   const unbanCollection = () => {
     setIsBan(false);
     setBanCollectionModalVisible(true);
-   
+
   };
 
   const verifyCollection = () => {
     setIsVerfiy(true);
     setVerifyCollectionModalVisible(true);
-   
+
   };
 
   const unverifyCollection = () => {
     setIsVerfiy(false);
     setVerifyCollectionModalVisible(true);
-   
+
   };
 
   const banItems = () => {
     setBanItemModalVisible(true);
-   
+
   };
 
   const banUser = () => {
     setBanUserModalVisible(true);
-   
+
   };
 
   const unbanUser = () => {
     setUnbanUserModalVisible(true);
-   
+
   };
 
   const boostCollection = () => {
     setBoostCollectionModalVisible(true);
-   
+
   };
 
 
@@ -322,7 +323,7 @@ const Header = () => {
   );
 
   const renderSearchResult = () => {
-    if (!searchBarActive || keyword.length===0) {
+    if (!searchBarActive || keyword.length === 0) {
       return null;
     }
 
@@ -337,15 +338,15 @@ const Header = () => {
                 <Link
                   key={idx}
                   className={styles.result}
-                  to={'/collection/'+collection.erc721Address}
-                > 
+                  to={'/collection/' + collection.erc721Address}
+                >
                   <img
                     className={styles.resultimg}
                     src={`${getRandomIPFS('', true)}${collection.logoImageHash
                       }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName}
+                    {collection.collectionName} {collection?.isVerified && <img src="/verified.svg"/>}
                   </div>
                 </Link>
               ))}
@@ -397,7 +398,7 @@ const Header = () => {
                       <Skeleton width={40} height={40} />
                     ) : (
                       tk.thumbnailPath && <><img src={tk.imageURL} /></>
-                      
+
                     )}
                     {/*
                       (tk.thumbnailPath.length > 10 ? (
@@ -438,7 +439,7 @@ const Header = () => {
           bundles.length === 0 && (
             <div className={styles.noResults}>No Results</div>
           )}
-          
+
       </div>
     );
   };
@@ -487,6 +488,35 @@ const Header = () => {
             </ul>
           </div>
           {renderSearchBox()}
+          <div className={cx('header__menu')}>
+            <ul className="d-flex space-x-20">
+              <li>
+                <div className={styles.darkmodeToggle}>
+                  <span style={{ marginRight: 5, display: 'flex' }}>
+                    <FontAwesomeIcon icon={faSun} />
+                  </span>
+                  <input
+                    id="darkmode-toggle"
+                    type="checkbox"
+                    checked={DarkMode}
+                    onChange={() => {
+                      setDarkMode(!DarkMode);
+                    }}
+                  />
+                  <label
+                    style={{ marginBottom: 0 }}
+                    className="toggle"
+                    htmlFor={`darkmode-toggle`}
+                  >
+                    Toggle
+                  </label>
+                  <span style={{ marginLeft: 5, display: 'flex' }}>
+                    <FontAwesomeIcon icon={faMoon} />
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </div>
 
           <div className="d-flex align-items-center space-x-20 sm:space-x-10">
 
@@ -494,8 +524,7 @@ const Header = () => {
               <>
                 {/*<HeaderNotificationMenu />*/}
                 <HeaderAvatarMenu
-                  DarkMode={DarkMode}
-                  setDarkMode={setDarkMode}
+                 
                   user={user}
                   loading={loading}
                   isAdmin={
@@ -548,7 +577,7 @@ const Header = () => {
               burgerActive && 'visible'
             )}
           >
-            <div className="header__mobile__menu space-y-40">
+            <div className="header__mobile__menu space-y-20">
               <ul className="d-flex space-y-20">
                 <li>
                   <NavLink className="color_black" to="/home">
@@ -569,12 +598,37 @@ const Header = () => {
                 </li>
                 */
                 }
+                <li>
+                <div className={styles.darkmodeToggle}>
+                  <span style={{ marginRight: 5, display: 'flex' }}>
+                    <FontAwesomeIcon icon={faSun} />
+                  </span>
+                  <input
+                    id="darkmode-toggle"
+                    type="checkbox"
+                    checked={DarkMode}
+                    onChange={() => {
+                      setDarkMode(!DarkMode);
+                    }}
+                  />
+                  <label
+                    style={{ marginBottom: 0 }}
+                    className="toggle"
+                    htmlFor={`darkmode-toggle`}
+                  >
+                    Toggle
+                  </label>
+                  <span style={{ marginLeft: 5, display: 'flex' }}>
+                    <FontAwesomeIcon icon={faMoon} />
+                  </span>
+                </div>
+              </li>
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">
                   <Link
                     to="/create"
-                    className={'btn btn-primary w-full'}
+                    className={'btn btn-warning w-full'}
                     activeClassName={styles.active}
                   >
                     Create
@@ -582,7 +636,7 @@ const Header = () => {
                 </div>
               ) : (
                 <a
-                  className="btn btn-warning btn-sm"
+                  className="btn btn-warning w-full"
                   onClick={handleConnectWallet}
                 >
                   Connect wallet

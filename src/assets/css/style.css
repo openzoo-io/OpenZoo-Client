@@ -13622,6 +13622,16 @@ label:active:after {
   font-size: 12px;
     color: #aaa;
     font-weight: normal;
+    display:flex;
+    align-items: center;
+}
+.card__item .card_title .card_subtitle img
+{
+  width: 14px;
+    height:14px;
+    
+    margin-left:2px;
+    filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2));
 }
 .card__item .card_title .card_subtitle svg
 {
@@ -13637,7 +13647,7 @@ label:active:after {
   font-size: 18px;
   line-height: 20px;
   text-overflow: ellipsis;
-  overflow: hidden;
+  /*overflow: hidden;*/
   width: 100%;
   display: block;
   width: fit-content;
