@@ -34,13 +34,13 @@ export function DropdownButton(props) {
       </button>
       <div className="dropdown-menu">
         {props.items?.map(item => (
-          <a
+          <div
             key={`${props.key}-${item.id}-${item.label}`}
-            className="dropdown-item"
+            className="cursor-pointer dropdown-item"
             onClick={handleClickItem(item)}
           >
             {item.label}
-          </a>
+          </div>
         ))}
       </div>
     </div>

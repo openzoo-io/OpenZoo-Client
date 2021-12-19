@@ -7,25 +7,16 @@ const fakeItems = new Array(6).fill({});
 
 export function CollectionsPage() {
   return (
-    <PageLayout
-      cover={
-        <div className="hero_marketplace bg_white">
-          <div className="container">
-            <h1 className="text-center">NFT Collections</h1>
-          </div>
-        </div>
-      }
-    >
-      <div className="section mt-100">
+    <PageLayout>
+      <div className="section mt-50">
         <div className="section__head">
-          <h2 className="section__title mb-20"> Collections</h2>
           <CollectionsPageFilterStatus />
         </div>
         <div className="row justify-content-center mb-30_reset">
           {fakeItems.map((item, index) => (
             <div
               key={`collection-item-${index}`}
-              className="col-lg-4 col-md-6 col-sm-8"
+              className="col-lg-6 col-md-6 col-sm-12"
             >
               <NFTCollection item={item} />
             </div>
