@@ -13655,11 +13655,16 @@ label:active:after {
 }
 .card__item .card_title .card_subtitle img
 {
-  width: 14px;
-    height:14px;
+  width: 18px;
+    height:18px;
     
-    margin-left:2px;
+    margin-left:5px;
+    margin-top:-3px;
     filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2));
+}
+.card__item .card_title .card_subtitle
+{
+  height:22px;
 }
 .card__item .card_title .card_subtitle svg
 {
