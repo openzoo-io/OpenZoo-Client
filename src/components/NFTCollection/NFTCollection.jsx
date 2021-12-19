@@ -4,9 +4,12 @@ import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 // import { Avatar } from 'components/Avatar';
 // import { Link } from 'react-router-dom';
 
-export function NFTCollection() {
+export function NFTCollection(props) {
+  const { isVerified = true } = props;
+
   return (
     <div className="collections mb-30">
+      {isVerified && <img src="/verified.svg" className="verified" />}
       <div className="d-flex space-x-10 collections_item">
         <div className="images-box">
           <img src={ExampleImage} alt="" />
