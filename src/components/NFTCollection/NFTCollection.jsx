@@ -2,30 +2,43 @@ import React from 'react';
 
 import ExampleImage from 'assets/imgs/exampleZooGenes.png';
 // import { Avatar } from 'components/Avatar';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function NFTCollection(props) {
   const { isVerified = true } = props;
 
   return (
     <div className="collections mb-30">
-      {isVerified && <img src="/verified.svg" className="verified" />}
+      {isVerified && (
+        <img src="/verified.svg" className="verified" alt="verified" />
+      )}
       <div className="d-flex space-x-10 collections_item">
         <div className="images-box">
-          <img src={ExampleImage} alt="" />
+          <Link href="#">
+            <img src={ExampleImage} alt="" />
+          </Link>
         </div>
         <div className="detail">
-          <h3>Creative Art collection</h3>
+          <Link href="#">
+            <h3>Creative Art collection</h3>
+          </Link>
           <div className="txt _bold color_light_grey">
-            created by <span className="color_brand owner">Genshimoro</span>
+            created by{' '}
+            <Link href="#" className="color_brand owner">
+              Genshimoro
+            </Link>
           </div>
           <div className="categories d-flex space-x-5 space-y-5 -ml-5">
             <div></div>
             <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
-              Category 01
+              <Link href="#" className=" color_text">
+                Category 01
+              </Link>
             </div>
-            <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
-              Category 02
+            <div className="txt_xs px-3 py-1 bg_hard_light rounded-pill">
+              <Link href="#" className=" color_text">
+                Category 02
+              </Link>
             </div>
           </div>
           <div className="d-flex mt-10 space-x-10 space-y-10 -ml-10 flex-wrap">
