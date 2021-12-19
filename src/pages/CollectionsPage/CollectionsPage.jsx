@@ -8,7 +8,7 @@ const fakeItems = new Array(6).fill({});
 export function CollectionsPage() {
   return (
     <PageLayout>
-      <div className="section mt-100">
+      <div className="section mt-50">
         <div className="section__head">
           <CollectionsPageFilterStatus />
         </div>
