@@ -38,6 +38,7 @@ const Modal = ({
             <div
               className={cx(
                 styles.submitButton,
+                'btn btn-primary rounded-20',
                 submitDisabled && styles.disabled
               )}
               onClick={onSubmit}

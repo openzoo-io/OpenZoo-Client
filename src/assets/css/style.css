@@ -64,7 +64,7 @@
 }
 
 .color .color_box .color_palette.Text {
-  background-color: #6f7d95;
+  background-color: #7e7e7e;
 }
 
 /*-----------------------------
@@ -169,7 +169,7 @@ img {
 }
 
 .color_text {
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .color_yellow {
@@ -11011,7 +11011,7 @@ p {
   width: 100%;
   margin: 0 auto;
   display: block;
-  color: #6f7d95;
+  color: #7e7e7e;
   line-height: 1.6;
 }
 
@@ -13099,7 +13099,7 @@ label:active:after {
 }
 
 .accordion .accordion-desc {
-  color: #6f7d95;
+  color: #7e7e7e;
   border: none;
   border-top: solid 1px #e2eef1;
   padding: 25px 0 0 0;
@@ -14739,7 +14739,7 @@ label:active:after {
     left: 6px;
     width: 20px;
     height: 2px;
-    background: #6f7d95;
+    background: #7e7e7e;
     border-radius: 2px;
     -webkit-transition: -webkit-transform 0.2s;
     transition: -webkit-transform 0.2s;
@@ -15694,7 +15694,7 @@ label:active:after {
 .hero__profile .copy i {
   padding-left: 10px;
   margin-left: 10px;
-  border-left: 1px solid #6f7d95;
+  border-left: 1px solid #7e7e7e;
 }
 
 .hero__creators {
@@ -17712,7 +17712,7 @@ label:active:after {
 }
 
 .forum .forum__content .reaction .likes span {
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .forum .forum__content .reaction .likes i {
@@ -17756,7 +17756,7 @@ label:active:after {
 .forum .forum__content .reaction .comments span,
 .forum .forum__content .reaction .views span,
 .forum .forum__content .reaction .time span {
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .forum .forum__content .reaction .like {
@@ -17791,7 +17791,7 @@ label:active:after {
 }
 
 .forum .forum__content .reaction .like span {
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .forum .forum__content .reaction .dislike {
@@ -17824,7 +17824,7 @@ label:active:after {
 }
 
 .forum .forum__content .reaction .dislike span {
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 @media screen and (max-width: 576px) {
@@ -18530,7 +18530,7 @@ label:active:after {
 
 .news__workspace .fa__news .body__content p {
   font-size: 15px;
-  color: #6f7d95;
+  color: #7e7e7e;
   margin-bottom: 0;
   font-weight: 400;
 }
@@ -18677,7 +18677,7 @@ label:active:after {
 
 .grid_blog_avatar .body_blog .person .txt time {
   font-size: 12px;
-  color: #6f7d95;
+  color: #7e7e7e;
   display: block;
 }
 
@@ -18690,7 +18690,7 @@ label:active:after {
 }
 
 .grid_blog_avatar .body_blog .short_desc {
-  color: #6f7d95;
+  color: #7e7e7e;
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 0;
@@ -19002,7 +19002,7 @@ label:active:after {
 .content-Sblog .fixSide_scroll .item .profile_user .txt time {
   display: block;
   font-size: 12px;
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .content-Sblog .fixSide_scroll .item .profile_user .btn_profile {
@@ -19044,7 +19044,7 @@ label:active:after {
 
 .content-Sblog .fixSide_scroll .share_socail .title {
   font-size: 15px;
-  color: #6f7d95;
+  color: #7e7e7e;
   margin-bottom: 20px;
 }
 
@@ -19143,7 +19143,7 @@ label:active:after {
 }
 
 .content-Sblog .body_content .txt_quotation {
-  border-left: 6px solid #6f7d95;
+  border-left: 6px solid #7e7e7e;
   padding: 15px 25px;
   font-size: 24px;
   color: #4b4b4b;
@@ -19500,7 +19500,7 @@ label:active:after {
 .sec_comments .body_commnt .item_commnt .txt .date {
   display: block;
   font-size: 12px;
-  color: #6f7d95;
+  color: #7e7e7e;
 }
 
 .sec_comments .body_commnt .item_commnt .txt .content {
@@ -19613,7 +19613,7 @@ label:active:after {
 .blog .meta.absolute .meta-info svg {
   width: 15px;
   height: 15px;
-  fill: #6f7d95;
+  fill: #7e7e7e;
   vertical-align: middle;
   margin-top: -3px;
   opacity: 0.5;
