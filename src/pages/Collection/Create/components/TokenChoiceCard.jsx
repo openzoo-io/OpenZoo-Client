@@ -7,7 +7,7 @@ export function TokenChoiceCard(props) {
   return (
     <div
       className={cx(
-        'bg_white rounded-20 w-100 d-flex flex-column justify-content-center align-items-center py-20 px-25 sm:px-5 cursor-pointer',
+        'box bg_white rounded-20 w-100 d-flex flex-column justify-content-center align-items-center py-20 px-25 sm:px-5 cursor-pointer',
         selected && 'border_brand_5'
       )}
       onClick={onClick}

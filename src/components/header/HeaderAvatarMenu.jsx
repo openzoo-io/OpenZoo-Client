@@ -9,7 +9,7 @@ import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip } from '@material-ui/core';
 
-import WWAN_IMAGE from 'assets/imgs/wwan.png';
+import WWAN_IMAGE from 'assets/imgs/wan.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
 //import { useDispatch } from 'react-redux';
@@ -285,8 +285,8 @@ const useStyle = makeStyles(() => ({
     overflow: 'hidden',
   },
   coinImage: {
-    width: 36,
-    height: 36,
+    width: 48,
+    height: 48,
   },
   darkmodeToggle: {
     display: 'flex',

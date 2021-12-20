@@ -311,6 +311,8 @@
   align-items: center;
   font-size: 14px;
   color: #a2a2ad;
+  -webkit-box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .itemOwner {
@@ -501,7 +503,7 @@
   .is__dark {
     :local {
       .heading {
-        background-color: #183b56 !important;
+        background-color: #4b4b4b !important;
       }
     }
   }
@@ -779,7 +781,7 @@
 .itemMenuIcon {
   width: 17px;
   height: 17px;
-  color: #183b56;
+  color: #4b4b4b;
 }
 
 .shareMenu {
@@ -816,6 +818,8 @@
   box-sizing: border-box;
   overflow: hidden;
   background-color: white;
+  -webkit-box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .unlockableLabel {

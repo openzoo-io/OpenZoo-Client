@@ -127,7 +127,7 @@ const useStyle = makeStyles(() => ({
   head: {
     width: 80,
     paddingRight: 10,
-    borderRight: '1px solid #CECFD1',
+    borderRight: '1px solid #eee',
     textAlign: 'center',
     display: 'flex',
     alignItems: 'center',
