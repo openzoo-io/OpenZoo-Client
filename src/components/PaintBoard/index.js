@@ -162,6 +162,7 @@ const PaintBoard = () => {
   const [image, setImage] = useState(null);
   const [media, setMedia] = useState(null);
   const [mediaExt, setMediaExt] = useState('');
+  const [mediaSize, setMediaSize] = useState(0);
   const [fee, setFee] = useState(null);
 
   const [name, setName] = useState('');
@@ -269,6 +270,7 @@ const PaintBoard = () => {
   const mediaToBase64 = () => {
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
+      
       reader.readAsDataURL(media);
       reader.onload = () => {
         resolve(reader.result);
@@ -366,6 +368,7 @@ const PaintBoard = () => {
         const mediaBase64 = await mediaToBase64();
         formData.append('media', mediaBase64);
         formData.append('mediaExt', mediaExt);
+        formData.append('mediaSize', mediaSize);
         //console.log(mediaBase64);
         //console.log(mediaExt);
         let result = await axios({
@@ -379,6 +382,11 @@ const PaintBoard = () => {
         });
         console.log('Media result', result);
         animation_url = result.data.data;
+        console.log('Media result', result.data.data);
+        // Popup Preview first //
+
+
+
       }
 
       let formData = new FormData();
@@ -718,6 +726,8 @@ const PaintBoard = () => {
                     if (ext) {
                       setMediaExt(ext.toLowerCase());
                       setMedia(acceptedFiles[0]);
+                      setMediaSize(acceptedFiles[0].size);
+                      //console.log('mediadata',acceptedFiles[0].size);
                       console.log(URL.createObjectURL(acceptedFiles[0]));
                       // for 3d //
                       if (ext === 'glb')
@@ -725,6 +735,7 @@ const PaintBoard = () => {
                         ThreeScence(acceptedFiles[0]);
                     } else {
                       setMediaExt(null);
+                      setMediaSize(0);
                       setMedia(null);
                     }
                   }}

@@ -2632,8 +2632,13 @@ export function ArtworkDetailPage() {
                     </div>
                     <div>
                       <h3>{info?.name || ''}</h3>
-                      <small className="color_text">{tokenInfo?.totalSupply} edition{tokenInfo?.totalSupply > 0?'s':''}</small>
-                    </div>
+                      {
+                      tokenInfo?.totalSupply > 0 && <small className="color_text">{tokenInfo?.totalSupply} edition{tokenInfo?.totalSupply > 1?'s':''}</small>
+                      }
+                      {
+                      !tokenInfo?.totalSupply  && <small className="color_text">unique edition</small>
+                      }
+                      </div>
                   </div>
                   <div className="col-sm-2 space-y-5">
                     <div
