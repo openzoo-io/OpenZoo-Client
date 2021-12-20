@@ -188,7 +188,7 @@ export function AssetCardFour(props) {
 
         <h6 className="card_title">
           <Link
-            to={'collection/' + item?.contractAddress}
+            to={'/collection/' + item?.contractAddress}
             className={'card_subtitle'}
           >
             {collection?.collectionName || collection?.name}
