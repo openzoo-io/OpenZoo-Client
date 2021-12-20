@@ -33,6 +33,23 @@ export const useSalesContract = () => {
     return await contract['buyItem(address,uint256,address)'](...args, options);
   };
 
+  const buyItemETHWithQuantity = async (nftAddress, tokenId, owner, value, from, quantity) => {
+    const contract = await getSalesContract();
+    const args = [nftAddress, tokenId, owner, quantity];
+
+    const options = {
+      value,
+      from,
+      gasPrice: getHigherGWEI(),
+    };
+
+    const gasEstimate = await contract.estimateGas[
+      'buyItemWithQuantity(address,uint256,address,uint256)'
+    ](...args, options);
+    options.gasLimit = calculateGasMargin(gasEstimate);
+    return await contract['buyItemWithQuantity(address,uint256,address,uint256)'](...args, options);
+  };
+
   const buyItemERC20 = async (nftAddress, tokenId, payToken, owner) => {
     const contract = await getSalesContract();
     const options = {
@@ -44,6 +61,22 @@ export const useSalesContract = () => {
       tokenId,
       payToken,
       owner,
+      options
+    );
+  };
+
+  const buyItemERC20WithQuantity = async (nftAddress, tokenId, payToken, owner, quantity) => {
+    const contract = await getSalesContract();
+    const options = {
+      gasPrice: getHigherGWEI(),
+    };
+
+    return await contract['buyItemWithQuantity(address,uint256,address,address,uint256)'](
+      nftAddress,
+      tokenId,
+      payToken,
+      owner,
+      quantity,
       options
     );
   };
@@ -181,6 +214,8 @@ export const useSalesContract = () => {
     getSalesContract,
     buyItemETH,
     buyItemERC20,
+    buyItemETHWithQuantity,
+    buyItemERC20WithQuantity,
     cancelListing,
     listItem,
     updateListing,
