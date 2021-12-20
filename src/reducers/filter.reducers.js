@@ -8,7 +8,7 @@ const initialState = {
   collections: [],
   category: null,
   groupType: 'all',
-  sortBy: 'viewed',
+  sortBy: 'createdAt', // viewed
 };
 
 export function Filter(state = initialState, action) {

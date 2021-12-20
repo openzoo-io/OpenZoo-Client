@@ -14668,7 +14668,7 @@ label:active:after {
   background: transparent;
   height: 3rem;
   width: 20rem;
-  border-radius: 10px;
+  border-radius: 20px;
   position: relative;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
@@ -14696,6 +14696,7 @@ label:active:after {
   border: none !important;
   border:1px solid #e2eef1 !important;
   padding-left: calc(2rem + 20px);
+  border-radius:20px;
 }
 
 .header__1 .header__search .header__result {

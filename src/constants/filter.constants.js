@@ -100,7 +100,7 @@ export const SortByOptions = [
   },
   {
     id: 'viewed',
-    label: 'Mostly Viewed',
+    label: 'Most Viewed',
   },
 ];
 
