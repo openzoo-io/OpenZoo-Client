@@ -96,11 +96,12 @@ export function ArtworkMediaView(props) {
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
           <Suspense fallback={<Loader3D />}>
             <Stage
-              intensity={0.5}
-              preset="upfront"
+              intensity={0.1}
               environment={false}
-              
+              contactShadow={{opacity:0.2, blur:4}}
+  
             >
+          
              <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
                 <Model url={image} />
              

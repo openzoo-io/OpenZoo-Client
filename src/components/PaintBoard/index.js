@@ -800,11 +800,12 @@ const PaintBoard = () => {
                   >
                     <Suspense fallback={null}>
                       <Stage
-                        intensity={0.5}
-                        preset="upfront"
+                        intensity={0.1}
+ 
                         environment={false}
-
+                        contactShadow={{opacity:0.2, blur:4}}
                       >
+                        
                         <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
                         <Model
                           scene={threeScence}
