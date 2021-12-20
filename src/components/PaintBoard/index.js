@@ -48,7 +48,7 @@ import { PageLayout } from 'components/Layouts';
 
 import ReactPlayer from 'react-player';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, Stage, useAnimations } from '@react-three/drei';
+import { OrbitControls, Stage, useAnimations,Environment } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const mintSteps = [
@@ -270,7 +270,7 @@ const PaintBoard = () => {
   const mediaToBase64 = () => {
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
-      
+
       reader.readAsDataURL(media);
       reader.onload = () => {
         resolve(reader.result);
@@ -282,7 +282,7 @@ const PaintBoard = () => {
   };
 
   const validateMetadata = () => {
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false  && isAcceptTerms !== false;
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false;
   };
 
   const resetMintingStatus = () => {
@@ -361,7 +361,7 @@ const PaintBoard = () => {
       let animation_url = '';
 
       const _royalty = parseFloat(royalty) * 100;
-      
+
       if (media) {
         let formData = new FormData();
 
@@ -399,10 +399,10 @@ const PaintBoard = () => {
       formData.append('symbol', symbol);
       formData.append('animation_url', animation_url);
       formData.append('xtra', xtra);
-     
+
       formData.append('royalty', isNaN(_royalty) ? 0 : _royalty.toFixed(0));
 
-      
+
 
       let result = await axios({
         method: 'post',
@@ -454,7 +454,7 @@ const PaintBoard = () => {
             ethers.utils.hexDataSlice(confirmedTnx.logs[1].data, 0, 32)
           );
         }
-        console.log('royalty',nft,mintedTkId.toNumber(),_royalty);
+        console.log('royalty', nft, mintedTkId.toNumber(), _royalty);
         const royaltyTx = await registerRoyalty(
           nft,
           mintedTkId.toNumber(),
@@ -503,11 +503,11 @@ const PaintBoard = () => {
     const reader = new FileReader();
     reader.addEventListener(
       'load',
-      function(event) {
+      function (event) {
         const contents = event.target.result;
 
         const loader = new GLTFLoader();
-        loader.parse(contents, '', function(gltf) {
+        loader.parse(contents, '', function (gltf) {
           const scene = gltf.scene;
 
           const animations = gltf.animations;
@@ -624,9 +624,9 @@ const PaintBoard = () => {
                   }}
                 >
                   <img
-                        src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
-                        className={styles.collectionLogo}
-                      />
+                    src={`https://openzoo.mypinata.cloud/ipfs/${item.logoImageHash}`}
+                    className={styles.collectionLogo}
+                  />
                   <div className={styles.collectionName}>
                     <strong>{item.collectionName}</strong>
                   </div>
@@ -714,110 +714,116 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-           <div className={styles.formGroup}>
-                <p className={styles.formLabel}>Media URL (Optional)</p>
-                <Dropzone
-                  onDrop={acceptedFiles => {
-                    console.log(acceptedFiles[0]);
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Media URL (Optional)</p>
+            <Dropzone
+              onDrop={acceptedFiles => {
+                console.log(acceptedFiles[0]);
 
-                    let re = /(?:\.([^.]+))?$/;
-                    let ext = re.exec(acceptedFiles[0].name)[1];
+                let re = /(?:\.([^.]+))?$/;
+                let ext = re.exec(acceptedFiles[0].name)[1];
 
-                    if (ext) {
-                      setMediaExt(ext.toLowerCase());
-                      setMedia(acceptedFiles[0]);
-                      setMediaSize(acceptedFiles[0].size);
-                      //console.log('mediadata',acceptedFiles[0].size);
-                      console.log(URL.createObjectURL(acceptedFiles[0]));
-                      // for 3d //
-                      if (ext === 'glb')
-                        // || ext === 'gltf')
-                        ThreeScence(acceptedFiles[0]);
-                    } else {
-                      setMediaExt(null);
-                      setMediaSize(0);
-                      setMedia(null);
-                    }
-                  }}
-                  name="mediaURL"
-                  multiple={false}
-                  maxSize="52428800"
-                  accept={media_accept.join(', ')}
-                >
-                  {({ getRootProps, getInputProps }) =>
-                    !media && (
-                      <div {...getRootProps({ className: styles.uploadMediaCont })}>
-                        <input {...getInputProps()} ref={imageMediaRef} />
-                        <div className={styles.uploadtitle}>
-                          Drop files here or&nbsp;
-                          <span
-                            className={styles.browse}
-                            onClick={() => {
-                              imageMediaRef.current?.click();
-                              setThreeScence(null);
-                              setThreeAnimations(null);
-                            }}
-                          >
-                            browse
-                          </span>
-                        </div>
-                        <div className={styles.uploadsubtitle}>
-                          MP3, MP4, GLB Max 50mb.
-                        </div>
-                      </div>
-                    )
-                  }
-                </Dropzone>
-
-                {media && (
-                  <div className={styles.uploadMediaCont}>
-                    {['mp4'].includes(mediaExt) && (
-                      <div className="player-wrapper" style={{ width: '100%' }}>
-                        <ReactPlayer
-                          className={`${cx(styles.mediaInner)} react-player`}
-                          url={URL.createObjectURL(media)}
-                          controls={true}
-                          width="100%"
-                          height="100%"
-                        />
-                      </div>
-                    )}
-                    {['mp3'].includes(mediaExt) && (
-                      <div style={{ width: '100%' }}>
-                        <ReactPlayer
-                          className={`${cx(styles.mediaInner)} react-player`}
-                          url={URL.createObjectURL(media)}
-                          controls={true}
-                          width="100%"
-                          height="100%"
-                        />
-                      </div>
-                    )}
-                    {['glb'].includes(mediaExt) && threeScence && (
-                      <Canvas
-                        camera={{ fov: 50, near: 0.01, far: 2000 }}
-                        className="create-3dcanvas"
+                if (ext) {
+                  setMediaExt(ext.toLowerCase());
+                  setMedia(acceptedFiles[0]);
+                  setMediaSize(acceptedFiles[0].size);
+                  //console.log('mediadata',acceptedFiles[0].size);
+                  console.log(URL.createObjectURL(acceptedFiles[0]));
+                  // for 3d //
+                  if (ext === 'glb')
+                    // || ext === 'gltf')
+                    ThreeScence(acceptedFiles[0]);
+                } else {
+                  setMediaExt(null);
+                  setMediaSize(0);
+                  setMedia(null);
+                }
+              }}
+              name="mediaURL"
+              multiple={false}
+              maxSize="52428800"
+              accept={media_accept.join(', ')}
+            >
+              {({ getRootProps, getInputProps }) =>
+                !media && (
+                  <div {...getRootProps({ className: styles.uploadMediaCont })}>
+                    <input {...getInputProps()} ref={imageMediaRef} />
+                    <div className={styles.uploadtitle}>
+                      Drop files here or&nbsp;
+                      <span
+                        className={styles.browse}
+                        onClick={() => {
+                          imageMediaRef.current?.click();
+                          setThreeScence(null);
+                          setThreeAnimations(null);
+                        }}
                       >
-                        <Suspense fallback={null}>
-                          <Stage intensity={0.5} preset="upfront" environment='warehouse'>
-                            <Model
-                              scene={threeScence}
-                              animations={threeAnimations}
-                            />
-                          </Stage>
-                        </Suspense>
-                        <OrbitControls makeDefault autoRotate={true} />
-                      </Canvas>
-                    )}
-                    <div className={styles.cornerClose}>
-                      <CloseIcon
-                        className={styles.remove}
-                        onClick={removeMedia}
-                      />
+                        browse
+                      </span>
+                    </div>
+                    <div className={styles.uploadsubtitle}>
+                      MP3, MP4, GLB Max 50mb.
                     </div>
                   </div>
+                )
+              }
+            </Dropzone>
+
+            {media && (
+              <div className={styles.uploadMediaCont}>
+                {['mp4'].includes(mediaExt) && (
+                  <div className="player-wrapper" style={{ width: '100%' }}>
+                    <ReactPlayer
+                      className={`${cx(styles.mediaInner)} react-player`}
+                      url={URL.createObjectURL(media)}
+                      controls={true}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
                 )}
+                {['mp3'].includes(mediaExt) && (
+                  <div style={{ width: '100%' }}>
+                    <ReactPlayer
+                      className={`${cx(styles.mediaInner)} react-player`}
+                      url={URL.createObjectURL(media)}
+                      controls={true}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                )}
+                {['glb'].includes(mediaExt) && threeScence && (
+                  <Canvas
+                    camera={{ fov: 50, near: 0.01, far: 2000 }}
+                    className="create-3dcanvas"
+                  >
+                    <Suspense fallback={null}>
+                      <Stage
+                        intensity={0.5}
+                        preset="upfront"
+                        environment={false}
+
+                      >
+                        <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
+                        <Model
+                          scene={threeScence}
+                          animations={threeAnimations}
+                        />
+                      </Stage>
+                    </Suspense>
+                    <OrbitControls makeDefault autoRotate={true} />
+                  </Canvas>
+                )}
+                <div className={styles.cornerClose}>
+                  <CloseIcon
+                    className={styles.remove}
+                    onClick={removeMedia}
+                  />
+                </div>
               </div>
+            )}
+          </div>
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
               Optional IP Right document&nbsp;
@@ -837,19 +843,19 @@ const PaintBoard = () => {
               disabled={isMinting}
             />
           </div>
-          { type === 1155 && ( 
-          <div className={styles.formGroup}>
-            <p className={styles.formLabel}>Supply</p>
-            <PriceInput
-              className={styles.formInput}
-              placeholder="Supply"
-              decimals={0}
-              value={'' + supply}
-              onChange={setSupply}
-              disabled={isMinting}
-            />
-          </div>
-           )}
+          {type === 1155 && (
+            <div className={styles.formGroup}>
+              <p className={styles.formLabel}>Supply</p>
+              <PriceInput
+                className={styles.formInput}
+                placeholder="Supply"
+                decimals={0}
+                value={'' + supply}
+                onChange={setSupply}
+                disabled={isMinting}
+              />
+            </div>
+          )}
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
               Unlockable Content&nbsp;
@@ -914,7 +920,7 @@ const PaintBoard = () => {
                 &nbsp;{fee} WANs are charged to create a new NFT.
               </>
             ) : (
-              fee > 0 ? <Skeleton width={330} height={22} /> :''
+              fee > 0 ? <Skeleton width={330} height={22} /> : ''
             )}
           </div>
         </div>

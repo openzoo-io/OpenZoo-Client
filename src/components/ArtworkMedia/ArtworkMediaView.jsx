@@ -99,9 +99,9 @@ export function ArtworkMediaView(props) {
               intensity={0.5}
               preset="upfront"
               environment={false}
-              contactShadow={false}
+              
             >
-             <Environment files={'rooitou_park_2k.hdr'} path={'/'} preset={null} background={true} />
+             <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
                 <Model url={image} />
              
             </Stage>
