@@ -81,7 +81,7 @@ export function ArtworkDetailPageListingsTab(props) {
                 {!isMine && (
                   <TxButton
                     className={cx(
-                      'btn btn-warning btn-md',
+                      'btn btn-primary btn-md',
                       styles.buyButton,
                       buyingItem && styles.disabled
                     )}
@@ -135,7 +135,7 @@ export function ArtworkDetailPageListingsTab(props) {
                 {listing.owner.toLowerCase() !== account?.toLowerCase() && (
                   <TxButton
                     className={cx(
-                      'btn btn-warning btn-md',
+                      'btn btn-primary btn-md',
                       styles.buyButton,
                       buyingItem && styles.disabled
                     )}

@@ -196,7 +196,7 @@ export function ArtworkDetailPagePriceSection(props) {
               (!auction.current || auction.current.resulted) && (
                 <TxButton
                   className={cx(
-                    'btn btn-warning btn-lg rounded-20',
+                    'btn btn-primary btn-lg rounded-20',
                     styles.headerButton,
                     (offerPlacing || offerCanceling) && styles.disabled
                   )}
@@ -319,7 +319,7 @@ export function ArtworkDetailPagePriceSection(props) {
               (!auction.current || auction.current.resulted) && (
                 <TxButton
                   className={cx(
-                    'btn btn-warning btn-lg rounded-20',
+                    'btn btn-primary btn-lg rounded-20',
                     styles.headerButton,
                     (offerPlacing || offerCanceling) && styles.disabled
                   )}

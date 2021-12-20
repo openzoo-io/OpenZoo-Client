@@ -3115,7 +3115,7 @@ export function ArtworkDetailPage() {
                                   account?.toLowerCase() && (
                                   <TxButton
                                     className={cx(
-                                      'btn btn-warning btn-md rounded-20',
+                                      'btn btn-primary btn-md rounded-20',
                                       styles.buyButton,
                                       buyingItem && styles.disabled
                                     )}
@@ -3260,7 +3260,7 @@ export function ArtworkDetailPage() {
                                       account?.toLowerCase() && (
                                       <div
                                         className={cx(
-                                          'btn btn-warning btn-md rounded-20',
+                                          'btn btn-primary btn-md rounded-20',
                                           styles.buyButton,
                                           (salesContractApproving ||
                                             offerAccepting) &&
@@ -3300,7 +3300,7 @@ export function ArtworkDetailPage() {
                                     account?.toLowerCase() && (
                                     <div
                                       className={cx(
-                                        'btn btn-warning btn-md rounded-20',
+                                        'btn btn-primary btn-md rounded-20',
                                         styles.buyButton,
                                         offerCanceling && styles.disabled
                                       )}
@@ -3329,7 +3329,7 @@ export function ArtworkDetailPage() {
                               <TxButton
                                 className={cx(
                                   styles.makeOffer,
-                                  'btn btn-warning btn-lg rounded-20',
+                                  'btn btn-primary btn-lg rounded-20',
                                   offerPlacing && styles.disabled
                                 )}
                                 onClick={() => setOfferModalVisible(true)}
