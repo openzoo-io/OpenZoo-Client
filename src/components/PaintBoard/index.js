@@ -799,7 +799,7 @@ const PaintBoard = () => {
                         className="create-3dcanvas"
                       >
                         <Suspense fallback={null}>
-                          <Stage intensity={0.5} preset="upfront" environment='dawn'>
+                          <Stage intensity={0.5} preset="upfront" environment='warehouse'>
                             <Model
                               scene={threeScence}
                               animations={threeAnimations}

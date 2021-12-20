@@ -10,7 +10,8 @@ import {
   Stage,
   useAnimations,
   useProgress,
-  Html,
+  Html,Environment
+
 } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -38,14 +39,14 @@ function Model({ url }) {
 function Loader3D() {
   const { progress } = useProgress();
   return (
-    <Html center style={{ color: 'white' }}>
+    <Html center style={{ color: '#00a59a' }}>
       {progress.toFixed(2)}%
     </Html>
   );
 }
 
-function addDefaultSrc(ev){
-  ev.target.src = '/notfound.png'
+function addDefaultSrc(ev) {
+  ev.target.src = '/notfound.png';
 }
 
 export function ArtworkMediaView(props) {
@@ -84,11 +85,25 @@ export function ArtworkMediaView(props) {
     //const { scene } = useGLTF(image);
 
     return (
-      <div style={{ maxHeight: 676, height: 380 }}>
+      <div
+        style={{
+          maxHeight: 676,
+          height: 515,
+          boxShadow: '3px 3px 1px 1px rgba(0, 0, 0, 0.05)',
+          borderRadius: 20,
+        }}
+      >
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
           <Suspense fallback={<Loader3D />}>
-            <Stage intensity={0.5} preset="upfront" environment='dawn'>
-              <Model url={image} />
+            <Stage
+              intensity={0.5}
+              preset="upfront"
+              environment={false}
+              contactShadow={false}
+            >
+             <Environment files={'rooitou_park_2k.hdr'} path={'/'} preset={null} background={true} />
+                <Model url={image} />
+             
             </Stage>
           </Suspense>
 
@@ -107,10 +122,8 @@ export function ArtworkMediaView(props) {
           />
         </Suspense>
       );
-    }
-    else
-    {
-      return <></>
+    } else {
+      return <></>;
     }
   }
 }
