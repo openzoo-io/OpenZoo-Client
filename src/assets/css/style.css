@@ -10723,7 +10723,7 @@ body {
 }
 
 body.is__dark {
-  background: #0b1b27 !important;
+  background: #000000 !important;
 }
 
 @media (min-width: 1400px) {
@@ -20572,7 +20572,7 @@ label:active:after {
 .is__dark .accordion,
 .is__dark .avatar_popup,
 .is__dark .hero__profile .infos {
-  background: #4b4b4b !important;
+  background: #313236 !important;
   border-color: #ffffff1f;
 }
 
@@ -20611,7 +20611,7 @@ label:active:after {
 }
 
 .is__dark .header__1 {
-  background: #4b4b4b !important;
+  background: #000000 !important;
   border-bottom: 1px solid #eeeeee25;
 }
 
@@ -20705,18 +20705,18 @@ label:active:after {
 .is__dark .upcoming_projects tr.white td,
 .is__dark .upcoming_projects .calendar_icon,
 .is__dark .card__item.six .card_body .card_footer .details {
-  background-color: #4b4b4b !important;
+  background-color: #313236 !important;
   border: none;
 }
 
 .is__dark .card__item
 {
-  border:1px solid #eeeeee25 !important;
+  border-bottom:1px solid #eeeeee25 !important;
 }
 
 .is__dark .card__item:nth-child(2),.is__dark .card__item:nth-child(3)
 {
-  border:1px solid #eeeeee25 !important;
+  border-bottom:1px solid #eeeeee25 !important;
 }
 
 .is__dark .nav-tabs .nav-item a.active,

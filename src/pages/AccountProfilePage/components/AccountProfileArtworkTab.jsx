@@ -25,7 +25,7 @@ const TabListComponent = props => {
 
   return (
     <>
-      <div className={cx('d-flex justify-content-between', props.className)}>
+      <div className={cx('d-flex justify-content-between ml-10 mr-10', props.className)}>
         <ul
           className={cx(
             'nav nav-tabs d-flex space-x-10 mb-30',

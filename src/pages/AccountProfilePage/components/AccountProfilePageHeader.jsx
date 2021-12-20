@@ -80,7 +80,7 @@ export function AccountProfilePageHeader(props) {
   };
 
   return (
-    <div className="md:mb-30 mb-100">
+    <div className="md:mb-30 mb-40">
       <div className="hero__profile">
         <div className="cover">
           {loading ? (

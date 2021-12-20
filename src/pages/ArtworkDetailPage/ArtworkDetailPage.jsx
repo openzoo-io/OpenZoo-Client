@@ -3361,6 +3361,7 @@ export function ArtworkDetailPage() {
               title="More from this collection"
               icon={ViewModuleIcon}
               responsive
+              expanded
             >
               <div className={styles.panelBody}>
                 {loading ? (

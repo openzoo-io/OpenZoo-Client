@@ -480,7 +480,7 @@ export function CollectionList() {
         </>
       }
     >
-      <div className="section mt-100">
+      <div className="section mt-40">
         <div className="section__head">
           {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
           <ExplorePageFillterStatus />
