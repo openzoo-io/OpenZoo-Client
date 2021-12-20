@@ -515,9 +515,10 @@ export function ArtworkDetailPage() {
           },
         });
       }
-
+    
       if (data.properties?.royalty) {
         data.properties.royalty = parseInt(data.properties.royalty) / 100;
+        
       }
 
       if (data.image) {
@@ -540,6 +541,11 @@ export function ArtworkDetailPage() {
 
         if (data.image) {
           data.image = getRandomIPFS(data.image);
+        }
+
+        if (data.properties?.royalty) {
+          data.properties.royalty = parseInt(data.properties.royalty) / 100;
+          
         }
 
         setInfo(data);

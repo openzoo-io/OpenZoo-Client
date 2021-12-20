@@ -359,15 +359,7 @@ const PaintBoard = () => {
       let animation_url = '';
 
       const _royalty = parseFloat(royalty) * 100;
-      if (_royalty > 100 || _royalty < 0)
-      {
-        showToast(
-          'error',
-          'Royaly fee must be between 0-100'
-        );
-        resetMintingStatus();
-        return;
-      }
+      
       if (media) {
         let formData = new FormData();
 
