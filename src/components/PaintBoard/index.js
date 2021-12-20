@@ -357,6 +357,17 @@ const PaintBoard = () => {
     // Upload Media First //
     try {
       let animation_url = '';
+
+      const _royalty = parseFloat(royalty) * 100;
+      if (_royalty > 100 || _royalty < 0)
+      {
+        showToast(
+          'error',
+          'Royaly fee must be between 0-100'
+        );
+        resetMintingStatus();
+        return;
+      }
       if (media) {
         let formData = new FormData();
 
@@ -388,8 +399,10 @@ const PaintBoard = () => {
       formData.append('symbol', symbol);
       formData.append('animation_url', animation_url);
       formData.append('xtra', xtra);
-      const _royalty = parseFloat(royalty) * 100;
+     
       formData.append('royalty', isNaN(_royalty) ? 0 : _royalty.toFixed(0));
+
+      
 
       let result = await axios({
         method: 'post',
