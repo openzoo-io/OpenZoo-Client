@@ -742,15 +742,17 @@ export function ArtworkDetailPage() {
     price
   ) => {
     const quantity = parseFloat(_quantity.toString());
+    
     if (eventMatches(nft, id)) {
-      
-      listings.current = listings.current.filter(
-        listing => listing.owner.toLowerCase() !== seller.toLowerCase()
-      );
+
       if (tokenType.current === 721) {
         setOwner(buyer);
+        listings.current = listings.current.filter(
+          listing => listing.owner.toLowerCase() !== seller.toLowerCase()
+        );
       } else {
         const newHolders = [...holders];
+        console.log('previous holders', holders);
         const sellerIndex = newHolders.findIndex(
           holder => holder.address.toLowerCase() === seller.toLowerCase()
         );
@@ -776,11 +778,32 @@ export function ArtworkDetailPage() {
           }
           newHolders.push(buyerInfo);
         }
-        if (sellerIndex > -1 && newHolders[sellerIndex].supply === 0) {
+        
+        if (newHolders[sellerIndex]?.supply === 0) {
           newHolders.splice(sellerIndex, 1);
         }
-        //console.log('newHolders',newHolders);
+        
+        console.log('newHolders',newHolders);
+        console.log('listings',listings.current);
         setHolders(newHolders);
+        /*
+        listings.current = listings.current.filter(
+          listing => listing.owner.toLowerCase() !== seller.toLowerCase()
+        );
+        */
+        listings.current.map((v, i) => {
+          if (v.owner.toLowerCase() === seller.toLowerCase())
+          {
+            if (listings.current[i].quantity > Number(quantity))
+            {
+            listings.current[i].quantity = listings.current[i].quantity - Number(quantity);
+            }
+            else
+            {
+              delete listings.current[i];
+            }
+          }
+        });
       }
       const token = getTokenByAddress(paymentToken);
       const _price = parseFloat(
@@ -1192,10 +1215,14 @@ export function ArtworkDetailPage() {
     }
   };
 
+  
   useEffect(() => {
     if (address && tokenID) {
+
+   
       addEventListeners();
 
+    
       if (fetchInterval) {
         clearInterval(fetchInterval);
       }
@@ -1221,7 +1248,9 @@ export function ArtworkDetailPage() {
         removeBundleEventListeners();
       }
     };
-  }, [chainId, holders]);
+  }, [chainId]); // ,holders TODO: Don't know need to add or not
+
+
 
   useEffect(() => {
     setLiked(null);
@@ -1912,15 +1941,15 @@ export function ArtworkDetailPage() {
             listing.owner,
           );
           await tx.wait();
-          
+          listings.current = listings.current.filter(
+            _listing => _listing.owner !== listing.owner
+          );
         }
         
       }
 
       setOwner(account);
-      listings.current = listings.current.filter(
-        _listing => _listing.owner !== listing.owner
-      );
+      
       
     } catch (error) {
       console.log(error)
@@ -2703,7 +2732,7 @@ export function ArtworkDetailPage() {
                 </div>
 
                 {hasUnlockable && (
-                  <div className={`${styles.bestBuy} box`}>
+                  <div className={`${styles.bestBuy} box rounded-20`}>
                     <div
                       className={styles.unlockableLabel}
                     >{`This item has unlockable content.${

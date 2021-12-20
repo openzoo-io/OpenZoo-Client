@@ -415,8 +415,8 @@ export function CollectionList() {
                     <div className={styles.linksAlt}>
                       {
                         collectionType === '721'?
-                        <div className={styles.bullet}>SINGLE TOKEN - WRC721</div>:
-                        <div className={styles.bullet}>MULTI TOKEN - WRC1155</div>
+                        <div className={styles.bullet}>SINGLE TOKEN 721</div>:
+                        <div className={styles.bullet}>MULTI TOKEN 1155</div>
                       }
                      
                       {
