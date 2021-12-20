@@ -351,6 +351,39 @@ export const SALES_CONTRACT_ABI = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "_nftAddress",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "_tokenId",
+        type: "uint256"
+      },
+      {
+        internalType: "address",
+        name: "_payToken",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "_owner",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "_quantity",
+        type: "uint256"
+      }
+    ],
+    name: "buyItemWithQuantity",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
         internalType: 'address',
         name: '_nftAddress',
         type: 'address',

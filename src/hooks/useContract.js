@@ -13,7 +13,7 @@ export default () => {
       if (chainId) {
         await window.ethereum.enable();
         const provider = new ethers.providers.Web3Provider(window.ethereum);
-        provider.pollingInterval = 5 * 1000;
+        provider.pollingInterval = 10 * 1000;
         const signer = provider.getSigner();
 
         return new ethers.Contract(address, abi, signer);

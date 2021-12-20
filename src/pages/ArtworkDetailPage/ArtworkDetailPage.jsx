@@ -167,6 +167,7 @@ export function ArtworkDetailPage() {
     getSalesContract,
     buyItemETH,
     buyItemERC20,
+    buyItemERC20WithQuantity,
     cancelListing,
     listItem,
     updateListing,
@@ -729,6 +730,7 @@ export function ArtworkDetailPage() {
     }
   };
 
+ 
   const itemSoldHandler = async (
     seller,
     buyer,
@@ -741,6 +743,7 @@ export function ArtworkDetailPage() {
   ) => {
     const quantity = parseFloat(_quantity.toString());
     if (eventMatches(nft, id)) {
+      
       listings.current = listings.current.filter(
         listing => listing.owner.toLowerCase() !== seller.toLowerCase()
       );
@@ -776,6 +779,7 @@ export function ArtworkDetailPage() {
         if (sellerIndex > -1 && newHolders[sellerIndex].supply === 0) {
           newHolders.splice(sellerIndex, 1);
         }
+        //console.log('newHolders',newHolders);
         setHolders(newHolders);
       }
       const token = getTokenByAddress(paymentToken);
@@ -1887,21 +1891,39 @@ export function ArtworkDetailPage() {
           const tx = await erc20.approve(salesContract.address, price);
           await tx.wait();
         }
-        const tx = await buyItemERC20(
-          address,
-          ethers.BigNumber.from(tokenID),
-          listing.token.address,
-          listing.owner
-        );
-        await tx.wait();
+        if (listing.quantity > 1) // for 1155
+        {
+          const tx = await buyItemERC20WithQuantity(
+            address,
+            ethers.BigNumber.from(tokenID),
+            listing.token.address,
+            listing.owner,
+            1
+          );
+          await tx.wait();
+          
+        }
+        else  // for 721
+        {
+          const tx = await buyItemERC20(
+            address,
+            ethers.BigNumber.from(tokenID),
+            listing.token.address,
+            listing.owner,
+          );
+          await tx.wait();
+          
+        }
+        
       }
 
       setOwner(account);
-
       listings.current = listings.current.filter(
         _listing => _listing.owner !== listing.owner
       );
+      
     } catch (error) {
+      console.log(error)
       showToast('error', formatError(error));
       setBuyingItem(false);
     }
@@ -3072,15 +3094,7 @@ export function ArtworkDetailPage() {
                                   >
                                     {buyingItem ? (
                                       <ClipLoader color="#FFF" size={16} />
-                                    ) : tokenInfo?.totalSupply > 1 ? (
-                                      listing.quantity > 1 ? (
-                                        'Buy All'
-                                      ) : (
-                                        'Buy'
-                                      )
-                                    ) : (
-                                      'Buy'
-                                    )}
+                                    ) : 'Buy'}
                                   </TxButton>
                                 )}
                               </div>

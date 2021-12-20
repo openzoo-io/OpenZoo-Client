@@ -70,7 +70,7 @@ export const useSalesContract = () => {
     const options = {
       gasPrice: getHigherGWEI(),
     };
-
+    
     return await contract['buyItemWithQuantity(address,uint256,address,address,uint256)'](
       nftAddress,
       tokenId,

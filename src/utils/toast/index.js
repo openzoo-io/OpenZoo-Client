@@ -27,7 +27,7 @@ export default (type, title, body = '', onClick = () => {}) => {
       </div>
     ),
     {
-      duration: 5000,
+      duration: 30000,
       className: styles.toast,
     }
   );
