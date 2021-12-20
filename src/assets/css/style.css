@@ -221,7 +221,7 @@ img {
 }
 
 .bg_input {
-  background-color: #f2f7fa !important;
+  background-color: #f5f5f5 !important;
 }
 
 .bg_body {
@@ -11959,7 +11959,7 @@ textarea,
 .custom-select {
   background: 0 0;
   color: #232226;
-  background-color: #f2f7fa !important;
+  background-color: #f5f5f5 !important;
   border: 1px solid transparent !important;
   width: 100%;
   padding: 15px;
@@ -12507,7 +12507,7 @@ label:active:after {
 
 .choose_collection {
   border-radius: 12px;
-  background-color: #f2f7fa;
+  background-color: #f5f5f5;
   padding: 10px;
   color: #4b4b4b;
   display: -webkit-box;
@@ -13559,8 +13559,8 @@ label:active:after {
   margin-bottom: 30px;
   max-width: 30rem;
   overflow: hidden;
-  -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid #192c4b10;
   position:relative;
   z-index:1;
