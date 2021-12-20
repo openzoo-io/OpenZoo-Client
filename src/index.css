@@ -86,29 +86,29 @@ input[type='number'] {
 }
 
 .is__dark .MuiPopover-paper {
-  background: #0b1b27 !important;
+  background: #4d4d4d !important;
   color: white;
 }
 
 .is__dark .MuiStepIcon-text {
-  color: #0b1b27 !important;
-  fill: #0b1b27 !important;
+  color: #4d4d4d !important;
+  fill: #4d4d4d !important;
   font-weight: bold;
 }
 
 .is__dark .dropdown-menu {
-  background: #0b1b27 !important;
+  background: #4d4d4d !important;
 }
 
 .is__dark .dropdown-item:hover {
-  color: #0b1b27;
+  color: #4d4d4d;
 }
 .is__dark .dropdown-item:hover * {
-  color: #0b1b27;
+  color: #4d4d4d;
 }
 
 .is__dark .recharts-default-tooltip {
-  background: #0b1b27 !important;
+  background: #4d4d4d !important;
 }
 
 .rdt {
@@ -156,7 +156,7 @@ input[type='number'] {
   background:#F7F7F7;
 }
 .is__dark .card_body .bg_light {
-  background: #0b1b27 !important;
+  background: #4d4d4d !important;
 }
 
 .is__dark .card_body .card_head_text
@@ -166,7 +166,7 @@ input[type='number'] {
 
 .is__dark .bg_input
 {
-  background:#0b1b27 !important;
+  background:#4d4d4d !important;
 }
 
 .modal
