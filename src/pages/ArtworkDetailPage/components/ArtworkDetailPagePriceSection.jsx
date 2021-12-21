@@ -243,7 +243,7 @@ export function ArtworkDetailPagePriceSection(props) {
                       !auctionEnded ? (
                       'Cancel Auction'
                     ) : (
-                      (bid?.bid > auction.current.reservePrice ? 'Accept highest bid' :'Cancel Auction')
+                      (bid?.bid >= auction.current.reservePrice ? 'Accept highest bid' :'Cancel Auction')
                     )}
                   </div>
                 ) : null}

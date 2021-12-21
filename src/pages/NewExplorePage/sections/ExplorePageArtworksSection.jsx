@@ -20,7 +20,8 @@ export function ExplorePageArtworksSection(props) {
 
   const loadMoreRef = React.useCallback(
     node => {
-      const hasMore = props.items.length !== props.count-1; // TODO: Need to check
+      console.log(props.items.length,props.count);
+      const hasMore = props.items.length !== props.count; // TODO: Need to check
       //console.log(props.items.length);
       //console.log(props.count);
       if (props.loading) return;

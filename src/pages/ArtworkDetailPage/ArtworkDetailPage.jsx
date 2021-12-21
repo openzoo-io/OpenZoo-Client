@@ -451,7 +451,11 @@ export function ArtworkDetailPage() {
         tokenType.current = type;
         if (type === 721) {
           const contract = await getERC721Contract(address);
-          const res = await contract.ownerOf(tokenID);
+          
+          // In Auction //
+          
+          const res = auction?.current?.owner ? auction.current.owner : await contract.ownerOf(tokenID);
+          
           setOwner(res);
         } else if (type === 1155) {
           const { data: _tokenInfo } = await get1155Info(address, tokenID);
@@ -1280,11 +1284,12 @@ export function ArtworkDetailPage() {
     } else {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
-
-      getItemDetails();
       getAuctions().then(() => {
         getBid();
+        getItemDetails();
       });
+      
+     
 
       increaseViewCount(address, tokenID).then(({ data }) => {
         setViews(data);

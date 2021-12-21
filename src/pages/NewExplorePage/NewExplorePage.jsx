@@ -48,7 +48,7 @@ export function NewExplorePage() {
   } = useSelector(state => state.Filter);
 
   const prevAuthToken = usePrevious(authToken);
-
+  
   const numPerRow = Math.floor(gridWidth / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
 
