@@ -14085,7 +14085,7 @@ label:active:after {
 
 .is__dark label.toggle
 {
-  background: #305571;
+  background: #4d4d4d;
 }
 .is__dark input:checked + label
 {
@@ -20648,12 +20648,12 @@ label:active:after {
 /*.is__dark label,*/
 .is__dark .btn-dark,
 .is__dark .header__1 .header__mobile {
-  background: #305571;
+  background: #4d4d4d;
 }
 
 .is__dark .rdtPicker
 {
-  background: #305571;
+  background: #4d4d4d;
 }
 
 .is__dark .color_green {
@@ -20662,7 +20662,7 @@ label:active:after {
 
 .is__dark p,
 .is__dark span {
-  color: #a5afc1;
+  color: #828282;
 }
 
 .is__dark .box.is__live,
@@ -20775,7 +20775,7 @@ label:active:after {
 }
 
 .is__dark .footer__1 .footer__list li a {
-  color: #a5afc1;
+  color: #828282;
 }
 
 .is__dark .card__item.one .card_head .details {
@@ -20854,21 +20854,21 @@ label:active:after {
 }
 
 .is__dark .modal-content .close {
-  background: #345a77;
+  background: #777777;
   border: none !important;
 }
 
 .is__dark .btn-white,
 .is__dark .tags,
 .is__dark .light_bg {
-  border: solid 1px #345a77;
+  border: solid 1px #777777;
 }
 
 .is__dark .btn-white:hover,
 .is__dark .tags:hover,
 .is__dark .light_bg:hover {
-  border: solid 1px #345a77 !important;
-  background: #345a77 !important;
+  border: solid 1px #777777 !important;
+  background: #777777 !important;
   color:white  !important;
 }
 
