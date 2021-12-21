@@ -179,3 +179,8 @@ input[type='number'] {
   color:#00a59a;
 }
 
+.is__dark .react-loading-skeleton
+{
+  background-color: #666 !important;
+  background-image: linear-gradient( 90deg,#666,#888,#666) !important;
+}
