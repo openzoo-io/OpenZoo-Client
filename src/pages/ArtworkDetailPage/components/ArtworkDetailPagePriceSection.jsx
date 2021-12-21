@@ -236,13 +236,14 @@ export function ArtworkDetailPagePriceSection(props) {
                     )}
                     onClick={cancelCurrentAuction}
                   >
+                    
                     {auctionCancelConfirming ? (
                       <ClipLoader color="#FFF" size={16} />
                     ) : bid?.bid < auction.current.reservePrice ||
                       !auctionEnded ? (
                       'Cancel Auction'
                     ) : (
-                      'Accept highest bid'
+                      (bid?.bid > auction.current.reservePrice ? 'Accept highest bid' :'Cancel Auction')
                     )}
                   </div>
                 ) : null}
