@@ -95,7 +95,7 @@ export function AccountProfilePageHeader(props) {
             <div className={styles.bannerPlaceholder}></div>
           )}
           {isMe && (
-            <div className={styles.editBanner} onClick={selectBanner}>
+            <div className={`${styles.editBanner} editBannerBtn`} onClick={selectBanner}>
               <input
                 ref={fileInput}
                 hidden
@@ -230,6 +230,7 @@ const useStyle = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
+    
   },
   bannerPlaceholder: {
     width: '100%',

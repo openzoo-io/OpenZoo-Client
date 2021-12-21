@@ -15641,6 +15641,12 @@ label:active:after {
   position: relative;
 }
 
+
+.is__dark .hero__profile .editBannerBtn
+{
+  background:#313236 !important
+}
+
 .hero__profile .tabs {
   position: absolute;
   top: 20px;
