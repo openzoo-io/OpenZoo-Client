@@ -13574,10 +13574,15 @@ label:active:after {
   z-index: 0;
 }
 
+.card__item:nth-child(n+2):hover {
+  transform: translate(-50%,0) !important;
+}
+
 .card__item:nth-child(2) {
   width: 93%;
   top: 18px;
   border:1px solid #192c4b10;
+  
 }
 
 .card__item:nth-child(3) {
