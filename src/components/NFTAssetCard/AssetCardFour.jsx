@@ -13,6 +13,7 @@ import {
   faMusic,
   faVideo,
   faCubes,
+  faGavel
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
@@ -146,7 +147,7 @@ export function AssetCardFour(props) {
                 
                     {endAuctionIn?.humanize && (
                       <>
-                        <div className="txt_xs">{endAuctionIn?.humanize} Left</div>
+                        <div className="txt_xs"><FontAwesomeIcon icon={faGavel}/> {endAuctionIn?.humanize} Left</div>
                       </>
                     )}
                   

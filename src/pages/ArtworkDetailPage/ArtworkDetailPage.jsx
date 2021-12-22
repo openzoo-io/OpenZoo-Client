@@ -57,7 +57,7 @@ import { ClipLoader } from 'react-spinners';
 import {
 
   ViewModule as ViewModuleIcon,
-
+  Gavel as GavelIcon,
   Timeline as TimelineIcon,
   LocalOffer as LocalOfferIcon,
   Toc as TocIcon,
@@ -2773,6 +2773,7 @@ export function ArtworkDetailPage() {
                               auction.current.startTime
                             )}`
                       }
+                      icon={GavelIcon}
                       fixed
                       containerClassName="px-20 border-none"
                       headerClassName="px-0"
