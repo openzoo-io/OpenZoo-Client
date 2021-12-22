@@ -13,7 +13,6 @@ import {
   faMusic,
   faVideo,
   faCubes,
-
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
@@ -40,7 +39,6 @@ export function AssetCardFour(props) {
     liked,
     isLike,
     cardHeaderClassName,
-
   } = props;
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
@@ -105,112 +103,104 @@ export function AssetCardFour(props) {
 
   return (
     <div className="card__root">
-    <div className="card__item four">
-      <div className="card_body space-y-10">
-        <div className="creators space-x-10">
-          <div className="avatars space-x-3">
-            {item?.owner && (
-              <StackAvatars
-                users={new Array(1).fill({
-                  address: item?.owner,
-                  alias:
-                    item.ownerAlias && item.ownerAlias[0]
-                      ? item.ownerAlias[0]
-                      : null,
-                  imageHash:
-                    item.ownerAlias && item.ownerAlias[0]
-                      ? item.ownerAlias[1]
-                      : null,
-                })}
-              />
-            )}
-          </div>
-          <div
-            className="cursor-pointer likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10 "
-            onClick={props.onLike}
-          >
-            <i
-              className={cx(
-                isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line',
-                'color_red'
+      <div className="card__item four">
+        <div className="card_body space-y-10">
+          <div className="creators space-x-10">
+            <div className="avatars space-x-3">
+              {item?.owner && (
+                <StackAvatars
+                  users={new Array(1).fill({
+                    address: item?.owner,
+                    alias:
+                      item.ownerAlias && item.ownerAlias[0]
+                        ? item.ownerAlias[0]
+                        : null,
+                    imageHash:
+                      item.ownerAlias && item.ownerAlias[0]
+                        ? item.ownerAlias[1]
+                        : null,
+                  })}
+                />
               )}
-            ></i>
-            <span className="txt_sm">{liked || item?.liked || 0}</span>
-          </div>
-        </div>
-        <div className={cx('card_head', cardHeaderClassName)}>
-          <Link to={assetUrl}>
-            <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
-          </Link>
-
-          {endAuctionIn && (
-            <div className="countdownWrapper space-x-3">
-              {endAuctionIn.days ? (
-                <div className="countdown-item rounded-pill">
-                  {endAuctionIn.days}
-                </div>
-              ) : null}
-              <div className="countdown-item rounded-pill">
-                {endAuctionIn.hours}
-              </div>
-              <div className="countdown-item rounded-pill">
-                {endAuctionIn.minutes}
-              </div>
-              <div className="countdown-item rounded-pill">
-                {endAuctionIn.seconds}
-              </div>
             </div>
-          )}
-
-          <div className="cursor-pointer contentType space-x-3">
-            {item?.contentType && item.contentType === 'image' && (
-              <>
-                <FontAwesomeIcon icon={faImage} />
-              </>
-            )}
-            {item?.contentType && item.contentType === 'video' && (
-              <>
-                <FontAwesomeIcon icon={faVideo} />
-              </>
-            )}
-            {item?.contentType && item.contentType === 'sound' && (
-              <>
-                <FontAwesomeIcon icon={faMusic} />
-              </>
-            )}
-            {item?.contentType && item.contentType === 'model' && (
-              <>
-                <FontAwesomeIcon icon={faCubes} />
-              </>
-            )}
+            <div
+              className="cursor-pointer likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10 "
+              onClick={props.onLike}
+            >
+              <i
+                className={cx(
+                  isLike ? 'ri-heart-3-fill' : 'ri-heart-3-line',
+                  'color_red'
+                )}
+              ></i>
+              <span className="txt_sm">{liked || item?.liked || 0}</span>
+            </div>
           </div>
-        </div>
+          <div className={cx('card_head', cardHeaderClassName)}>
+            <Link to={assetUrl}>
+              <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
+            </Link>
 
-        <h6 className="card_title">
-          <Link
-            to={'/collection/' + item?.contractAddress}
-            className={'card_subtitle'}
-          >
-            {collection?.collectionName || collection?.name}
-            {collection?.isVerified && <img src="/verified.svg"/>}
-          </Link>
-          <Link to={assetUrl} className={'color_black'}>
-            {info?.name || item?.name}
-          </Link>
-        </h6>
+            {endAuctionIn && (
+              <div className="countdownWrapper space-x-3">
+                
+                    {endAuctionIn?.humanize && (
+                      <>
+                        <div className="txt_xs">{endAuctionIn?.humanize} Left</div>
+                      </>
+                    )}
+                  
+              </div>
+            )}
 
-        <AssetCardFourPriceTag
-          loading={loading}
-          auction={auction}
-          item={item}
-          durationHumanize={endAuctionIn?.humanize}
-          auctionActive={auctionActive}
-        
-          owner={item?.owner}
-          assetUrl={assetUrl}
-        />
+            <div className="cursor-pointer contentType space-x-3">
+              {item?.contentType && item.contentType === 'image' && (
+                <>
+                  <FontAwesomeIcon icon={faImage} />
+                </>
+              )}
+              {item?.contentType && item.contentType === 'video' && (
+                <>
+                  <FontAwesomeIcon icon={faVideo} />
+                </>
+              )}
+              {item?.contentType && item.contentType === 'sound' && (
+                <>
+                  <FontAwesomeIcon icon={faMusic} />
+                </>
+              )}
+              {item?.contentType && item.contentType === 'model' && (
+                <>
+                  <FontAwesomeIcon icon={faCubes} />
+                </>
+              )}
+            </div>
+          </div>
 
-        {/* <div className="card_footer d-block space-y-10">
+          <h6 className="card_title">
+            <Link
+              to={'/collection/' + item?.contractAddress}
+              className={'card_subtitle'}
+            >
+              {collection?.collectionName || collection?.name}
+              {collection?.isVerified && <img src="/verified.svg" />}
+            </Link>
+            <Link to={assetUrl} className={'color_black'}>
+              {info?.name || item?.name}
+            </Link>
+          </h6>
+
+          <AssetCardFourPriceTag
+            loading={loading}
+            auction={auction}
+            item={item}
+            //durationHumanize={endAuctionIn?.humanize}
+            auctionActive={auctionActive}
+            owner={item?.owner}
+            assetUrl={assetUrl}
+          />
+
+          {/* <div className="card_footer d-block space-y-10">
           <div className="card_footer justify-content-between">
             <div className="creators">
               <p className="txt_sm"> 4 in stock</p>
@@ -244,11 +234,14 @@ export function AssetCardFour(props) {
             </a>
           </div>
         </div> */}
+        </div>
       </div>
-    </div>
-    {
-      item.tokenType === 1155 && <><div className="card__item four"></div><div className="card__item four"></div></>
-    }
+      {item.tokenType === 1155 && (
+        <>
+          <div className="card__item four"></div>
+          <div className="card__item four"></div>
+        </>
+      )}
     </div>
   );
 }

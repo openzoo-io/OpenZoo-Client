@@ -13,7 +13,7 @@ export function AssetCardFourPriceTag(props) {
     loading,
     auction,
     item,
-    durationHumanize,
+    //durationHumanize,
     auctionActive,
 
     owner,
@@ -118,18 +118,7 @@ export function AssetCardFourPriceTag(props) {
         )}
       </div>
 
-      {(durationHumanize || item?.lastSalePrice > 0) && (
-        <div className="d-flex px-10 justify-content-between">
-          <div>
-            {durationHumanize && (
-              <>
-                <div className="txt_xs color_text">Time left</div>
-                <div className="txt_xs">{durationHumanize}</div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+      
     </>
   );
 }

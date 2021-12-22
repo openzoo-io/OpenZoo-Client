@@ -14070,23 +14070,24 @@ label:active:after {
 
 .card__item .card_head .countdownWrapper {
   position: absolute;
-  display: flex;
+  background: hsla(0,0%,100%,.966);
+  padding: 3px 12px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 20%);
   z-index: 1;
   bottom: 10px;
   left: 10px;
-  justify-content: space-between;
+  color: #00a59a;
+  display: flex;
+  align-items: center;
+  
 }
 
-.card__item .card_head .countdownWrapper .countdown-item {
-  display: flex;
-  min-width: 30px;
-  height: 30px;
-  padding: 5px;
-  background-color: white;
-  color: #00a59a;
-  justify-content: center;
-  align-items: center;
+.is__dark .card__item .card_head .countdownWrapper
+{
+  background: #4b4b4b !important;
 }
+
 
 .is__dark label.toggle
 {
