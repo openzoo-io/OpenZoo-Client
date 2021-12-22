@@ -23,6 +23,7 @@ export function ArtworkDetailPagePriceSection(props) {
     auction,
     auctionCanceling,
     cancelCurrentAuction,
+    handleResultAuction,
     auctionCancelConfirming,
     hasListing,
     tokenType,
@@ -111,7 +112,12 @@ export function ArtworkDetailPagePriceSection(props) {
                       styles.headerButton,
                       auctionCanceling && styles.disabled
                     )}
-                    onClick={cancelCurrentAuction}
+                    onClick={
+                      bid === null ||
+                      bid?.bid < auction.current?.reservePrice || !auctionEnded
+                        ? cancelCurrentAuction
+                        : handleResultAuction
+                    }
                   >
                     {auctionCancelConfirming ? (
                       <ClipLoader color="#FFF" size={16} />

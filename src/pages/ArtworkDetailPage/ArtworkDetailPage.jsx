@@ -2682,6 +2682,7 @@ export function ArtworkDetailPage() {
                   auction={auction}
                   auctionCanceling={auctionCanceling}
                   cancelCurrentAuction={cancelCurrentAuction}
+                  handleResultAuction={handleResultAuction}
                   auctionCancelConfirming={auctionCancelConfirming}
                   hasListing={hasListing}
                   tokenType={tokenType}
