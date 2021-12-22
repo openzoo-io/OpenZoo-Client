@@ -7,16 +7,11 @@ import React, {
   useRef,
   useCallback,
   useMemo,
-  Suspense,
 } from 'react';
 import { ethers } from 'ethers';
 import { useParams, Link, useHistory } from 'react-router-dom';
-import { ShareButton } from 'components/ShareButton';
-import { ReportButton } from 'components/ReportButton';
 import {
   ArtworkDetailPageDetailSection,
-  ViewProofButton,
-  ArtworkDetailPageCreatorSection,
   ArtworkDetailPageStateSection,
   ArtworkDetailPagePriceSection,
   ArtworkDetailPageHistorySection,
@@ -45,7 +40,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import {
   LineChart,
   XAxis,
@@ -56,24 +51,17 @@ import {
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
 import {
-  People as PeopleIcon,
+
   ViewModule as ViewModuleIcon,
-  FavoriteBorder as FavoriteBorderIcon,
-  Favorite as FavoriteIcon,
+
   Timeline as TimelineIcon,
   LocalOffer as LocalOfferIcon,
   Toc as TocIcon,
-  Label as LabelIcon,
-  Ballot as BallotIcon,
-  Loyalty as LoyaltyIcon,
-  VerticalSplit as VerticalSplitIcon,
-  Subject as SubjectIcon,
-  Redeem as RedeemIcon,
-  DynamicFeed as DynamicFeedIcon,
+
 } from '@material-ui/icons';
 import toast from 'react-hot-toast';
 
@@ -81,7 +69,7 @@ import Panel from 'components/Panel';
 import Identicon from 'components/Identicon';
 import { Contracts } from 'constants/networks';
 import showToast from 'utils/toast';
-import NFTCard from 'components/NFTCard';
+
 import TxButton from 'components/TxButton';
 import TransferModal from 'components/TransferModal';
 import SellModal from 'components/SellModal';
@@ -96,20 +84,9 @@ import CollectionsActions from 'actions/collections.actions';
 import HeaderActions from 'actions/header.actions';
 import usePrevious from 'hooks/usePrevious';
 
-import webIcon from 'assets/svgs/web.svg';
-import discordIcon from 'assets/svgs/discord.svg';
-import telegramIcon from 'assets/svgs/telegram.svg';
-import twitterIcon from 'assets/svgs/twitter.svg';
-import mediumIcon from 'assets/svgs/medium.svg';
-import filterIcon from 'assets/svgs/filter.svg';
-import checkIcon from 'assets/svgs/check.svg';
-import shareIcon from 'assets/svgs/share.svg';
-import iconArtion from 'assets/svgs/openzoo_icon.svg';
-import iconFacebook from 'assets/imgs/facebook.png';
-import iconTwitter from 'assets/svgs/twitter_blue.svg';
 
 import styles from './styles.module.scss';
-import FilterActions from '../../actions/filter.actions';
+
 import {
   useZooBoosterContract,
   useZooElixirContract,
@@ -121,7 +98,6 @@ const ONE_HOUR = ONE_MIN * 60;
 const ONE_DAY = ONE_HOUR * 24;
 const ONE_MONTH = ONE_DAY * 30;
 
-const filters = ['Trade History', 'Transfer History'];
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
@@ -203,8 +179,7 @@ export function ArtworkDetailPage() {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
-  const { getBoosting, getLockTimeReduce } = useZooBoosterContract();
-  const { getElixir } = useZooElixirContract();
+
 
   const { addr: address, id: tokenID, bundleID } = useParams();
   const { getTokenByAddress, tokens } = useTokens();

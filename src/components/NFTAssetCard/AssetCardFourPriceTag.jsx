@@ -41,7 +41,7 @@ export function AssetCardFourPriceTag(props) {
             {auction && auctionActive ? <>Current Bid</> : ''}
             {auction && !auctionActive ? <>Closing Price</> : ''}
             {item.price && !auction && !auctionActive ? <>Price</> : ''}
-            {(!item.price && !auction) ? <>Not for Sale</> : ''}
+            {!item.price && !auction ? <>Not for Sale</> : ''}
           </span>
         </div>
 
@@ -80,11 +80,38 @@ export function AssetCardFourPriceTag(props) {
                 </div>
               </>
             ) : (
-              <Link to={assetUrl}
-                className="cursor-pointer color_brand"
-        
-              >
-                {(owner && account && owner?.toLowerCase() === account?.toLowerCase())?'Sell an Item':'Make Offer'}
+              <Link to={assetUrl} className="cursor-pointer color_brand">
+                {console.log('last price', item)}
+                {item?.lastSalePrice > 0 && (
+                  <>
+                    <div className="d-flex justify-content-end align-items-center space-x-5">
+                      <span className="txt_sm">Last Price</span>
+                      <img
+                        src={
+                          getTokenByAddress(item?.lastSalePricePaymentToken)
+                            ?.icon
+                        }
+                        alt=""
+                        className={styles.tokenIcon}
+                      />
+                      <strong
+                        className={cx(styles.tokenPrice, 'txt_sm color_brand')}
+                      >
+                        {formatNumber(item.lastSalePrice)}
+                      </strong>
+                    </div>
+                    <div className={cx(styles.dollar,"d-flex justify-content-end")}>
+                      =${formatNumber(item.lastSalePriceInUSD.toFixed(2))}
+                    </div>
+                  </>
+                )}
+                {!item?.lastSalePrice
+                  ? owner &&
+                    account &&
+                    owner?.toLowerCase() === account?.toLowerCase()
+                    ? 'Sell an Item'
+                    : 'Make Offer'
+                  : ''}
               </Link>
             )}
           </div>
@@ -101,19 +128,6 @@ export function AssetCardFourPriceTag(props) {
               </>
             )}
           </div>
-          {item?.lastSalePrice > 0 && (
-            <div className="d-flex justify-content-end align-items-center space-x-5">
-              <span className="txt_sm">Last Price</span>
-              <img
-                src={getTokenByAddress(item?.lastSalePricePaymentToken)?.icon}
-                alt=""
-                className={styles.tokenIcon}
-              />
-              <strong className={cx(styles.tokenPrice, 'txt_sm color_brand')}>
-                {formatNumber(item.lastSalePrice)}
-              </strong>
-            </div>
-          )}
         </div>
       )}
     </>
