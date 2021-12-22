@@ -13,6 +13,7 @@ export function HomePage() {
   return (
     <div className="overflow-hidden">
       <Header />
+      
       <div className="hero__3">
         <div className="container">
           <div className="row align-items-center mb-50 md:space-y-20">

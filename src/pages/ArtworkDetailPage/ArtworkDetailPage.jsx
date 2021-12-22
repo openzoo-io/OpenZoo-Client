@@ -55,13 +55,11 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
 import {
-
   ViewModule as ViewModuleIcon,
   Gavel as GavelIcon,
   Timeline as TimelineIcon,
   LocalOffer as LocalOfferIcon,
   Toc as TocIcon,
-
 } from '@material-ui/icons';
 import toast from 'react-hot-toast';
 
@@ -84,7 +82,6 @@ import CollectionsActions from 'actions/collections.actions';
 import HeaderActions from 'actions/header.actions';
 import usePrevious from 'hooks/usePrevious';
 
-
 import styles from './styles.module.scss';
 
 import {
@@ -92,12 +89,11 @@ import {
   useZooElixirContract,
 } from 'contracts/zookeeper';
 import { AssetCard } from 'components/NFTAssetCard/AssetCard';
-
+import { Helmet } from 'react-helmet';
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
 const ONE_DAY = ONE_HOUR * 24;
 const ONE_MONTH = ONE_DAY * 30;
-
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
@@ -179,7 +175,6 @@ export function ArtworkDetailPage() {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
-
 
   const { addr: address, id: tokenID, bundleID } = useParams();
   const { getTokenByAddress, tokens } = useTokens();
@@ -426,11 +421,13 @@ export function ArtworkDetailPage() {
         tokenType.current = type;
         if (type === 721) {
           const contract = await getERC721Contract(address);
-          
+
           // In Auction //
-          
-          const res = auction?.current?.owner ? auction.current.owner : await contract.ownerOf(tokenID);
-          
+
+          const res = auction?.current?.owner
+            ? auction.current.owner
+            : await contract.ownerOf(tokenID);
+
           setOwner(res);
         } else if (type === 1155) {
           const { data: _tokenInfo } = await get1155Info(address, tokenID);
@@ -494,10 +491,9 @@ export function ArtworkDetailPage() {
           },
         });
       }
-    
+
       if (data.properties?.royalty) {
         data.properties.royalty = parseInt(data.properties.royalty) / 100;
-        
       }
 
       if (data.image) {
@@ -524,7 +520,6 @@ export function ArtworkDetailPage() {
 
         if (data.properties?.royalty) {
           data.properties.royalty = parseInt(data.properties.royalty) / 100;
-          
         }
 
         setInfo(data);
@@ -715,7 +710,6 @@ export function ArtworkDetailPage() {
     }
   };
 
- 
   const itemSoldHandler = async (
     seller,
     buyer,
@@ -727,9 +721,8 @@ export function ArtworkDetailPage() {
     price
   ) => {
     const quantity = parseFloat(_quantity.toString());
-    
-    if (eventMatches(nft, id)) {
 
+    if (eventMatches(nft, id)) {
       if (tokenType.current === 721) {
         setOwner(buyer);
         listings.current = listings.current.filter(
@@ -763,13 +756,13 @@ export function ArtworkDetailPage() {
           }
           newHolders.push(buyerInfo);
         }
-        
+
         if (newHolders[sellerIndex]?.supply === 0) {
           newHolders.splice(sellerIndex, 1);
         }
-        
-        console.log('newHolders',newHolders);
-        console.log('listings',listings.current);
+
+        console.log('newHolders', newHolders);
+        console.log('listings', listings.current);
         setHolders(newHolders);
         /*
         listings.current = listings.current.filter(
@@ -777,14 +770,11 @@ export function ArtworkDetailPage() {
         );
         */
         listings.current.map((v, i) => {
-          if (v.owner.toLowerCase() === seller.toLowerCase())
-          {
-            if (listings.current[i].quantity > Number(quantity))
-            {
-            listings.current[i].quantity = listings.current[i].quantity - Number(quantity);
-            }
-            else
-            {
+          if (v.owner.toLowerCase() === seller.toLowerCase()) {
+            if (listings.current[i].quantity > Number(quantity)) {
+              listings.current[i].quantity =
+                listings.current[i].quantity - Number(quantity);
+            } else {
               delete listings.current[i];
             }
           }
@@ -1200,14 +1190,10 @@ export function ArtworkDetailPage() {
     }
   };
 
-  
   useEffect(() => {
     if (address && tokenID) {
-
-   
       addEventListeners();
 
-    
       if (fetchInterval) {
         clearInterval(fetchInterval);
       }
@@ -1235,8 +1221,6 @@ export function ArtworkDetailPage() {
     };
   }, [chainId]); // ,holders TODO: Don't know need to add or not
 
-
-
   useEffect(() => {
     setLiked(null);
     console.log('!bundleID', bundleID);
@@ -1263,8 +1247,6 @@ export function ArtworkDetailPage() {
         getBid();
         getItemDetails();
       });
-      
-     
 
       increaseViewCount(address, tokenID).then(({ data }) => {
         setViews(data);
@@ -1906,8 +1888,8 @@ export function ArtworkDetailPage() {
           const tx = await erc20.approve(salesContract.address, price);
           await tx.wait();
         }
-        if (listing.quantity > 1) // for 1155
-        {
+        if (listing.quantity > 1) {
+          // for 1155
           const tx = await buyItemERC20WithQuantity(
             address,
             ethers.BigNumber.from(tokenID),
@@ -1916,29 +1898,24 @@ export function ArtworkDetailPage() {
             1
           );
           await tx.wait();
-          
-        }
-        else  // for 721
-        {
+        } // for 721
+        else {
           const tx = await buyItemERC20(
             address,
             ethers.BigNumber.from(tokenID),
             listing.token.address,
-            listing.owner,
+            listing.owner
           );
           await tx.wait();
           listings.current = listings.current.filter(
             _listing => _listing.owner !== listing.owner
           );
         }
-        
       }
 
       setOwner(account);
-      
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
       showToast('error', formatError(error));
       setBuyingItem(false);
     }
@@ -2491,6 +2468,7 @@ export function ArtworkDetailPage() {
     return (
       <div className="overflow-hidden">
         <Header />
+        
         <div className="container">
           {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
@@ -2515,6 +2493,11 @@ export function ArtworkDetailPage() {
   return (
     <div className="overflow-hidden artwork_detail_page">
       <Header />
+      <Helmet>
+          
+          <title>TEST {info?.image}</title>
+          
+        </Helmet>
       <div className="container">
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
@@ -2612,13 +2595,16 @@ export function ArtworkDetailPage() {
                     </div>
                     <div>
                       <h3>{info?.name || ''}</h3>
-                      {
-                      tokenInfo?.totalSupply > 0 && <small className="color_text">{tokenInfo?.totalSupply} edition{tokenInfo?.totalSupply > 1?'s':''}</small>
-                      }
-                      {
-                      !tokenInfo?.totalSupply  && <small className="color_text">unique edition</small>
-                      }
-                      </div>
+                      {tokenInfo?.totalSupply > 0 && (
+                        <small className="color_text">
+                          {tokenInfo?.totalSupply} edition
+                          {tokenInfo?.totalSupply > 1 ? 's' : ''}
+                        </small>
+                      )}
+                      {!tokenInfo?.totalSupply && (
+                        <small className="color_text">unique edition</small>
+                      )}
+                    </div>
                   </div>
                   <div className="col-sm-2 space-y-5">
                     <div
@@ -3038,19 +3024,21 @@ export function ArtworkDetailPage() {
                                   className={styles.tokenIcon}
                                 />
                                 <div>
-                                {formatNumber(listing.price)}
-                                <br /><span>(
-                                {prices[listing.token?.address] !==
-                                undefined ? (
-                                  `$${(
-                                    listing.price *
-                                    prices[listing.token?.address]
-                                  ).toFixed(2)}`
-                                ) : (
-                                  <Skeleton width={60} height={24} />
-                                )}
-                                )
-                                </span>
+                                  {formatNumber(listing.price)}
+                                  <br />
+                                  <span>
+                                    (
+                                    {prices[listing.token?.address] !==
+                                    undefined ? (
+                                      `$${(
+                                        listing.price *
+                                        prices[listing.token?.address]
+                                      ).toFixed(2)}`
+                                    ) : (
+                                      <Skeleton width={60} height={24} />
+                                    )}
+                                    )
+                                  </span>
                                 </div>
                               </div>
                               {tokenInfo?.totalSupply > 1 && (
@@ -3065,22 +3053,25 @@ export function ArtworkDetailPage() {
                                     className={styles.tokenIcon}
                                   />
                                   <div>
-                                  {formatNumber(
-                                    listing.price * listing.quantity
-                                  )}
-                                  
-                                  <br /><span>(
-                                  {prices[listing.token?.address] !==
-                                  undefined ? (
-                                    `$${(
-                                      listing.quantity *
-                                      listing.price *
-                                      prices[listing.token?.address]
-                                    ).toFixed(2)}`
-                                  ) : (
-                                    <Skeleton width={60} height={24} />
-                                  )}
-                                  )</span>
+                                    {formatNumber(
+                                      listing.price * listing.quantity
+                                    )}
+
+                                    <br />
+                                    <span>
+                                      (
+                                      {prices[listing.token?.address] !==
+                                      undefined ? (
+                                        `$${(
+                                          listing.quantity *
+                                          listing.price *
+                                          prices[listing.token?.address]
+                                        ).toFixed(2)}`
+                                      ) : (
+                                        <Skeleton width={60} height={24} />
+                                      )}
+                                      )
+                                    </span>
                                   </div>
                                 </div>
                               )}
@@ -3116,7 +3107,9 @@ export function ArtworkDetailPage() {
                                   >
                                     {buyingItem ? (
                                       <ClipLoader color="#FFF" size={16} />
-                                    ) : 'Buy'}
+                                    ) : (
+                                      'Buy'
+                                    )}
                                   </TxButton>
                                 )}
                               </div>
