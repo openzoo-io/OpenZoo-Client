@@ -84,12 +84,8 @@ import usePrevious from 'hooks/usePrevious';
 
 import styles from './styles.module.scss';
 
-import {
-  useZooBoosterContract,
-  useZooElixirContract,
-} from 'contracts/zookeeper';
 import { AssetCard } from 'components/NFTAssetCard/AssetCard';
-import { Helmet } from 'react-helmet';
+
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
 const ONE_DAY = ONE_HOUR * 24;
@@ -2468,7 +2464,6 @@ export function ArtworkDetailPage() {
     return (
       <div className="overflow-hidden">
         <Header />
-        
         <div className="container">
           {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
@@ -2493,11 +2488,6 @@ export function ArtworkDetailPage() {
   return (
     <div className="overflow-hidden artwork_detail_page">
       <Header />
-      <Helmet>
-          
-          <title>TEST {info?.image}</title>
-          
-        </Helmet>
       <div className="container">
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore

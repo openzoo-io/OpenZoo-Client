@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from 'components/header';
+/*
 import { AssetCard } from 'components/NFTAssetCard';
 import { Link } from 'react-router-dom';
 import { HomePageArtistsSection } from './HomePageArtistsSection';
@@ -8,13 +9,13 @@ import { HomePageTopArtworksSection } from './HomePageTopArtworksSection';
 import { HomePageCommunitySection } from './HomePageCommunitySection';
 import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
 import { Footer } from 'components/Footer';
-
+*/
 export function HomePage() {
   return (
     <div className="overflow-hidden">
       <Header />
-      
-      <div className="hero__3">
+       
+      {/* <div className="hero__3">
         <div className="container">
           <div className="row align-items-center mb-50 md:space-y-20">
             <div className="col-lg-6">
@@ -58,7 +59,7 @@ export function HomePage() {
 
       <HomePageStartOwnCollectionSection />
       <HomePageCommunitySection />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
