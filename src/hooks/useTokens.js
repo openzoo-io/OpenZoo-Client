@@ -47,21 +47,21 @@ const Tokens = {
       decimals: 18,
       icon: iconZOO,
     },
-    {
-      address: '0x916283cc60fdaf05069796466af164876e35d21f',
-      name: 'Wrapped WAN',
-      symbol: 'WWAN',
-      decimals: 18,
-      icon: iconWFTM,
-    },
+    // {
+    //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
+    //   name: 'Wrapped WAN',
+    //   symbol: 'WWAN',
+    //   decimals: 18,
+    //   icon: iconWFTM,
+    // },
     
-    {
-      address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
-      name: 'wanUSDT',
-      symbol: 'wanUSDT',
-      decimals: 6,
-      icon: iconUSDT,
-    },
+    // {
+    //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+    //   name: 'wanUSDT',
+    //   symbol: 'wanUSDT',
+    //   decimals: 6,
+    //   icon: iconUSDT,
+    // },
   ],
 };
 
