@@ -2,11 +2,12 @@
 
 // import iconFTM from 'assets/imgs/ftm.png';
 import iconWFTM from 'assets/imgs/wwan.png';
-import iconZOO from 'assets/imgs/zoo32x32.png';
+import iconZOO from 'assets/imgs/Zoo_ticker.svg';
+import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 // import iconUSDT from 'assets/imgs/usdt.png';
 // import iconUSDC from 'assets/imgs/usdc.png';
 // import iconDAI from 'assets/imgs/dai.png';
-import iconUSDT from 'assets/imgs/wanUSDT.png';
+// import iconUSDT from 'assets/imgs/wanUSDT.png';
 // import iconUSDC from 'assets/imgs/wanUSDC.png';
 // import iconETH from 'assets/imgs/wanETH.png';
 // import iconWASP from 'assets/imgs/wasp.png';
@@ -47,6 +48,13 @@ const Tokens = {
       decimals: 18,
       icon: iconZOO,
     },
+    {
+      address: '0xcEEbf071CeFdD33364012a4A6BdC82105e754f53',
+      name: 'vZOO',
+      symbol: 'vZOO',
+      decimals: 18,
+      icon: iconVZOO,
+    },
     // {
     //   address: '0x916283cc60fdaf05069796466af164876e35d21f',
     //   name: 'Wrapped WAN',
@@ -55,13 +63,13 @@ const Tokens = {
     //   icon: iconWFTM,
     // },
     
-    {
-      address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
-      name: 'wanUSDT',
-      symbol: 'wanUSDT',
-      decimals: 6,
-      icon: iconUSDT,
-    },
+    // {
+    //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+    //   name: 'wanUSDT',
+    //   symbol: 'wanUSDT',
+    //   decimals: 6,
+    //   icon: iconUSDT,
+    // },
   ],
 };
 
