@@ -28,6 +28,7 @@ import {
   faMedium,
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
+import { Link } from 'react-router-dom';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -49,7 +50,7 @@ export function CollectionList() {
 
   const conRef = useRef();
 
-  const [collectionType, setCollectionType] = useState('721');
+  const [collectionType, setCollectionType] = useState(721);
 
   // Reset to unfilterd //
   /*
@@ -353,12 +354,19 @@ export function CollectionList() {
                     <h1>{collectionData?.collectionName} {collectionData?.isVerified && <img src="/verified.svg"/>}</h1>
                     <div className={styles.ownedby}>
                       created by{' '}
-                      <span>{shortenAddress(collectionData?.owner)}</span>
+                      <Link
+                      to={`/account/${collectionData?.owner}`}
+                      className="creators space-x-10"
+                    >
+                      {shortenAddress(collectionData?.owner)}
+                      </Link>
+                     
                     </div>
                     <div className={styles.links}>
                       <a
                         href={explorerUrl + '/token/' + addr}
                         className={styles.address}
+                        target="_blank"  rel="noreferrer"
                       >
                         {shortenAddress(addr)}{' '}
                         <FontAwesomeIcon icon={faLocationArrow} />
@@ -414,7 +422,10 @@ export function CollectionList() {
                     </div>
                     <div className={styles.linksAlt}>
                       {
-                        collectionType === '721'?
+                        console.log('collectionType',collectionType)
+                      }
+                      {
+                        collectionType === 721?
                         <div className={styles.bullet}>SINGLE TOKEN 721</div>:
                         <div className={styles.bullet}>MULTI TOKEN 1155</div>
                       }

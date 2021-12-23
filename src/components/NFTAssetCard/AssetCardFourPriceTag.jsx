@@ -81,7 +81,7 @@ export function AssetCardFourPriceTag(props) {
               </>
             ) : (
               <Link to={assetUrl} className="cursor-pointer color_brand">
-                {console.log('last price', item)}
+               
                 {item?.lastSalePrice > 0 && (
                   <>
                     <div className="d-flex justify-content-end align-items-center space-x-5">
