@@ -1,6 +1,8 @@
-import COINBASE_ICON_URL from 'assets/svgs/coinbase.svg';
+// import COINBASE_ICON_URL from 'assets/svgs/coinbase.svg';
 import METAMASK_ICON_URL from 'assets/imgs/metamask.png';
-import { injected, walletlink } from '../connectors';
+import { injected, 
+  // walletlink 
+} from '../connectors';
 
 export const SUPPORTED_WALLETS = {
   METAMASK: {

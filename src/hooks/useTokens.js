@@ -55,13 +55,13 @@ const Tokens = {
     //   icon: iconWFTM,
     // },
     
-    // {
-    //   address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
-    //   name: 'wanUSDT',
-    //   symbol: 'wanUSDT',
-    //   decimals: 6,
-    //   icon: iconUSDT,
-    // },
+    {
+      address: '0x3D5950287b45F361774E5fB6e50d70eEA06Bc167',
+      name: 'wanUSDT',
+      symbol: 'wanUSDT',
+      decimals: 6,
+      icon: iconUSDT,
+    },
   ],
 };
 
