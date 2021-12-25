@@ -1281,7 +1281,7 @@ export function ArtworkDetailPage() {
 
         if (resultAuction) {
           setPlatformFee({
-            royalty: res / 100,
+            royalty: res / 10,
           });
         } else {
           setPlatformFee(null);
@@ -2689,9 +2689,9 @@ export function ArtworkDetailPage() {
                       <div className={styles.royaltyFee}>
                         Royalty Fee{' '}
                         {collectionRoyalty?.royalty ||
-                          nftRoyalty?.royalty ||
-                          platformFee?.royalty}
-                        % goes to creator
+                          nftRoyalty?.royalty
+                          }
+                        % goes to creator + {platformFee?.royalty}% Platform Fee
                       </div>
                     ) : (
                       ''
