@@ -2364,7 +2364,7 @@ export function ArtworkDetailPage() {
 
   const myListing = () => {
     return listings.current.find(
-      listing => listing.owner.toLowerCase() === account?.toLowerCase()
+      listing => listing?.owner.toLowerCase() === account?.toLowerCase()
     );
   };
 
