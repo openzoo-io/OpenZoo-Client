@@ -12,7 +12,9 @@ export function AccountProfileAboutMeCard(props) {
           <Skeleton width="100%" height={200} />
         ) : (
           <>
-            {user.bio && <p>{user.bio}</p>}
+            {user.bio && <p>{user.bio.split('\n').map((item, key) => {
+              return <span key={key}>{item}<br/></span>
+            })}</p>}
             {/**
             <div className="row">
               <div className="col-6">

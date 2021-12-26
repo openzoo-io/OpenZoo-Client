@@ -688,13 +688,13 @@ const CollectionCreate = ({ isRegister }) => {
               <input
                 type="text"
                 className={cx(styles.input, nameError && styles.hasError)}
-                maxLength={20}
+                maxLength={30}
                 placeholder="Collection Name"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 onBlur={validateName}
               />
-              <div className={styles.lengthIndicator}>{name.length}/20</div>
+              <div className={styles.lengthIndicator}>{name.length}/30</div>
               {nameError && <div className={styles.error}>{nameError}</div>}
             </div>
           </div>

@@ -123,7 +123,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const accept = ['.jpg', '.png', '.gif'];
+  const accept = ['.jpg','.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -562,7 +562,7 @@ const PaintBoard = () => {
                   </span>
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
-                  <strong>JPG, PNG, GIF</strong>
+                  <strong>JPG/JPEG, PNG, GIF</strong>
                   <p>Max 15mb.</p>
                 </div>
               </>
@@ -654,13 +654,13 @@ const PaintBoard = () => {
             <input
               type="text"
               className={styles.formInput}
-              maxLength={40}
+              maxLength={50}
               placeholder="Name"
               value={name}
               onChange={e => setName(e.target.value)}
               disabled={isMinting}
             />
-            <div className={styles.lengthIndicator}>{name.length}/40</div>
+            <div className={styles.lengthIndicator}>{name.length}/50</div>
           </div>
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>Symbol</p>
