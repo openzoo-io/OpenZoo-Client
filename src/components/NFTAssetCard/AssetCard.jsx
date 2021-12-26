@@ -214,6 +214,7 @@ function AssetCardComponent(props) {
         loading={fetching || loading}
         cardHeaderClassName={cardHeaderClassName}
         onLike={handleClickLike}
+        authToken={authToken}
         {...rest}
       />
     );

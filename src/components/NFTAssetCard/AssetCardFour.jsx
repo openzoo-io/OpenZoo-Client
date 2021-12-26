@@ -33,7 +33,7 @@ export function AssetCardFour(props) {
   const {
     loading,
     item,
-
+    authToken,
     info,
     auction,
     auctionActive,
@@ -125,8 +125,8 @@ export function AssetCardFour(props) {
               )}
             </div>
             <div
-              className="cursor-pointer likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10 "
-              onClick={props.onLike}
+                className={`${authToken && 'cursor-pointer'} likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10`}
+              onClick={authToken && props.onLike}
             >
               <i
                 className={cx(
