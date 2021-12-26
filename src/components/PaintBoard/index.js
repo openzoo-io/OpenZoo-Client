@@ -171,7 +171,7 @@ const PaintBoard = () => {
   const [royalty, setRoyalty] = useState('');
   const [xtra, setXtra] = useState('');
   ///const [animationUrl, setAnimationUrl] = useState('');
-  const [supply, setSupply] = useState(0);
+  const [supply, setSupply] = useState(1);
   const [hasUnlockableContent, setHasUnlockableContent] = useState(false);
   const [unlockableContent, setUnlockableContent] = useState('');
 
@@ -282,7 +282,7 @@ const PaintBoard = () => {
   };
 
   const validateMetadata = () => {
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false;
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0';
   };
 
   const resetMintingStatus = () => {
