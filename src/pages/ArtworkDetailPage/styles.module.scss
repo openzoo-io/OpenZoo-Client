@@ -383,6 +383,16 @@
 }
 .royaltyFee {
   flex: none;
+  display:flex;
+  align-items: center;
+  margin-left:15px;
+  svg
+  {
+    width:18px;
+    height:18px;
+    margin-left:3px;
+    margin-top:-2px;
+  }
 }
 .favIcon {
   width: 16px !important;

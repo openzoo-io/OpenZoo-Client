@@ -40,7 +40,8 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Skeleton from 'react-loading-skeleton';
 import ReactResizeDetector from 'react-resize-detector';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
-
+import BootstrapTooltip from 'components/BootstrapTooltip';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import {
   LineChart,
   XAxis,
@@ -1270,7 +1271,9 @@ export function ArtworkDetailPage() {
             royalty: res / 100,
           });
         } else {
-          setNftRoyalty(null);
+          setNftRoyalty({
+            royalty: 0,
+          });
         }
       })
       .catch(console.log);
@@ -1284,7 +1287,9 @@ export function ArtworkDetailPage() {
             royalty: res / 10,
           });
         } else {
-          setPlatformFee(null);
+          setPlatformFee({
+            royalty: 0,
+          });
         }
       })
       .catch(console.log);
@@ -1297,7 +1302,10 @@ export function ArtworkDetailPage() {
             feeRecipient: res.feeRecipient,
           });
         } else {
-          setCollectionRoyalty(null);
+          setCollectionRoyalty({
+            royalty: 0,
+            feeRecipient: null,
+          });
         }
       })
       .catch(console.log);
@@ -2377,7 +2385,7 @@ export function ArtworkDetailPage() {
     let idx = 0;
     while (
       idx < listings.current.length &&
-      listings.current[idx].owner.toLowerCase() === account?.toLowerCase()
+      listings.current[idx]?.owner.toLowerCase() === account?.toLowerCase()
     ) {
       idx++;
     }
@@ -2683,19 +2691,27 @@ export function ArtworkDetailPage() {
                 />
                 <div className="d-flex justify-content-between">
                   <div className="space-x-10 d-flex align-items-center">
-                    {collectionRoyalty?.royalty ||
-                    nftRoyalty?.royalty ||
-                    platformFee?.royalty ? (
-                      <div className={styles.royaltyFee}>
-                        Royalty Fee{' '}
-                        {collectionRoyalty?.royalty ||
-                          nftRoyalty?.royalty
-                          }
-                        % goes to creator + {platformFee?.royalty}% Platform Fee
-                      </div>
-                    ) : (
-                      ''
-                    )}
+                    <div className={styles.royaltyFee}>
+                      Total trading fee is{' '}
+                      {collectionRoyalty?.royalty +
+                        nftRoyalty?.royalty +
+                        platformFee?.royalty}
+                      % 
+                      <BootstrapTooltip
+                        title={
+                          <>
+                            NFT Royalty: {nftRoyalty?.royalty}%
+                            <br />
+                            Collection Royalty: {collectionRoyalty?.royalty}%
+                            <br />
+                            Platform Fee: {platformFee?.royalty}%
+                          </>
+                        }
+                        placement="top"
+                      >
+                        <HelpOutlineIcon />
+                      </BootstrapTooltip>
+                    </div>
                   </div>
                 </div>
 
