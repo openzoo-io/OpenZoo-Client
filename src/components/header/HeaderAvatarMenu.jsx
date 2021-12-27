@@ -221,7 +221,7 @@ export function HeaderAvatarMenu(props) {
             <div className="d-flex align-items-center">
               Show Only Verified{' '}
               <img
-                src="verified.svg"
+                src="/verified.svg"
                 style={{
                   maxHeight: 20,
                   marginLeft: 3,
