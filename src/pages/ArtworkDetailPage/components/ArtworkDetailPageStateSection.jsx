@@ -88,7 +88,7 @@ export function ArtworkDetailPageStateSection(props) {
                 >
                   <PersonIcon style={styles.itemIcon} />
                   &nbsp;{formatNumber(mine)}
-                  &nbsp;{holders.length > 1 ? 'Items are' : 'Item is'} mine
+                  &nbsp;{mine > 1 ? 'Items are' : 'Item is'} mine
                 </div>
                 }
                 <div
