@@ -151,7 +151,7 @@ const SellModal = ({
       }
     >
       <div className={styles.formGroup}>
-        <div className={styles.formLabel}>Price</div>
+        <div className={styles.formLabel}>Price per Item</div>
         <div className={cx(styles.formInputCont, focused && styles.focused)}>
           
           <Select
