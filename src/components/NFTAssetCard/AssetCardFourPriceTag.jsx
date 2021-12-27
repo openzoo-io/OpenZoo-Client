@@ -103,7 +103,7 @@ export function AssetCardFourPriceTag(props) {
                       <strong
                         className={cx(styles.tokenPrice, 'txt_sm color_brand')}
                       >
-                        {formatNumber(item.lastSalePrice).toFixed(2).replace(/[.,]00$/, "")}
+                        {formatNumber(item.lastSalePrice.toFixed(2).replace(/[.,]00$/, ""))}
                       </strong>
                     </div>
                     <div className={cx(styles.dollar,"d-flex justify-content-end")}>
