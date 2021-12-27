@@ -133,7 +133,7 @@ export function ArtworkDetailPageDetailSection(props) {
                     href="#tabs-properties"
                     role="tab"
                   >
-                    Properties
+                    Meta Properties
                   </a>
                 </li>
               )}
@@ -173,7 +173,8 @@ export function ArtworkDetailPageDetailSection(props) {
                   </a>
                 </li>
               )}
-              {!bundleID && collectionRoyalty && (
+
+              {/*!bundleID && collectionRoyalty && (
                 <li className="nav-item mx-1.5 mb-2">
                   <a
                     className="btn btn-white btn-sm"
@@ -184,7 +185,7 @@ export function ArtworkDetailPageDetailSection(props) {
                     Royalty
                   </a>
                 </li>
-              )}
+              )*/}
             </ul>
             {/* <DropdownButton
             title="Recent Active"
