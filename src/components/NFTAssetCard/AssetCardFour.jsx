@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AssetCardFourPriceTag } from './AssetCardFourPriceTag';
-
+import { useApi } from 'api';
 import {
   faImage,
   faMusic,
@@ -41,6 +41,7 @@ export function AssetCardFour(props) {
     isLike,
     cardHeaderClassName,
   } = props;
+  const { apiUrl } = useApi();
   const assetUrl = item
     ? `/explore/${item?.contractAddress}/${item?.tokenID}`
     : '#';
@@ -139,7 +140,8 @@ export function AssetCardFour(props) {
           </div>
           <div className={cx('card_head', cardHeaderClassName)}>
             <Link to={assetUrl}>
-              <ArtworkMediaView image={info?.image || item?.imageURL} alt="" />
+              
+              <ArtworkMediaView image={(item?.thumbnailPath !== '-' && apiUrl+'/image/'+item?.thumbnailPath) || info?.image || item?.imageURL} alt="" />
             </Link>
 
             {endAuctionIn && (
