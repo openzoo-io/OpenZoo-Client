@@ -542,7 +542,7 @@ const CollectionCreate = ({ isRegister }) => {
                 title="SINGLE TOKEN"
                 subtitle="STANDARD COLLECTION"
                 network="WRC721"
-                detail="Your collectible want to be one of a kind"
+                detail="Your collectible will be one of a kind"
                 selected={isSingle}
                 onClick={() => setIsSingle(true)}
               />
@@ -550,7 +550,7 @@ const CollectionCreate = ({ isRegister }) => {
                 title="MULTI TOKEN"
                 subtitle="STANDARD COLLECTION"
                 network="WRC1155"
-                detail="Your collectible want to be multiple of a kind"
+                detail="Your collectible will have multiple entities of one kind"
                 selected={!isSingle}
                 onClick={() => setIsSingle(false)}
               />
@@ -563,9 +563,9 @@ const CollectionCreate = ({ isRegister }) => {
         <div className="col-lg-4 col-md-8 space-y-20">
           <h4>{isRegister ? 'COLLECTION REGISTOR' : 'COLLECTION CREATOR'}</h4>
           <p>
-            NFTs can represent essentially any type of digital file, with artist
-            creating NFTs featuring pictures, videos, gifs, audio files and
-            mixture of them all.
+          NFTs can represent essentially any type of digital file, with artists
+creating NFTs featuring images, videos, gifs, audio files, or a 
+combination of each.
           </p>
           {!isRegister &&
             (isModerator ||
@@ -636,7 +636,7 @@ const CollectionCreate = ({ isRegister }) => {
                   onChange={e => setIsAcceptUploadRight(e.target.checked)}
                 />
               }
-              label="I approve that I'm the owner or have the right publication and sale. *"
+              label="I confirm that I'm the owner, or have the rights of publication and sale of this collection. *"
               className="align-items-start"
               classes={{ root: 'pt-20' }}
             />
@@ -647,7 +647,7 @@ const CollectionCreate = ({ isRegister }) => {
                   onChange={e => setIsAcceptTerms(e.target.checked)}
                 />
               }
-              label="I approve OpenZoo's Terms and Conditions *"
+              label="I accept OpenZoo's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>
@@ -735,14 +735,14 @@ const CollectionCreate = ({ isRegister }) => {
                   styles.longInput,
                   descriptionError && styles.hasError
                 )}
-                maxLength={200}
-                placeholder="Provide your description for your collection"
+                maxLength={250}
+                placeholder="Provide a description for your collection"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
                 onBlur={validateDescription}
               />
               <div className={styles.lengthIndicator}>
-                {description.length}/200
+                {description.length}/250
               </div>
               {descriptionError && (
                 <div className={styles.error}>{descriptionError}</div>
@@ -954,8 +954,7 @@ const CollectionCreate = ({ isRegister }) => {
           <div>
             <strong>Note</strong>
             <p>
-              The process on minting NFT is an irreversible process make sure
-              all the the above detail are right.
+            The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
             </p>
           </div>
           <div className={styles.buttonsWrapper}>
