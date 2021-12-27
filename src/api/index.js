@@ -196,6 +196,17 @@ export const useApi = () => {
     });
     return res.data;
   };
+  const fetchAuctionBidParticipants = async (contractAddress, tokenID) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/auction/getBidParticipants`,
+      data: JSON.stringify({ contractAddress, tokenID }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.data;
+  };
 
   const fetchPendingCollections = async authToken => {
     const res = await axios({
@@ -908,6 +919,7 @@ export const useApi = () => {
     fetchCollections,
     fetchCollection,
     fetchCollectionStatistic,
+    fetchAuctionBidParticipants,
     fetchPendingCollections,
     approveCollection,
     rejectCollection,

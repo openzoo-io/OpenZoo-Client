@@ -19,6 +19,9 @@ export default (type, title, body = '', onClick = () => {}) => {
   return toast(
     () => (
       <div className={styles.toastInner} onClick={onClick}>
+        <div className={styles.close}>
+          x
+        </div>
         <div className={styles.header}>
           <img src={icons[type]} alt={type} className={styles.icon} />
           <span>{title}</span>

@@ -24,8 +24,23 @@
 .toastInner {
   margin: -4px -10px;
   padding: 24px;
+  position:relative;
 }
-
+.close
+{
+  height:2rem;
+  width:2rem;
+  border-radius: 50%;
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  box-shadow: 0px 17px 13px 0px #192c4b05;
+  outline: none;
+  border: solid 1px #e2eef1;
+  background-color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
 .header {
   display: flex;
   align-items: center;

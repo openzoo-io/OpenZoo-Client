@@ -126,6 +126,7 @@ export function ArtworkDetailPage() {
     getItemsLiked,
     getNonce,
     retrieveUnlockableContent,
+    fetchAuctionBidParticipants,
   } = useApi();
   const {
     getERC20Contract,
@@ -238,6 +239,7 @@ export function ArtworkDetailPage() {
   const [auctionUpdateConfirming, setAuctionUpdateConfirming] = useState(false);
   const [auctionCanceling, setAuctionCanceling] = useState(false);
   const [auctionCancelConfirming, setAuctionCancelConfirming] = useState(false);
+  const [auctionBidParticipants, setAuctionBidParticipants] = useState(0);
   const [bidPlacing, setBidPlacing] = useState(false);
   const [bidWithdrawing, setBidWithdrawing] = useState(false);
   const [resulting, setResulting] = useState(false);
@@ -613,6 +615,10 @@ export function ArtworkDetailPage() {
         );
         auction.current = { ..._auction, reservePrice, token };
       }
+
+      let auctionParticipantsRes = await fetchAuctionBidParticipants(address,tokenID);
+      setAuctionBidParticipants(auctionParticipantsRes?.data?.bidParticipants);
+
     } catch (e) {
       console.log(e);
     }
@@ -1056,7 +1062,7 @@ export function ArtworkDetailPage() {
     }
   };
 
-  const bidPlacedHandler = (nft, id, bidder, _bid) => {
+  const bidPlacedHandler = async (nft, id, bidder, _bid) => {
     if (eventMatches(nft, id)) {
       const bid = parseFloat(_bid.toString()) / 10 ** 18;
       setBid({
@@ -1064,6 +1070,8 @@ export function ArtworkDetailPage() {
         bid,
         lastBidTime: Math.floor(new Date().getTime() / 1000),
       });
+      let auctionParticipantsRes = await fetchAuctionBidParticipants(address,tokenID);
+      setAuctionBidParticipants(auctionParticipantsRes?.data?.bidParticipants);
     }
   };
 
@@ -2812,7 +2820,7 @@ export function ArtworkDetailPage() {
                                 src={auction.current.token?.icon}
                                 className={styles.tokenIcon}
                               />
-                              {formatNumber(bid.bid)}
+                              {formatNumber(bid.bid)} ({formatNumber(auctionBidParticipants)} Participant{auctionBidParticipants>1?'s':''})
                               {bid.bid < auction.current.reservePrice
                                 ? ' -- Reserve price not met'
                                 : ''}

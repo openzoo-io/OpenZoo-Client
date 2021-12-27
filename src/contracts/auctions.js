@@ -26,6 +26,8 @@ export const useAuctionContract = () => {
     const endTime = parseFloat(res[4].toString());
     const resulted = res[5];
     const minBid = res[6];
+    const res2 = await contract.getHighestBidder(nftAddress, tokenId);
+    const highestBid = res2[1];
     return {
       owner,
       payToken,
@@ -34,6 +36,7 @@ export const useAuctionContract = () => {
       endTime,
       resulted,
       minBid,
+      highestBid,
     };
   };
 
