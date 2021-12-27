@@ -29,7 +29,7 @@ import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -442,8 +442,13 @@ const Header = () => {
     );
   };
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  }
+
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
+      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp}/></div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
           <div className="header__logo">

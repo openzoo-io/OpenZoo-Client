@@ -197,3 +197,20 @@ input[type='number'] {
 {
   overflow: visible !important;
 }
+
+.scroll-to-top
+{
+  cursor: pointer;
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  border-radius: 50%;
+  background:#00a59a;
+  color:white;
+  width:3rem;
+  height:3rem;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size:30px;
+}
