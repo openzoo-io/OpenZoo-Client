@@ -679,14 +679,14 @@ combination of each.
             <p className={styles.formLabel}>Description*</p>
             <textarea
               className={cx(styles.formInput, styles.longInput)}
-              maxLength={120}
+              maxLength={500}
               placeholder="Provide a description for your NFT"
               value={description}
               onChange={e => setDescription(e.target.value)}
               disabled={isMinting}
             />
             <div className={styles.lengthIndicator}>
-              {description.length}/120
+              {description.length}/500
             </div>
           </div>
         </div>
@@ -870,14 +870,19 @@ combination of each.
               />
             </p>
             {hasUnlockableContent && (
+              <>
               <textarea
                 className={cx(styles.formInput, styles.longInput)}
-                maxLength={500}
+                maxLength={1000}
                 placeholder="Unlockable Content"
                 value={unlockableContent}
                 onChange={e => setUnlockableContent(e.target.value)}
                 disabled={isMinting}
               />
+              <div className={styles.lengthIndicator}>
+              {unlockableContent.length}/1000
+            </div>
+            </>
             )}
           </div>
           <div className="mb-25">
