@@ -530,9 +530,9 @@ const PaintBoard = () => {
         <div className={'col-lg-4 col-md-8 md:mb-20'}>
           <h4 className="mb-2">NFT CREATOR</h4>
           <p className="mb-40">
-            NFTs can represent essentially any type of digital file, with artist
-            creating NFTs featuring pictures, videos, gifs, audio files and
-            mixture of them all.
+          NFTs can represent essentially any type of digital file, with artists
+creating NFTs featuring images, videos, gifs, audio files, or a 
+combination of each.
           </p>
           <div
             {...getRootProps({
@@ -576,7 +576,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptUploadRight(event.target.checked)}
                 />
               }
-              label="I approve that I'm the owner or have the right publication and sale. *"
+              label="I confirm that I'm the owner, or have the rights of publication and sale of this collection. *"
               className="align-items-start"
               classes={{ root: 'pt-20' }}
             />
@@ -587,7 +587,7 @@ const PaintBoard = () => {
                   onChange={e => setIsAcceptTerms(event.target.checked)}
                 />
               }
-              label="I approve OpenZoo's Terms and Conditions *"
+              label="I accept OpenZoo's Terms and Conditions. *"
               className="align-items-start"
             />
           </FormGroup>
@@ -680,7 +680,7 @@ const PaintBoard = () => {
             <textarea
               className={cx(styles.formInput, styles.longInput)}
               maxLength={120}
-              placeholder="Description"
+              placeholder="Provide a description for your NFT"
               value={description}
               onChange={e => setDescription(e.target.value)}
               disabled={isMinting}
@@ -883,8 +883,7 @@ const PaintBoard = () => {
           <div className="mb-25">
             <strong>Note</strong>
             <p>
-              The process on minting NFT is an irreversible process make sure
-              all the the above detail are right.
+            The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
             </p>
           </div>
 

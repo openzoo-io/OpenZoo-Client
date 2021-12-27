@@ -954,7 +954,7 @@ combination of each.
           <div>
             <strong>Note</strong>
             <p>
-            The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
+            The process of creating Collection is an irreversible process. Please make sure all of the above details are correct.
             </p>
           </div>
           <div className={styles.buttonsWrapper}>

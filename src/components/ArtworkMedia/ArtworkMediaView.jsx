@@ -99,7 +99,7 @@ export function ArtworkMediaView(props) {
               intensity={0.1}
               environment={false}
               contactShadow={{opacity:0.2, blur:4}}
-  
+             
             >
           
              <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
