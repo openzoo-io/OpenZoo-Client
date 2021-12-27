@@ -158,6 +158,6 @@ const useStyle = makeStyles(() => ({
   },
   dollar: {
     fontSize: 11,
-    marginTop: '-5px',
+    marginTop: '-2px',
   },
 }));
