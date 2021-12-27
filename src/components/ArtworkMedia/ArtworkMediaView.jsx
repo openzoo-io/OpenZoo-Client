@@ -10,8 +10,8 @@ import {
   Stage,
   useAnimations,
   useProgress,
-  Html,Environment
-
+  Html,
+  Environment,
 } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -50,7 +50,7 @@ function addDefaultSrc(ev) {
 }
 
 export function ArtworkMediaView(props) {
-  const { image, className } = props;
+  const { image, coverImage, className } = props;
 
   const styles = useStyle();
   const ext = image ? image.split('.').pop() : '';
@@ -70,16 +70,31 @@ export function ArtworkMediaView(props) {
     );
   } else if (['mp3'].indexOf(ext) != -1) {
     return (
-      <div className="player-wrapper audio">
-        <ReactPlayer
-          className={`${cx(styles.mediaInner, className)} react-player`}
-          loop={true}
-          url={image}
-          controls={true}
-          width="100%"
-          height="100%"
-        />
-      </div>
+      <>
+        <div className="audio-wrapper">
+          {coverImage && (
+            <Suspense
+              fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}
+            >
+              <SuspenseImg
+                className={cx(styles.mediaInner, className)}
+                src={coverImage}
+                onError={addDefaultSrc}
+              />
+            </Suspense>
+          )}
+          <div className="player-wrapper audio">
+            <ReactPlayer
+              className={`${cx(styles.mediaInner, className)} react-player`}
+              loop={true}
+              url={image}
+              controls={true}
+              width="100%"
+              height="100%"
+            />
+          </div>
+        </div>
+      </>
     );
   } else if (['glb'].indexOf(ext) != -1) {
     //const { scene } = useGLTF(image);
@@ -98,13 +113,15 @@ export function ArtworkMediaView(props) {
             <Stage
               intensity={0.1}
               environment={false}
-              contactShadow={{opacity:0.2, blur:4}}
-             
+              contactShadow={{ opacity: 0.2, blur: 4 }}
             >
-          
-             <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
-                <Model url={image} />
-             
+              <Environment
+                files={'studio.hdr'}
+                path={'/'}
+                preset={null}
+                background={false}
+              />
+              <Model url={image} />
             </Stage>
           </Suspense>
 
