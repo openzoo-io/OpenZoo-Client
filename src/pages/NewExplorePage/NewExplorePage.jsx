@@ -41,6 +41,7 @@ export function NewExplorePage() {
     groupType,
     category,
     sortBy,
+    onlyVerified,
     statusBuyNow,
     statusHasBids,
     statusHasOffers,
@@ -77,6 +78,7 @@ export function NewExplorePage() {
     groupType,
     category,
     sortBy,
+    onlyVerified,
     statusBuyNow,
     statusHasBids,
     statusHasOffers,
@@ -111,6 +113,7 @@ export function NewExplorePage() {
 
     try {
       const filterBy = [];
+      if (onlyVerified) filterBy.push('onlyVerified');
       if (statusBuyNow) filterBy.push('buyNow');
       if (statusHasBids) filterBy.push('hasBids');
       if (statusHasOffers) filterBy.push('hasOffers');

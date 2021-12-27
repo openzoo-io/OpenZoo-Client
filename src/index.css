@@ -184,3 +184,8 @@ input[type='number'] {
   background-color: #666 !important;
   background-image: linear-gradient( 90deg,#666,#888,#666) !important;
 }
+
+.overflow-hidden
+{
+  overflow: visible !important;
+}

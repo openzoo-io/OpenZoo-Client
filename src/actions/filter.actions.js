@@ -6,6 +6,21 @@ const FilterActions = {
   updateCategoryFilter,
   updateGroupTypeFilter,
   updateSortByFilter,
+  updateVerifiedFilter,
+};
+
+function updateVerifiedFilter(field, selected) {
+  return dispatch => {
+    dispatch(_updateVerifiedFilter(field, selected));
+  };
+}
+
+const _updateVerifiedFilter = (field, selected) => {
+  return {
+    type: FilterConstants.UPDATE_VERIFIED_FILTER,
+    field,
+    selected,
+  };
 };
 
 function updateStatusFilter(field, selected) {

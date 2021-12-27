@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
@@ -7,12 +7,13 @@ import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Tooltip } from '@material-ui/core';
-
+import { Tooltip, FormControlLabel, Checkbox } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import WWAN_IMAGE from 'assets/imgs/wan.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import FilterActions from 'actions/filter.actions';
 //import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
@@ -32,7 +33,7 @@ const propTypes = {
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'ZOO';
   const { getERC20Contract } = useNFTContract();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { account, chainId } = useWeb3React();
   //const { getWFTMBalance } = useWFTMContract();
 
@@ -89,6 +90,18 @@ export function HeaderAvatarMenu(props) {
     ];
   };
 
+  const CustomCheckbox = withStyles({
+    root: {
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+      '&$checked': {
+        color: '#00a59a',
+      },
+    },
+    checked: {},
+  })(props => <Checkbox color="default" {...props} />);
+
   // handle event methods
   const handleOnClick = () => {
     setMenuVisible(oldValue => !oldValue);
@@ -111,6 +124,23 @@ export function HeaderAvatarMenu(props) {
     dispatch(ModalActions.showWFTMModal());
   };
   */
+
+  const [onlyVerified, setOnlyVerified] = React.useState(() => {
+    const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
+    return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
+  });
+
+  useEffect(() => {
+    
+    if (onlyVerified === true) {
+      dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
+      window.localStorage.setItem('onlyVerified', true);
+    }
+    else {
+      dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
+      window.localStorage.setItem('onlyVerified', false);
+    }
+  }, [onlyVerified])
 
   return (
     <div
@@ -179,6 +209,31 @@ export function HeaderAvatarMenu(props) {
           </div>
         </div>
         <div className="hr"></div>
+        <FormControlLabel
+          control={
+            <CustomCheckbox
+              checked={onlyVerified}
+              classes={{ root: 'pt-0' }}
+              onChange={() => setOnlyVerified(event.target.checked)}
+            />
+          }
+          label={
+            <div className="d-flex align-items-center">
+              Show Only Verified{' '}
+              <img
+                src="verified.svg"
+                style={{
+                  maxHeight: 20,
+                  marginLeft: 3,
+                  filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                }}
+              />
+            </div>
+          }
+          className="align-items-start"
+          classes={{ root: '' }}
+        />
+        <div className="hr" style={{ marginTop: 10 }}></div>
         <div className="links space-y-10">
           <Link to={`/account/${account}`}>
             <i className="ri-user-line"></i> <span> My Profile</span>
@@ -265,7 +320,6 @@ export function HeaderAvatarMenu(props) {
           {(props.isAdmin || props.isModerator) && (
             <div className="hr mt-2"></div>
           )}
-
 
           <a onClick={props.onClickSignOut}>
             <i className="ri-logout-circle-line"></i> <span> Logout</span>

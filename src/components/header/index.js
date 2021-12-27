@@ -25,7 +25,7 @@ import Identicon from 'components/Identicon';
 import logoSmallBlue from 'assets/svgs/openzoo_icon.svg';
 
 import styles from './styles.module.scss';
-//import FilterActions from '../../actions/filter.actions';
+import FilterActions from '../../actions/filter.actions';
 import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -227,7 +227,7 @@ const Header = () => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-
+    dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
   };
 
 
