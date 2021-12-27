@@ -84,6 +84,8 @@ export const formatNumber = num => {
   return parts.join('.');
 };
 
+
+
 export const formatCategory = category => {
   return Categories.find(item => item.id === category).label;
 };

@@ -59,13 +59,13 @@ export function AssetCardFourPriceTag(props) {
               className={styles.tokenIcon}
             />
               {formatNumber(
-                (parseFloat(auction.highestBid.toString()) / 1e18) 
+                (parseFloat(auction.highestBid.toString()) / 1e18).toFixed(2).replace(/[.,]00$/, "") 
               )}{' '}
               {auction?.token?.symbol}
             </strong>
             <div className={styles.dollar}>
             {
-                auctionActive ? 'Reserved price '+formatNumber(auction.reservePrice)+' '+auction?.token?.symbol : ''
+                auctionActive ? 'Reserved price '+formatNumber(auction.reservePrice.toFixed(2).replace(/[.,]00$/, "") )+' '+auction?.token?.symbol : ''
               }{' '}
               </div>
           </div>
@@ -82,7 +82,7 @@ export function AssetCardFourPriceTag(props) {
                 </strong>
 
                 <div className={styles.dollar}>
-                  =${formatNumber(item.priceInUSD.toFixed(2))}
+                  =${formatNumber(item.priceInUSD.toFixed(2).replace(/[.,]00$/, ""))}
                 </div>
               </>
             ) : (
@@ -103,11 +103,11 @@ export function AssetCardFourPriceTag(props) {
                       <strong
                         className={cx(styles.tokenPrice, 'txt_sm color_brand')}
                       >
-                        {formatNumber(item.lastSalePrice)}
+                        {formatNumber(item.lastSalePrice).toFixed(2).replace(/[.,]00$/, "")}
                       </strong>
                     </div>
                     <div className={cx(styles.dollar,"d-flex justify-content-end")}>
-                      =${formatNumber(item.lastSalePriceInUSD.toFixed(2))}
+                      =${formatNumber(item.lastSalePriceInUSD.toFixed(2).replace(/[.,]00$/, ""))}
                     </div>
                   </>
                 )}
