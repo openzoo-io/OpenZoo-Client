@@ -273,9 +273,11 @@ export const useApi = () => {
     sortBy = 'listedAt',
     filterBy = [],
     address = null,
-    cancelToken
+    cancelToken,
+    isProfile = false,
   ) => {
-    const data = { from, count, type };
+
+    const data = { from, count, type, isProfile };
     if (collections.length > 0) {
       data.collectionAddresses = collections;
     }
@@ -288,6 +290,7 @@ export const useApi = () => {
     if (filterBy.length) {
       data.filterby = filterBy;
     }
+    
     data.sortby = sortBy;
     const res = await axios({
       method: 'post',

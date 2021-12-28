@@ -206,7 +206,9 @@ export function AccountProfilePage() {
         null,
         'createdAt',
         [],
-        uid
+        uid,
+        null,
+        true
       );
 
       if (tab === 0) {
