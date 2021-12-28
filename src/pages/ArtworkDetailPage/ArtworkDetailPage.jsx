@@ -2732,6 +2732,7 @@ export function ArtworkDetailPage() {
                   auctionStartConfirming={auctionStartConfirming}
                   auctionUpdateConfirming={auctionUpdateConfirming}
                   cancelingListing={cancelingListing}
+                  resulting={resulting}
                   cancelList={cancelList}
                   cancelListingConfirming={cancelListingConfirming}
                   listingItem={listingItem}

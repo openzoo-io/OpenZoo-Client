@@ -22,6 +22,7 @@ export function ArtworkDetailPagePriceSection(props) {
     isMine,
     auction,
     auctionCanceling,
+    resulting,
     cancelCurrentAuction,
     handleResultAuction,
     auctionCancelConfirming,
@@ -238,9 +239,9 @@ export function ArtworkDetailPagePriceSection(props) {
                     className={cx(
                       'btn btn-warning btn-lg rounded-20',
                       styles.headerButton,
-                      auctionCanceling && styles.disabled
+                      (auctionCanceling || resulting) && styles.disabled
                     )}
-                    onClick={cancelCurrentAuction}
+                    onClick={((bid?.bid >= auction.current.reservePrice && auctionEnded)? handleResultAuction : cancelCurrentAuction)}
                   >
                     
                     {auctionCancelConfirming ? (
@@ -249,6 +250,7 @@ export function ArtworkDetailPagePriceSection(props) {
                       !auctionEnded ? (
                       'Cancel Auction'
                     ) : (
+                     
                       (bid?.bid >= auction.current.reservePrice ? 'Accept highest bid' :'Cancel Auction')
                     )}
                   </div>
