@@ -55,7 +55,7 @@ export function AccountProfileOffersList(props) {
           <div key={idx} className={styles.activity}>
             {offer ? (
               <Link
-                to={`/explore/${offer.contractAddress}/${offer.tokenID}`}
+                to={`/collection/${offer.contractAddress}/${offer.tokenID}`}
                 className={styles.name}
               >
                 <div className={styles.media}>

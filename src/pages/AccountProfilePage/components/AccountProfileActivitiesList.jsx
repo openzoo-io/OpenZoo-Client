@@ -61,7 +61,7 @@ export function AccountProfileActivitiesList(props) {
               </div>
               {activity ? (
                 <Link
-                  to={`/explore/${activity.contractAddress}/${activity.tokenID}`}
+                  to={`/collection/${activity.contractAddress}/${activity.tokenID}`}
                   className={styles.name}
                 >
                   <div className={styles.media}>

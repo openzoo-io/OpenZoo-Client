@@ -481,7 +481,7 @@ const PaintBoard = () => {
         setDescription('');
 
         setTimeout(() => {
-          history.push(`/explore/${nft}/${mintedTkId.toNumber()}`);
+          history.push(`/collection/${nft}/${mintedTkId.toNumber()}`);
         }, 1000 + Math.random() * 2000);
       } catch (error) {
         showToast('error', formatError(error));

@@ -2830,7 +2830,7 @@ const NFTItem = () => {
       : null;
     return (
       <Link
-        to={`/explore/${item.contractAddress}/${item.tokenID}`}
+        to={`/collection/${item.contractAddress}/${item.tokenID}`}
         className={styles.bundleItem}
         key={idx}
       >

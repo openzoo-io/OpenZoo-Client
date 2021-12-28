@@ -19,7 +19,7 @@ const propTypes = {
 export function AssetCardThree(props) {
   const { item, info, liked, isLike } = props;
   const assetUrl = item
-    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}`
     : '#';
 
   return (

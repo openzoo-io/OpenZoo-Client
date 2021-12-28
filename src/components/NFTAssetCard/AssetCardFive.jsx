@@ -21,7 +21,7 @@ const propTypes = {
 export function AssetCardFive(props) {
   const { item, info } = props;
   const assetUrl = item
-    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}`
     : '#';
 
   if (props.loading) {

@@ -53,7 +53,7 @@ export function AccountProfileMyOffersList(props) {
           <div key={idx} className={styles.activity}>
             {bid ? (
               <Link
-                to={`/explore/${bid.contractAddress}/${bid.tokenID}`}
+                to={`/collection/${bid.contractAddress}/${bid.tokenID}`}
                 className={styles.name}
               >
                 <div className={styles.media}>

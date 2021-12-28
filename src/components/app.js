@@ -108,7 +108,7 @@ const App = () => {
            */}
           <Route exact path="/explore" component={NewExplorePage} />
           <Route exact path="/explore/:addr" component={NewExplorePage} />
-          <Route exact path="/explore/:addr/:id" component={ArtworkDetailPage} />
+          <Route exact path="/collection/:addr/:id" component={ArtworkDetailPage} />
           <ProtectedRoute exact path="/create" component={PaintBoard} />
           {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
           <Route path="/account/:uid" component={AccountProfilePage} />

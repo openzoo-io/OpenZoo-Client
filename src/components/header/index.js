@@ -389,7 +389,7 @@ const Header = () => {
             <div className={styles.resultlist}>
               {tokens.map((tk, idx) => (
                 <Link
-                  to={`/explore/${tk.contractAddress}/${tk.tokenID}`}
+                  to={`/collection/${tk.contractAddress}/${tk.tokenID}`}
                   key={idx}
                   className={styles.result}
                 >

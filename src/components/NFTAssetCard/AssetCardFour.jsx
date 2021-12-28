@@ -43,7 +43,7 @@ export function AssetCardFour(props) {
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
-    ? `/explore/${item?.contractAddress}/${item?.tokenID}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}`
     : '#';
 
   const { collections } = useSelector(state => state.Collections);

@@ -880,7 +880,7 @@ const AccountDetails = () => {
                       </div>
                       {activity ? (
                         <Link
-                          to={`/explore/${activity.contractAddress}/${activity.tokenID}`}
+                          to={`/collection/${activity.contractAddress}/${activity.tokenID}`}
                           className={styles.name}
                         >
                           <div className={styles.media}>
@@ -977,7 +977,7 @@ const AccountDetails = () => {
                   <div key={idx} className={styles.activity}>
                     {offer ? (
                       <Link
-                        to={`/explore/${offer.contractAddress}/${offer.tokenID}`}
+                        to={`/collection/${offer.contractAddress}/${offer.tokenID}`}
                         className={styles.name}
                       >
                         <div className={styles.media}>
@@ -1066,7 +1066,7 @@ const AccountDetails = () => {
                   <div key={idx} className={styles.activity}>
                     {bid ? (
                       <Link
-                        to={`/explore/${bid.contractAddress}/${bid.tokenID}`}
+                        to={`/collection/${bid.contractAddress}/${bid.tokenID}`}
                         className={styles.name}
                       >
                         <div className={styles.media}>

@@ -439,7 +439,7 @@ const BaseCard = ({ item, loading, style, create, onCreate, onLike }) => {
             to={
               item.items
                 ? `/bundle/${item._id}`
-                : `/explore/${item.contractAddress}/${item.tokenID}`
+                : `/collection/${item.contractAddress}/${item.tokenID}`
             }
             className={styles.link}
           >
