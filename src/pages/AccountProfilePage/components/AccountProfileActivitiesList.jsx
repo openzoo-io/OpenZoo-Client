@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 import { formatDateTimeAgo, shortenAddress } from 'utils';
 import cx from 'classnames';
 import styles from '../styles.module.scss';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export function AccountProfileActivitiesList(props) {
   const { activityLoading, activities } = props;
-  const { storageUrl } = useApi();
+  const { storageUrl,explorerUrl } = useApi();
 
   const renderMedia = image => {
     if (image?.includes('youtube')) {
@@ -47,6 +48,7 @@ export function AccountProfileActivitiesList(props) {
         <div className={styles.quantity}>Quantity</div>
         <div className={styles.owner}>Owner</div>
         <div className={styles.date}>Date</div>
+        <div className={styles.quantity}></div>
       </div>
       <div className={styles.activityList}>
         {(activityLoading ? new Array(5).fill(null) : activities).map(
@@ -129,6 +131,14 @@ export function AccountProfileActivitiesList(props) {
               <div className={styles.date}>
                 {activity ? (
                   formatDateTimeAgo(activity.createdAt)
+                ) : (
+                  <Skeleton width={120} height={20} />
+                )}
+              </div>
+              <div className={styles.quantity}>
+
+                {activity ? (
+                  activity?.txHash && <a rel="noreferrer" target="_blank" href={explorerUrl+'/tx/'+activity?.txHash}><FontAwesomeIcon icon={faSearch}/></a>
                 ) : (
                   <Skeleton width={120} height={20} />
                 )}

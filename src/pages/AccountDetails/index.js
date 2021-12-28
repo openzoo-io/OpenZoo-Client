@@ -868,7 +868,7 @@ const AccountDetails = () => {
                 <div className={styles.date}>Date</div>
               </div>
               <div className={styles.activityList}>
-                {(activityLoading ? new Array(5).fill(null) : activities).map(
+                {(activityLoading ? new Array(6).fill(null) : activities).map(
                   (activity, idx) => (
                     <div key={idx} className={styles.activity}>
                       <div className={styles.event}>
@@ -953,6 +953,7 @@ const AccountDetails = () => {
                           <Skeleton width={120} height={20} />
                         )}
                       </div>
+                      
                     </div>
                   )
                 )}
