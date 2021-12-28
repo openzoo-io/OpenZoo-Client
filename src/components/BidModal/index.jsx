@@ -35,7 +35,15 @@ const BidModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    setPrice(minBidAmount);
+    if (firstBid)
+    {
+      setPrice(''+minBidAmount);
+    }
+    else
+    {
+      setPrice(''+(minBidAmount+1));
+    }
+    
     setCurrentBid(parseFloat(minBidAmount));
   }, [visible]);
 
@@ -68,6 +76,7 @@ const BidModal = ({
   }, [token]);
 
   const validateInput = () => {
+    //console.log(price);
     return (
       price.length > 0 &&
       parseFloat(price) > 0 &&
@@ -139,7 +148,7 @@ const BidModal = ({
             className={styles.formInput}
             placeholder="0.00"
             decimals={token?.decimals || 0}
-            value={'' + price}
+            value={''+price}
             onChange={setPrice}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
