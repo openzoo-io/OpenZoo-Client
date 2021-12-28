@@ -102,7 +102,7 @@ export function CollectionList() {
         clearInterval(fetchInterval);
       }
     };
-  }, []);
+  }, [addr]);
 
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
