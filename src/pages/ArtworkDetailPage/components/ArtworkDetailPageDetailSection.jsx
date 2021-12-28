@@ -25,6 +25,7 @@ const propTypes = {
 
 export function ArtworkDetailPageDetailSection(props) {
   const {
+    itemType,
     info,
     bundleID,
     address,
@@ -65,6 +66,7 @@ export function ArtworkDetailPageDetailSection(props) {
     handleCancelOffer,
     setOfferModalVisible,
     onTransferClick,
+    onBurnClick,
   } = props;
 
   return (
@@ -320,6 +322,12 @@ export function ArtworkDetailPageDetailSection(props) {
           <div className="btn btn-sm btn-white" onClick={onTransferClick}>
             <i className="ri-share-forward-line color_info"></i>
             &nbsp;Transfer
+          </div>
+        )}
+        {isMine && !bundleID && itemType===721 && (
+          <div className="btn btn-sm btn-white" onClick={onBurnClick}>
+            <i className="ri-fire-line color_info"></i>
+            &nbsp;Burn
           </div>
         )}
       </div>

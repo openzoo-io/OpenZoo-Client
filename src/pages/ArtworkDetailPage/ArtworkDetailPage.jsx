@@ -71,6 +71,7 @@ import showToast from 'utils/toast';
 
 import TxButton from 'components/TxButton';
 import TransferModal from 'components/TransferModal';
+import BurnModal from 'components/BurnModal';
 import SellModal from 'components/SellModal';
 import OfferModal from 'components/OfferModal';
 import AuctionModal from 'components/AuctionModal';
@@ -215,6 +216,7 @@ export function ArtworkDetailPage() {
   const [nftRoyalty, setNftRoyalty] = useState(null);
   const [platformFee, setPlatformFee] = useState(null);
   const [transferModalVisible, setTransferModalVisible] = useState(false);
+  const [burnModalVisible, setBurnModalVisible] = useState(false);
   const [sellModalVisible, setSellModalVisible] = useState(false);
   const [offerModalVisible, setOfferModalVisible] = useState(false);
   const [auctionModalVisible, setAuctionModalVisible] = useState(false);
@@ -223,6 +225,7 @@ export function ArtworkDetailPage() {
   const [likesModalVisible, setLikesModalVisible] = useState(false);
 
   const [transferring, setTransferring] = useState(false);
+  const [burning, setBurning] = useState(false);
   const [listingItem, setListingItem] = useState(false);
   const [listingConfirming, setListingConfirming] = useState(false);
   const [cancelingListing, setCancelingListing] = useState(false);
@@ -502,8 +505,7 @@ export function ArtworkDetailPage() {
         if (thumbnailPath === 'non-image') {
           // Check status of Image //
           let res = await axios.get(data.image);
-          if (res.status === 200)
-          {
+          if (res.status === 200) {
             await axios({
               method: 'post',
               url: `${apiUrl}/nftitems/resyncThumbnailPath`,
@@ -1641,6 +1643,29 @@ export function ArtworkDetailPage() {
       ? owner?.toLowerCase() === account?.toLowerCase()
       : !!myHolding;
 
+  const handleBurn = async (to) => {
+
+    if (burning) return;
+
+    setBurning(true);
+
+    try {
+      if (tokenType.current === 721) {
+        const contract = await getERC721Contract(address);
+        const tx = await contract.safeTransferFrom(account, to, tokenID);
+        await tx.wait();
+        showToast('success', 'Item Burned successfully!');
+        setOwner(to);
+        setBurnModalVisible(false);
+        getItemDetails();
+      }
+    } catch {
+      showToast('error', 'Failed to burn item!');
+    }
+
+    setBurning(false);
+  };
+
   const handleTransfer = async (to, quantity) => {
     if (bundleID) return;
 
@@ -2454,6 +2479,21 @@ export function ArtworkDetailPage() {
     setTransferModalVisible(true);
   };
 
+  const onBurnClick = async () => {
+    if (auction.current?.resulted === false) {
+      showToast('warning', 'Please cancel current auction before burn.');
+      return;
+    }
+    if (hasListing) {
+      showToast(
+        'warning',
+        'You have listed your item. Please cancel listing before burn.'
+      );
+      return;
+    }
+    setBurnModalVisible(true);
+  };
+
   const handleMenuOpen = e => {
     setAnchorEl(e.currentTarget);
   };
@@ -2548,6 +2588,7 @@ export function ArtworkDetailPage() {
                   />
                 </div>
                 <ArtworkDetailPageDetailSection
+                  itemType={tokenType.current}
                   info={info}
                   bundleID={bundleID}
                   listings={listings.current}
@@ -2591,6 +2632,7 @@ export function ArtworkDetailPage() {
                   handleCancelOffer={handleCancelOffer}
                   setOfferModalVisible={setOfferModalVisible}
                   onTransferClick={onTransferClick}
+                  onBurnClick={onBurnClick}
                 />
               </div>
             </div>
@@ -3426,6 +3468,12 @@ export function ArtworkDetailPage() {
         transferring={transferring}
         onTransfer={handleTransfer}
         onClose={() => setTransferModalVisible(false)}
+      />
+      <BurnModal
+        visible={burnModalVisible}
+        burning={burning}
+        onBurn={handleBurn}
+        onClose={() => setBurnModalVisible(false)}
       />
       <SellModal
         visible={sellModalVisible}
