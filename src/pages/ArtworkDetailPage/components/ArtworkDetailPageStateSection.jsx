@@ -54,7 +54,7 @@ export function ArtworkDetailPageStateSection(props) {
       )}
     >
       <div className={cx('space-x-10')}>
-        {!owner && <div className={`${styles.itemOwner} text-danger`}><WarningIcon style={styles.itemIcon} /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
+        {!owner && tokenType.current === 721  && <div className={`${styles.itemOwner} text-danger`}><WarningIcon style={styles.itemIcon} /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
           
         }
         {(ownerInfoLoading || tokenOwnerLoading || owner || tokenInfo) && (
