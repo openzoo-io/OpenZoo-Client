@@ -9,9 +9,10 @@ import {
   OrbitControls,
   Stage,
   useAnimations,
-  useProgress,
-  Html,
+  //useProgress,
+  //Html,
   Environment,
+  Loader as Loader3d
 } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -36,6 +37,7 @@ function Model({ url }) {
   }
 }
 
+/*
 function Loader3D() {
   const { progress } = useProgress();
   return (
@@ -44,6 +46,7 @@ function Loader3D() {
     </Html>
   );
 }
+*/
 
 function addDefaultSrc(ev) {
   ev.target.src = '/notfound.png';
@@ -109,7 +112,7 @@ export function ArtworkMediaView(props) {
         }}
       >
         <Canvas camera={{ fov: 50, near: 0.01, far: 2000 }}>
-          <Suspense fallback={<Loader3D />}>
+          <Suspense fallback={null}>
             <Stage
               intensity={0.1}
               environment={false}
@@ -127,6 +130,7 @@ export function ArtworkMediaView(props) {
 
           <OrbitControls makeDefault autoRotate={true} />
         </Canvas>
+        <Loader3d dataStyles={{color:'#00a59a'}} barStyles={{background:'#00a59a'}} dataInterpolation={(p) => `Loading ${p.toFixed(2)}%`}/>
       </div>
     );
   } else {
