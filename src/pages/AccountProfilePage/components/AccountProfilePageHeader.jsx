@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 import { Avatar } from 'components/Avatar';
-import { ShareButton } from 'components/ShareButton';
+//import { ShareButton } from 'components/ShareButton';
 import { ReportButton } from 'components/ReportButton';
 import { Tooltip } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
@@ -200,9 +200,11 @@ export function AccountProfilePageHeader(props) {
                         </button>
                       </div>
                     )}
-                    <div className="mb-20">
+                    {
+                    /*<div className="mb-20">
                       <ShareButton />
-                    </div>
+                    </div>*/
+                    }
                     <div className="mb-20">
                       <ReportButton />
                     </div>
