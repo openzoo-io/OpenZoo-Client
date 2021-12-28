@@ -13,7 +13,7 @@ const BurnModal = ({
 
 
   const handleTransfer = () => {
-    onBurn('0x000000000000000000000000000000000000dead');
+    onBurn('0x000000000000000000000000000000000000000f');
   };
 
   return (
@@ -28,8 +28,8 @@ const BurnModal = ({
       onSubmit={!burning ? () => handleTransfer() : null}
     >
       <div className={styles.formGroup}>
-        This burning process will result in the permanent removal of your NFT and cannot be undone.<br/><br/>
-        Please make sure this action is deliberate as OpenZoo will not be held responsible for the loss of NFTs to this burn mechanism.
+      This deletion confirmation will result in the permanent removal of your NFT and cannot be undone.<br/><br/>
+      Please make sure this action is deliberate and you fully understand the consequences as OpenZoo will not be held responsible for the loss of NFTs under any circumstances.
       </div>
       
     </Modal>

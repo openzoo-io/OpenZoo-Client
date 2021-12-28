@@ -326,8 +326,8 @@ export function ArtworkDetailPageDetailSection(props) {
         )}
         {isMine && !bundleID && itemType===721 && (
           <div className="btn btn-sm btn-white" onClick={onBurnClick}>
-            <i className="ri-fire-line color_info"></i>
-            &nbsp;Burn
+            <i className="ri-delete-bin-line color_info"></i>
+            &nbsp;Delete
           </div>
         )}
       </div>
