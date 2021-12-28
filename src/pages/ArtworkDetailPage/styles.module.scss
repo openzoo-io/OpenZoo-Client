@@ -381,6 +381,12 @@
 .liking {
   color: #007bff;
 }
+.artworkMinHeight
+{
+  width:100%;
+  min-height:300px;
+  position:relative;
+}
 .royaltyFee {
   flex: none;
   display:flex;

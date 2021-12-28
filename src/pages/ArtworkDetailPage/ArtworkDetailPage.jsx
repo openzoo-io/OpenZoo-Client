@@ -392,6 +392,7 @@ export function ArtworkDetailPage() {
           tokenType: type,
           uri,
           hasUnlockable: _hasUnlockable,
+          thumbnailPath,
         },
       } = await fetchItemDetails(address, tokenID);
 
@@ -497,6 +498,25 @@ export function ArtworkDetailPage() {
 
       if (data.image) {
         data.image = getRandomIPFS(data.image);
+        // Resync Thumbnail //
+        if (thumbnailPath === 'non-image') {
+          // Check status of Image //
+          let res = await axios.get(data.image);
+          if (res.status === 200)
+          {
+            await axios({
+              method: 'post',
+              url: `${apiUrl}/nftitems/resyncThumbnailPath`,
+              data: JSON.stringify({
+                contractAddress: address,
+                tokenID: tokenID,
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          }
+        }
       }
 
       setInfo(data);
@@ -616,9 +636,11 @@ export function ArtworkDetailPage() {
         auction.current = { ..._auction, reservePrice, token };
       }
 
-      let auctionParticipantsRes = await fetchAuctionBidParticipants(address,tokenID);
+      let auctionParticipantsRes = await fetchAuctionBidParticipants(
+        address,
+        tokenID
+      );
       setAuctionBidParticipants(auctionParticipantsRes?.data?.bidParticipants);
-
     } catch (e) {
       console.log(e);
     }
@@ -1070,7 +1092,10 @@ export function ArtworkDetailPage() {
         bid,
         lastBidTime: Math.floor(new Date().getTime() / 1000),
       });
-      let auctionParticipantsRes = await fetchAuctionBidParticipants(address,tokenID);
+      let auctionParticipantsRes = await fetchAuctionBidParticipants(
+        address,
+        tokenID
+      );
       setAuctionBidParticipants(auctionParticipantsRes?.data?.bidParticipants);
     }
   };
@@ -2512,12 +2537,16 @@ export function ArtworkDetailPage() {
           <div className="row md:space-y-20">
             <div className="col-lg-6">
               <div className="space-y-20">
-                <ArtworkMediaView
-                  className="item_img"
-                  image={info.animation_url ? info.animation_url : info?.image}
-                  coverImage={info?.image}
-                  alt=""
-                />
+                <div className={styles.artworkMinHeight}>
+                  <ArtworkMediaView
+                    className="item_img"
+                    image={
+                      info.animation_url ? info.animation_url : info?.image
+                    }
+                    coverImage={info?.image}
+                    alt=""
+                  />
+                </div>
                 <ArtworkDetailPageDetailSection
                   info={info}
                   bundleID={bundleID}
@@ -2705,7 +2734,7 @@ export function ArtworkDetailPage() {
                       {collectionRoyalty?.royalty +
                         nftRoyalty?.royalty +
                         platformFee?.royalty}
-                      % 
+                      %
                       <BootstrapTooltip
                         title={
                           <>
@@ -2821,7 +2850,9 @@ export function ArtworkDetailPage() {
                                 src={auction.current.token?.icon}
                                 className={styles.tokenIcon}
                               />
-                              {formatNumber(bid.bid)} ({formatNumber(auctionBidParticipants)} Participant{auctionBidParticipants>1?'s':''})
+                              {formatNumber(bid.bid)} (
+                              {formatNumber(auctionBidParticipants)} Participant
+                              {auctionBidParticipants > 1 ? 's' : ''})
                               {bid.bid < auction.current.reservePrice
                                 ? ' -- Reserve price not met'
                                 : ''}
