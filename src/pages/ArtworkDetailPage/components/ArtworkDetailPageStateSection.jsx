@@ -8,6 +8,7 @@ import {
   People as PeopleIcon,
   Person as PersonIcon,
   ViewModule as ViewModuleIcon,
+  ReportOutlined as WarningIcon
 } from '@material-ui/icons';
 import cx from 'classnames';
 import { ViewProofButton } from './ViewProofButton';
@@ -53,6 +54,9 @@ export function ArtworkDetailPageStateSection(props) {
       )}
     >
       <div className={cx('space-x-10')}>
+        {!owner && <div className={`${styles.itemOwner} text-danger`}><WarningIcon style={styles.itemIcon} /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
+          
+        }
         {(ownerInfoLoading || tokenOwnerLoading || owner || tokenInfo) && (
           <div className={styles.itemOwner}>
             {ownerInfoLoading || tokenOwnerLoading ? (
