@@ -3154,7 +3154,7 @@ export function ArtworkDetailPage() {
                                     {buyingItem ? (
                                       <ClipLoader color="#FFF" size={16} />
                                     ) : (
-                                      'Buy'
+                                      'Buy x1'
                                     )}
                                   </TxButton>
                                 )}
