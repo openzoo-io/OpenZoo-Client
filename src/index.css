@@ -127,6 +127,13 @@ input[type='number'] {
   padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
 }
 
+.player-wrapper .item_vdo
+{
+  border:0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
 .player-wrapper.audio {
   padding-top: 0;
   height: 50px;
@@ -147,11 +154,11 @@ input[type='number'] {
 }
 
 .react-player iframe {
-  border-radius: 20px;
+  /*border-radius: 20px;*/
 }
 
 .react-player video {
-  border-radius: 20px;
+  /*border-radius: 20px;*/
 }
 
 .MuiStepIcon-root.MuiStepIcon-active,

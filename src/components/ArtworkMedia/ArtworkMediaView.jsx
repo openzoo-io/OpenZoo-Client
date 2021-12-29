@@ -62,7 +62,7 @@ export function ArtworkMediaView(props) {
     return (
       <div className="player-wrapper">
         <ReactPlayer
-          className={`${cx(styles.mediaInner, className)} react-player`}
+          className={`${cx(styles.mediaInner, className)} react-player item_vdo`}
           loop={true}
           url={image}
           controls={true}
