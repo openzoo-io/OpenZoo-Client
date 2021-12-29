@@ -438,6 +438,7 @@ export function ArtworkDetailPage() {
           try {
             const { data: _holders } = await getTokenHolders(address, tokenID);
             setHolders(_holders);
+            console.log('init holder',_holders);
           } catch {
             setHolders([]);
           }
@@ -737,6 +738,9 @@ export function ArtworkDetailPage() {
     }
   };
 
+  
+
+
   const itemSoldHandler = async (
     seller,
     buyer,
@@ -756,8 +760,10 @@ export function ArtworkDetailPage() {
           listing => listing.owner.toLowerCase() !== seller.toLowerCase()
         );
       } else {
-        const newHolders = [...holders];
-        console.log('previous holders', holders);
+        const { data: _holders } = await getTokenHolders(address, tokenID);
+        console.log('previous holders', _holders);
+        const newHolders = [..._holders];
+        
         const sellerIndex = newHolders.findIndex(
           holder => holder.address.toLowerCase() === seller.toLowerCase()
         );
@@ -765,10 +771,10 @@ export function ArtworkDetailPage() {
           holder => holder.address.toLowerCase() === buyer.toLowerCase()
         );
         if (sellerIndex > -1) {
-          newHolders[sellerIndex].supply -= quantity;
+          //newHolders[sellerIndex].supply -= quantity;
         }
         if (buyerIndex > -1) {
-          newHolders[buyerIndex].supply += quantity;
+          //newHolders[buyerIndex].supply += quantity;
         } else {
           const buyerInfo = {
             address: buyer,
