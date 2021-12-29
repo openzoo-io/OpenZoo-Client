@@ -4,6 +4,7 @@ const FilterActions = {
   updateStatusFilter,
   updateCollectionsFilter,
   updateCategoryFilter,
+  updateMediaTypeFilter,
   updateGroupTypeFilter,
   updateSortByFilter,
   updateVerifiedFilter,
@@ -60,6 +61,19 @@ const _updateCategoryFilter = category => {
   return {
     type: FilterConstants.UPDATE_CATEGORIES_FILTER,
     category,
+  };
+};
+
+function updateMediaTypeFilter(mediaType) {
+  return dispatch => {
+    dispatch(_updateMediaTypeFilter(mediaType));
+  };
+}
+
+const _updateMediaTypeFilter = mediaType => {
+  return {
+    type: FilterConstants.UPDATE_MEDIATYPE_FILTER,
+    mediaType,
   };
 };
 

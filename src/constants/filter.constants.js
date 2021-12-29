@@ -21,6 +21,25 @@ export const GroupFilters = [
   // },
 ];
 
+export const MediaTypes = [
+  {
+    id: 'image',
+    label: 'Image',
+  },
+  {
+    id: 'sound',
+    label: 'Sound',
+  },
+  {
+    id: 'video',
+    label: 'Video',
+  },
+  {
+    id: 'model',
+    label: '3D Model',
+  },
+]
+
 export const Categories = [
   
   {
@@ -108,6 +127,7 @@ const FilterConstants = {
   UPDATE_STATUS_FILTER: 'UPDATE_STATUS_FILTER',
   UPDATE_COLLECTIONS_FILTER: 'UPDATE_COLLECTIONS_FILTER',
   UPDATE_CATEGORIES_FILTER: 'UPDATE_CATEGORIES_FILTER',
+  UPDATE_MEDIATYPE_FILTER: 'UPDATE_MEDIATYPE_FILTER',
   UPDATE_GROUP_TYPE_FILTER: 'UPDATE_GROUP_TYPE_FILTER',
   UPDATE_SORT_BY_FILTER: 'UPDATE_SORT_BY_FILTER',
   UPDATE_VERIFIED_FILTER: 'UPDATE_VERIFIED_FILTER',

@@ -2,7 +2,7 @@ import { FilterMenu } from 'components/FilterMenu';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
-import { Categories } from 'constants/filter.constants';
+import { Categories,MediaTypes } from 'constants/filter.constants';
 import PropTypes from 'prop-types';
 import { /*GroupFilters,*/ SortByOptions } from 'constants/filter.constants';
 import { DropdownButton } from 'components/DropdownButton/DropdownButton';
@@ -29,6 +29,7 @@ const filterStatusItems = [
 
 const propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape({})),
+  mediaTypes: PropTypes.arrayOf(PropTypes.shape({})),
   onChange: PropTypes.func,
 };
 
@@ -43,11 +44,12 @@ export function ExplorePageFillterStatus(props) {
     statusHasOffers,
     statusOnAuction,
     category,
+    mediaType,
     /*groupType,*/
     sortBy,
   } = filter;
   const selectedValues = Object.keys(filter).filter(k => filter[k] === true);
-//console.log(category);
+
   const updateStatusFilter = (field, selected) => {
     dispatch(FilterActions.updateStatusFilter(field, selected));
   };
@@ -88,10 +90,21 @@ export function ExplorePageFillterStatus(props) {
     dispatch(FilterActions.updateCategoryFilter(item.id));
   };
 
+  const handleSelectMediaType = item => {
+    console.log('MediaType',item);
+    dispatch(FilterActions.updateMediaTypeFilter(item.id));
+  };
+
   const addAllCategory = CatList =>{
     let newCat = CatList.map(v => ({ id: v.id, label: v.label }))
     newCat.unshift({id:null, label:'All Categories'});
     return newCat;
+  }
+
+  const addAllMediaType = TypeList =>{
+    let newType = TypeList.map(v => ({ id: v.id, label: v.label }))
+    newType.unshift({id:null, label:'All Media Types'});
+    return newType;
   }
 
   return (
@@ -108,6 +121,12 @@ export function ExplorePageFillterStatus(props) {
       </div>
       <div className="col-lg-auto">
         <div className="d-flex space-x-10 align-items-center sm:mt-20">
+          <DropdownButton
+            key="mediaType-by-dropdown-menu"
+            value={mediaType}
+            items={addAllMediaType(MediaTypes)}
+            onClickItem={handleSelectMediaType}
+          />
           <DropdownButton
             key="category-by-dropdown-menu"
             value={category}

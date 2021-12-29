@@ -7,6 +7,7 @@ const initialState = {
   statusOnAuction: false,
   collections: [],
   category: null,
+  mediaType: null,
   groupType: 'all',
   sortBy: 'createdAt', // viewed
 };
@@ -28,6 +29,12 @@ export function Filter(state = initialState, action) {
       return {
         ...state,
         category: action.category,
+      };
+    }
+    case FilterConstants.UPDATE_MEDIATYPE_FILTER: {
+      return {
+        ...state,
+        mediaType: action.mediaType,
       };
     }
     case FilterConstants.UPDATE_GROUP_TYPE_FILTER: {

@@ -40,6 +40,7 @@ export function NewExplorePage() {
     collections,
     groupType,
     category,
+    mediaType,
     sortBy,
     onlyVerified,
     statusBuyNow,
@@ -73,10 +74,12 @@ export function NewExplorePage() {
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
     fetchNFTs(0);
+
   }, [
     collections,
     groupType,
     category,
+    mediaType,
     sortBy,
     onlyVerified,
     statusBuyNow,
@@ -146,7 +149,9 @@ export function NewExplorePage() {
         sortBy,
         filterBy,
         null,
-        cancelTokenSource.token
+        cancelTokenSource.token,
+        false,
+        mediaType
       );
 
       let newTokens =
@@ -201,18 +206,7 @@ export function NewExplorePage() {
     }
   };
 
-  // handle event methos
-  // eslint-disable-next-line no-unused-vars
-  const handleScroll = e => {
-    if (upFetching || downFetching) return;
 
-    const obj = e.target;
-    if (obj.scrollHeight - obj.clientHeight - obj.scrollTop < 100) {
-      fetchNFTs(1);
-    } else if (obj.scrollTop < 100 && from > 0) {
-      fetchNFTs(-1);
-    }
-  };
 
   const handleOnReachArtworksBottom = () => {
     if (upFetching || downFetching) return;

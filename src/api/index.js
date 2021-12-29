@@ -275,6 +275,7 @@ export const useApi = () => {
     address = null,
     cancelToken,
     isProfile = false,
+    mediaType = null,
   ) => {
 
     const data = { from, count, type, isProfile };
@@ -283,6 +284,9 @@ export const useApi = () => {
     }
     if (category !== null) {
       data.category = category;
+    }
+    if (mediaType !== null) {
+      data.mediaType = mediaType;
     }
     if (address) {
       data.address = address;
