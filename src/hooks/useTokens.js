@@ -1,7 +1,7 @@
 // import { ChainId } from '@sushiswap/sdk';
 
 // import iconFTM from 'assets/imgs/ftm.png';
-import iconWFTM from 'assets/imgs/wwan.png';
+//import iconWFTM from 'assets/imgs/wwan.png';
 import iconZOO from 'assets/imgs/Zoo_ticker.svg';
 import iconVZOO from 'assets/imgs/vZoo_ticker.svg';
 // import iconUSDT from 'assets/imgs/usdt.png';
@@ -32,6 +32,7 @@ const Tokens = {
       decimals: 18,
       icon: iconZOO,
     },
+    /*
     {
       address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
       name: 'Wrapped WAN',
@@ -39,6 +40,7 @@ const Tokens = {
       decimals: 18,
       icon: iconWFTM,
     },
+    */
   ],
   999: [
     // {

@@ -1911,7 +1911,8 @@ export function ArtworkDetailPage() {
 
     try {
       setBuyingItem(true);
-      const _price = listing.price * listing.quantity;
+      const _price = listing.price; //TODO: later * listing.quantity; real quantity
+      
       if (listing.token.address === '') {
         const price = ethers.utils.parseEther(_price.toString());
 
