@@ -120,6 +120,7 @@ export function AccountProfilePageHeader(props) {
                 <div className="avatars d-flex space-x-20 align-items-center">
                   <div className="avatar_wrap"></div>
                   <a
+                     href="javascript:void(0)"
                     style={{cursor:'pointer'}}
                     className={styles.followers}
                     onClick={props.showFollowers}
@@ -134,6 +135,7 @@ export function AccountProfilePageHeader(props) {
                     )}
                   </a>
                   <a
+                    href="javascript:void(0)"
                    style={{cursor:'pointer'}}
                     className={styles.followers}
                     onClick={props.showFollowings}

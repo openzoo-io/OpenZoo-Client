@@ -111,7 +111,7 @@ export function AssetCardFour(props) {
         <div className="card_body space-y-10">
           <div className="creators space-x-10">
             <div className="avatars space-x-3">
-              {item?.owner && (
+              {item?.tokenType === 721 && item?.owner && (
                 <StackAvatars
                   users={new Array(1).fill({
                     address: item?.owner,
