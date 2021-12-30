@@ -9,13 +9,13 @@ export const useApi = () => {
     : 'https://testnet.wanscan.org';
 
   const apiUrl = isMainnet
-    ? 'https://api.openzoo.io'
+    ? 'https://api-mainnet.openzoo.io'
     : 'https://api.openzoo.io';
 
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
-    ? 'https://api.openzoo.io'
+    ? 'https://api-mainnet.openzoo.io'
     : 'https://api.openzoo.io';
 
   // const tokenURL = 'https://fetch-tokens.vercel.app/api';
