@@ -47,7 +47,7 @@ const App = () => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         // TODO: UPDATE OPRACLE FOR MAINNET
         const oracle = new ethers.Contract(
-          '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
+          '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
           [
             {
               inputs: [],
