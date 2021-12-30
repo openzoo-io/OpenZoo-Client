@@ -39,13 +39,19 @@ const App = () => {
   const getPrice = async () => {
     try {
       if (chainId === 888) {
+        // const endpoint = 'https://rpc.bandchain.org';
+        // const client = new Client(endpoint);
+        // const resp = await client.getReferenceData(['FTM/USD', 'BTC/USD']);
+        // console.log({ resp });
+        // dispatch(PriceActions.updatePrice(resp.rate));
         const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // TODO: UPDATE OPRACLE FOR MAINNET
         const oracle = new ethers.Contract(
-          '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
+          '0x06A8346aFAb790215791F5Ed8Cb3B6469138428A',
           [
             {
-              inputs: [{internalType: 'address', type: 'address', name: '_token'}],
-              name: 'getPrice',
+              inputs: [],
+              name: 'latestAnswer',
               outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
               stateMutability: 'view',
               type: 'function',
@@ -53,9 +59,8 @@ const App = () => {
           ],
           provider
         );
-        const WWAN = '0xdabd997ae5e4799be47d6e69d9431615cba28f48';
-        const _price = await oracle.getPrice(WWAN);
-        const price = parseFloat(_price.toString()) / 10 ** 18;
+        const _price = await oracle.latestAnswer();
+        const price = parseFloat(_price.toString()) / 10 ** 8;
         dispatch(PriceActions.updatePrice(price));
       } else if (chainId === 999) {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
