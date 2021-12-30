@@ -140,8 +140,9 @@ export function AccountProfilePage() {
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
   const prevAuthToken = usePrevious(authToken);
 
-  const numPerRow = Math.floor(width / 340);
-  const fetchCount = numPerRow <= 3 ? 18 : numPerRow === 4 ? 16 : numPerRow * 3;
+  const numPerRow = Math.floor(width / 256);
+  const fetchCount = numPerRow <= 3 ? 18 : 16;
+
 
   const getUserDetails = async _account => {
     setLoading(true);
@@ -665,7 +666,7 @@ export function AccountProfilePage() {
       <div className="container">
         <div className="row justify-content-center">
           {/* Left section */}
-          <div className="col-lg-3 col-md-7 order-md-0 order-1">
+          <div className="col-lg-3 col-md-12 order-md-0 order-1">
             <div className="profile__sidebar">
               <div className="space-y-40">
                 <AccountProfileAboutMeCard user={user} loading={loading} />

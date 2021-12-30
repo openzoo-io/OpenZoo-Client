@@ -152,7 +152,7 @@ export function AccountProfilePageHeader(props) {
                 </div>
               </div>
               <div className="col-md-auto">
-                <div className="d-flex flex-wrap align-items-center space-x-20 mb-20_reset">
+                <div className="d-flex flex-wrap align-items-center space-x-20 mb-20_reset md:mt-30">
                   <div className="mb-20">
                     <CopyToClipboard text={uid} onCopy={handleCopyAddress}>
                       <div className="copy">
