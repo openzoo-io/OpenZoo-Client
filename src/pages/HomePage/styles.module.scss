@@ -1,0 +1,185 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+:global {
+  body.homepage {
+    background: white !important;
+  }
+  body.is__dark.homepage {
+    background: #000000 !important;
+  }
+}
+.body {
+  width: 1400px;
+  max-width: 100%;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  z-index: 1;
+}
+.main
+{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex:1;
+}
+.nftmkt {
+  font-size: 14px;
+  color: #a4a4a4;
+  font-weight: bold;
+  margin-left:5px;
+  
+
+}
+.openzoo {
+  font-weight: bold;
+  font-size: 60px;
+  color: #ffc107 !important;
+  line-height: 55px;
+  span {
+    color: #00a59a !important;
+  }
+}
+
+.subtitle {
+  
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 40px;
+  color: #000000;
+  margin-bottom:60px;
+}
+
+:global
+{
+  .home-btn
+  {
+    margin-right:10px;
+  }
+  .home-btn.btn-link
+  {
+    color:#ffc107 !important;
+    font-weight:bold;
+
+  }
+}
+
+.btnGroup
+{
+  margin-bottom:150px;
+}
+
+.contact
+{
+  display:flex;
+  align-items: center;
+  line-height:20px;
+  font-weight: bold;
+  span
+  {
+    display:block;
+    color:#00a59a !important;
+  }
+
+  .become
+  {
+    display:flex;
+    align-items: center;
+    img
+    {
+      height:40px;
+      width:40px;
+      margin-right:8px;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,.2));
+    }
+  }
+  .become2
+  {
+    display:flex;
+    align-items: center;
+    margin-right:15px;
+  }
+
+  .seperator
+  {
+    margin-left:15px;
+    margin-right:15px;
+    border-right:1px solid #a4a4a4;
+    height:40px;
+  }
+
+}
+
+.man {
+  max-width: 800px;
+  position: relative;
+  right: -150px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .main {
+    margin-right: -80px;
+  }
+
+  .man {
+    margin-right: -30px;
+    max-width: 600px;
+  }
+
+  .title {
+    font-size: 160px;
+    line-height: 170px;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    line-height: 35px;
+    margin-top: 8px;
+  }
+}
+
+@media only screen and (max-width: 810px) {
+  .body {
+    flex-direction: column-reverse;
+  }
+
+  .main {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 144px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .button {
+    width: 168px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .man {
+    width: 60%;
+    min-width: 300px;
+  }
+}

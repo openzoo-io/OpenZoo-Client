@@ -30,7 +30,7 @@ import { HeaderAvatarMenu } from './HeaderAvatarMenu';
 //import { HeaderNotificationMenu } from './HeaderNotificationMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-const Header = () => {
+const Header = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -92,10 +92,12 @@ const Header = () => {
     if (DarkMode === true) {
       document.body.classList.add('is__dark');
       window.localStorage.setItem('darkmode', true);
+      props?.setDark && props.setDark(true)
     }
     else {
       document.body.classList.remove('is__dark');
       window.localStorage.setItem('darkmode', false);
+      props?.setDark && props.setDark(false)
     }
   }, [DarkMode])
 
@@ -463,7 +465,7 @@ const Header = () => {
                 <NavLink
                   to="/home"
                   className={'color_black'}
-                  activeClassName={'color_info'}
+                  activeClassName={styles.active}
                 >
                   Home
                 </NavLink>

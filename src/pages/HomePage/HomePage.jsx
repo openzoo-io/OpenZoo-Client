@@ -1,65 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/header';
-/*
-import { AssetCard } from 'components/NFTAssetCard';
+
 import { Link } from 'react-router-dom';
-import { HomePageArtistsSection } from './HomePageArtistsSection';
-import { HomePageRecentlyListSection } from './HomePageRecentlyListSection';
-import { HomePageTopArtworksSection } from './HomePageTopArtworksSection';
-import { HomePageCommunitySection } from './HomePageCommunitySection';
-import { HomePageStartOwnCollectionSection } from './HomePageStartOwnCollectionSection';
-import { Footer } from 'components/Footer';
-*/
+
+import styles from './styles.module.scss';
+
 export function HomePage() {
+  useEffect(() => {
+    document.body.classList.add('homepage');
+    return () => {
+      document.body.classList.remove('homepage');
+    };
+  }, []);
+  const [dark, setDark] = useState(false);
   return (
     <div className="overflow-hidden">
-      <Header />
-       
-      {/* <div className="hero__3">
-        <div className="container">
-          <div className="row align-items-center mb-50 md:space-y-20">
-            <div className="col-lg-6">
-              <h1 className="hero__title">
-                <span className="color_brand">Discover</span> rare digital art
-                and collect NFTs
-              </h1>
+      <div className={`${styles.container} ${styles.homepage}`}>
+        <Header setDark={setDark} />
+        <div className={styles.body}>
+          <div className={styles.main}>
+            <div>
+              <div className={styles.nftmkt}>NFT MARKETPLACE</div>
+              <div className={styles.openzoo}>
+                OPEN<span>ZOO</span>
+              </div>
+              <div className={styles.subtitle}>
+                not so ordinary,
+                <br />
+                open to everyone
+              </div>
             </div>
-            <div className="col-lg-6">
-              <p className="hero__text color_black">
-                raroin is a shared liquidity NFT market smart contract which is
-                used by multiple websites to provide the users the best possible
-                experience.
-              </p>
+            <div className={styles.btnGroup}>
+              <Link to="/explore" className="btn btn-warning btn-sm home-btn">
+                EXPLORE
+              </Link>
+              <Link
+                to="/collections"
+                className="btn btn-primary btn-sm  home-btn"
+              >
+                COLLECTIONS
+              </Link>
+              <Link to="/collections" className="btn btn-link btn-sm  home-btn">
+                Create NFT &gt;
+              </Link>
+            </div>
+            <div className={styles.contact}>
+              <div className={styles.become}>
+                <div><img src="verified.svg"/></div><div>Become<span>verified</span></div>
+              </div>
+              <div className={styles.seperator}></div>
+              <div className={styles.become2}>
+                <div>On Telegram<span>URL LINK</span></div>
+              </div>
+              <div className={styles.become2}>
+                <div>OR</div>
+              </div>
+              <div className={styles.become2}>
+                <div>On Discord<span>URL LINK</span></div>
+              </div>
             </div>
           </div>
-          <div className="wrapper">
-            <div className="row">
-              <div className="col-lg-4">
-                <AssetCard preset="two" item={{}} />
-              </div>
-              <div className="col-lg-4">
-                <AssetCard preset="two" item={{}} />
-              </div>
-              <div className="col-lg-4">
-                <AssetCard preset="five" item={{}} />
-                <AssetCard preset="five" item={{}} />
-                <div className="d-flex justify-content-center mb-30">
-                  <Link to="/explore" className="btn btn-md btn-dark">
-                    View all
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+
+          {!dark ? (
+            <img
+              src={`/Homepage/light/${(Math.floor(Math.random() * 10) + 1).toString().padStart(2,"0")}.jpg`}
+              alt="man"
+              className={styles.man}
+            />
+          ) : (
+            <img src={`/Homepage/dark/${(Math.floor(Math.random() * 10) + 1).toString().padStart(2,"0")}.jpg`} alt="man" className={styles.man} />
+          )}
         </div>
       </div>
-      <HomePageArtistsSection />
-      <HomePageRecentlyListSection />
-      <HomePageTopArtworksSection />
-
-      <HomePageStartOwnCollectionSection />
-      <HomePageCommunitySection />
-      <Footer /> */}
     </div>
   );
 }
