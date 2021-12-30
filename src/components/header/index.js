@@ -460,7 +460,7 @@ const Header = (props) => {
           </div>
           <div className={cx('header__menu', styles.left)}>
             <ul className="d-flex space-x-20">
-
+              {/*
               <li>
                 <NavLink
                   to="/home"
@@ -470,6 +470,7 @@ const Header = (props) => {
                   Home
                 </NavLink>
               </li>
+              */}
               <li>
                 <NavLink
                   to="/explore"
