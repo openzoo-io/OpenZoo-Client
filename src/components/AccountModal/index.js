@@ -236,7 +236,7 @@ const AccountModal = () => {
             <p className={styles.formLabel}>Bio</p>
             <textarea
               className={cx(styles.formInput, styles.longInput)}
-              maxLength={100}
+              maxLength={1000}
               placeholder="Bio"
               value={bio}
               onChange={e => setBio(e.target.value)}
