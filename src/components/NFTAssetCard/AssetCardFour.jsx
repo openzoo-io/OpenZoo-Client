@@ -2,18 +2,20 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
+import { formatNumber } from 'utils';
 // import { formatNumber } from 'utils';
 import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AssetCardFourPriceTag } from './AssetCardFourPriceTag';
 import { useApi } from 'api';
+import { ViewModule as ViewModuleIcon } from '@material-ui/icons';
 import {
   faImage,
   faMusic,
   faVideo,
   faCubes,
-  faGavel
+  faGavel,
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
@@ -124,9 +126,19 @@ export function AssetCardFour(props) {
                   })}
                 />
               )}
+              {item?.tokenType === 1155 && (
+                <>
+                  <div className="avatars -space-x-20">
+                    <p className="avatars_name txt_sm d-flex align-items-center">
+                      <ViewModuleIcon className="avatar avatar-sm"/> {formatNumber(item?.supply)} minted
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
             <div
-                className={`${authToken && 'cursor-pointer'} likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10`}
+              className={`${authToken &&
+                'cursor-pointer'} likes space-x-3 shadow-sm px-2 py-0.5 my-0.5 rounded-10`}
               onClick={authToken && props.onLike}
             >
               <i
@@ -140,19 +152,27 @@ export function AssetCardFour(props) {
           </div>
           <div className={cx('card_head', cardHeaderClassName)}>
             <Link to={assetUrl}>
-              
-              <ArtworkMediaView image={(item?.thumbnailPath !== '-' && apiUrl+'/image/'+item?.thumbnailPath) || info?.image || item?.imageURL} alt="" />
+              <ArtworkMediaView
+                image={
+                  (item?.thumbnailPath !== '-' &&
+                    apiUrl + '/image/' + item?.thumbnailPath) ||
+                  info?.image ||
+                  item?.imageURL
+                }
+                alt=""
+              />
             </Link>
 
             {endAuctionIn && (
               <div className="countdownWrapper space-x-3">
-                
-                    {endAuctionIn?.humanize && (
-                      <>
-                        <div className="txt_xs"><FontAwesomeIcon icon={faGavel}/> {endAuctionIn?.humanize} Left</div>
-                      </>
-                    )}
-                  
+                {endAuctionIn?.humanize && (
+                  <>
+                    <div className="txt_xs">
+                      <FontAwesomeIcon icon={faGavel} />{' '}
+                      {endAuctionIn?.humanize} Left
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
