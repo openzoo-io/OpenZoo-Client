@@ -25,6 +25,7 @@ const OfferModal = ({
   totalSupply,
 }) => {
   const { tokens } = useTokens();
+  
   const { getSalesContract } = useSalesContract();
 
   const [price, setPrice] = useState('');
@@ -39,7 +40,8 @@ const OfferModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    if (tokens?.length > 1) {
+    console.log('tokens',tokens)
+    if (tokens?.length) {
       setOptions(tokens);
     }
   }, [tokens]);
@@ -49,7 +51,7 @@ const OfferModal = ({
       setPrice('');
       setQuantity('1');
       setEndTime(new Date(new Date().getTime() + 24 * 60 * 60 * 1000));
-      if (tokens?.length > 1) {
+      if (tokens?.length) {
         setSelected([tokens[0]]);
       }
     }
