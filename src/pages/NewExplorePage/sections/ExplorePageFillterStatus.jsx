@@ -120,18 +120,20 @@ export function ExplorePageFillterStatus(props) {
         />
       </div>
       <div className="col-lg-auto">
-        <div className="d-flex space-x-10 align-items-center sm:mt-20">
+        <div className="d-flex flex-wrap space-x-10 sm:space-x-0 align-items-center sm:mt-20">
           <DropdownButton
             key="mediaType-by-dropdown-menu"
             value={mediaType}
             items={addAllMediaType(MediaTypes)}
             onClickItem={handleSelectMediaType}
+            className="sm:mt-5"
           />
           <DropdownButton
             key="category-by-dropdown-menu"
             value={category}
             items={addAllCategory(Categories)}
             onClickItem={handleSelectCategory}
+            className="sm:mt-5"
           />
           
           {/* Item type 
@@ -147,6 +149,7 @@ export function ExplorePageFillterStatus(props) {
             value={sortBy}
             items={SortByOptions}
             onClickItem={handleOnClickSortBy}
+            className="sm:mt-5"
           />
         </div>
       </div>
