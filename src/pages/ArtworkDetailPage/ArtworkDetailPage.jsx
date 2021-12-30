@@ -503,7 +503,7 @@ export function ArtworkDetailPage() {
       if (data.image) {
         data.image = getRandomIPFS(data.image);
         // Resync Thumbnail //
-        if (thumbnailPath === 'non-image') {
+        if (thumbnailPath === 'non-image' || thumbnailPath === '.') {
           // Check status of Image //
           let res = await axios.get(data.image);
           if (res.status === 200) {
