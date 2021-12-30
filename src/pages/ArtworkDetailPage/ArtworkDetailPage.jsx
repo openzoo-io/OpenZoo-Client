@@ -465,7 +465,7 @@ export function ArtworkDetailPage() {
         data.name = data[Object.keys(data)[0]].name;
         data.description = data[Object.keys(data)[0]].description;
       }
-
+      
       // Sync when content type is media and have animation url //
       if (contentType.current === 'image' && data.animation_url) {
         let contentType = 'image';
@@ -521,7 +521,7 @@ export function ArtworkDetailPage() {
           }
         }
       }
-
+      
       setInfo(data);
     } catch (err) {
       console.log('!2 222222', err);
@@ -1281,9 +1281,12 @@ export function ArtworkDetailPage() {
     } else {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
+      
+      getItemDetails();
+      
       getAuctions().then(() => {
         getBid();
-        getItemDetails();
+        
       });
 
       increaseViewCount(address, tokenID).then(({ data }) => {
