@@ -236,13 +236,13 @@ const AccountModal = () => {
             <p className={styles.formLabel}>Bio</p>
             <textarea
               className={cx(styles.formInput, styles.longInput)}
-              maxLength={500}
+              maxLength={100}
               placeholder="Bio"
               value={bio}
               onChange={e => setBio(e.target.value)}
               disabled={fetching}
             />
-            <div className={styles.lengthIndicator}>{bio.length}/500</div>
+            <div className={styles.lengthIndicator}>{bio.length}/1000</div>
           </div>
 
           <div className={styles.footer}>
