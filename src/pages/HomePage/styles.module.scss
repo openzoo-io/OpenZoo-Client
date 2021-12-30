@@ -74,6 +74,10 @@
     font-weight:bold;
 
   }
+  .disabled.home-btn
+  {
+    pointer-events: none;
+  }
 }
 
 .btnGroup

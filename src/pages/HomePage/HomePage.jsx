@@ -36,11 +36,11 @@ export function HomePage() {
               </Link>
               <Link
                 to="/collections"
-                className="btn btn-primary btn-sm  home-btn"
+                className="btn btn-primary btn-sm  home-btn disabled"
               >
                 COLLECTIONS
               </Link>
-              <Link to="/collections" className="btn btn-link btn-sm  home-btn">
+              <Link to="/create" disabled className="btn btn-link btn-sm  home-btn">
                 Create NFT &gt;
               </Link>
             </div>
