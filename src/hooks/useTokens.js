@@ -26,6 +26,13 @@ const Tokens = {
     //   icon: iconFTM,
     // },
     {
+      address: '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F',
+      name: 'ZOO',
+      symbol: 'ZOO',
+      decimals: 18,
+      icon: iconZOO,
+    },
+    {
       address: '0xdabd997ae5e4799be47d6e69d9431615cba28f48',
       name: 'Wrapped WAN',
       symbol: 'WWAN',
