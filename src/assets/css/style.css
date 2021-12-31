@@ -14162,6 +14162,11 @@ label:active:after {
   box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
 }
 
+.item_details .item_img.item_vdo
+{
+  background:transparent !important;
+}
+
 .item_details .likes {
   background: #ffffff;
   padding: 7px 14px;
