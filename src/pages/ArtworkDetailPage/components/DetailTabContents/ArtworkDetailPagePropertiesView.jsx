@@ -12,7 +12,13 @@ export function ArtworkDetailPagePropertiesView(props) {
 
   res.push(
     <div key="animation_url" className={styles.property}>
-      <div className={styles.propertyLabel}>animation_url : {props.animationUrl}</div>
+      <div className={styles.propertyLabel}>animation_url : {props.animationUrl ? <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={props.animationUrl}
+              >
+                See Original
+              </a>:''}</div>
       <div className={styles.propertyValue}></div>
     </div>
   );
@@ -47,6 +53,7 @@ export function ArtworkDetailPagePropertiesView(props) {
               properties[key]
             )}
             {key === 'royalty' ? '%' : ''}
+            
           </div>
         </div>
       );
