@@ -1,9 +1,7 @@
 import React from 'react';
 
 export function ReportModal() {
-  const handleSubmit = () => {
-    //
-  };
+ 
 
   return (
     <div
@@ -13,7 +11,7 @@ export function ReportModal() {
       role="dialog"
       aria-hidden="true"
     >
-      <div className="modal-dialog modal-dialog-centered" role="document">
+      <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div className="modal-content">
           <button
             type="button"
@@ -26,6 +24,12 @@ export function ReportModal() {
           <div className="modal-body space-y-20 p-40">
             <h3>Report this item</h3>
             <div className="hr"></div>
+
+            <iframe width="100%" style={{minHeight:600}} src={`https://docs.google.com/forms/d/e/1FAIpQLSfUVjj0d40vWPPN_2EtXHfv5HeEU9HNWf6Tv_9hAqBWbl8hnQ/viewform?usp=pp_url&entry.1077177103=${window.location.href}`}>
+
+            </iframe>
+
+            {/*
             <div className="form-group space-y-10">
               <span className="variationInput">reason:</span>
               <select
@@ -51,6 +55,7 @@ export function ReportModal() {
             <button className="btn btn-dark" onClick={handleSubmit}>
               Report
             </button>
+            */}
           </div>
         </div>
       </div>
