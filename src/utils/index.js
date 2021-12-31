@@ -42,7 +42,7 @@ export const getRandomIPFS = (tokenURI, justURL = false) => {
   }
 
   if (
-    tokenURI.includes('gateway.pinata.cloud') ||
+    tokenURI.includes('pinata.cloud') ||
     tokenURI.includes('cloudflare') ||
     tokenURI.includes('ipfs.io') ||
     tokenURI.includes('ipfs.infura.io')

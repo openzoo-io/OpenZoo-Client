@@ -2588,6 +2588,7 @@ export function ArtworkDetailPage() {
             <div className="col-lg-6">
               <div className="space-y-20">
                 <div className={styles.artworkMinHeight}>
+                  
                   <ArtworkMediaView
                     className="item_img"
                     image={
