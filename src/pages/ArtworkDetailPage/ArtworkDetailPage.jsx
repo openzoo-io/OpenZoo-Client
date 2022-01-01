@@ -1282,11 +1282,11 @@ export function ArtworkDetailPage() {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
       
-      getItemDetails();
+      
       
       getAuctions().then(() => {
         getBid();
-        
+        getItemDetails(); // TODO: Need to optimize
       });
 
       increaseViewCount(address, tokenID).then(({ data }) => {
