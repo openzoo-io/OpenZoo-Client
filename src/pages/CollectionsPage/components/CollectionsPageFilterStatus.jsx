@@ -59,6 +59,7 @@ export function CollectionsPageFilterStatus(props) {
   const [sortedBy, setSortedBy] = useState(sortByItems[0]);
 
   const handleOnFilterChange = values => {
+    console.log(values);
     props.onFilterChange?.(values);
   };
 
@@ -76,13 +77,15 @@ export function CollectionsPageFilterStatus(props) {
       <div className="col-lg-auto">
         <FilterMenu
           title=""
+          //values={'onlyVerified'}
           name="explore-collection-filter-status"
           items={filterStatusItems}
           className={'align-items-center'}
           onChange={handleOnFilterChange}
         />
       </div>
-      <div className="col-lg-auto">
+      {
+      false && <div className="col-lg-auto">
         <div className="d-flex space-x-10 align-items-center sm:mt-20">
           <DropdownButton
             value={categorySortedBy?.id}
@@ -97,6 +100,7 @@ export function CollectionsPageFilterStatus(props) {
           />
         </div>
       </div>
+      }
     </div>
   );
 }

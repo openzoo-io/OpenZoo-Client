@@ -36,7 +36,7 @@ export function HomePage() {
               </Link>
               <Link
                 to="/collections"
-                className="btn btn-primary btn-sm  home-btn disabled"
+                className="btn btn-primary btn-sm  home-btn"
               >
                 COLLECTIONS
               </Link>

@@ -5,7 +5,6 @@
   top: 0;
   box-sizing: border-box;
   overflow-x: hidden;
-  
 }
 :global {
   body.homepage {
@@ -30,21 +29,18 @@
   z-index: 1;
   margin-bottom: 60px;
 }
-.main
-{
-  display:flex;
+.main {
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex:1;
+  flex: 1;
   min-width: fit-content;
 }
 .nftmkt {
   font-size: 14px;
   color: #a4a4a4;
   font-weight: bold;
-  margin-left:5px;
-  
-
+  margin-left: 5px;
 }
 .openzoo {
   font-weight: bold;
@@ -57,76 +53,65 @@
 }
 
 .subtitle {
-  
   font-weight: bold;
   font-size: 50px;
   line-height: 40px;
   color: #000000;
-  margin-bottom:60px;
+  margin-bottom: 60px;
 }
 
-:global
-{
-  .home-btn
-  {
-    margin-right:10px;
+:global {
+  .home-btn {
+    margin-right: 10px;
   }
-  .home-btn.btn-link
-  {
-    color:#ffc107 !important;
-    font-weight:bold;
-
+  .home-btn.btn-link {
+    color: #ffc107 !important;
+    font-weight: bold;
   }
-  .disabled.home-btn
-  {
+  .disabled.home-btn {
     pointer-events: none;
   }
 }
 
-.btnGroup
-{
-  margin-bottom:150px;
+.btnGroup {
+  margin-bottom: 150px;
 }
 
-.contact
-{
-  display:flex;
+.contact {
+  display: flex;
   align-items: center;
-  line-height:20px;
+  line-height: 20px;
   font-weight: bold;
-  span
-  {
-    display:block;
-    color:#00a59a !important;
-  }
-
-  .become
-  {
-    display:flex;
-    align-items: center;
-    img
-    {
-      height:40px;
-      width:40px;
-      margin-right:8px;
-      filter: drop-shadow(2px 2px 0 rgba(0,0,0,.2));
+  span {
+    display: block;
+    color: #00a59a !important;
+    a {
+      color: #00a59a !important;
     }
   }
-  .become2
-  {
-    display:flex;
+
+  .become {
+    display: flex;
     align-items: center;
-    margin-right:15px;
+    img {
+      height: 40px;
+      width: 40px;
+      margin-right: 8px;
+      filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.2));
+    }
+  }
+  .become2 {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
   }
 
-  .seperator
-  {
-    margin-left:15px;
-    margin-right:15px;
-    border-right:1px solid #a4a4a4;
-    height:40px;
+  .seperator {
+    margin-left: 15px;
+    margin-right: 15px;
+    border-right: 1px solid #a4a4a4;
+    height: 40px;
   }
-
 }
 
 .man {
@@ -134,7 +119,6 @@
   position: relative;
   right: -50px;
 }
-
 
 @media only screen and (max-width: 769px) {
   .body {
@@ -167,7 +151,7 @@
   .man {
     width: 80%;
     min-width: 300px;
-    right:0;
-    margin-bottom:40px;
+    right: 0;
+    margin-bottom: 40px;
   }
 }
