@@ -15061,7 +15061,7 @@ label:active:after {
 }
 
 .header__1.is__dark .menu__popup {
-  background: #142c3f;
+  background: #1c1c1c;
   border: none;
 }
 
@@ -15655,7 +15655,7 @@ label:active:after {
 
 .is__dark .hero__profile .editBannerBtn
 {
-  background:#313236 !important
+  background:#1e1e1e !important
 }
 
 .hero__profile .tabs {
@@ -20590,7 +20590,7 @@ label:active:after {
 .is__dark .accordion,
 .is__dark .avatar_popup,
 .is__dark .hero__profile .infos {
-  background: #313236 !important;
+  background: #1e1e1e !important;
   border-color: #ffffff1f;
 }
 
@@ -20723,7 +20723,7 @@ label:active:after {
 .is__dark .upcoming_projects tr.white td,
 .is__dark .upcoming_projects .calendar_icon,
 .is__dark .card__item.six .card_body .card_footer .details {
-  background-color: #313236 !important;
+  background-color: #1e1e1e !important;
   border: none;
 }
 
@@ -20842,7 +20842,7 @@ label:active:after {
 .is__dark .share .share_box,
 .is__dark .share .dropdown__popup,
 .is__dark .more .dropdown__popup {
-  background: #142c3f !important;
+  background: #1c1c1c !important;
   border: none !important;
 }
 
