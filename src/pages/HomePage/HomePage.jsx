@@ -63,12 +63,12 @@ export function HomePage() {
 
           {!dark ? (
             <img
-              src={`/Homepage/light/${(Math.floor(Math.random() * 10) + 1).toString().padStart(2,"0")}.jpg`}
+              src={`/Homepage/light/${(Math.floor(Math.random() * 16) + 1).toString().padStart(2,"0")}.jpg`}
               alt="man"
               className={styles.man}
             />
           ) : (
-            <img src={`/Homepage/dark/${(Math.floor(Math.random() * 10) + 1).toString().padStart(2,"0")}.jpg`} alt="man" className={styles.man} />
+            <img src={`/Homepage/dark/${(Math.floor(Math.random() * 16) + 1).toString().padStart(2,"0")}.jpg`} alt="man" className={styles.man} />
           )}
         </div>
       </div>

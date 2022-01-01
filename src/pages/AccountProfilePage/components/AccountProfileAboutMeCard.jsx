@@ -7,7 +7,7 @@ export function AccountProfileAboutMeCard(props) {
   return (
     <div className="space-y-10">
       <h5>About me</h5>
-      <div className="box space-y-20">
+      <div className="box space-y-20 aboutme">
         {loading ? (
           <Skeleton width="100%" height={200} />
         ) : (
