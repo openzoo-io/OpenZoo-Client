@@ -173,6 +173,12 @@ export const useApi = () => {
     return res.data;
   };
 
+  // For Colleciton List page //
+  const fetchCollectionList = async () => {
+    const res = await axios.get(`${apiUrl}/info/getCollectionList`);
+    return res.data;
+  };
+
   const fetchCollection = async contractAddress => {
     const res = await axios({
       method: 'post',
@@ -926,6 +932,7 @@ export const useApi = () => {
     fetchCollections,
     fetchCollection,
     fetchCollectionStatistic,
+    fetchCollectionList,
     fetchAuctionBidParticipants,
     fetchPendingCollections,
     approveCollection,

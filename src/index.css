@@ -232,3 +232,24 @@ input[type='number'] {
 {
   font-size:16px;
 }
+
+/*Collection List Page*/
+.is__dark .collectionList .stat-card
+{
+  background: #4d4d4d !important;
+}
+
+.is__dark .collectionList .stat-card .color_brand
+{
+  color:#00a59a;
+}
+
+.is__dark .collectionList .bg_hard_light 
+{
+  background: #4d4d4d !important;
+}
+
+.collectionList .detail .stat-card
+{
+  border-radius: 10px !important;
+}

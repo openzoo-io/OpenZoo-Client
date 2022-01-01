@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { NFTCollection } from 'components/NFTCollection';
 import { useApi } from 'api';
 export function CollectionsPage() {
-  const { fetchCollections } = useApi();
+  const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
   useEffect(() => {
     getAllCollections();
   }, []);
 
   const getAllCollections = async () => {
-    const res = await fetchCollections();
+    const res = await fetchCollectionList();
     if (res.status === 'success') {
       const verified = [];
       const unverified = [];
@@ -25,7 +25,7 @@ export function CollectionsPage() {
 
   return (
     <PageLayout>
-      <div className="section mt-50">
+      <div className="section mt-50 collectionList">
         {
         false && <div className="section__head">
           {/*<CollectionsPageFilterStatus />*/}

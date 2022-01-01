@@ -14318,12 +14318,12 @@ label:active:after {
 }
 
 .collections .verified {
-  position: absolute;
-  right: -8px;
-  top: -8px;
-  width: 25px;
+ 
+  width: 25px !important;
   height: 25px;
-  z-index: 99;
+  margin-left: 5px;
+    filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+  
 }
 
 .collections .collections_footer .collection_title a {
