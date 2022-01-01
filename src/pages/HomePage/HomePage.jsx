@@ -50,13 +50,13 @@ export function HomePage() {
               </div>
               <div className={styles.seperator}></div>
               <div className={styles.become2}>
-                <div>On Telegram<span>URL LINK</span></div>
+                <div>On Telegram<span><a rel="noreferrer" href="https://t.me/openzoo_validation" target="_blank">here</a></span></div>
               </div>
               <div className={styles.become2}>
                 <div>OR</div>
               </div>
               <div className={styles.become2}>
-                <div>On Discord<span>URL LINK</span></div>
+                <div>On Discord<span><a rel="noreferrer" href="https://discord.gg/tT4v8H6UBH" target="_blank">here</a></span></div>
               </div>
             </div>
           </div>
