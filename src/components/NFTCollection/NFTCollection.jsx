@@ -58,13 +58,13 @@ export function NFTCollection(props) {
             </div>
             <div className="categories d-flex space-x-5 space-y-5 -ml-5">
               <div></div>
-              {collectionType === 721 ? (
+              {collectionType[0] && collectionType[0].tokenType === 721 ? (
                 <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
                   SINGLE TOKEN 721
                 </div>
               ) : (
                 <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
-                  MULTI TOKEN 1155
+                  {collectionType[0] ? 'MULTI TOKEN 1155' : 'UNDEFINED TOKEN TYPE'}
                 </div>
               )}
             </div>
