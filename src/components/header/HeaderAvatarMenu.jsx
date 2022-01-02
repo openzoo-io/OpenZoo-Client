@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState/*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
@@ -7,13 +7,13 @@ import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Tooltip, FormControlLabel, Checkbox } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Tooltip, /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
+//import { withStyles } from '@material-ui/core/styles';
 import WWAN_IMAGE from 'assets/imgs/wan.png';
 import { makeStyles } from '@material-ui/styles';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import FilterActions from 'actions/filter.actions';
+//import { useDispatch } from 'react-redux';
+//import FilterActions from 'actions/filter.actions';
 //import ModalActions from 'actions/modal.actions';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
@@ -33,7 +33,7 @@ const propTypes = {
 export function HeaderAvatarMenu(props) {
   //const coinCurrency = 'ZOO';
   const { getERC20Contract } = useNFTContract();
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
   const { account, chainId } = useWeb3React();
   //const { getWFTMBalance } = useWFTMContract();
 
@@ -90,6 +90,7 @@ export function HeaderAvatarMenu(props) {
     ];
   };
 
+  /*
   const CustomCheckbox = withStyles({
     root: {
       '&:hover': {
@@ -101,6 +102,7 @@ export function HeaderAvatarMenu(props) {
     },
     checked: {},
   })(props => <Checkbox color="default" {...props} />);
+  */
 
   // handle event methods
   const handleOnClick = () => {
@@ -124,7 +126,7 @@ export function HeaderAvatarMenu(props) {
     dispatch(ModalActions.showWFTMModal());
   };
   */
-
+/*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
     if (onlyVerifiedValue === null) return true;
@@ -142,7 +144,7 @@ export function HeaderAvatarMenu(props) {
       window.localStorage.setItem('onlyVerified', false);
     }
   }, [onlyVerified])
-
+*/
   return (
     <div
       className="header__avatar"
@@ -209,6 +211,7 @@ export function HeaderAvatarMenu(props) {
             )} WAN`}</p>
           </div>
         </div>
+        {/*
         <div className="hr"></div>
         <FormControlLabel
           control={
@@ -234,6 +237,7 @@ export function HeaderAvatarMenu(props) {
           className="align-items-start"
           classes={{ root: '' }}
         />
+        */}
         <div className="hr" style={{ marginTop: 10 }}></div>
         <div className="links space-y-10">
           <Link to={`/account/${account}`}>

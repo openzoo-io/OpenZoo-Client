@@ -101,6 +101,24 @@ const Header = (props) => {
     }
   }, [DarkMode])
 
+  const [onlyVerified, setOnlyVerified] = React.useState(() => {
+    const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
+    if (onlyVerifiedValue === null) return true;
+    return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
+  });
+
+  useEffect(() => {
+
+    if (onlyVerified === true) {
+      dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
+      window.localStorage.setItem('onlyVerified', true);
+    }
+    else {
+      dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
+      window.localStorage.setItem('onlyVerified', false);
+    }
+  }, [onlyVerified])
+
   const login = async () => {
     try {
       setLoading(true);
@@ -348,7 +366,7 @@ const Header = (props) => {
                       }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName} {collection?.isVerified && <img src="/verified.svg"/>}
+                    {collection.collectionName} {collection?.isVerified && <img src="/verified.svg" />}
                   </div>
                 </Link>
               ))}
@@ -406,7 +424,7 @@ const Header = (props) => {
                       ) : null)
 
                     )}
-                    
+
                   </div>
                   <div className={styles.resulttitle}>{tk.name}</div>
                 </Link>
@@ -450,7 +468,7 @@ const Header = (props) => {
 
   return (
     <header className={cx('header__1', 'js-header', styles.header)}>
-      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp}/></div>
+      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
       <div className={'container'}>
         <div className={'wrapper js-header-wrapper'}>
           <div className="header__logo">
@@ -481,21 +499,52 @@ const Header = (props) => {
                 </NavLink>
               </li>
               {
-              <li>
-                <NavLink
-                  to="/collections"
-                  className={'color_black'}
-                  activeClassName={styles.active}
-                >
-                  Collections
-                </NavLink>
-              </li>
+                <li>
+                  <NavLink
+                    to="/collections"
+                    className={'color_black'}
+                    activeClassName={styles.active}
+                  >
+                    Collections
+                  </NavLink>
+                </li>
               }
             </ul>
           </div>
           {renderSearchBox()}
           <div className={cx('header__menu')}>
             <ul className="d-flex space-x-20">
+              <li>
+                <div className={styles.darkmodeToggle}>
+                  <span style={{ marginLeft: 5, display: 'flex' }}>
+                    <img src="/verified.svg" style={{
+                      width: 24,
+                      height: 24,
+
+                      filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                    }} />
+                  </span>
+                  <input
+                    id="onlyVerified-toggle"
+                    type="checkbox"
+                    checked={!onlyVerified}
+                    onChange={() => {
+                      setOnlyVerified(!onlyVerified);
+                    }}
+                  />
+                  <label
+                    style={{ marginBottom: 0 }}
+                    className="toggle"
+                    htmlFor={`onlyVerified-toggle`}
+                  >
+                    Toggle
+                  </label>
+                  <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
+                    All<br />Collections
+                  </span>
+
+                </div>
+              </li>
               <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginRight: 5, display: 'flex' }}>
@@ -521,6 +570,7 @@ const Header = (props) => {
                   </span>
                 </div>
               </li>
+
             </ul>
           </div>
 
@@ -530,7 +580,7 @@ const Header = (props) => {
               <>
                 {/*<HeaderNotificationMenu />*/}
                 <HeaderAvatarMenu
-                 
+
                   user={user}
                   loading={loading}
                   isAdmin={
@@ -605,30 +655,61 @@ const Header = (props) => {
                 */
                 }
                 <li>
-                <div className={styles.darkmodeToggle}>
-                  <span style={{ marginRight: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faSun} />
-                  </span>
-                  <input
-                    id="darkmode-toggle"
-                    type="checkbox"
-                    checked={DarkMode}
-                    onChange={() => {
-                      setDarkMode(!DarkMode);
-                    }}
-                  />
-                  <label
-                    style={{ marginBottom: 0 }}
-                    className="toggle"
-                    htmlFor={`darkmode-toggle`}
-                  >
-                    Toggle
-                  </label>
-                  <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faMoon} />
-                  </span>
-                </div>
-              </li>
+                  <div className={styles.darkmodeToggle}>
+                    <span style={{ marginLeft: 5, display: 'flex' }}>
+                      <img src="/verified.svg" style={{
+                        width: 24,
+                        height: 24,
+
+                        filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                      }} />
+                    </span>
+                    <input
+                      id="onlyVerified-toggle"
+                      type="checkbox"
+                      checked={!onlyVerified}
+                      onChange={() => {
+                        setOnlyVerified(!onlyVerified);
+                      }}
+                    />
+                    <label
+                      style={{ marginBottom: 0 }}
+                      className="toggle"
+                      htmlFor={`onlyVerified-toggle`}
+                    >
+                      Toggle
+                    </label>
+                    <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
+                      All<br />Collections
+                    </span>
+
+                  </div>
+                </li>
+                <li>
+                  <div className={styles.darkmodeToggle}>
+                    <span style={{ marginRight: 5, display: 'flex' }}>
+                      <FontAwesomeIcon icon={faSun} />
+                    </span>
+                    <input
+                      id="darkmode-toggle"
+                      type="checkbox"
+                      checked={DarkMode}
+                      onChange={() => {
+                        setDarkMode(!DarkMode);
+                      }}
+                    />
+                    <label
+                      style={{ marginBottom: 0 }}
+                      className="toggle"
+                      htmlFor={`darkmode-toggle`}
+                    >
+                      Toggle
+                    </label>
+                    <span style={{ marginLeft: 5, display: 'flex' }}>
+                      <FontAwesomeIcon icon={faMoon} />
+                    </span>
+                  </div>
+                </li>
               </ul>
               {account ? (
                 <div className="col-md-12 col-sm-12">
