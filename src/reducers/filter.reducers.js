@@ -9,7 +9,7 @@ const initialState = {
   category: null,
   mediaType: null,
   groupType: 'all',
-  sortBy: 'createdAt', // viewed
+  sortBy: 'listedAt', // viewed
 };
 
 export function Filter(state = initialState, action) {
