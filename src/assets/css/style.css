@@ -14302,7 +14302,7 @@ label:active:after {
 }
 
 .collections .collections_item .detail .owner {
-  font-size: 21px;
+  font-size: 16px;
 }
 
 .collections .collections_item .detail .categories {
@@ -14313,7 +14313,7 @@ label:active:after {
       flex-wrap: wrap;
 }
 
-.collections .collections_item .detail .stat-card {
+.collections .collections_item .stat-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -14323,6 +14323,12 @@ label:active:after {
   background-color: white;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  flex:1;
+}
+
+.collections .collections_item .color_brand {
+  font-size:26px;
 }
 
 .collections .verified {

@@ -35,7 +35,7 @@ export function CollectionsPage() {
           {collections.map((item, index) => (
             <div
               key={`collection-item-${index}`}
-              className="col-lg-6 col-md-12 col-sm-12"
+              className="col-lg-4 col-md-12 col-sm-12"
             >
               <NFTCollection item={item} />
             </div>

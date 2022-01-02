@@ -253,3 +253,13 @@ input[type='number'] {
 {
   border-radius: 10px !important;
 }
+
+.collectionList .txt
+{
+  font-size:16px;
+}
+
+.collectionList .owner
+{
+  font-size:16px;
+}
