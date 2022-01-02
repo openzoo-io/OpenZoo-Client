@@ -18,6 +18,7 @@ export function NFTCollection(props) {
     categories,
     item_count,
     owner_count,
+    collectionType,
   } = props.item;
 
   function addDefaultSrc(ev) {
@@ -57,6 +58,19 @@ export function NFTCollection(props) {
             </div>
             <div className="categories d-flex space-x-5 space-y-5 -ml-5">
               <div></div>
+              {collectionType === 721 ? (
+                <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
+                  SINGLE TOKEN 721
+                </div>
+              ) : (
+                <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
+                  MULTI TOKEN 1155
+                </div>
+              )}
+            </div>
+            <div className="categories d-flex space-x-5 space-y-5 -ml-5">
+              <div></div>
+
               {categories &&
                 Categories &&
                 Categories.map(v => {
