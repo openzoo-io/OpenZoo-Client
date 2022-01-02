@@ -127,6 +127,7 @@ export function HeaderAvatarMenu(props) {
 
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
+    if (onlyVerifiedValue === null) return true;
     return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
   });
 

@@ -1,7 +1,7 @@
 import FilterConstants from '../constants/filter.constants';
 
 const initialState = {
-  statusBuyNow: false,
+  statusBuyNow: true,
   statusHasBids: false,
   statusHasOffers: false,
   statusOnAuction: false,

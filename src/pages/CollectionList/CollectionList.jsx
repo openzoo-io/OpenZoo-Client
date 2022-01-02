@@ -28,7 +28,7 @@ import {
   faMedium,
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -121,13 +121,18 @@ export function CollectionList() {
     chainId,
     numPerRow,
   ]);
-
+  const history = useHistory();
   const updateCollections = async () => {
     try {
       // Filter by Address //
 
       let cRes = await fetchCollection(addr);
-
+      if (cRes.data.isAppropriate === false)
+      {
+     
+        history.replace('/404');
+        return;
+      }
       setCollectionData(cRes.data);
 
       let statisticRes = await fetchCollectionStatistic(addr);

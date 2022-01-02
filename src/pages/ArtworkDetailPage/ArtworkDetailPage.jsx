@@ -396,6 +396,7 @@ export function ArtworkDetailPage() {
           uri,
           hasUnlockable: _hasUnlockable,
           thumbnailPath,
+          owner
         },
       } = await fetchItemDetails(address, tokenID);
 
@@ -423,13 +424,11 @@ export function ArtworkDetailPage() {
       try {
         tokenType.current = type;
         if (type === 721) {
-          const contract = await getERC721Contract(address);
-
+         // const contract = await getERC721Contract(address);
           // In Auction //
-
           const res = auction?.current?.owner
             ? auction.current.owner
-            : await contract.ownerOf(tokenID);
+            : owner
 
           setOwner(res);
         } else if (type === 1155) {
@@ -1282,11 +1281,11 @@ export function ArtworkDetailPage() {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
       
-      
+      getItemDetails(); // TODO: Need to optimize
       
       getAuctions().then(() => {
         getBid();
-        getItemDetails(); // TODO: Need to optimize
+        
       });
 
       increaseViewCount(address, tokenID).then(({ data }) => {
