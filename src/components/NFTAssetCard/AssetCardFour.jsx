@@ -151,6 +151,12 @@ export function AssetCardFour(props) {
             </div>
           </div>
           <div className={cx('card_head', cardHeaderClassName)}>
+            <img className="blur_thumb" src={
+                  (item?.thumbnailPath !== '-' &&
+                    apiUrl + '/image/' + item?.thumbnailPath) ||
+                  info?.image ||
+                  item?.imageURL
+                }/>
             <Link to={assetUrl}>
               <ArtworkMediaView
                 image={

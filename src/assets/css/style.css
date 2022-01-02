@@ -13714,6 +13714,14 @@ label:active:after {
   transform: scale(1.03);
 }
 
+.card__item .card_head img.blur_thumb
+{
+  -o-object-fit: cover;
+  object-fit: cover;
+  filter: blur(2rem);
+    position: absolute;
+    z-index: -1;
+}
 
 .card__item:hover {
   -webkit-transform: translateY(-5px);

@@ -480,7 +480,7 @@ const Header = (props) => {
                   Explore
                 </NavLink>
               </li>
-              {/* 
+              {
               <li>
                 <NavLink
                   to="/collections"
@@ -490,7 +490,7 @@ const Header = (props) => {
                   Collections
                 </NavLink>
               </li>
-              */}
+              }
             </ul>
           </div>
           {renderSearchBox()}
