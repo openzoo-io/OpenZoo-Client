@@ -103,6 +103,7 @@ const Header = (props) => {
 
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
+
     if (onlyVerifiedValue === null) return true;
     return onlyVerifiedValue !== null ? JSON.parse(onlyVerifiedValue) : false;
   });
@@ -247,7 +248,7 @@ const Header = (props) => {
     deactivate();
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
-    dispatch(FilterActions.updateStatusFilter('onlyVerified', false));
+    dispatch(FilterActions.updateStatusFilter('onlyVerified', true));
   };
 
 

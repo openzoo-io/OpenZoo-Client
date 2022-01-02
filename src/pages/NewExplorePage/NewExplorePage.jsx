@@ -49,6 +49,8 @@ export function NewExplorePage() {
     statusOnAuction,
   } = useSelector(state => state.Filter);
 
+
+
   const prevAuthToken = usePrevious(authToken);
   
   const numPerRow = Math.floor(gridWidth / 256);

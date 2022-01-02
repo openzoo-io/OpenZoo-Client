@@ -1,6 +1,7 @@
 import FilterConstants from '../constants/filter.constants';
 
 const initialState = {
+
   statusBuyNow: true,
   statusHasBids: false,
   statusHasOffers: false,
@@ -19,6 +20,7 @@ export function Filter(state = initialState, action) {
       newState[action.field] = action.selected;
       return newState;
     }
+    
     case FilterConstants.UPDATE_COLLECTIONS_FILTER: {
       return {
         ...state,
