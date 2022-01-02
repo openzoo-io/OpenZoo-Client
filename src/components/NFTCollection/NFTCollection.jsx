@@ -75,11 +75,11 @@ export function NFTCollection(props) {
         </div>
         <div className="d-flex mt-10 space-x-10 space-y-10 -ml-10 flex-wrap">
           <div></div>
-          <div className="stat-card shadow-sm">
+          <div className="stat-card">
             <h2 className="color_brand">{formatNumber(item_count)}</h2>
             <span className="txt_xs color_text">items</span>
           </div>
-          <div className="stat-card shadow-sm">
+          <div className="stat-card">
             <h2 className="color_brand">{formatNumber(owner_count)}</h2>
             <span className="txt_xs color_text">owners</span>
           </div>
