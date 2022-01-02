@@ -28,7 +28,7 @@ import {
   faMedium,
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
-import { Link,useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -90,6 +90,13 @@ export function CollectionList() {
   useEffect(() => {
     // Filter by Address //
     dispatch(FilterActions.updateCollectionsFilter([addr]));
+
+    // reset Buy now //
+    dispatch(FilterActions.updateStatusFilter('statusBuyNow', false));
+    dispatch(FilterActions.updateStatusFilter('statusHasBids', false));
+    dispatch(FilterActions.updateStatusFilter('statusHasOffers', false));
+    dispatch(FilterActions.updateStatusFilter('statusOnAuction', false));
+
     if (fetchInterval) {
       clearInterval(fetchInterval);
     }
@@ -127,9 +134,7 @@ export function CollectionList() {
       // Filter by Address //
 
       let cRes = await fetchCollection(addr);
-      if (cRes.data.isAppropriate === false)
-      {
-     
+      if (cRes.data.isAppropriate === false) {
         history.replace('/404');
         return;
       }
@@ -337,8 +342,8 @@ export function CollectionList() {
       updateItems();
     }
   }, [tokens, authToken]);
-  function addDefaultSrc(ev){
-    ev.target.src = '/notfound.png'
+  function addDefaultSrc(ev) {
+    ev.target.src = '/notfound.png';
   }
   return (
     <PageLayout
@@ -356,22 +361,27 @@ export function CollectionList() {
                     />
                   </div>
                   <div>
-                    <h1>{collectionData?.collectionName} {collectionData?.isVerified && <img src="/verified.svg"/>}</h1>
+                    <h1>
+                      {collectionData?.collectionName}{' '}
+                      {collectionData?.isVerified && (
+                        <img src="/verified.svg" />
+                      )}
+                    </h1>
                     <div className={styles.ownedby}>
                       created by{' '}
                       <Link
-                      to={`/account/${collectionData?.owner}`}
-                      className="creators space-x-10"
-                    >
-                      {shortenAddress(collectionData?.owner)}
+                        to={`/account/${collectionData?.owner}`}
+                        className="creators space-x-10"
+                      >
+                        {shortenAddress(collectionData?.owner)}
                       </Link>
-                     
                     </div>
                     <div className={styles.links}>
                       <a
                         href={explorerUrl + '/token/' + addr}
                         className={styles.address}
-                        target="_blank"  rel="noreferrer"
+                        target="_blank"
+                        rel="noreferrer"
                       >
                         {shortenAddress(addr)}{' '}
                         <FontAwesomeIcon icon={faLocationArrow} />
@@ -426,26 +436,22 @@ export function CollectionList() {
                       )}
                     </div>
                     <div className={styles.linksAlt}>
-                      {
-                        console.log('collectionType',collectionType)
-                      }
-                      {
-                        collectionType === 721?
-                        <div className={styles.bullet}>SINGLE TOKEN 721</div>:
+                      {console.log('collectionType', collectionType)}
+                      {collectionType === 721 ? (
+                        <div className={styles.bullet}>SINGLE TOKEN 721</div>
+                      ) : (
                         <div className={styles.bullet}>MULTI TOKEN 1155</div>
-                      }
-                     
-                      {
-                        (collectionData.categories && Categories) && Categories.map(v=>{
-                         
-                          if (collectionData.categories.includes(v.id+''))
-                          {
-                            return <div className={styles.bullet}>{v.label}</div>
-                            
+                      )}
+
+                      {collectionData.categories &&
+                        Categories &&
+                        Categories.map(v => {
+                          if (collectionData.categories.includes(v.id + '')) {
+                            return (
+                              <div className={styles.bullet}>{v.label}</div>
+                            );
                           }
-                        })
-                      
-                      }
+                        })}
                     </div>
                   </div>
                 </div>

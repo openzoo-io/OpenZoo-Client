@@ -2,7 +2,7 @@ import FilterConstants from '../constants/filter.constants';
 
 const initialState = {
 
-  statusBuyNow: true,
+  statusBuyNow: false,
   statusHasBids: false,
   statusHasOffers: false,
   statusOnAuction: false,
@@ -14,6 +14,7 @@ const initialState = {
 };
 
 export function Filter(state = initialState, action) {
+  
   switch (action.type) {
     case FilterConstants.UPDATE_STATUS_FILTER: {
       const newState = { ...state };
