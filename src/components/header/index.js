@@ -605,7 +605,7 @@ const Header = (props) => {
                   <NavLink
                     to="/create"
                     className={'btn btn-warning btn-sm'}
-                    activeClassName={styles.active}
+                    
                   >
                     Create
                   </NavLink>
@@ -653,6 +653,7 @@ const Header = (props) => {
                   </NavLink>
                 </li>
                 }
+               
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
