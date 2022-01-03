@@ -74,17 +74,11 @@ export function ArtworkDetailPageDetailSection(props) {
       <div className="box border-none rounded-20">
         <div className="space-y-20">
           <div className="d-flex justify-content-between mb-30_reset">
-            <ul className="nav nav-tabs d-flex mb-30" role="tablist" style={{gap:5}}>
-              <li className="nav-item mx-1.5 mb-2">
-                <a
-                  className="btn btn-white btn-sm active"
-                  data-toggle="tab"
-                  href="#tabs-details"
-                  role="tab"
-                >
-                  Details
-                </a>
-              </li>
+            <ul
+              className="nav nav-tabs d-flex mb-30"
+              role="tablist"
+              style={{ gap: 5 }}
+            >
               {/* <li className="nav-item mx-1.5 mb-2">
               <a
                 className="btn btn-white btn-sm"
@@ -116,9 +110,9 @@ export function ArtworkDetailPageDetailSection(props) {
               </a>
             </li> */}
               {info?.attributes && (
-                <li className="nav-item mx-1.5 mb-2">
+                <li className="nav-item mx-1.5 mb-2 ">
                   <a
-                    className="btn btn-white btn-sm"
+                    className={`btn btn-white btn-sm  ${info?.attributes && 'active'}`}
                     data-toggle="tab"
                     href="#tabs-attributes"
                     role="tab"
@@ -127,6 +121,18 @@ export function ArtworkDetailPageDetailSection(props) {
                   </a>
                 </li>
               )}
+
+              <li className="nav-item mx-1.5 mb-2">
+                <a
+                  className={`btn btn-white btn-sm  ${!info?.attributes && 'active'}`}
+                  data-toggle="tab"
+                  href="#tabs-details"
+                  role="tab"
+                >
+                  Details
+                </a>
+              </li>
+
               {info?.properties && (
                 <li className="nav-item mx-1.5 mb-2">
                   <a
@@ -159,7 +165,8 @@ export function ArtworkDetailPageDetailSection(props) {
                     href="#tabs-collection-detail"
                     role="tab"
                   >
-                    About Collection{/*collection?.collectionName || collection?.name*/}
+                    About Collection
+                    {/*collection?.collectionName || collection?.name*/}
                   </a>
                 </li>
               )}
@@ -200,7 +207,7 @@ export function ArtworkDetailPageDetailSection(props) {
           </div>
           <div className="hr"></div>
           <div className="tab-content pb-10">
-            <div className="tab-pane active" id="tabs-details" role="tabpanel">
+            <div className={`tab-pane  ${!info?.attributes && 'active'}`} id="tabs-details" role="tabpanel">
               <p>{info?.description ?? '-'}</p>
             </div>
             <div className="tab-pane" id="tabs-price-history" role="tabpanel">
@@ -249,7 +256,7 @@ export function ArtworkDetailPageDetailSection(props) {
                 setOfferModalVisible={setOfferModalVisible}
               />
             </div>
-            <div className="tab-pane pb" id="tabs-attributes" role="tabpanel">
+            <div className={`tab-pane ${info?.attributes && 'active'} pb`} id="tabs-attributes" role="tabpanel">
               {info?.attributes && (
                 <ArtworkDetailPageAttributesView
                   address={address}
@@ -285,16 +292,16 @@ export function ArtworkDetailPageDetailSection(props) {
                 <ArtworkDetailPageAboutCollectionTab collection={collection} />
               )}
             </div>
-            {
-            false && <div className="tab-pane" id="tabs-chain-info" role="tabpanel">
-              {!bundleID && (
-                <ArtworkDetailPageChainInfoTab
-                  explorerUrl={explorerUrl}
-                  address={address}
-                />
-              )}
-            </div>
-            }
+            {false && (
+              <div className="tab-pane" id="tabs-chain-info" role="tabpanel">
+                {!bundleID && (
+                  <ArtworkDetailPageChainInfoTab
+                    explorerUrl={explorerUrl}
+                    address={address}
+                  />
+                )}
+              </div>
+            )}
             <div
               className="tab-pane"
               id="tabs-collection-royalty"
@@ -324,7 +331,7 @@ export function ArtworkDetailPageDetailSection(props) {
             &nbsp;Transfer
           </div>
         )}
-        {isMine && !bundleID && itemType===721 && (
+        {isMine && !bundleID && itemType === 721 && (
           <div className="btn btn-sm btn-white" onClick={onBurnClick}>
             <i className="ri-delete-bin-line color_info"></i>
             &nbsp;Delete
