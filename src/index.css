@@ -263,3 +263,8 @@ input[type='number'] {
 {
   font-size:16px;
 }
+
+.is__dark .header__1 .header__search.in_mobile input
+{
+  background:#555 !important;
+}

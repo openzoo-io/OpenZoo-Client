@@ -647,13 +647,11 @@ const Header = (props) => {
                   </NavLink>
                 </li>
                 {
-                  /*
                 <li>
                   <NavLink className="color_black" to="/collections">
                     Collections
                   </NavLink>
                 </li>
-                */
                 }
                 <li>
                   <div className={styles.darkmodeToggle}>
