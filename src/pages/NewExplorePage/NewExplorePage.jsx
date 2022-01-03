@@ -64,11 +64,12 @@ export function NewExplorePage() {
 
 
     // Set Buy now //
+    /*
     dispatch(FilterActions.updateStatusFilter('statusBuyNow', true));
     dispatch(FilterActions.updateStatusFilter('statusHasBids', false));
     dispatch(FilterActions.updateStatusFilter('statusHasOffers', false));
     dispatch(FilterActions.updateStatusFilter('statusOnAuction', false));
-
+*/
     updateCollections();
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     
