@@ -55,6 +55,8 @@
 
 .body {
   padding: 24px 24px;
+  max-height:800px;
+  overflow-y:auto;
 }
 
 .title {
