@@ -24,7 +24,7 @@ const SellModal = ({
   contractApproving,
   contractApproved,
   totalSupply,
-  myListing
+  myListing,
 }) => {
   const { tokens } = useTokens();
   const { getSalesContract } = useSalesContract();
@@ -42,21 +42,16 @@ const SellModal = ({
     setPrice(startPrice > 0 ? startPrice.toString() : '');
     setQuantity('1');
     if (visible && tokens?.length) {
-     
       setSelected([tokens[0]]);
-      if (myListing)
-      {
-        
-        tokens.map((v,i) => {
-          
-          if (myListing.paymentToken?.toLowerCase() === v.address?.toLowerCase())
-          {
-           
+      if (myListing) {
+        tokens.map((v, i) => {
+          if (
+            myListing.paymentToken?.toLowerCase() === v.address?.toLowerCase()
+          ) {
             setSelected([tokens[i]]);
           }
         });
       }
-     
     }
   }, [visible]);
 
@@ -153,7 +148,6 @@ const SellModal = ({
       <div className={styles.formGroup}>
         <div className={styles.formLabel}>Price per Item</div>
         <div className={cx(styles.formInputCont, focused && styles.focused)}>
-          
           <Select
             options={options}
             disabled={confirming}
@@ -198,7 +192,7 @@ const SellModal = ({
             disabled={contractApproving || confirming}
             onInputError={setInputError}
           />
-          <div className={styles.usdPrice}>
+          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
             {!isNaN(tokenPrice) && tokenPrice !== null ? (
               `$${formatNumber(
                 ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
@@ -208,9 +202,18 @@ const SellModal = ({
             )}
           </div>
         </div>
+        <div className={`${styles.usdPriceMobile} d-sm-none`}>
+          {!isNaN(tokenPrice) && tokenPrice !== null ? (
+            `$${formatNumber(
+              ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+            )}`
+          ) : (
+            <Skeleton width={100} height={24} />
+          )}
+        </div>
         <InputError text={inputError} />
       </div>
-      
+
       {startPrice === 0 && totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
@@ -223,7 +226,7 @@ const SellModal = ({
               disabled={contractApproving || confirming || totalSupply === 1}
             />
           </div>
-          <p style={{fontSize:14,marginTop:5,marginLeft:10}}>
+          <p style={{ fontSize: 14, marginTop: 5, marginLeft: 10 }}>
             Your Supply: <b>{totalSupply}</b> NFT(s)
           </p>
         </div>

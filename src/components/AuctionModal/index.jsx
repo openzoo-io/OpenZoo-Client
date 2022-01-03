@@ -234,7 +234,7 @@ const AuctionModal = ({
             disabled={contractApproving || confirming}
             onInputError={err => setInputError(err)}
           />
-          <div className={styles.usdPrice}>
+          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
             {!isNaN(tokenPrice) && tokenPrice !== null ? (
               `$${formatNumber(
                 ((parseFloat(reservePrice) || 0) * tokenPrice).toFixed(2)
@@ -243,6 +243,15 @@ const AuctionModal = ({
               <Skeleton width={100} height={24} />
             )}
           </div>
+        </div>
+        <div className={`${styles.usdPriceMobile} d-sm-none`}>
+          {!isNaN(tokenPrice) && tokenPrice !== null ? (
+            `$${formatNumber(
+              ((parseFloat(reservePrice) || 0) * tokenPrice).toFixed(2)
+            )}`
+          ) : (
+            <Skeleton width={100} height={24} />
+          )}
         </div>
         <InputError text={inputError} />
       </div>

@@ -25,7 +25,7 @@ const OfferModal = ({
   totalSupply,
 }) => {
   const { tokens } = useTokens();
-  
+
   const { getSalesContract } = useSalesContract();
 
   const [price, setPrice] = useState('');
@@ -40,7 +40,7 @@ const OfferModal = ({
   const [inputError, setInputError] = useState(null);
 
   useEffect(() => {
-    console.log('tokens',tokens)
+    console.log('tokens', tokens);
     if (tokens?.length) {
       setOptions(tokens);
     }
@@ -173,7 +173,7 @@ const OfferModal = ({
             disabled={confirming}
             onInputError={err => setInputError(err)}
           />
-          <div className={styles.usdPrice}>
+          <div className={`${styles.usdPrice} d-none d-sm-flex`}>
             {!isNaN(tokenPrice) && tokenPrice !== null ? (
               `$${formatNumber(
                 ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
@@ -183,8 +183,18 @@ const OfferModal = ({
             )}
           </div>
         </div>
+        <div className={`${styles.usdPriceMobile} d-sm-none`}>
+          {!isNaN(tokenPrice) && tokenPrice !== null ? (
+            `$${formatNumber(
+              ((parseFloat(price) || 0) * tokenPrice).toFixed(2)
+            )}`
+          ) : (
+            <Skeleton width={100} height={24} />
+          )}
+        </div>
         <InputError text={inputError} />
       </div>
+
       {totalSupply !== null && (
         <div className={styles.formGroup}>
           <div className={styles.formLabel}>Quantity</div>
