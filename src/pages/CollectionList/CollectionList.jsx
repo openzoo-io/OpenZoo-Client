@@ -93,11 +93,12 @@ export function CollectionList() {
     dispatch(FilterActions.updateCollectionsFilter([addr]));
 
     // reset Buy now //
+    /*
     dispatch(FilterActions.updateStatusFilter('statusBuyNow', false));
     dispatch(FilterActions.updateStatusFilter('statusHasBids', false));
     dispatch(FilterActions.updateStatusFilter('statusHasOffers', false));
     dispatch(FilterActions.updateStatusFilter('statusOnAuction', false));
-
+*/
     if (fetchInterval) {
       clearInterval(fetchInterval);
     }
