@@ -37,6 +37,7 @@ export function CollectionList() {
     fetchTokens,
     getItemsLiked,
     explorerUrl,
+    getUserAccountDetails,
   } = useApi();
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
@@ -111,6 +112,26 @@ export function CollectionList() {
     };
   }, [addr]);
 
+  const [ownerInfo, setOwnerInfo] = useState(null);
+ 
+  const getOwnerInfo = async (owner) => {
+   
+    try {
+      const { data } = await getUserAccountDetails(owner);
+      setOwnerInfo(data);
+    } catch {
+      setOwnerInfo(null);
+    }
+   
+  };
+  useEffect(()=>{
+    if (collectionData?.owner)
+    {
+      getOwnerInfo(collectionData?.owner);
+    }
+  },[collectionData?.owner])
+
+  
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
@@ -139,6 +160,8 @@ export function CollectionList() {
         return;
       }
       setCollectionData(cRes.data);
+
+      
 
       let statisticRes = await fetchCollectionStatistic(addr);
       setCollectionStatisticData(statisticRes.data);
@@ -373,7 +396,7 @@ export function CollectionList() {
                         to={`/account/${collectionData?.owner}`}
                         className="creators space-x-10"
                       >
-                        {shortenAddress(collectionData?.owner)}
+                        {ownerInfo?.alias || shortenAddress(collectionData?.owner)}
                       </Link>
                     </div>
                     <div className={styles.links}>
