@@ -156,6 +156,7 @@ export function ArtworkDetailPagePriceSection(props) {
                   )}
                 {(!auction.current || auction.current.resulted) && (
                   <>
+                    
                     {hasListing ? (
                       <div
                         className={cx(
@@ -281,6 +282,27 @@ export function ArtworkDetailPagePriceSection(props) {
                   )}
                 {(!auction.current || auction.current.resulted) && (
                   <>
+                  {
+                    console.log('price',window.location.href)
+                  }
+                    {
+                      (!hasListing && window.location.href.indexOf('emergency_cancel_listing') !== -1)  && (
+                        <div
+                        className={cx(
+                          'btn btn-danger btn-lg rounded-20',
+                          styles.headerButton,
+                          cancelingListing
+                        )}
+                        onClick={cancelList}
+                      >
+                        {cancelListingConfirming ? (
+                          <ClipLoader color="#FFF" size={16} />
+                        ) : (
+                          'FORCE CANCEL'
+                        )}
+                      </div>
+                      )
+                    }
                     {hasListing ? (
                       <div
                         className={cx(
