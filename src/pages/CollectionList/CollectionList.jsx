@@ -413,6 +413,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.siteUrl}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faGlobe} />
                         </a>
@@ -421,6 +423,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.twitterHandle}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faTwitter} />
                         </a>
@@ -429,6 +433,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.telegram}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faTelegramPlane} />
                         </a>
@@ -437,6 +443,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.discord}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faDiscord} />
                         </a>
@@ -445,6 +453,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.mediumHandle}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faMedium} />
                         </a>
@@ -453,6 +463,8 @@ export function CollectionList() {
                         <a
                           href={collectionData.faInstagram}
                           className={styles.external}
+                          target="_blank"
+                          rel="noreferrer"
                         >
                           <FontAwesomeIcon icon={faInstagram} />
                         </a>
