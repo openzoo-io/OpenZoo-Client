@@ -400,9 +400,10 @@ export function CollectionList() {
                         {ownerInfo?.alias || shortenAddress(collectionData?.owner)}
                       </Link>
                     </div>
+                  
                     <div className={styles.links}>
                       <a
-                        href={explorerUrl + '/token/' + addr}
+                        href={explorerUrl + (collectionType === 721 ? '/token/' :'/address/') + addr}
                         className={styles.address}
                         target="_blank"
                         rel="noreferrer"
@@ -472,7 +473,7 @@ export function CollectionList() {
                       )}
                     </div>
                     <div className={styles.linksAlt}>
-                      {console.log('collectionType', collectionType)}
+                      
                       {collectionType === 721 ? (
                         <div className={styles.bullet}>SINGLE TOKEN 721</div>
                       ) : (
