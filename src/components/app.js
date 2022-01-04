@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -34,61 +34,58 @@ const App = () => {
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
 
-  const [priceInterval, setPriceInterval] = useState(null);
-
-  const getPrice = async () => {
-    try {
-      if (chainId === 888) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const oracle = new ethers.Contract(
-          '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
-          [
-            {
-              inputs: [{internalType: 'address', type: 'address', name: '_token'}],
-              name: 'getPrice',
-              outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
-              stateMutability: 'view',
-              type: 'function',
-            },
-          ],
-          provider
-        );
-        const ZOO = '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F';
-        const _price = await oracle.getPrice(ZOO);
-        const price = parseFloat(_price.toString()) / 10 ** 18;
-        dispatch(PriceActions.updatePrice(price));
-      } else if (chainId === 999) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const oracle = new ethers.Contract(
-          '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',
-          [
-            {
-              inputs: [{internalType: 'address', type: 'address', name: '_token'}],
-              name: 'getPrice',
-              outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
-              stateMutability: 'view',
-              type: 'function',
-            },
-          ],
-          provider
-        );
-        const ZOO = '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135';
-        const _price = await oracle.getPrice(ZOO);
-        const price = parseFloat(_price.toString()) / 10 ** 18;
-        dispatch(PriceActions.updatePrice(price));
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    if (priceInterval) {
-      clearInterval(priceInterval);
-    }
+    const getPrice = async () => {
+      try {
+        if (chainId === 888) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const oracle = new ethers.Contract(
+            '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
+            [
+              {
+                inputs: [{internalType: 'address', type: 'address', name: '_token'}],
+                name: 'getPrice',
+                outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
+                stateMutability: 'view',
+                type: 'function',
+              },
+            ],
+            provider
+          );
+          const ZOO = '0x6e11655d6aB3781C6613db8CB1Bc3deE9a7e111F';
+          const _price = await oracle.getPrice(ZOO);
+          const price = parseFloat(_price.toString()) / 10 ** 18;
+          dispatch(PriceActions.updatePrice(price));
+        } else if (chainId === 999) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const oracle = new ethers.Contract(
+            '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',
+            [
+              {
+                inputs: [{internalType: 'address', type: 'address', name: '_token'}],
+                name: 'getPrice',
+                outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
+                stateMutability: 'view',
+                type: 'function',
+              },
+            ],
+            provider
+          );
+          const ZOO = '0x890589dC8BD3F973dcAFcB02b6e1A133A76C8135';
+          const _price = await oracle.getPrice(ZOO);
+          const price = parseFloat(_price.toString()) / 10 ** 18;
+          dispatch(PriceActions.updatePrice(price));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     getPrice();
-    setPriceInterval(setInterval(getPrice, 1000 * 10));
+    const timer = setInterval(getPrice, 1000 * 10);
+    return () => {
+      clearInterval(timer);
+    }
   }, [chainId]);
 
   return (
