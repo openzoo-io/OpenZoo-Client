@@ -135,11 +135,13 @@ export function ArtworkMediaView(props) {
     );
   } else {
     if (image) {
+      // Convert from zoo-factory.vercel.app to Zookeeper //
+      let image2 = image.replace("zoo-factory.vercel.app","zookeeper.finance");
       return (
         <Suspense fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}>
           <SuspenseImg
             className={cx(styles.mediaInner, className)}
-            src={image}
+            src={image2}
             onError={addDefaultSrc}
           />
         </Suspense>
