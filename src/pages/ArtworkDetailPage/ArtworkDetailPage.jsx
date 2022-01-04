@@ -52,7 +52,7 @@ import {
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
 import {
@@ -2931,6 +2931,19 @@ export function ArtworkDetailPage() {
                             </div>
                           </div>
                         )}
+
+
+                        {!isMine &&
+                          (!auctionActive() &&
+                          bid?.bidder?.toLowerCase() === account?.toLowerCase()
+                            ? now.getTime() / 1000 <
+                                auction?.current?.endTime + 43200 && (
+                                <p style={{marginTop:5}}>
+                                  <FontAwesomeIcon icon={faExclamationTriangle}/> You can withdraw your bidded amount within {formatDuration((auction?.current?.endTime + 43200))}
+                                </p>
+                              )
+                            : (<></>))}
+
                         {!isMine &&
                           (!auctionActive() &&
                           bid?.bidder?.toLowerCase() === account?.toLowerCase()
