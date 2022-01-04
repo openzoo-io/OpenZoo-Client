@@ -226,7 +226,7 @@ export function HeaderAvatarMenu(props) {
             <div onClick={()=>{setFaucetModalVisible(true)}} className="d-flex flex-column align-items-start space-x-10 claimFreeWanBtn">
               <div></div>
               <div>FIRST TIME?</div>
-              <div>Claim Fee WAN to Start</div>
+              <div>Claim Free WAN to Start</div>
             </div>
           )
         }
