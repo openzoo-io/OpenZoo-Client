@@ -268,3 +268,90 @@ input[type='number'] {
 {
   background:#555 !important;
 }
+
+.faucetP
+{
+  line-height: 18px;
+  font-weight: bold;
+}
+.claimFreeWanBtn
+{
+  background-color: #00a59a;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  color:white;
+  padding:10px;
+  transition: transform 0.3s;
+}
+.claimFreeWanBtn:hover
+{
+  transform:scale(1.05);
+}
+
+.faucetBalance
+{
+  border-radius: 10px;
+  display:flex;
+  width:100%;
+  background-color: #F7F7F7;
+  margin-top:30px !important;
+  margin-bottom:30px !important;
+  justify-content: space-between;
+}
+.is__dark .faucetBalance
+{
+  background-color: #4d4d4d !important
+}
+.is__dark .faucetBalanceTitle
+{
+  border-right: 1px solid rgba(255,255,255,0.2) !important
+}
+.faucetBalanceTitle
+{
+  min-width: fit-content;
+  line-height: 16px;
+  font-weight:bold;
+  height:60px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right:1px solid #EEEEEE;
+  padding-left:15px;
+  padding-right:15px;
+  color:#7e7e7e;
+}
+
+.faucentBalanceAmount
+{
+  min-width: fit-content;
+  line-height: 16px;
+  font-weight:bold;
+  height:60px;
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  padding-left:15px;
+  padding-right:15px;
+  color:#7e7e7e;
+}
+.faucentBalanceAmountIcon
+{
+  display:flex;
+  align-items: center;
+}
+.wanImage
+{
+  width:24px;
+  height:24px;
+  margin-right:5px;
+}
+.faucentBalanceAmount span
+{
+  font-size:12px;
+  font-weight:normal;
+  
+}

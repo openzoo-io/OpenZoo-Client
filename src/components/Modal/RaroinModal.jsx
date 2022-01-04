@@ -38,7 +38,7 @@ export function RaroinModal(props) {
           >
             <span aria-hidden="true">&times;</span>
           </button>
-          <div className="modal-body space-y-20 p-40">
+          <div className="modal-body space-y-20 p-20">
             {title && <h3>{title}</h3>}
             {children}
             {submitLabel && (

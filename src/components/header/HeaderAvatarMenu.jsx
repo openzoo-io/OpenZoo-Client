@@ -1,4 +1,4 @@
-import React, { useState/*,useEffect*/ } from 'react';
+import React, { useState /*,useEffect*/ } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import cx from 'classnames';
@@ -7,7 +7,7 @@ import Identicon from 'components/Identicon';
 import { shortenAddress } from 'utils';
 import { useDetectOutsideRef } from 'hooks/useDetectOutsideRef';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Tooltip, /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
+import { Tooltip /*FormControlLabel, Checkbox*/ } from '@material-ui/core';
 //import { withStyles } from '@material-ui/core/styles';
 import WWAN_IMAGE from 'assets/imgs/wan.png';
 import { makeStyles } from '@material-ui/styles';
@@ -19,7 +19,7 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
-
+import FaucetModal from 'components/FaucetModal';
 const propTypes = {
   user: PropTypes.object,
   account: PropTypes.string,
@@ -44,14 +44,17 @@ export function HeaderAvatarMenu(props) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const [gettingBalance, setGettingBalance] = useState(false);
-
+  //const [gettingBalance, setGettingBalance] = useState(false);
+  const [faucetModalVisible, setFaucetModalVisible] = useState(false);
   const wrapperRef = useDetectOutsideRef(() => {
     setMenuVisible(false);
   });
 
   React.useEffect(() => {
     getBalances();
+    setInterval(() => {
+      getBalances();
+    },30*1000);
   }, [account, chainId]);
 
   const parseBalance = (bal, fractionDigits = 2) => {
@@ -59,7 +62,7 @@ export function HeaderAvatarMenu(props) {
   };
 
   const getBalances = async () => {
-    setGettingBalance(true);
+    //setGettingBalance(true);
 
     await window.ethereum.enable();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -82,7 +85,7 @@ export function HeaderAvatarMenu(props) {
 
     // setWrappedBalance(parseFloat(wftmBal.toString()) / 10 ** 18);
 
-    setGettingBalance(false);
+    //setGettingBalance(false);
 
     return [
       parseFloat(ftmBal.toString()) / 10 ** 18,
@@ -126,7 +129,7 @@ export function HeaderAvatarMenu(props) {
     dispatch(ModalActions.showWFTMModal());
   };
   */
-/*
+  /*
   const [onlyVerified, setOnlyVerified] = React.useState(() => {
     const onlyVerifiedValue = window.localStorage.getItem('onlyVerified');
     if (onlyVerifiedValue === null) return true;
@@ -145,7 +148,14 @@ export function HeaderAvatarMenu(props) {
     }
   }, [onlyVerified])
 */
-  return (
+  return (<>
+    <FaucetModal
+        account={account}
+        visible={faucetModalVisible}
+
+        onClose={() => setFaucetModalVisible(false)}
+        setFaucetModalVisible = {setFaucetModalVisible}
+      />
     <div
       className="header__avatar"
       onClick={handleOnClick}
@@ -153,14 +163,12 @@ export function HeaderAvatarMenu(props) {
       style={{ overflow: 'hidden' }}
     >
       <div className="price">
-        {gettingBalance ? (
-          <Skeleton width={100} height="100%" />
-        ) : (
+        
           <span>
             <img src="/zoo32x32.png" />{' '}
             {formatNumber(parseBalance(zooBalance), 2)}
           </span>
-        )}
+        
       </div>
       {props.loading ? (
         <Skeleton className={'avatar'} />
@@ -198,19 +206,30 @@ export function HeaderAvatarMenu(props) {
             </button>
           </div>
         </CopyToClipboard>
-        <div className="d-flex align-items-center space-x-10">
-          <img
-            className={cx('coin', styles.coinImage)}
-            src={WWAN_IMAGE}
-            alt="/"
-          />
-          <div className="info">
-            <p className="text-sm font-book text-gray-400">Balance</p>
-            <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
-              balance
-            )} WAN`}</p>
+        {balance >= 0.02 && (
+          <div className="d-flex align-items-center space-x-10">
+            <img
+              className={cx('coin', styles.coinImage)}
+              src={WWAN_IMAGE}
+              alt="/"
+            />
+            <div className="info">
+              <p className="text-sm font-book text-gray-400">Balance</p>
+              <p className="w-full text-sm font-bold text-green-500">{`${parseBalance(
+                balance
+              )} WAN`}</p>
+            </div>
           </div>
-        </div>
+        )}
+        {
+          balance < 0.02 && (
+            <div onClick={()=>{setFaucetModalVisible(true)}} className="d-flex flex-column align-items-start space-x-10 claimFreeWanBtn">
+              <div></div>
+              <div>FIRST TIME?</div>
+              <div>Claim Fee WAN to Start</div>
+            </div>
+          )
+        }
         {/*
         <div className="hr"></div>
         <FormControlLabel
@@ -332,7 +351,7 @@ export function HeaderAvatarMenu(props) {
         </div>
       </div>
     </div>
-  );
+    </>);
 }
 
 const useStyle = makeStyles(() => ({
