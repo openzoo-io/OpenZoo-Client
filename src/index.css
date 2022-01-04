@@ -271,8 +271,8 @@ input[type='number'] {
 
 .faucetP
 {
-  line-height: 18px;
-  font-weight: bold;
+  line-height: 20px;
+  font-weight: 700;
 }
 .claimFreeWanBtn
 {
@@ -295,8 +295,8 @@ input[type='number'] {
   display:flex;
   width:100%;
   background-color: #F7F7F7;
-  margin-top:30px !important;
-  margin-bottom:30px !important;
+  margin-top:40px !important;
+  margin-bottom:40px !important;
   justify-content: space-between;
 }
 .is__dark .faucetBalance
@@ -307,10 +307,14 @@ input[type='number'] {
 {
   border-right: 1px solid rgba(255,255,255,0.2) !important
 }
+.is__dark .color_brand
+{
+  color:#00a59a !important;
+}
 .faucetBalanceTitle
 {
   min-width: fit-content;
-  line-height: 16px;
+  line-height: 20px;
   font-weight:bold;
   height:60px;
   display:flex;

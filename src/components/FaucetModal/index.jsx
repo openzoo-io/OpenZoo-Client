@@ -105,12 +105,14 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
         </div>
       </div>
       {!claiming && (
+        <center>
         <ReCAPTCHA
           sitekey="6Le8yuUdAAAAAJfotzhCSA7_iT7-RAOPrkAz3dZv"
           onChange={onRecaptchaSuccess}
           onErrored={onRecaptchaError}
           size="normal"
         />
+        </center>
       )}
     </Modal>
   );
