@@ -178,7 +178,7 @@ const AuctionModal = ({
         <div className={styles.formLabel}>
           Reserve Price&nbsp;
           <BootstrapTooltip
-            title="Reserve price is your desired one you want to get from this auction."
+            title="Reserve price is the minimum bid you are willing to accept for this auction."
             placement="top"
           >
             <HelpOutlineIcon />

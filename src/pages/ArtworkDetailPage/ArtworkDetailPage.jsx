@@ -87,7 +87,7 @@ import usePrevious from 'hooks/usePrevious';
 import styles from './styles.module.scss';
 
 import { AssetCard } from 'components/NFTAssetCard/AssetCard';
-import useMetaTags from 'react-metatags-hook';
+
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -178,12 +178,6 @@ export function ArtworkDetailPage() {
 
   const { addr: address, id: tokenID, bundleID } = useParams();
 
-
-
-  useMetaTags({
-    title: `In NFT Detail`,
-    
-  }, [address])
 
 
   const { getTokenByAddress, tokens } = useTokens();
