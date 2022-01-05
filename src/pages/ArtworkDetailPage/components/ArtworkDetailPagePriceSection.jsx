@@ -256,9 +256,10 @@ export function ArtworkDetailPagePriceSection(props) {
                     )}
                   </div>
                 ) : null}
+                
                 {!bundleID &&
                   (!auction.current || !auction.current.resulted) &&
-                  !hasListing &&
+                  !hasListing && !bid &&
                   tokenType.current !== 1155 && (
                     <div
                       className={cx(
