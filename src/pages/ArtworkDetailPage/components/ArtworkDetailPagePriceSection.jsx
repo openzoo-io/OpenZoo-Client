@@ -235,7 +235,12 @@ export function ArtworkDetailPagePriceSection(props) {
             <div></div>
             {isMine && (
               <>
-                {auction.current?.resulted === false ? (
+              {
+                (!auctionEnded && bid?.bid >= auction.current?.reservePrice) && (
+                  <p>Reserve price met. Auction cannot be cancelled</p>
+                )
+              }
+                {auction.current?.resulted === false && ((!auctionEnded && (bid?.bid < auction.current.reservePrice || !bid)) || (auctionEnded && (bid?.bid >= auction.current.reservePrice))) ? (
                   <div
                     className={cx(
                       'btn btn-warning btn-lg rounded-20',
