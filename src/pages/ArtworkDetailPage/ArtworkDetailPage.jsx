@@ -2937,9 +2937,9 @@ export function ArtworkDetailPage() {
                           (!auctionActive() &&
                           bid?.bidder?.toLowerCase() === account?.toLowerCase()
                             ? now.getTime() / 1000 <
-                                auction?.current?.endTime + 43200 && (
+                                auction?.current?.endTime + 86400 && (
                                 <p style={{marginTop:5}}>
-                                  <FontAwesomeIcon icon={faExclamationTriangle}/> You can withdraw your bidded amount within {formatDuration((auction?.current?.endTime + 43200))}
+                                  <FontAwesomeIcon icon={faExclamationTriangle}/> You can withdraw your bidded amount within {formatDuration((auction?.current?.endTime + 86400))}
                                 </p>
                               )
                             : (<></>))}
@@ -2948,7 +2948,7 @@ export function ArtworkDetailPage() {
                           (!auctionActive() &&
                           bid?.bidder?.toLowerCase() === account?.toLowerCase()
                             ? now.getTime() / 1000 >=
-                                auction?.current?.endTime + 43200 && (
+                                auction?.current?.endTime + 86400 && (
                                 <div
                                   className={`${cx(
                                     styles.withdrawBid,
