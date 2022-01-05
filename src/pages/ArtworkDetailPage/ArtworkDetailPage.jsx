@@ -32,6 +32,7 @@ import {
   getRandomIPFS,
 } from 'utils';
 import axios from 'axios';
+import Helmet from 'react-helmet';
 
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
@@ -52,7 +53,10 @@ import {
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEye,
+  faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
 import {
@@ -87,7 +91,6 @@ import usePrevious from 'hooks/usePrevious';
 import styles from './styles.module.scss';
 
 import { AssetCard } from 'components/NFTAssetCard/AssetCard';
-
 
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
@@ -177,8 +180,6 @@ export function ArtworkDetailPage() {
   } = useBundleSalesContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
-
-
 
   const { getTokenByAddress, tokens } = useTokens();
 
@@ -400,7 +401,7 @@ export function ArtworkDetailPage() {
           uri,
           hasUnlockable: _hasUnlockable,
           thumbnailPath,
-          owner
+          owner,
         },
       } = await fetchItemDetails(address, tokenID);
 
@@ -428,11 +429,9 @@ export function ArtworkDetailPage() {
       try {
         tokenType.current = type;
         if (type === 721) {
-         // const contract = await getERC721Contract(address);
+          // const contract = await getERC721Contract(address);
           // In Auction //
-          const res = auction?.current?.owner
-            ? auction.current.owner
-            : owner
+          const res = auction?.current?.owner ? auction.current.owner : owner;
 
           setOwner(res);
         } else if (type === 1155) {
@@ -441,7 +440,7 @@ export function ArtworkDetailPage() {
           try {
             const { data: _holders } = await getTokenHolders(address, tokenID);
             setHolders(_holders);
-            console.log('init holder',_holders);
+            console.log('init holder', _holders);
           } catch {
             setHolders([]);
           }
@@ -468,7 +467,7 @@ export function ArtworkDetailPage() {
         data.name = data[Object.keys(data)[0]].name;
         data.description = data[Object.keys(data)[0]].description;
       }
-      
+
       // Sync when content type is media and have animation url //
       if (contentType.current === 'image' && data.animation_url) {
         let contentType = 'image';
@@ -524,7 +523,7 @@ export function ArtworkDetailPage() {
           }
         }
       }
-      
+
       setInfo(data);
     } catch (err) {
       console.log('!2 222222', err);
@@ -741,9 +740,6 @@ export function ArtworkDetailPage() {
     }
   };
 
-  
-
-
   const itemSoldHandler = async (
     seller,
     buyer,
@@ -766,7 +762,7 @@ export function ArtworkDetailPage() {
         const { data: _holders } = await getTokenHolders(address, tokenID);
         console.log('previous holders', _holders);
         const newHolders = [..._holders];
-        
+
         const sellerIndex = newHolders.findIndex(
           holder => holder.address.toLowerCase() === seller.toLowerCase()
         );
@@ -1284,12 +1280,11 @@ export function ArtworkDetailPage() {
     } else {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
-      
+
       getItemDetails(); // TODO: Need to optimize
-      
+
       getAuctions().then(() => {
         getBid();
-        
       });
 
       increaseViewCount(address, tokenID).then(({ data }) => {
@@ -1655,8 +1650,7 @@ export function ArtworkDetailPage() {
       ? owner?.toLowerCase() === account?.toLowerCase()
       : !!myHolding;
 
-  const handleBurn = async (to) => {
-
+  const handleBurn = async to => {
     if (burning) return;
 
     setBurning(true);
@@ -1918,7 +1912,7 @@ export function ArtworkDetailPage() {
     try {
       setBuyingItem(true);
       const _price = listing.price; //TODO: later * listing.quantity; real quantity
-      
+
       if (listing.token.address === '') {
         const price = ethers.utils.parseEther(_price.toString());
 
@@ -2579,8 +2573,18 @@ export function ArtworkDetailPage() {
     );
   }
 
+  console.log(info);
   return (
     <div className="overflow-hidden artwork_detail_page">
+      <Helmet>
+        <meta name="description" content={info.description} />
+        <meta property="og:title" content={info.name} />
+        <meta property="og:description" content={info.description} />
+        <meta
+          property="twitter:image"
+          content={info.animation_url ? info.animation_url : info?.image}
+        />
+      </Helmet>
       <Header />
       <div className="container">
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
@@ -2591,7 +2595,6 @@ export function ArtworkDetailPage() {
             <div className="col-lg-6">
               <div className="space-y-20">
                 <div className={styles.artworkMinHeight}>
-                  
                   <ArtworkMediaView
                     className="item_img"
                     image={
@@ -2932,17 +2935,23 @@ export function ArtworkDetailPage() {
                           </div>
                         )}
 
-
                         {!isMine &&
                           (!auctionActive() &&
-                          bid?.bidder?.toLowerCase() === account?.toLowerCase()
-                            ? now.getTime() / 1000 <
-                                auction?.current?.endTime + 43200 && (
-                                <p style={{marginTop:5}}>
-                                  <FontAwesomeIcon icon={faExclamationTriangle}/> You can withdraw your bidded amount within {formatDuration((auction?.current?.endTime + 43200))}
-                                </p>
-                              )
-                            : (<></>))}
+                          bid?.bidder?.toLowerCase() ===
+                            account?.toLowerCase() ? (
+                            now.getTime() / 1000 <
+                              auction?.current?.endTime + 43200 && (
+                              <p style={{ marginTop: 5 }}>
+                                <FontAwesomeIcon icon={faExclamationTriangle} />{' '}
+                                You can withdraw your bidded amount within{' '}
+                                {formatDuration(
+                                  auction?.current?.endTime + 43200
+                                )}
+                              </p>
+                            )
+                          ) : (
+                            <></>
+                          ))}
 
                         {!isMine &&
                           (!auctionActive() &&
