@@ -827,7 +827,7 @@ combination of each.
           </div>
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
-              Optional IP Right document&nbsp;
+            IP Rights Document (Optional)&nbsp;
               <BootstrapTooltip
                 title="Link to the document which proves your ownership of this image."
                 placement="top"
