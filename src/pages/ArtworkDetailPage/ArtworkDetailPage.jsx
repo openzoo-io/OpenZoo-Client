@@ -2586,10 +2586,6 @@ export function ArtworkDetailPage() {
         <meta name="description" content={info.description} />
         <meta property="og:title" content={info.name} />
         <meta property="og:description" content={info.description} />
-        <meta
-          property="twitter:card"
-          content={info.animation_url ? info.animation_url : info?.image}
-        />
         <meta property="twitter:image" content={info.animation_url ? info.animation_url : info?.image} />
       </Helmet>
       <Header />
