@@ -134,7 +134,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build"
+    "build": "react-app-rewired build",
+    "server": "npm run build && node ./server/index"
   },
   "eslintConfig": {
     "extends": "react-app"
