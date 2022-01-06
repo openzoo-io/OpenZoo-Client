@@ -1174,17 +1174,18 @@
 
 canvas {
   max-height: 676px !important;
-  max-width: 100% !important;
+  max-width: 676px !important;
+  aspect-ratio: 1;
   background: white !important;
   height: 100% !important;
   border-radius: 20px;
-  border: solid 1px #e2eef1;
+
 }
 
 :global .is__dark {
   :local {
     canvas {
-      background: #4d4d4d !important;
+      background: #111 !important;
     }
   }
 }

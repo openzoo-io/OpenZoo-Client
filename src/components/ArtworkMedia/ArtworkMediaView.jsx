@@ -106,7 +106,8 @@ export function ArtworkMediaView(props) {
       <div
         style={{
           maxHeight: 676,
-          height: 515,
+          maxWidth: 676,
+          aspectRatio: 1,
           boxShadow: '3px 3px 1px 1px rgba(0, 0, 0, 0.05)',
           borderRadius: 20,
         }}
