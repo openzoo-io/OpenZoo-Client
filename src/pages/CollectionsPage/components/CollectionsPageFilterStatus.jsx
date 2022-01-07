@@ -1,9 +1,10 @@
-import { FilterMenu } from 'components/FilterMenu';
+//import { FilterMenu } from 'components/FilterMenu';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DropdownButton } from 'components/DropdownButton/DropdownButton';
-import { useState } from 'react';
+//import { useState } from 'react';
 
+/*
 const filterStatusItems = [
   {
     value: 'onlyVerified',
@@ -29,23 +30,31 @@ const categorySortByItems = [
     label: 'CATEGORY 3',
   },
 ];
-
+*/
 const sortByItems = [
   {
     id: '',
     label: 'Order by',
   },
   {
-    id: 'price',
-    label: 'PRICE',
+    id: 'name',
+    label: 'Name',
   },
   {
-    id: 'order2',
-    label: 'Order 2',
+    id: 'item',
+    label: 'Item numbers',
   },
   {
-    id: 'order3',
-    label: 'Order 3',
+    id: 'popularity',
+    label: 'Popularity',
+  },
+  {
+    id: 'owner',
+    label: 'Number of owners',
+  },
+  {
+    id: 'created',
+    label: 'Date created',
   },
 ];
 
@@ -55,25 +64,28 @@ const propTypes = {
 };
 
 export function CollectionsPageFilterStatus(props) {
-  const [categorySortedBy, setCategorySortedBy] = useState(categorySortByItems[0]);
-  const [sortedBy, setSortedBy] = useState(sortByItems[0]);
+  //const [categorySortedBy, setCategorySortedBy] = useState(categorySortByItems[0]);
 
+/*
   const handleOnFilterChange = values => {
     console.log(values);
     props.onFilterChange?.(values);
   };
 
+  
   const handleCategoryOnSelectSortBy = value => {
     setCategorySortedBy(value);
     props.onCategorySortChange?.(value);
   };
-
+*/
   const handleOnSelectSortBy = value => {
-    setSortedBy(value);
+    props.setSortedBy(value);
   };
 
   return (
     <div className="row justify-content-between align-items-center">
+      <div className="col-lg-auto"></div>
+      {/*
       <div className="col-lg-auto">
         <FilterMenu
           title=""
@@ -84,19 +96,22 @@ export function CollectionsPageFilterStatus(props) {
           onChange={handleOnFilterChange}
         />
       </div>
+      */}
       {
-      false && <div className="col-lg-auto">
+        <div className="col-lg-auto">
         <div className="d-flex space-x-10 align-items-center sm:mt-20">
+          {/*
           <DropdownButton
             value={categorySortedBy?.id}
             items={categorySortByItems}
-            onClick={handleCategoryOnSelectSortBy}
-          />
+            onClickItem={handleCategoryOnSelectSortBy}
+          />*/
+        }
 
           <DropdownButton
-            value={sortedBy?.id}
+            value={props.sortedBy?.id}
             items={sortByItems}
-            onClick={handleOnSelectSortBy}
+            onClickItem={handleOnSelectSortBy}
           />
         </div>
       </div>

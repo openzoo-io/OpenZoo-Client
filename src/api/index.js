@@ -174,8 +174,15 @@ export const useApi = () => {
   };
 
   // For Colleciton List page //
-  const fetchCollectionList = async () => {
-    const res = await axios.get(`${apiUrl}/info/getCollectionList`);
+  const fetchCollectionList = async (isVerified) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/info/getCollectionList`,
+      data: JSON.stringify({ isVerified }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return res.data;
   };
 
