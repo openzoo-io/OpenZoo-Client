@@ -751,6 +751,16 @@
   display: flex;
   align-items: center;
   flex: 2;
+  div
+  {
+    display: flex;
+    flex-direction: column;
+  }
+  span
+  {
+    font-size:12px;
+    font-weight: normal;
+  }
 }
 
 .saleDate {

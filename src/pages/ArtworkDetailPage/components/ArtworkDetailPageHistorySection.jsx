@@ -8,6 +8,11 @@ import { Link } from 'react-router-dom';
 
 import styles from '../styles.module.scss';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGavel,
+} from '@fortawesome/free-solid-svg-icons';
+
 const filtersItems = [
   { id: 0, label: 'Trade History' },
   { id: 1, label: 'Transfer History' },
@@ -60,9 +65,12 @@ export function ArtworkDetailPageHistorySection(props) {
               {filtersItems[0].label}
             </button>
             <div
-              style={{ borderRight: '1px solid rgba(255, 255, 255, 0.1)', margin: '5px 0' }}
+              style={{
+                borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+                margin: '5px 0',
+              }}
             ></div>
-            {!bundleID && (
+            {!bundleID && tokenType.current !== 1155 && (
               <button
                 className={cx(
                   styles.tradeHistoryButton,
@@ -132,8 +140,12 @@ export function ArtworkDetailPageHistorySection(props) {
                           src={history.token?.icon}
                           className={styles.tokenIcon}
                         />
-                        {formatNumber(history.price)}
-                        &nbsp;(${formatNumber(history.priceInUSD.toFixed(3))})
+                        <div>
+                          <a>{formatNumber(history.price)} {history.isAuction === true ? <FontAwesomeIcon icon={faGavel}/> : '' }</a>
+                          <span>
+                            (${formatNumber(history.priceInUSD.toFixed(3))})
+                          </span>
+                        </div>
                       </>
                     ) : (
                       <Skeleton width={100} height={20} />
