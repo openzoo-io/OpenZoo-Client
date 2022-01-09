@@ -15,8 +15,9 @@ export function CollectionsPage() {
   } = useSelector(state => state.Filter);
 
   useEffect(() => {
+    if (typeof onlyVerified === 'undefined') return;
     setCollections([]);
-    getAllCollections();
+      getAllCollections();
   }, [onlyVerified]);
 
 

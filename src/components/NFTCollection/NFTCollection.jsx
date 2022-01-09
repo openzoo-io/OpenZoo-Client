@@ -4,7 +4,7 @@ import { getRandomIPFS } from 'utils';
 
 import { Link } from 'react-router-dom';
 
-import { shortenAddress, formatNumber } from 'utils';
+import { shortenAddress, formatNumber, formatUSD } from 'utils';
 import { Categories } from 'constants/filter.constants';
 export function NFTCollection(props) {
   const {
@@ -18,6 +18,8 @@ export function NFTCollection(props) {
     categories,
     item_count,
     owner_count,
+    floor_price,
+    traded_volume,
     collectionType,
   } = props.item;
 
@@ -96,6 +98,14 @@ export function NFTCollection(props) {
           <div className="stat-card">
             <h2 className="color_brand">{formatNumber(owner_count)}</h2>
             <span className="txt_xs color_text">owners</span>
+          </div>
+          <div className="stat-card">
+            <h2 className="color_brand">{formatUSD(floor_price,2)}</h2>
+            <span className="txt_xs color_text">floor price</span>
+          </div>
+          <div className="stat-card">
+            <h2 className="color_brand">{formatUSD(traded_volume,2)}</h2>
+            <span className="txt_xs color_text">volume traded</span>
           </div>
         </div>
       </div>
