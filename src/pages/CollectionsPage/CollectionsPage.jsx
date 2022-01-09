@@ -20,13 +20,38 @@ export function CollectionsPage() {
       getAllCollections();
   }, [onlyVerified]);
 
-
+  function shuffleArray(array) {
+    let i = array.length - 1;
+    for (; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
 
   const getAllCollections = async () => {
     setLoading(true);
     const res = await fetchCollectionList(onlyVerified);
     if (res.status === 'success') {
-      setCollections(res.data);
+      let official = [];
+      let nonofficial = [];
+      
+      res.data.map(item => {
+        if (item.address === '0x992e4447f470ea47819d677b84d2459677bfdadf' || item.address === '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' || item.address === '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c')
+        {
+          official.push(item);
+        }
+        else
+        {
+          nonofficial.push(item);
+        }
+      });
+
+      nonofficial = shuffleArray(nonofficial);
+
+      setCollections([...official, ...nonofficial]);
       setLoading(false);
     }
   };
