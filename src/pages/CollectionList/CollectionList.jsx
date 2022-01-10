@@ -29,7 +29,6 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
 import { Link, useHistory } from 'react-router-dom';
-import {Helmet} from "react-helmet";
 export function CollectionList() {
   const {
     fetchCollection,
@@ -366,17 +365,6 @@ export function CollectionList() {
   }
   return (
     <>
-      <Helmet>
-        <title>{collectionData?.collectionName + ' | OpenZoo'}</title>
-        <meta name="description" content={collectionData?.description} />
-        <meta property="og:title" content={collectionData?.collectionName + ' | OpenZoo'} />
-        <meta property="og:description" content={collectionData?.description} />
-        <meta property="og:image" content={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={collectionData?.collectionName + ' | OpenZoo'} />
-        <meta name="twitter:description" content={collectionData?.description} />
-        <meta name="twitter:image" content={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`} />
-      </Helmet>
       <PageLayout
         ref={conRef}
         cover={

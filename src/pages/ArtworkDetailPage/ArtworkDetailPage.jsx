@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions,  no-unused-vars */
 import { Footer } from 'components/Footer';
 import Header from 'components/header';
-import {Helmet} from "react-helmet";
+
 import React, {
   useEffect,
   useState,
@@ -2582,17 +2582,6 @@ export function ArtworkDetailPage() {
 
   return (
     <div className="overflow-hidden artwork_detail_page">
-      <Helmet>
-        <title>{info?.name + ' | OpenZoo'}</title>
-        <meta name="description" content={collection?.collectionName} />
-        <meta property="og:title" content={info?.name + ' | OpenZoo'} />
-        <meta property="og:description" content={collection?.collectionName} />
-        <meta property="og:image" content={info?.image} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={info?.name + ' | OpenZoo'} />
-        <meta name="twitter:description" content={collection?.collectionName} />
-        <meta name="twitter:image" content={info?.image} />
-      </Helmet>
       <Header />
       <div className="container">
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
