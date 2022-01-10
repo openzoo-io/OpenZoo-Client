@@ -461,9 +461,9 @@ export function CollectionList() {
                           <FontAwesomeIcon icon={faMedium} />
                         </a>
                       )}
-                      {collectionData.faInstagram && (
+                      {collectionData.instagramHandle && (
                         <a
-                          href={collectionData.faInstagram}
+                          href={collectionData.instagramHandle}
                           className={styles.external}
                           target="_blank"
                           rel="noreferrer"
