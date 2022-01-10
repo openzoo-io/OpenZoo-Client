@@ -29,6 +29,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
 import { Link, useHistory } from 'react-router-dom';
+import {Helmet} from "react-helmet";
 export function CollectionList() {
   const {
     fetchCollection,
@@ -114,25 +115,21 @@ export function CollectionList() {
   }, [addr]);
 
   const [ownerInfo, setOwnerInfo] = useState(null);
- 
-  const getOwnerInfo = async (owner) => {
-   
+
+  const getOwnerInfo = async owner => {
     try {
       const { data } = await getUserAccountDetails(owner);
       setOwnerInfo(data);
     } catch {
       setOwnerInfo(null);
     }
-   
   };
-  useEffect(()=>{
-    if (collectionData?.owner)
-    {
+  useEffect(() => {
+    if (collectionData?.owner) {
       getOwnerInfo(collectionData?.owner);
     }
-  },[collectionData?.owner])
+  }, [collectionData?.owner]);
 
-  
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
@@ -161,8 +158,6 @@ export function CollectionList() {
         return;
       }
       setCollectionData(cRes.data);
-
-      
 
       let statisticRes = await fetchCollectionStatistic(addr);
       setCollectionStatisticData(statisticRes.data);
@@ -370,191 +365,208 @@ export function CollectionList() {
     ev.target.src = '/notfound.png';
   }
   return (
-    <PageLayout
-      ref={conRef}
-      cover={
-        <>
-          <div className="hero_marketplace bg_white">
-            <div className="container">
-              <div className="col-lg-6">
-                <div className={styles.collectionDescription}>
-                  <div className={styles.logo}>
-                    <img
-                      onError={addDefaultSrc}
-                      src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
-                    />
-                  </div>
-                  <div>
-                    <h1>
-                      {collectionData?.collectionName}{' '}
-                      {collectionData?.isVerified && (
-                        <img src="/verified.svg" />
-                      )}
-                    </h1>
-                    <div className={styles.ownedby}>
-                      created by{' '}
-                      <Link
-                        to={`/account/${collectionData?.owner}`}
-                        className="creators space-x-10"
-                      >
-                        {ownerInfo?.alias || shortenAddress(collectionData?.owner)}
-                      </Link>
+    <>
+      <Helmet>
+        <title>{collectionData?.collectionName + ' | OpenZoo'}</title>
+        <meta name="description" content={collectionData?.description} />
+        <meta property="og:title" content={collectionData?.collectionName + ' | OpenZoo'} />
+        <meta property="og:description" content={collectionData?.description} />
+        <meta property="og:image" content={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={collectionData?.collectionName + ' | OpenZoo'} />
+        <meta name="twitter:description" content={collectionData?.description} />
+        <meta name="twitter:image" content={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`} />
+      </Helmet>
+      <PageLayout
+        ref={conRef}
+        cover={
+          <>
+            <div className="hero_marketplace bg_white">
+              <div className="container">
+                <div className="col-lg-6">
+                  <div className={styles.collectionDescription}>
+                    <div className={styles.logo}>
+                      <img
+                        onError={addDefaultSrc}
+                        src={`https://openzoo.mypinata.cloud/ipfs/${collectionData?.logoImageHash}`}
+                      />
                     </div>
-                  
-                    <div className={styles.links}>
-                      <a
-                        href={explorerUrl + (collectionType === 721 ? '/token/' :'/address/') + addr}
-                        className={styles.address}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {shortenAddress(addr)}{' '}
-                        <FontAwesomeIcon icon={faLocationArrow} />
-                      </a>
-                      {collectionData.siteUrl && (
-                        <a
-                          href={collectionData.siteUrl}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
+                    <div>
+                      <h1>
+                        {collectionData?.collectionName}{' '}
+                        {collectionData?.isVerified && (
+                          <img src="/verified.svg" />
+                        )}
+                      </h1>
+                      <div className={styles.ownedby}>
+                        created by{' '}
+                        <Link
+                          to={`/account/${collectionData?.owner}`}
+                          className="creators space-x-10"
                         >
-                          <FontAwesomeIcon icon={faGlobe} />
-                        </a>
-                      )}
-                      {collectionData.twitterHandle && (
-                        <a
-                          href={collectionData.twitterHandle}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FontAwesomeIcon icon={faTwitter} />
-                        </a>
-                      )}
-                      {collectionData.telegram && (
-                        <a
-                          href={collectionData.telegram}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FontAwesomeIcon icon={faTelegramPlane} />
-                        </a>
-                      )}
-                      {collectionData.discord && (
-                        <a
-                          href={collectionData.discord}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FontAwesomeIcon icon={faDiscord} />
-                        </a>
-                      )}
-                      {collectionData.mediumHandle && (
-                        <a
-                          href={collectionData.mediumHandle}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FontAwesomeIcon icon={faMedium} />
-                        </a>
-                      )}
-                      {collectionData.instagramHandle && (
-                        <a
-                          href={collectionData.instagramHandle}
-                          className={styles.external}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <FontAwesomeIcon icon={faInstagram} />
-                        </a>
-                      )}
-                    </div>
-                    <div className={styles.linksAlt}>
-                      
-                      {collectionType === 721 ? (
-                        <div className={styles.bullet}>SINGLE TOKEN 721</div>
-                      ) : (
-                        <div className={styles.bullet}>MULTI TOKEN 1155</div>
-                      )}
+                          {ownerInfo?.alias ||
+                            shortenAddress(collectionData?.owner)}
+                        </Link>
+                      </div>
 
-                      {collectionData.categories &&
-                        Categories &&
-                        Categories.map(v => {
-                          if (collectionData.categories.includes(v.id + '')) {
-                            return (
-                              <div className={styles.bullet}>{v.label}</div>
-                            );
+                      <div className={styles.links}>
+                        <a
+                          href={
+                            explorerUrl +
+                            (collectionType === 721 ? '/token/' : '/address/') +
+                            addr
                           }
-                        })}
+                          className={styles.address}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {shortenAddress(addr)}{' '}
+                          <FontAwesomeIcon icon={faLocationArrow} />
+                        </a>
+                        {collectionData.siteUrl && (
+                          <a
+                            href={collectionData.siteUrl}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faGlobe} />
+                          </a>
+                        )}
+                        {collectionData.twitterHandle && (
+                          <a
+                            href={collectionData.twitterHandle}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faTwitter} />
+                          </a>
+                        )}
+                        {collectionData.telegram && (
+                          <a
+                            href={collectionData.telegram}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faTelegramPlane} />
+                          </a>
+                        )}
+                        {collectionData.discord && (
+                          <a
+                            href={collectionData.discord}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faDiscord} />
+                          </a>
+                        )}
+                        {collectionData.mediumHandle && (
+                          <a
+                            href={collectionData.mediumHandle}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faMedium} />
+                          </a>
+                        )}
+                        {collectionData.instagramHandle && (
+                          <a
+                            href={collectionData.instagramHandle}
+                            className={styles.external}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <FontAwesomeIcon icon={faInstagram} />
+                          </a>
+                        )}
+                      </div>
+                      <div className={styles.linksAlt}>
+                        {collectionType === 721 ? (
+                          <div className={styles.bullet}>SINGLE TOKEN 721</div>
+                        ) : (
+                          <div className={styles.bullet}>MULTI TOKEN 1155</div>
+                        )}
+
+                        {collectionData.categories &&
+                          Categories &&
+                          Categories.map(v => {
+                            if (collectionData.categories.includes(v.id + '')) {
+                              return (
+                                <div className={styles.bullet}>{v.label}</div>
+                              );
+                            }
+                          })}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className={styles.collectionDescription}>
-                  <div className="box">
-                    <span>
-                      {collectionStatisticData.countNFT
-                        ? formatNumber(collectionStatisticData.countNFT)
-                        : 'N/A'}
-                    </span>
-                    items
-                  </div>
+                  <div className={styles.collectionDescription}>
+                    <div className="box">
+                      <span>
+                        {collectionStatisticData.countNFT
+                          ? formatNumber(collectionStatisticData.countNFT)
+                          : 'N/A'}
+                      </span>
+                      items
+                    </div>
 
-                  <div className="box">
-                    <span>
-                      {collectionStatisticData.countOwner
-                        ? formatNumber(collectionStatisticData.countOwner)
-                        : 'N/A'}
-                    </span>
-                    owners
-                  </div>
+                    <div className="box">
+                      <span>
+                        {collectionStatisticData.countOwner
+                          ? formatNumber(collectionStatisticData.countOwner)
+                          : 'N/A'}
+                      </span>
+                      owners
+                    </div>
 
-                  <div className="box">
-                    <span>
-                      {collectionStatisticData.floorPrice
-                        ? formatUSD(collectionStatisticData.floorPrice, 2)
-                        : 'N/A'}
-                    </span>
-                    floor price
-                  </div>
+                    <div className="box">
+                      <span>
+                        {collectionStatisticData.floorPrice
+                          ? formatUSD(collectionStatisticData.floorPrice, 2)
+                          : 'N/A'}
+                      </span>
+                      floor price
+                    </div>
 
-                  <div className="box">
-                    <span>
-                      {collectionStatisticData.volumeTraded
-                        ? formatUSD(collectionStatisticData.volumeTraded, 2)
-                        : 'N/A'}
-                    </span>
-                    volume traded
+                    <div className="box">
+                      <span>
+                        {collectionStatisticData.volumeTraded
+                          ? formatUSD(collectionStatisticData.volumeTraded, 2)
+                          : 'N/A'}
+                      </span>
+                      volume traded
+                    </div>
                   </div>
-                </div>
-                <div className={styles.collectionDescription}>
-                  <p>{collectionData?.description}</p>
+                  <div className={styles.collectionDescription}>
+                    <p>{collectionData?.description}</p>
+                  </div>
                 </div>
               </div>
             </div>
+            {/*<ExplorePageFilterCategorySection />*/}
+          </>
+        }
+      >
+        <div className="section mt-40">
+          <div className="section__head">
+            {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
+            <ExplorePageFillterStatus />
           </div>
-          {/*<ExplorePageFilterCategorySection />*/}
-        </>
-      }
-    >
-      <div className="section mt-40">
-        <div className="section__head">
-          {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
-          <ExplorePageFillterStatus />
         </div>
-      </div>
 
-      <div ref={ref} style={{ paddingBottom: 60 }}>
-        <ExplorePageArtworksSection
-          items={tokens}
-          category={category}
-          count={count}
-          loading={downFetching}
-          onReachBottom={handleOnReachArtworksBottom}
-        />
-      </div>
-    </PageLayout>
+        <div ref={ref} style={{ paddingBottom: 60 }}>
+          <ExplorePageArtworksSection
+            items={tokens}
+            category={category}
+            count={count}
+            loading={downFetching}
+            onReachBottom={handleOnReachArtworksBottom}
+          />
+        </div>
+      </PageLayout>
+    </>
   );
 }

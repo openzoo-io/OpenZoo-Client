@@ -2583,12 +2583,15 @@ export function ArtworkDetailPage() {
   return (
     <div className="overflow-hidden artwork_detail_page">
       <Helmet>
-          <meta charSet="utf-8" />
-          <title>{info?.name} - OpenZoo</title>
-          <meta name="description" content={`${info?.description ?? '-'}`}/>
-          <meta property="og:title" content={info?.name+" - OpenZoo"} />
-          <meta property="og:description" content={`${info?.description ?? '-'}`} />
-          <meta property="twitter:image" content={info?.image} />
+        <title>{info?.name + ' | OpenZoo'}</title>
+        <meta name="description" content={collection?.collectionName} />
+        <meta property="og:title" content={info?.name + ' | OpenZoo'} />
+        <meta property="og:description" content={collection?.collectionName} />
+        <meta property="og:image" content={info?.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={info?.name + ' | OpenZoo'} />
+        <meta name="twitter:description" content={collection?.collectionName} />
+        <meta name="twitter:image" content={info?.image} />
       </Helmet>
       <Header />
       <div className="container">
