@@ -20,7 +20,7 @@ export default () => {
       } else {
         const provider = new ethers.providers.JsonRpcProvider(
           isMainnet
-            ? 'https://gwan-ssl.wandevs.org:56891'
+            ? 'https://rpc.zookeeper.finance/'
             : 'https://rpc.zookeeper.finance/testnet',
           isMainnet ? 888 : 999
         );

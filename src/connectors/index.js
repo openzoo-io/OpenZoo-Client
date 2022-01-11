@@ -11,7 +11,7 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-      [888]: 'https://gwan-ssl.wandevs.org:56891',
+      [888]: 'https://rpc.zookeeper.finance',
     }
   : {
       [999]: 'https://rpc.zookeeper.finance/testnet',
