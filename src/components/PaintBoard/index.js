@@ -695,7 +695,7 @@ combination of each.
             <p className={styles.formLabel}>
               Royalty (%)&nbsp;
               <BootstrapTooltip
-                title="If you set a royalty here, you will get X percent of sales price each time an NFT is sold on our platform."
+                title="If you set a royalty here, you will receive x percent of future resales of this NFT."
                 placement="top"
               >
                 <HelpOutlineIcon />
