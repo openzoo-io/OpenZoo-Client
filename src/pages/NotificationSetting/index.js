@@ -301,17 +301,19 @@ const NotificationSetting = () => {
                 />
               ))}
             </div>
+            <div className={styles.buttonsWrapper}>
+              <div
+                className={cx(styles.createButton, saving && styles.disabled)}
+                onClick={!saving ? handleSave : null}
+              >
+                {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save Settings'}
+              </div>
+            </div>
           </div>
+
         </div>
 
-        <div className={styles.buttonsWrapper}>
-          <div
-            className={cx(styles.createButton, saving && styles.disabled)}
-            onClick={!saving ? handleSave : null}
-          >
-            {saving ? <ClipLoader color="#FFF" size={16} /> : 'Save Settings'}
-          </div>
-        </div>
+
       </div>
     </PageLayout>
   );
