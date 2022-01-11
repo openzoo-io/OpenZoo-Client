@@ -32,10 +32,10 @@ const categorySortByItems = [
 ];
 */
 const sortByItems = [
-  {
-    id: '',
-    label: 'Order by',
-  },
+  // {
+  //   id: '',
+  //   label: 'Order by',
+  // },
   {
     id: 'name',
     label: 'Name',

@@ -174,11 +174,11 @@ export const useApi = () => {
   };
 
   // For Colleciton List page //
-  const fetchCollectionList = async (isVerified) => {
+  const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/info/getCollectionList`,
-      data: JSON.stringify({ isVerified }),
+      data: JSON.stringify({ isVerified, start, count: _count, sortedBy: sortedBy.id }),
       headers: {
         'Content-Type': 'application/json',
       },
