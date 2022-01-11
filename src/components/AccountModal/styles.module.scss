@@ -138,10 +138,10 @@
 
 .upload {
   position: absolute;
-  width: 37px;
-  height: 37px;
-  bottom: 4px;
-  right: -4px;
+  width: 32px;
+  height: 32px;
+  bottom: 0px;
+  right: -8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 100%;
   background-color: #fff;
@@ -149,12 +149,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  
+}
+
+.upload svg, .upload path
+{
+  color:#00a59a !important;
 }
 
 .uploadIcon {
   width: 24px;
   height: 24px;
-  color: #00a59a;
+
 }
 
 .disabled {
