@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
+import  warned  from 'constants/warned.collections';
+import BootstrapTooltip from 'components/BootstrapTooltip';
 // import { formatNumber } from 'utils';
 import cx from 'classnames';
 import { ArtworkMediaView } from 'components/ArtworkMedia';
@@ -16,6 +18,7 @@ import {
   faVideo,
   faCubes,
   faGavel,
+  faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
@@ -213,6 +216,10 @@ export function AssetCardFour(props) {
             >
               {collection?.collectionName || collection?.name}
               {collection?.isVerified && <img src="/verified.svg" />}
+              {warned.includes(item?.contractAddress) ? <BootstrapTooltip
+                  title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
+                  placement="top"
+                ><a className="text-danger"><FontAwesomeIcon icon={faExclamationTriangle} /></a></BootstrapTooltip> : ''}
             </Link>
             <Link to={assetUrl} className={'color_black'}>
               {info?.name || item?.name}

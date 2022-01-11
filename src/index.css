@@ -359,3 +359,28 @@ input[type='number'] {
   font-weight:normal;
   
 }
+
+.card__item .card_title a.text-danger svg
+{
+  color:#dc3545;
+}
+
+.card__item .card_title a.text-danger path
+{
+  color:#dc3545;
+}
+
+.is__dark .alert-danger
+{
+  color:#842029 !important
+}
+
+.is__dark .alert-danger b
+{
+  color:#842029 !important
+}
+
+.is__dark .alert-danger path
+{
+  color:#842029 !important
+}

@@ -18,8 +18,9 @@ import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
 import { shortenAddress, formatUSD, formatNumber } from 'utils';
+import  warned  from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationArrow, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faLocationArrow, faGlobe, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import {
   faTwitter,
   faTelegramPlane,
@@ -371,6 +372,9 @@ export function CollectionList() {
           <>
             <div className="hero_marketplace bg_white">
               <div className="container">
+                {
+                warned.includes(addr) && <div className="alert alert-danger"><b><FontAwesomeIcon icon={faExclamationTriangle} /> Warning:</b> This content has been flagged by the OpenZoo Team as suspicious.</div>
+                }
                 <div className="col-lg-6">
                   <div className={styles.collectionDescription}>
                     <div className={styles.logo}>
