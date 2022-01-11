@@ -5,6 +5,13 @@ import { NFTCollection } from 'components/NFTCollection';
 import { useSelector } from 'react-redux';
 import { useApi } from 'api';
 import Loader from 'react-loader-spinner';
+const stickylist = [
+  '0x992e4447f470ea47819d677b84d2459677bfdadf',
+  '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6',
+  '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
+]
+
+
 export function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
@@ -75,15 +82,13 @@ export function CollectionsPage() {
 
     const res = await fetchCollectionList(onlyVerified, start, _count, sortedBy);
     if (res.status === 'success') {
-      //let official = [];
-      // let nonofficial = [];
+      let official = [];
+      let nonofficial = [];
 
-      /*
+      
       res.data.collections.map(item => {
         if (
-          item.address === '0x992e4447f470ea47819d677b84d2459677bfdadf' ||
-          item.address === '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' ||
-          item.address === '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
+          stickylist.indexOf(item.address) !== -1
         ) {
           official.push(item);
         } else {
@@ -91,11 +96,11 @@ export function CollectionsPage() {
         }
       });
 
-      nonofficial = shuffleArray(nonofficial);
-      */
+      //nonofficial = shuffleArray(nonofficial);
+      
       setCount(res.data.total);
-      setCollections(res.data.collections);
-      //setCollections([...official, ...nonofficial]);
+      //setCollections(res.data.collections);
+      setCollections([...official, ...nonofficial]);
 
       let _from = from;
       let _to = to;
