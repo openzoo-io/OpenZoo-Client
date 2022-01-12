@@ -1210,6 +1210,7 @@ export function ArtworkDetailPage() {
     }
     setCollectionLoading(false);
   };
+  
 
   const updateCollections = async () => {
     try {
