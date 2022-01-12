@@ -1204,6 +1204,7 @@ export function ArtworkDetailPage() {
     try {
       const { data } = await fetchCollection(address);
       setCollection(data);
+      setCreator(data.owner);
     } catch (err) {
       console.log(err);
     }
@@ -1361,6 +1362,7 @@ export function ArtworkDetailPage() {
   }, [address, tokenID, tokenType.current, filter]);
 
   useEffect(() => {
+
     getCreatorInfo();
   }, [creator]);
 

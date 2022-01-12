@@ -53,7 +53,7 @@ export function ArtworkDetailPageStateSection(props) {
         'p-15 bg_white rounded-20 justify-content-between'
       )}
     >
-      <div className={cx('space-x-10')}>
+      <div className={cx('ml-10 space-y-10')}>
         {(!owner && !tokenType.current)  && 
         <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
           
@@ -127,13 +127,13 @@ export function ArtworkDetailPageStateSection(props) {
                     />
                   ) : (
                     <Identicon
-                      account={owner}
+                      account={creator}
                       size={32}
                       className={styles.avatar}
                     />
                   )}
                 </div>
-                <Link to={`/account/${owner}`} className={styles.ownerName}>
+                <Link to={`/account/${creator}`} className={styles.ownerName}>
                   {isMine ? 'Me' : creatorInfo?.alias || shortenAddress(owner)}
                 </Link>
               </>
