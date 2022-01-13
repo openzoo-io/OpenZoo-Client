@@ -81,7 +81,7 @@ export function CollectionsPage() {
       console.log(collections);
     }
 
-    let fetchCount = 4;
+    let fetchCount = 20;
     let start;
     let _count = fetchCount;
     if (dir !== 0) {
@@ -114,18 +114,19 @@ export function CollectionsPage() {
       
       setCount(res.data.total);
       //setCollections(res.data.collections);
-      setCollections([...collections, ...official, ...nonofficial]);
+      
 
       let _from = from;
       let _to = to;
 
       if (dir > 0) {
-        _to += collections.length + res.data.collections.length;
+        _to += res.data.collections.length;
       }  else {
         _to = _from + res.data.collections.length;
       }
       setFrom(_from);
       setTo(_to);
+      setCollections([...collections, ...official, ...nonofficial]);
       setLoading(false);
     }
   };
