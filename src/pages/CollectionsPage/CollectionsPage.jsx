@@ -5,6 +5,7 @@ import { NFTCollection } from 'components/NFTCollection';
 import { useSelector } from 'react-redux';
 import { useApi } from 'api';
 import Loader from 'react-loader-spinner';
+import { useMemo } from 'react';
 const stickylist = [
   '0x992e4447f470ea47819d677b84d2459677bfdadf',
   '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6',
@@ -26,13 +27,13 @@ export function CollectionsPage() {
   const onReachBottom = () => {
     //if (upFetching || downFetching) return;
     if (loading) return;
-    //getAllCollections(1);
+    getAllCollections(1);
   };
 
   const loadMoreRef = React.useCallback(
     node => {
       console.log(collections.length, count);
-      const hasMore = collections.length !== count; // TODO: Need to check
+      const hasMore = collections.length < count; // TODO: Need to check
       //console.log(props.items.length);
       //console.log(props.count);
       if (loading) return;
@@ -47,9 +48,17 @@ export function CollectionsPage() {
     [collections, count, loading]
   );
 
+  useMemo(()=>{
+    setCollections([]);
+    setFrom(0);
+    setTo(0);
+    setCount(0);
+  },[sortedBy])
+
+
   useEffect(() => {
     if (typeof onlyVerified === 'undefined') return;
-    setCollections([]);
+    
     getAllCollections(0);
   }, [onlyVerified, sortedBy]);
 
@@ -66,16 +75,21 @@ export function CollectionsPage() {
 
   const getAllCollections = async (dir) => {
     setLoading(true);
+
+    if (dir === 0)
+    {
+      console.log(collections);
+    }
+
     let fetchCount = 4;
     let start;
     let _count = fetchCount;
     if (dir !== 0) {
-      _count -= count % 3;
-      start = Math.max(dir < 0 ? from - _count : to, 0);
+      start = to;
     } else {
       start = from;
-      _count = fetchCount * 2;
     }
+    _count = fetchCount * 2;
     if (count !== 0 && start === count) {
       return;
     }
@@ -100,16 +114,14 @@ export function CollectionsPage() {
       
       setCount(res.data.total);
       //setCollections(res.data.collections);
-      setCollections([...official, ...nonofficial]);
+      setCollections([...collections, ...official, ...nonofficial]);
 
       let _from = from;
       let _to = to;
-      const newCount = res.data.collections.length - collections.length;
+
       if (dir > 0) {
-        _to += newCount;
-      } else if (dir < 0) {
-        _from -= newCount;
-      } else {
+        _to += collections.length + res.data.collections.length;
+      }  else {
         _to = _from + res.data.collections.length;
       }
       setFrom(_from);
