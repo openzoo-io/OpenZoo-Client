@@ -22,7 +22,7 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
   const getBalance = async () => {
     
     let [wan] = await Promise.all([
-      await provider.getBalance('0x6bfDD316566e7d2856d667C6ef28Ae632A1f9e62'),
+      await provider.getBalance('0xEdf527D13B4Bc7E5C7da0f57474945a54C79444A'),
     ]);
 
     setFaucetBalance(parseFloat(wan.toString()) / 10 ** 18);
