@@ -81,7 +81,7 @@ export function CollectionsPage() {
       console.log(collections);
     }
 
-    let fetchCount = 20;
+    let fetchCount = 10;
     let start;
     let _count = fetchCount;
     if (dir !== 0) {
