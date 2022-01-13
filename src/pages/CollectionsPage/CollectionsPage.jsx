@@ -6,11 +6,11 @@ import { useSelector } from 'react-redux';
 import { useApi } from 'api';
 import Loader from 'react-loader-spinner';
 import { useMemo } from 'react';
-const stickylist = [
-  '0x992e4447f470ea47819d677b84d2459677bfdadf',
-  '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6',
-  '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
-]
+// const stickylist = [
+//   '0x992e4447f470ea47819d677b84d2459677bfdadf',
+//   '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6',
+//   '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
+// ]
 
 
 export function CollectionsPage() {
@@ -53,7 +53,7 @@ export function CollectionsPage() {
     setFrom(0);
     setTo(0);
     setCount(0);
-  },[sortedBy])
+  },[onlyVerified, sortedBy])
 
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export function CollectionsPage() {
       console.log(collections);
     }
 
-    let fetchCount = 10;
+    let fetchCount = 12;
     let start;
     let _count = fetchCount;
     if (dir !== 0) {
@@ -89,26 +89,26 @@ export function CollectionsPage() {
     } else {
       start = from;
     }
-    _count = fetchCount * 2;
+    _count = fetchCount;
     if (count !== 0 && start === count) {
       return;
     }
 
     const res = await fetchCollectionList(onlyVerified, start, _count, sortedBy);
     if (res.status === 'success') {
-      let official = [];
-      let nonofficial = [];
+      // let official = [];
+      // let nonofficial = [];
 
       
-      res.data.collections.map(item => {
-        if (
-          stickylist.indexOf(item.address) !== -1
-        ) {
-          official.push(item);
-        } else {
-          nonofficial.push(item);
-        }
-      });
+      // res.data.collections.map(item => {
+      //   if (
+      //     stickylist.indexOf(item.address) !== -1
+      //   ) {
+      //     official.push(item);
+      //   } else {
+      //     nonofficial.push(item);
+      //   }
+      // });
 
       //nonofficial = shuffleArray(nonofficial);
       
@@ -126,7 +126,7 @@ export function CollectionsPage() {
       }
       setFrom(_from);
       setTo(_to);
-      setCollections([...collections, ...official, ...nonofficial]);
+      setCollections([...collections, ...res.data.collections]);
       setLoading(false);
     }
   };
