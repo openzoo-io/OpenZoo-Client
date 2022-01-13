@@ -9,10 +9,8 @@ import { Link } from 'react-router-dom';
 import styles from '../styles.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGavel,
-} from '@fortawesome/free-solid-svg-icons';
-
+import { faGavel, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useApi } from 'api';
 const filtersItems = [
   { id: 0, label: 'Trade History' },
   { id: 1, label: 'Transfer History' },
@@ -28,7 +26,7 @@ export function ArtworkDetailPageHistorySection(props) {
     onFilterChange,
   } = props;
   const { bundleID } = useParams();
-
+  const { explorerUrl } = useApi();
   const [filter, setFilter] = useState(0);
   // eslint-disable-next-line no-unused-vars
   const [expanded, setExpanded] = useState(true);
@@ -122,6 +120,7 @@ export function ArtworkDetailPageHistorySection(props) {
             <div className={styles.from}>From</div>
             <div className={styles.to}>To</div>
             <div className={styles.saleDate}>Date</div>
+            <div className={styles.explorer}></div>
           </div>
           {(historyLoading
             ? [null, null, null]
@@ -141,7 +140,14 @@ export function ArtworkDetailPageHistorySection(props) {
                           className={styles.tokenIcon}
                         />
                         <div>
-                          <a>{formatNumber(history.price)} {history.isAuction === true ? <FontAwesomeIcon icon={faGavel}/> : '' }</a>
+                          <a>
+                            {formatNumber(history.price)}{' '}
+                            {history.isAuction === true ? (
+                              <FontAwesomeIcon icon={faGavel} />
+                            ) : (
+                              ''
+                            )}
+                          </a>
                           <span>
                             (${formatNumber(history.priceInUSD.toFixed(3))})
                           </span>
@@ -210,6 +216,21 @@ export function ArtworkDetailPageHistorySection(props) {
                 <div className={styles.saleDate}>
                   {saleDate ? (
                     formatDateTimeAgo(saleDate)
+                  ) : (
+                    <Skeleton width={150} height={20} />
+                  )}
+                </div>
+                <div className={styles.explorer}>
+                  {history ? (
+                    history?.txHash && (
+                      <a
+                        rel="noreferrer"
+                        target="_blank"
+                        href={explorerUrl + '/tx/' + history?.txHash}
+                      >
+                        <FontAwesomeIcon icon={faSearch} />
+                      </a>
+                    )
                   ) : (
                     <Skeleton width={150} height={20} />
                   )}
