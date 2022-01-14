@@ -800,8 +800,7 @@ combination of each.
                   >
                     <Suspense fallback={null}>
                       <Stage
-                        intensity={0.1}
- 
+
                         environment={false}
                         contactShadow={{opacity:0.2, blur:4}}
                       >

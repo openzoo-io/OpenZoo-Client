@@ -1238,8 +1238,8 @@ export function ArtworkDetailPage() {
         clearInterval(fetchInterval);
       }
 
-      updateCollections();
-      setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
+      // updateCollections();
+      // setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     }
 
     if (bundleID) {
