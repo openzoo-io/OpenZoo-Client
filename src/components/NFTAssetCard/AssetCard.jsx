@@ -93,7 +93,7 @@ function AssetCardComponent(props) {
         setLiked(item.liked);
         if (item.items) {
           setAuction(null);
-        } else {
+        } else if (item.isAuction) {
           getCurrentAuction();
         }
       }

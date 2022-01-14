@@ -54,7 +54,7 @@ export function NewExplorePage() {
   const prevAuthToken = usePrevious(authToken);
   
   const numPerRow = Math.floor(gridWidth / 256);
-  const fetchCount = numPerRow <= 3 ? 18 : 16;
+  const fetchCount = numPerRow <= 3 ? 9 : 8;
 
   useEffect(() => {
     if (fetchInterval) {
