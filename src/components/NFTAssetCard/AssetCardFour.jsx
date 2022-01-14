@@ -215,7 +215,7 @@ export function AssetCardFour(props) {
               className={'card_subtitle'}
             >
               {collection?.collectionName || collection?.name}
-              {collection?.isVerified && <img src="/verified.svg" />}
+              {collection?.isVerified && <img src="https://assets.openzoo.io/verified.svg" />}
               {warned.includes(item?.contractAddress) ? <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"

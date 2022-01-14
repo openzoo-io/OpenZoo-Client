@@ -45,7 +45,7 @@ export function NFTCollection(props) {
                 {collectionName || name}{' '}
                 {isVerified && (
                   <img
-                    src="/verified.svg"
+                    src="https://assets.openzoo.io/verified.svg"
                     className="verified"
                     alt="verified"
                   />

@@ -387,7 +387,7 @@ export function CollectionList() {
                       <h1>
                         {collectionData?.collectionName}{' '}
                         {collectionData?.isVerified && (
-                          <img src="/verified.svg" />
+                          <img src="https://assets.openzoo.io/verified.svg" />
                         )}
                       </h1>
                       <div className={styles.ownedby}>

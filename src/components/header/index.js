@@ -367,7 +367,7 @@ const Header = (props) => {
                       }`}
                   />
                   <div className={styles.resulttitle}>
-                    {collection.collectionName} {collection?.isVerified && <img src="/verified.svg" />}
+                    {collection.collectionName} {collection?.isVerified && <img src="https://assets.openzoo.io/verified.svg" />}
                   </div>
                 </Link>
               ))}
@@ -518,7 +518,7 @@ const Header = (props) => {
               <li>
                 <div className={styles.darkmodeToggle}>
                   <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <img src="/verified.svg" style={{
+                    <img src="https://assets.openzoo.io/verified.svg" style={{
                       width: 24,
                       height: 24,
 
@@ -657,7 +657,7 @@ const Header = (props) => {
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
-                      <img src="/verified.svg" style={{
+                      <img src="https://assets.openzoo.io/verified.svg" style={{
                         width: 24,
                         height: 24,
 

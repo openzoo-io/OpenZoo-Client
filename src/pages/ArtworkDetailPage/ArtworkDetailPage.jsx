@@ -2685,7 +2685,7 @@ export function ArtworkDetailPage() {
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
-                          <img src="/verified.svg" />
+                          <img src="https://assets.openzoo.io/verified.svg" />
                         ) : (
                           ''
                         )}

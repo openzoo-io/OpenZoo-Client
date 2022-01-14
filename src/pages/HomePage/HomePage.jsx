@@ -65,7 +65,7 @@ export function HomePage() {
             <div className={styles.contact}>
               <div className={styles.become}>
                 <div>
-                  <img src="verified.svg" />
+                  <img src="https://assets.openzoo.io/verified.svg" />
                 </div>
                 <div>
                   Become<span>verified</span>
@@ -108,7 +108,7 @@ export function HomePage() {
 
           {!dark ? (
             <img
-              src={`/Homepage/light/${(Math.floor(Math.random() * 16) + 1)
+              src={`https://assets.openzoo.io/Homepage/light/${(Math.floor(Math.random() * 16) + 1)
                 .toString()
                 .padStart(2, '0')}.jpg`}
               alt="man"
@@ -116,7 +116,7 @@ export function HomePage() {
             />
           ) : (
             <img
-              src={`/Homepage/dark/${(Math.floor(Math.random() * 16) + 1)
+              src={`https://assets.openzoo.io/Homepage/dark/${(Math.floor(Math.random() * 16) + 1)
                 .toString()
                 .padStart(2, '0')}.jpg`}
               alt="man"
