@@ -18,7 +18,7 @@ export default () => {
 
         return new ethers.Contract(address, abi, signer);
       } else {
-        const provider = new ethers.providers.JsonRpcProvider(
+        const provider = new ethers.providers.StaticJsonRpcProvider(
           isMainnet
             ? 'https://rpc.zookeeper.finance/'
             : 'https://rpc.zookeeper.finance/testnet',
