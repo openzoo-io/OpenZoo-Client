@@ -25,14 +25,15 @@ const TabListComponent = props => {
 
   return (
     <>
-      <div className={cx('d-flex justify-content-between ml-10 mr-10', props.className)}>
+      <div className={cx('d-flex justify-content-between', props.className)}>
         <ul
           className={cx(
-            'nav nav-tabs d-flex space-x-10 mb-30',
+            'nav nav-tabs d-flex space-y-10 space-x-10 mb-30',
             props.tabClassName
           )}
           role="tablist"
         >
+          <li></li>
           {props.items?.map(item => (
             <li
               key={`account-profile-tablist-item-${item.id}`}
