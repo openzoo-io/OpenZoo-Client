@@ -14082,8 +14082,18 @@ label:active:after {
   z-index: 1;
   top: 5px;
   right: 0px;
-
 }
+
+.card__item .card_head .cardZooElixirFilled {
+  position: absolute;
+  padding: 3px 12px;
+  z-index: 1;
+  top: 32px;
+  right: 0px;
+  font-size:12px;
+  font-weight:bold;
+}
+
 .card__item .card_head .cardZooGeneClass img{
   border-radius: 0;
 }
