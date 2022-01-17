@@ -14076,6 +14076,18 @@ label:active:after {
     align-items: center;
 }
 
+.card__item .card_head .cardZooGeneClass {
+  position: absolute;
+  padding: 3px 12px;
+  z-index: 1;
+  top: 5px;
+  right: 0px;
+
+}
+.card__item .card_head .cardZooGeneClass img{
+  border-radius: 0;
+}
+
 .card__item .card_head .countdownWrapper {
   position: absolute;
   background: hsla(0,0%,100%,.966);
@@ -14090,6 +14102,7 @@ label:active:after {
   align-items: center;
   
 }
+
 
 .is__dark .card__item .card_head .countdownWrapper
 {

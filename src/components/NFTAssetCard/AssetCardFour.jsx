@@ -45,6 +45,7 @@ export function AssetCardFour(props) {
     liked,
     isLike,
     cardHeaderClassName,
+    zooGeneClass,
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
@@ -171,7 +172,13 @@ export function AssetCardFour(props) {
                 alt=""
               />
             </Link>
-
+            {
+              zooGeneClass && (
+                <div className="cardZooGeneClass">
+                    <img src={`/ZooBooster/class/${zooGeneClass}.png`} />
+                </div>
+              )
+            }
             {endAuctionIn && (
               <div className="countdownWrapper space-x-3">
                 {endAuctionIn?.humanize && (

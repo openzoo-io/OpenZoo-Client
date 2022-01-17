@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Skeleton from 'react-loading-skeleton';
-import { AssetCardTwo } from './AssetCardTwo';
-import { AssetCardFive } from './AssetCardFive';
+//import { AssetCardTwo } from './AssetCardTwo';
+//import { AssetCardFive } from './AssetCardFive';
 import { AssetCardFour } from './AssetCardFour';
-import { AssetCardThree } from './AssetCardThree';
+//import { AssetCardThree } from './AssetCardThree';
 
-import ExampleImage from 'assets/imgs/exampleZooGenes.png';
-import faker from 'faker';
+//import ExampleImage from 'assets/imgs/exampleZooGenes.png';
+//import faker from 'faker';
 import { useApi } from 'api';
 import { useSelector } from 'react-redux';
 import { getRandomIPFS } from 'utils';
@@ -25,28 +25,28 @@ const propTypes = {
   onLike: PropTypes.func,
 };
 
-const fakerAsset = () => {
-  return {
-    contractAddress: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
-    imageURL: ExampleImage,
-    name: faker.commerce.productName(),
-    price: faker.random.float({ min: 0.01, max: 999, precision: 2 }),
-    paymentToken: '0x916283cc60fdaf05069796466af164876e35d21f',
-    priceInUSD: 0,
-    supply: 1,
-    thumbnailPath: '-',
-    tokenID: 322,
-    tokenType: 721,
-    tokenURI:
-      'https://openzoo.mypinata.cloud/ipfs/QmTbgsZSGQLrFjKte9RuEK3pgwmJJqUfv5641ULxTpvq5Z',
-    liked: faker.random.number({ min: 0, max: 99 }),
-    _id: '6186d1f5dafdf997a5c07afe',
-    lastSalePrice: 10,
-    lastSalePricePaymentToken: '0x916283cc60fdaf05069796466af164876e35d21f',
-    lastSalePriceInUSD: 0,
-    isAppropriate: true,
-  };
-};
+// const fakerAsset = () => {
+//   return {
+//     contractAddress: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
+//     imageURL: ExampleImage,
+//     name: faker.commerce.productName(),
+//     price: faker.random.float({ min: 0.01, max: 999, precision: 2 }),
+//     paymentToken: '0x916283cc60fdaf05069796466af164876e35d21f',
+//     priceInUSD: 0,
+//     supply: 1,
+//     thumbnailPath: '-',
+//     tokenID: 322,
+//     tokenType: 721,
+//     tokenURI:
+//       'https://openzoo.mypinata.cloud/ipfs/QmTbgsZSGQLrFjKte9RuEK3pgwmJJqUfv5641ULxTpvq5Z',
+//     liked: faker.random.number({ min: 0, max: 99 }),
+//     _id: '6186d1f5dafdf997a5c07afe',
+//     lastSalePrice: 10,
+//     lastSalePricePaymentToken: '0x916283cc60fdaf05069796466af164876e35d21f',
+//     lastSalePriceInUSD: 0,
+//     isAppropriate: true,
+//   };
+// };
 
 function AssetCardComponent(props) {
   const { preset, item, loading, onLike, cardHeaderClassName, ...rest } = props;
@@ -63,9 +63,10 @@ function AssetCardComponent(props) {
   const [isLike, setIsLike] = useState(false);
   const [info, setInfo] = useState(null);
   const [auction, setAuction] = useState(null);
+  const [zooGeneClass, setZooGeneClass] = useState(null);
 
   // TODO: delete faker code
-  const _item = item && Object.keys(item).length > 0 ? item : fakerAsset();
+  const _item = item && Object.keys(item).length > 0 ? item : []; ///fakerAsset();
 
   const auctionStarted = now.getTime() / 1000 >= auction?.startTime;
 
@@ -90,11 +91,18 @@ function AssetCardComponent(props) {
           item.imageURL = getRandomIPFS(item.imageURL);
         }
 
+
         setLiked(item.liked);
         if (item.items) {
           setAuction(null);
         } else if (item.isAuction) {
           getCurrentAuction();
+        }
+
+        // Get Class for Collection ZooGene //
+        if (item.contractAddress === '0x992e4447f470ea47819d677b84d2459677bfdadf')
+        {
+          await getZooGeneClass(item.tokenURI);
         }
       }
     }
@@ -128,6 +136,28 @@ function AssetCardComponent(props) {
       setInfo(null);
     }
     setFetching(false);
+  };
+
+  const getZooGeneClass = async tokenURI => {
+    
+    try {
+      tokenURI = getRandomIPFS(tokenURI);
+
+      const { data } = await axios.get(tokenURI);
+
+      if (data.attributes) {
+        data.attributes.map((v) => {
+          if (v.trait_type === 'Class')
+            setZooGeneClass(v.value);
+        });
+      }
+
+    
+
+    } catch {
+     console.log('error')
+    }
+    
   };
 
   const getCurrentAuction = async () => {
@@ -176,33 +206,8 @@ function AssetCardComponent(props) {
     }
   };
 
-  if (preset === 'two') {
-    return (
-      <AssetCardTwo
-        item={_item}
-        info={info}
-        liked={liked}
-        isLike={isLike}
-        auction={auction}
-        loading={fetching || loading}
-        onLike={handleClickLike}
-        {...rest}
-      />
-    );
-  } else if (preset === 'three') {
-    return (
-      <AssetCardThree
-        item={_item}
-        info={info}
-        liked={liked}
-        isLike={isLike}
-        auction={auction}
-        loading={fetching || loading}
-        onLike={handleClickLike}
-        {...rest}
-      />
-    );
-  } else if (preset === 'four') {
+  if (preset === 'four')
+  {
     return (
       <AssetCardFour
         item={_item}
@@ -215,23 +220,68 @@ function AssetCardComponent(props) {
         cardHeaderClassName={cardHeaderClassName}
         onLike={handleClickLike}
         authToken={authToken}
-        {...rest}
-      />
-    );
-  } else if (preset === 'five') {
-    return (
-      <AssetCardFive
-        item={_item}
-        info={info}
-        liked={liked}
-        isLike={isLike}
-        auction={auction}
-        loading={fetching || loading}
-        onLike={handleClickLike}
+        zooGeneClass={zooGeneClass}
         {...rest}
       />
     );
   }
+
+  // if (preset === 'two') {
+  //   return (
+  //     <AssetCardTwo
+  //       item={_item}
+  //       info={info}
+  //       liked={liked}
+  //       isLike={isLike}
+  //       auction={auction}
+  //       loading={fetching || loading}
+  //       onLike={handleClickLike}
+  //       {...rest}
+  //     />
+  //   );
+  // } else if (preset === 'three') {
+  //   return (
+  //     <AssetCardThree
+  //       item={_item}
+  //       info={info}
+  //       liked={liked}
+  //       isLike={isLike}
+  //       auction={auction}
+  //       loading={fetching || loading}
+  //       onLike={handleClickLike}
+  //       {...rest}
+  //     />
+  //   );
+  // } else if (preset === 'four') {
+  //   return (
+  //     <AssetCardFour
+  //       item={_item}
+  //       info={info}
+  //       liked={liked}
+  //       isLike={isLike}
+  //       auction={auction}
+  //       auctionActive={auctionActive}
+  //       loading={fetching || loading}
+  //       cardHeaderClassName={cardHeaderClassName}
+  //       onLike={handleClickLike}
+  //       authToken={authToken}
+  //       {...rest}
+  //     />
+  //   );
+  // } else if (preset === 'five') {
+  //   return (
+  //     <AssetCardFive
+  //       item={_item}
+  //       info={info}
+  //       liked={liked}
+  //       isLike={isLike}
+  //       auction={auction}
+  //       loading={fetching || loading}
+  //       onLike={handleClickLike}
+  //       {...rest}
+  //     />
+  //   );
+  // }
 
   return (
     <div className="card__item five">
