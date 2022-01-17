@@ -134,7 +134,7 @@ export function ArtworkDetailPageStateSection(props) {
                   )}
                 </div>
                 <Link to={`/account/${creator}`} className={styles.ownerName}>
-                  {isMine ? 'Me' : creatorInfo?.alias || shortenAddress(owner)}
+                  {creatorInfo?.alias || shortenAddress(owner)}
                 </Link>
               </>
             ) : null}
