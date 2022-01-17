@@ -6,3 +6,4 @@ export * from './AccountProfileArtworksList';
 export * from './AccountProfileActivitiesList';
 export * from './AccountProfileOffersList';
 export * from './AccountProfileMyOffersList';
+export * from './AccountProfileCollectionList';

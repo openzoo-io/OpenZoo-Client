@@ -44,6 +44,7 @@ import {
   AccountProfileActivitiesList,
   AccountProfileOffersList,
   AccountProfileMyOffersList,
+  AccountProfileCollectionList,
 } from './components';
 import { AssetCard } from 'components/NFTAssetCard';
 
@@ -51,6 +52,10 @@ const TAB_ITEMS = [
   {
     id: 0,
     title: 'NFTs',
+  },
+  {
+    id: 6,
+    title: 'Collections',
   },
   {
     id: 2,
@@ -89,6 +94,7 @@ export function AccountProfilePage() {
     getFollowings,
     getMyLikes,
     getItemsLiked,
+    fetchProfileCollectionList,
   } = useApi();
   const { getTokenByAddress } = useTokens();
   const { account, chainId } = useWeb3React();
@@ -138,11 +144,12 @@ export function AccountProfilePage() {
   const [fetchInterval, setFetchInterval] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
+  const [collectionLoading, setCollectionLoading] = useState(false);
+  const [collections, setCollections] = useState([]);
   const prevAuthToken = usePrevious(authToken);
 
   const numPerRow = Math.floor(width / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
-
 
   const getUserDetails = async _account => {
     setLoading(true);
@@ -445,6 +452,8 @@ export function AccountProfilePage() {
       getOffersFromOthers();
     } else if (tab === 5) {
       getOffers();
+    } else if (tab === 6) {
+      getCollections();
     }
   };
 
@@ -479,6 +488,22 @@ export function AccountProfilePage() {
     likes.current = [];
 
     setTab(_tab);
+  };
+
+  const getCollections = async () => {
+    try {
+      setCollectionLoading(true);
+
+      const res = await fetchProfileCollectionList(uid);
+      if (res.status === 'success') {
+        
+        setCollections([...res.data.collections]);
+        setCollectionLoading(false);
+      }
+
+    } catch (error) {
+      setCollectionLoading(false);
+    }
   };
 
   const getActivity = async () => {
@@ -685,6 +710,7 @@ export function AccountProfilePage() {
                     activeId={tab}
                     onChangeTab={goToTab}
                   />
+
                   {tab === 0 || tab === 2 ? (
                     <AccountProfileArtworksList
                       items={
@@ -700,6 +726,11 @@ export function AccountProfilePage() {
                       }
                       onLike={handleOnLike}
                       onReachBottom={handleOnArtworksReachBottom}
+                    />
+                  ) : tab === 6 ? (
+                    <AccountProfileCollectionList 
+                      collectionLoading={collectionLoading}
+                      collections={collections}
                     />
                   ) : tab === 3 ? (
                     <AccountProfileActivitiesList

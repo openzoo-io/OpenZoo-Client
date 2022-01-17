@@ -173,6 +173,19 @@ export const useApi = () => {
     return res.data;
   };
 
+  // For Profile Colleciton List //
+  const fetchProfileCollectionList = async (owner) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/info/getProfileCollectionList`,
+      data: JSON.stringify({ owner }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res.data;
+  };
+
   // For Colleciton List page //
   const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
     const res = await axios({
@@ -307,7 +320,7 @@ export const useApi = () => {
     if (filterBy.length) {
       data.filterby = filterBy;
     }
-    
+
     data.sortby = sortBy;
     const res = await axios({
       method: 'post',
@@ -374,7 +387,7 @@ export const useApi = () => {
       },
     });
     console.log('!2 fetchItemDetails', res.data);
-    
+
     return res.data;
   };
 
@@ -940,6 +953,7 @@ export const useApi = () => {
     fetchCollection,
     fetchCollectionStatistic,
     fetchCollectionList,
+    fetchProfileCollectionList,
     fetchAuctionBidParticipants,
     fetchPendingCollections,
     approveCollection,
