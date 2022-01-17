@@ -240,7 +240,8 @@ export function ArtworkDetailPagePriceSection(props) {
                   <p>Reserve price met. Auction cannot be cancelled</p>
                 )
               }
-                {auction.current?.resulted === false && ((!auctionEnded && (bid?.bid < auction.current.reservePrice || !bid)) || (auctionEnded && (bid?.bid >= auction.current.reservePrice))) ? (
+
+                {(auction && auction.current?.resulted === false) && ((!auctionEnded && (bid?.bid < auction.current.reservePrice || !bid)) || (auctionEnded && (bid?.bid >= auction.current.reservePrice))) ? (
                   <div
                     className={cx(
                       'btn btn-warning btn-lg rounded-20',
@@ -263,7 +264,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 ) : null}
                 
                 {!bundleID &&
-                  (!auction.current || !auction.current.resulted) &&
+                  (!auction.current) &&
                   !hasListing && !bid &&
                   tokenType.current !== 1155 && (
                     <div
