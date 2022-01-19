@@ -31,7 +31,8 @@ export function HomePage() {
                 open to everyone
               </div>
             </div>
-            <div className={styles.btnGroup}>
+            <div className={`${styles.btnGroup} d-flex flex-wrap space-y-10 homepage-center-btn`}>
+              <a></a>
               <Link to="/explore" className="btn btn-warning btn-sm home-btn">
                 EXPLORE
               </Link>
