@@ -2946,10 +2946,7 @@ export function ArtworkDetailPage() {
                               auction?.current?.endTime + 86400 && (
                               <p style={{ marginTop: 5 }}>
                                 <FontAwesomeIcon icon={faExclamationTriangle} />{' '}
-                                You can withdraw your bidded amount within{' '}
-                                {formatDuration(
-                                  auction?.current?.endTime + 86400
-                                )}
+                                Please wait while the result of the auction is processed.
                               </p>
                             )
                           ) : (
