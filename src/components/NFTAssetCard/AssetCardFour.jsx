@@ -176,7 +176,7 @@ export function AssetCardFour(props) {
             <img
               className="blur_thumb"
               src={
-                (item?.thumbnailPath !== '-' &&
+                (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' &&
                   apiUrl + '/image/' + item?.thumbnailPath) ||
                   getRandomIPFS(info?.image) ||
                   getRandomIPFS(item?.imageURL)
@@ -185,7 +185,7 @@ export function AssetCardFour(props) {
             <Link to={assetUrl}>
               <ArtworkMediaView
                 image={
-                  (item?.thumbnailPath !== '-' &&
+                  (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' && 
                     apiUrl + '/image/' + item?.thumbnailPath) ||
                     getRandomIPFS(info?.image) ||
                     getRandomIPFS(item?.imageURL)
