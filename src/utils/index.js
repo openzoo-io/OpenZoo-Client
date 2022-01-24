@@ -40,25 +40,29 @@ export const getRandomIPFS = (tokenURI, justURL = false) => {
   if (justURL) {
     return `${IPFSUris[random]}`;
   }
-
-  if (
-    tokenURI.includes('pinata.cloud') ||
-    tokenURI.includes('cloudflare') ||
-    tokenURI.includes('ipfs.io') ||
-    tokenURI.includes('ipfs.infura.io')
-  ) {
-    return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
-  } else if (tokenURI.includes('ipfs://')) {
-    return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1]}`;
+  try {
+    if (
+      tokenURI.includes('pinata.cloud') ||
+      tokenURI.includes('cloudflare') ||
+      tokenURI.includes('ipfs.io') ||
+      tokenURI.includes('ipfs.infura.io')
+    ) {
+      return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
+    } else if (tokenURI.includes('ipfs://')) {
+      return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
+    }
+    return tokenURI;
+  }
+  catch (error) {
+    return tokenURI;
   }
 
-  return tokenURI;
+
 };
 
-export const formatUSD = (num,digits) => {
-  if (num < 1)
-  {
-    return '$'+num.toFixed(digits);
+export const formatUSD = (num, digits) => {
+  if (num < 1) {
+    return '$' + num.toFixed(digits);
   }
   const lookup = [
     { value: 1, symbol: "" },
@@ -70,7 +74,7 @@ export const formatUSD = (num,digits) => {
     { value: 1e18, symbol: "E" }
   ];
   const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
-  var item = lookup.slice().reverse().find(function(item) {
+  var item = lookup.slice().reverse().find(function (item) {
     return num >= item.value;
   });
   return item ? '$' + (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "$0";
