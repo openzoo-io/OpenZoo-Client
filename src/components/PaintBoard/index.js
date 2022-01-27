@@ -290,6 +290,8 @@ const PaintBoard = () => {
     { trait_type: '', trait_value: '', display_type: '' }
   ]);
 
+  
+
   const handleCreatePresetAttributes = (template) => {
     if (template.length === 0) {
       setAttributeFields([{ trait_type: '', trait_value: '' }]);
@@ -354,7 +356,22 @@ const PaintBoard = () => {
     const values = [...attributeFields];
     values[index].trait_value = Date.parse(date) / 1000;
   }
-  const [startTime, setStartTime] = useState('')
+  const [startTime, setStartTime] = useState('');
+  const getValueTypeDisplay = (display_type)=>{
+    if (display_type === '' || display_type === 'text') {
+      return 'Text';
+    }
+    if (display_type === 'number' || display_type === 'boost_number') {
+      return 'Number';
+    }
+    if (display_type === 'boost_percentage') {
+      return 'Number 0-100';
+    }
+    if (display_type === 'date') {
+      return 'Date Time';
+    }
+    return 'Text';
+  };
   const getAttributeValueType = (display_type) => {
     if (display_type === '' || display_type === 'text') {
       return 'text';
@@ -815,7 +832,7 @@ const PaintBoard = () => {
                     />
                   </div>
                   <div className="form-group col-sm-5">
-                    <label htmlFor="trait_value">Value</label>
+                    <label htmlFor="trait_value">Value ({getValueTypeDisplay(attributeField.display_type)})</label>
                     {
                       attributeField.display_type !== 'date' && <input
                         type={getAttributeValueType(attributeField.display_type)}
