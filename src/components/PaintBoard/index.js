@@ -1130,20 +1130,21 @@ const PaintBoard = () => {
               fee > 0 ? <Skeleton width={330} height={22} /> : ''
             )}
           </div>
+          <div className={styles.mintStatusContainer}>
+            {lastMintedTnxId !== '' && (
+              <a
+                className={styles.tnxAnchor}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${explorerUrl}/tx/${lastMintedTnxId}`}
+              >
+                You can track the last transaction here ...
+              </a>
+            )}
+          </div>
         </div>
       </div>
-      <div className={styles.mintStatusContainer}>
-        {lastMintedTnxId !== '' && (
-          <a
-            className={styles.tnxAnchor}
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${explorerUrl}/tx/${lastMintedTnxId}`}
-          >
-            You can track the last transaction here ...
-          </a>
-        )}
-      </div>
+
     </PageLayout>
   );
 };
