@@ -290,7 +290,7 @@ const PaintBoard = () => {
     { trait_type: '', trait_value: '', display_type: '' }
   ]);
 
-  
+
 
   const handleCreatePresetAttributes = (template) => {
     if (template.length === 0) {
@@ -321,10 +321,9 @@ const PaintBoard = () => {
     const values = [...attributeFields];
 
     if (event.target.type === 'text') {
-    event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ ]/g, '');
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ ]/g, '');
     }
-    else
-    {
+    else {
       event.target.value = event.target.value.replace(/[^0-9.]/g, '');
     }
 
@@ -344,9 +343,9 @@ const PaintBoard = () => {
         values[index].trait_value = event.target.value;
       }
       else {
-        
+
         event.target.value = values[index].trait_value = Number(event.target.value);
-        
+
       }
     }
 
@@ -357,7 +356,7 @@ const PaintBoard = () => {
     values[index].trait_value = Date.parse(date) / 1000;
   }
   const [startTime, setStartTime] = useState('');
-  const getValueTypeDisplay = (display_type)=>{
+  const getValueTypeDisplay = (display_type) => {
     if (display_type === '' || display_type === 'text') {
       return 'Text';
     }
@@ -888,9 +887,11 @@ const PaintBoard = () => {
               </Fragment>
             ))}
           </div>
-          <pre>
-            {JSON.stringify(attributeFields, null, 2)}
-          </pre>
+          {
+            // <pre>
+            //   {JSON.stringify(attributeFields, null, 2)}
+            // </pre>
+          }
         </div>
         <div className={'col-lg-4 col-md-8'}>
           <div className={styles.formGroup}>

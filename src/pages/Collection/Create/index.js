@@ -284,7 +284,7 @@ const CollectionCreate = ({ isRegister }) => {
 
   const handleInputChange = (index, event) => {
     const values = [...attributeFields];
-    event.target.value= event.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+    event.target.value = event.target.value.replace(/[^a-zA-Z0-9_]/g, '');
     values[index].trait_type = event.target.value;
 
     setAttributeFields(values);
@@ -310,22 +310,19 @@ const CollectionCreate = ({ isRegister }) => {
     if (!isAcceptUploadRight || !isAcceptTerms) return false;
 
     // Attributes //
-    if (attributeFields.length > 1)
-    { 
+    if (attributeFields.length > 1) {
       let checkAttribute = true;
       attributeFields.filter(v => {
-        if (v.trait_type.trim() === '')
-        {
+        if (v.trait_type.trim() === '') {
           checkAttribute = false;
         }
       });
 
-      if (!checkAttribute)
-      {
+      if (!checkAttribute) {
         return false;
       }
     }
-    
+
     return true;
   })();
 
@@ -519,7 +516,7 @@ const CollectionCreate = ({ isRegister }) => {
                   erc721Address: address,
                   collectionName: name,
                   description,
-                  attribute_template: attributeFields.filter((item) => {return item.trait_type.trim() !== ''}),
+                  attribute_template: attributeFields.filter((item) => { return item.trait_type.trim() !== '' }),
                   categories: selected.join(','),
                   logoImageHash,
                   siteUrl,
@@ -590,7 +587,7 @@ const CollectionCreate = ({ isRegister }) => {
     </Menu>
   );
 
-  
+
 
   return (
     <PageLayout
@@ -812,87 +809,88 @@ const CollectionCreate = ({ isRegister }) => {
             </div>
           </div>
           {
-          !isRegister && <div className={styles.inputGroup}>
-            <p className={styles.inputTitle}>Attribute Template</p>
+            !isRegister && <div className={styles.inputGroup}>
+              <p className={styles.inputTitle}>Attribute Template</p>
 
-            {attributeFields.map((attributeField, index) => (
-              <Fragment key={`${attributeField}~${index}`}>
-                <div className="form-row mt-10 space-x-5" style={{ display: 'flex' }}>
-                  <div className="form-group col-sm-5">
-                    <label htmlFor="trait_type">Title</label>
-                    <input
-                    style={{height:50}}
-                      type="text"
-                      className="form-control"
-                      id="trait_type"
-                      name="trait_type"
-                      placeholder="Head,Body etc."
-                      value={attributeField.trait_type}
-                      onChange={event => handleInputChange(index, event)}
-                    />
-                  </div>
-                  <div className="form-group col-sm-5">
-                    <label htmlFor="display_type">Display</label>
-                    
-                    <Select
-                      options={attributeDisplayTypeList}
-                      values={attributeDisplayTypeList.filter((item) => {return item.display_type === attributeFields[index].display_type})}
-                      className={styles.select}
-                      onChange={([col]) => {
-                        handleSelectChange(index, col)
-                      }}
-                      placeholder="Choose Collection"
-                      itemRenderer={({ item,methods }) => (
-                        <div
-                          key={item.display_type}
-                          className={styles.collection}
-                          onClick={() => {
-                            methods.clearAll();
-                            methods.addItem(item);
-                          }}
-                        >
-                          <div className={`${styles.collectionName} ${styles.collectionList}`}>
-                            <strong>{item.display_value}</strong>
+              {attributeFields.map((attributeField, index) => (
+                <Fragment key={`${attributeField}~${index}`}>
+                  <div className="form-row mt-10 space-x-5" style={{ display: 'flex' }}>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="trait_type">Title</label>
+                      <input
+                        style={{ height: 50 }}
+                        type="text"
+                        className="form-control"
+                        id="trait_type"
+                        name="trait_type"
+                        placeholder="Head,Body etc."
+                        value={attributeField.trait_type}
+                        onChange={event => handleInputChange(index, event)}
+                      />
+                    </div>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="display_type">Display</label>
+
+                      <Select
+                        options={attributeDisplayTypeList}
+                        values={attributeDisplayTypeList.filter((item) => { return item.display_type === attributeFields[index].display_type })}
+                        className={styles.select}
+                        onChange={([col]) => {
+                          handleSelectChange(index, col)
+                        }}
+                        placeholder="Choose Collection"
+                        itemRenderer={({ item, methods }) => (
+                          <div
+                            key={item.display_type}
+                            className={styles.collection}
+                            onClick={() => {
+                              methods.clearAll();
+                              methods.addItem(item);
+                            }}
+                          >
+                            <div className={`${styles.collectionName} ${styles.collectionList}`}>
+                              <strong>{item.display_value}</strong>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                      contentRenderer={({ props: { values } }) =>
-                        <div className={styles.collection}>
-                         
-                          <div className={styles.collectionName}>
-                            <strong>{values[0].display_value}</strong>
+                        )}
+                        contentRenderer={({ props: { values } }) =>
+                          <div className={styles.collection}>
+
+                            <div className={styles.collectionName}>
+                              <strong>{values[0].display_value}</strong>
+                            </div>
                           </div>
-                        </div>
-                      }
-                    />
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group col-sm-2">
+
+                      <button
+                        className="btn btn-link"
+                        type="button"
+                        onClick={() => handleRemoveFields(index)}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <button
+                        className="btn btn-link"
+                        type="button"
+
+                        onClick={() => handleAddFields()}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
                   </div>
-
-                  <div className="form-group col-sm-2">
-
-                    <button
-                      className="btn btn-link"
-                      type="button"
-                      onClick={() => handleRemoveFields(index)}
-                    >
-                      <FontAwesomeIcon icon={faMinus} />
-                    </button>
-                    <button
-                      className="btn btn-link"
-                      type="button"
-
-                      onClick={() => handleAddFields()}
-                    >
-                      <FontAwesomeIcon icon={faPlus} />
-                    </button>
-                  </div>
-                </div>
-              </Fragment>
-            ))}
-
-            <pre>
-              {JSON.stringify(attributeFields, null, 2)}
-            </pre>
-          </div>
+                </Fragment>
+              ))}
+              {
+                // <pre>
+                //   {JSON.stringify(attributeFields, null, 2)}
+                // </pre>
+              }
+            </div>
           }
           {isRegister && (
             <div className={styles.inputGroup}>
