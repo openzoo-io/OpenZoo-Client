@@ -34,11 +34,15 @@ export const getHigherGWEI = async () => {
   return price;
 };
 
-export const getRandomIPFS = (tokenURI, justURL = false) => {
+export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => {
   let random = Math.floor(Math.random() * IPFSUris.length);
 
   if (justURL) {
     return `${IPFSUris[random]}`;
+  }
+  if (isFallback)
+  {
+    return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
   }
   try {
     if (

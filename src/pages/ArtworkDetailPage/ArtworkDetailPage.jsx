@@ -52,7 +52,7 @@ import {
   Line,
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
-import  warned  from 'constants/warned.collections';
+import warned from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faEye,
@@ -535,12 +535,19 @@ export function ArtworkDetailPage() {
         );
         const contract = await getERC721Contract(address);
         const tokenURI = await contract.tokenURI(tokenID);
-        const realUri = getRandomIPFS(tokenURI);
+        let realUri = getRandomIPFS(tokenURI);
+        
+        let isFallback = false;
+        await axios.get(realUri).catch(function(error){
+          realUri = getRandomIPFS(tokenURI,false,true);
+          isFallback = true;
+        });
+
         setTokenUri(realUri);
         const { data } = await axios.get(realUri);
 
         if (data.image) {
-          data.image = getRandomIPFS(data.image);
+          data.image = getRandomIPFS(data.image,false, isFallback);
         }
 
         if (data.properties?.royalty) {
@@ -549,7 +556,7 @@ export function ArtworkDetailPage() {
 
         setInfo(data);
       } catch {
-        history.replace('/404');
+        //history.replace('/404');
       }
     }
     setLoading(false);
@@ -1210,7 +1217,6 @@ export function ArtworkDetailPage() {
     }
     setCollectionLoading(false);
   };
-  
 
   const updateCollections = async () => {
     try {
@@ -1363,7 +1369,6 @@ export function ArtworkDetailPage() {
   }, [address, tokenID, tokenType.current, filter]);
 
   useEffect(() => {
-
     getCreatorInfo();
   }, [creator]);
 
@@ -2584,16 +2589,16 @@ export function ArtworkDetailPage() {
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
         </Link>*/}
-        
+
         <div className="item_details my-40">
-        {warned.includes(address) && (
-          <div className="alert alert-danger">
-            <b>
-              <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
-            </b>{' '}
-            This content has been flagged by the OpenZoo Team as suspicious.
-          </div>
-        )}
+          {warned.includes(address) && (
+            <div className="alert alert-danger">
+              <b>
+                <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
+              </b>{' '}
+              This content has been flagged by the OpenZoo Team as suspicious.
+            </div>
+          )}
           <div className="row md:space-y-20">
             <div className="col-lg-6">
               <div className="space-y-20">
@@ -2946,7 +2951,8 @@ export function ArtworkDetailPage() {
                               auction?.current?.endTime + 86400 && (
                               <p style={{ marginTop: 5 }}>
                                 <FontAwesomeIcon icon={faExclamationTriangle} />{' '}
-                                Please wait while the result of the auction is processed.
+                                Please wait while the result of the auction is
+                                processed.
                               </p>
                             )
                           ) : (
