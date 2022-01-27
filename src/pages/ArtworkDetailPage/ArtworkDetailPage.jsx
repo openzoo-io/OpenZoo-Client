@@ -556,7 +556,7 @@ export function ArtworkDetailPage() {
 
         setInfo(data);
       } catch {
-        //history.replace('/404');
+        history.replace('/404');
       }
     }
     setLoading(false);
