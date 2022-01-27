@@ -4,13 +4,20 @@ import {
   useZooBoosterContract,
   useZooElixirContract,
 } from 'contracts/zookeeper';
-import cx from 'classnames';
 
 import styles from '../../styles.module.scss';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+const ZOOGENES_EXCLUDED = [
+  'Background Points',
+  'Body Points',
+  'Expression Points',
+  'Accessory Points',
+  'Costume Points',
+  'Ghost Points',
+];
 
 export function ArtworkDetailPageAttributesView(props) {
   const { address, tokenID, attributes } = props;
@@ -48,27 +55,24 @@ export function ArtworkDetailPageAttributesView(props) {
   };
 
   const res = [];
-  // ZooBooster //
+  // ZooBooster - Additional Data //
   if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
     res.push(
       <>
-        <div key={'zooBooster_boosting'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Boosting</div>
-          <div className={styles.attributeValue}>
-            +{zooBoosterBoosting.toFixed(3)}%
-          </div>
+        <div className={styles.attributeLabel}>Boosting</div>
+        <div className={styles.attributeValue}>
+          +{zooBoosterBoosting.toFixed(3)}%
         </div>
-        <div key={'zooBooster_locktimereduce'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Lock Reduce</div>
-          <div className={styles.attributeValue}>
-            -{zooBoosterLockTimeReduce.toFixed(3)}%
-          </div>
+
+        <div className={styles.attributeLabel}>Lock Reduce</div>
+        <div className={styles.attributeValue}>
+          -{zooBoosterLockTimeReduce.toFixed(3)}%
         </div>
       </>
     );
   }
 
-  // ZooElixir //
+  // ZooElixir - Additional Data //
   if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
     let levelImg = '';
     switch (zooElixir?.level?.toString()) {
@@ -90,39 +94,60 @@ export function ArtworkDetailPageAttributesView(props) {
     }
     res.push(
       <>
-        <div key={'zooElixir_name'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Name</div>
-          <div className={styles.attributeValue}>{zooElixir?.name}</div>
+        <div className={styles.attributeLabel}>Name</div>
+        <div className={styles.attributeValue}>{zooElixir?.name}</div>
+
+        <div className={styles.attributeLabel}>Drops</div>
+        <div className={styles.attributeValue}>
+          {Number(Number(zooElixir?.drops?.toString()) / 1e18).toFixed(2)}%
         </div>
-        <div key={'zooElixir_drops'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Drops</div>
-          <div className={styles.attributeValue}>
-            {Number(zooElixir?.drops?.toString()) / 1e18}%
-          </div>
-        </div>
-        <div key={'zooElixir_level'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Level</div>
-          <div className={styles.attributeValue}>{levelImg}</div>
-        </div>
-        <div key={'zooElixir_color'} className={styles.attribute}>
-          <div className={styles.attributeLabel}>Color</div>
-          <div className={styles.attributeValue}>
-            <div
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: '50%',
-                background: numberToColor(Number(zooElixir?.color?.toString())),
-              }}
-            ></div>
-          </div>
+
+        <div className={styles.attributeLabel}>Level</div>
+        <div className={styles.attributeValue}>{levelImg}</div>
+
+        <div className={styles.attributeLabel}>Color</div>
+        <div className={styles.attributeValue}>
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: '50%',
+              background: numberToColor(Number(zooElixir?.color?.toString())),
+            }}
+          ></div>
         </div>
       </>
     );
   }
 
-  Object.keys(attributes).map((key, idx) => {
-    // ZooBooster //
+  Object.keys(attributes).map(key => {
+    // Excluded Fields for ZooGenes //
+    if (Contracts[CHAIN].zooGenes.toLowerCase() === address.toLowerCase()) {
+      if (ZOOGENES_EXCLUDED.includes(attributes[key].trait_type)) {
+        return;
+      }
+      if (attributes[key].trait_type === 'Class') {
+        switch (attributes[key].value) {
+          case 'N':
+            attributes[key].value = <img src="/ZooBooster/class/N.png" />;
+            break;
+          case 'R':
+            attributes[key].value = <img src="/ZooBooster/class/R.png" />;
+            break;
+          case 'SR':
+            attributes[key].value = <img src="/ZooBooster/class/SR.png" />;
+            break;
+          case 'SSR':
+            attributes[key].value = <img src="/ZooBooster/class/SSR.png" />;
+            break;
+          case 'UR':
+            attributes[key].value = <img src="/ZooBooster/class/UR.png" />;
+            break;
+        }
+      }
+    }
+
+    // ZooBooster of each attriibute //
     if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
       if (attributes[key].trait_type === 'category') {
         switch (attributes[key].value) {
@@ -207,19 +232,42 @@ export function ArtworkDetailPageAttributesView(props) {
       }
     }
 
+    // ZooGenes Unshift insteads - Class, Total Points //
+    if (Contracts[CHAIN].zooGenes.toLowerCase() === address.toLowerCase()) {
+      if (['Class', 'Total Points'].includes(attributes[key].trait_type)) {
+        res.unshift(
+          <>
+            <div className={styles.attributeLabel}>
+              {attributes[key].trait_type}
+            </div>
+
+            <div className={styles.attributeValue}>{attributes[key].value}</div>
+          </>
+        );
+        return;
+      }
+    }
+
     res.push(
-      <div key={idx} className={cx('px-1', styles.attribute)}>
+      <>
         <div className={styles.attributeLabel}>
           {attributes[key].trait_type}
         </div>
-        <div className={styles.attributeValue}>{attributes[key].value}</div>
-      </div>
+        {attributes[key].display_type === 'date' && (
+          <div className={styles.attributeValue}>
+            {new Date(Number(attributes[key].value) * 1000).toUTCString()}
+          </div>
+        )}
+        {attributes[key].display_type !== 'date' && (
+          <div className={styles.attributeValue}>
+            {attributes[key].display_type === 'boost_number'?'+':''}
+            {attributes[key].value}
+            {attributes[key].display_type === 'boost_percentage'?'%':''}
+          </div>
+        )}
+      </>
     );
   });
 
-  return (
-    <div className={cx('row space-x-5 space-y-5', styles.attributeWrapper)}>
-      {res}
-    </div>
-  );
+  return <div className={styles.attributeWrapper}>{res}</div>;
 }
