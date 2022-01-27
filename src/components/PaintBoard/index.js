@@ -5,6 +5,7 @@ import React, {
   useState,
   useCallback,
   Suspense,
+  Fragment
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -18,7 +19,8 @@ import Dropzone from 'react-dropzone';
 import Skeleton from 'react-loading-skeleton';
 // import { ChainId } from '@sushiswap/sdk';
 import Select from 'react-dropdown-select';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import CloseIcon from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -45,10 +47,10 @@ import { useSalesContract, getSigner } from 'contracts';
 
 import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
-
+import Datetime from 'react-datetime';
 import ReactPlayer from 'react-player';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, Stage, useAnimations,Environment } from '@react-three/drei';
+import { OrbitControls, Stage, useAnimations, Environment } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const mintSteps = [
@@ -123,7 +125,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const accept = ['.jpg','.jpeg', '.png', '.gif'];
+  const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -157,6 +159,7 @@ const PaintBoard = () => {
 
   const [selected, setSelected] = useState([]);
   const [collections, setCollections] = useState([]);
+
   const [nft, setNft] = useState();
   const [type, setType] = useState();
   const [image, setImage] = useState(null);
@@ -281,7 +284,123 @@ const PaintBoard = () => {
     });
   };
 
+
+  // Attributes //
+  const [attributeFields, setAttributeFields] = useState([
+    { trait_type: '', trait_value: '', display_type: '' }
+  ]);
+
+
+
+  const handleCreatePresetAttributes = (template) => {
+    if (template.length === 0) {
+      setAttributeFields([{ trait_type: '', trait_value: '' }]);
+    }
+    else {
+      let result = [];
+      template.map((v) => {
+        result.push({ trait_type: v.trait_type, trait_value: '', display_type: v.display_type });
+      });
+      setAttributeFields(result);
+    }
+  }
+
+  const handleAddFields = () => {
+    const values = [...attributeFields];
+    values.push({ trait_type: '', trait_value: '' });
+    setAttributeFields(values);
+  };
+
+  const handleRemoveFields = index => {
+    const values = [...attributeFields];
+    values.splice(index, 1);
+    setAttributeFields(values);
+  };
+
+  const handleInputChange = (index, event) => {
+    const values = [...attributeFields];
+
+    if (event.target.type === 'text') {
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ ]/g, '');
+    }
+    else {
+      event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+    }
+
+    if (event.target.name === 'trait_type') {
+      values[index].trait_type = event.target.value;
+    }
+    if (event.target.name === 'trait_value') {
+      if (event.target.min && Number(event.target.value) < Number(event.target.min)) {
+        event.target.value = event.target.min;
+      }
+      if (event.target.max && Number(event.target.value) > Number(event.target.max)) {
+        event.target.value = event.target.max;
+      }
+
+      if (event.target.type === 'text') {
+
+        values[index].trait_value = event.target.value;
+      }
+      else {
+
+        event.target.value = values[index].trait_value = Number(event.target.value);
+
+      }
+    }
+
+    setAttributeFields(values);
+  };
+  const handleDateChange = (index, date) => {
+    const values = [...attributeFields];
+    values[index].trait_value = Date.parse(date) / 1000;
+  }
+  const [startTime, setStartTime] = useState('');
+  const getValueTypeDisplay = (display_type) => {
+    if (display_type === '' || display_type === 'text') {
+      return 'Text';
+    }
+    if (display_type === 'number' || display_type === 'boost_number') {
+      return 'Number';
+    }
+    if (display_type === 'boost_percentage') {
+      return 'Number 0-100';
+    }
+    if (display_type === 'date') {
+      return 'Date Time';
+    }
+    return 'Text';
+  };
+  const getAttributeValueType = (display_type) => {
+    if (display_type === '' || display_type === 'text') {
+      return 'text';
+    }
+    if (display_type === 'number' || display_type === 'boost_number' || display_type === 'boost_percentage') {
+      return 'number';
+    }
+
+    return 'text';
+  }
+
+
+
   const validateMetadata = () => {
+
+    // Attributes //
+    if (attributeFields.length > 1) {
+      let checkAttribute = true;
+      attributeFields.filter(v => {
+        if (v.trait_type.trim() === '' || v.trait_value.toString().trim() === '') {
+          checkAttribute = false;
+        }
+
+      });
+
+      if (!checkAttribute) {
+        return false;
+      }
+    }
+
     return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0';
   };
 
@@ -401,6 +520,7 @@ const PaintBoard = () => {
       formData.append('xtra', xtra);
 
       formData.append('royalty', isNaN(_royalty) ? 0 : _royalty.toFixed(0));
+      formData.append('attributes', JSON.stringify(attributeFields.filter((item) => { return item.trait_type.trim() !== '' && item.trait_value.toString().trim() !== '' })));
 
 
 
@@ -524,15 +644,16 @@ const PaintBoard = () => {
     reader.readAsArrayBuffer(file);
   };
 
+
   return (
     <PageLayout containerClassName="form-container-page box">
       <div className={cx('row', 'justify-content-center')}>
         <div className={'col-lg-4 col-md-8 md:mb-20'}>
           <h4 className="mb-2">NFT CREATOR</h4>
           <p className="mb-40">
-          NFTs can represent essentially any type of digital file, with artists
-creating NFTs featuring images, videos, gifs, audio files, or a 
-combination of each.
+            NFTs can represent essentially any type of digital file, with artists
+            creating NFTs featuring images, videos, gifs, audio files, or a
+            combination of each.
           </p>
           <div
             {...getRootProps({
@@ -611,6 +732,7 @@ combination of each.
                 setSelected([col]);
                 setNft(col.erc721Address);
                 setType(col.type);
+                handleCreatePresetAttributes(col.attribute_template);
               }}
               className={styles.select}
               placeholder="Choose Collection"
@@ -635,10 +757,10 @@ combination of each.
               contentRenderer={({ props: { values } }) =>
                 values.length > 0 ? (
                   <div className={styles.collection}>
-                    {/* <img
-                          src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
-                          className={styles.collectionLogo}
-                        /> */}
+                    {<img
+                      src={`https://openzoo.mypinata.cloud/ipfs/${values[0].logoImageHash}`}
+                      className={styles.collectionLogo}
+                    />}
                     <div className={styles.collectionName}>
                       <strong>{values[0].collectionName}</strong>
                     </div>
@@ -689,6 +811,87 @@ combination of each.
               {description.length}/500
             </div>
           </div>
+          <div className={styles.formGroup}>
+            <p className={styles.formLabel}>Attributes</p>
+
+            {attributeFields.map((attributeField, index) => (
+              <Fragment key={`${attributeField}~${index}`}>
+                <div className="form-row space-x-10" style={{ display: 'flex' }}>
+                  <div className="form-group col-sm-5">
+                    <label htmlFor="trait_type">Title</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="trait_type"
+                      name="trait_type"
+                      style={{ height: 50 }}
+                      value={attributeField.trait_type}
+                      readOnly={attributeField.display_type}
+                      onChange={event => handleInputChange(index, event)}
+                    />
+                  </div>
+                  <div className="form-group col-sm-5">
+                    <label htmlFor="trait_value">Value ({getValueTypeDisplay(attributeField.display_type)})</label>
+                    {
+                      attributeField.display_type !== 'date' && <input
+                        type={getAttributeValueType(attributeField.display_type)}
+                        {...(attributeField.display_type === 'boost_percentage' ? { min: 0, max: 100 } : {})}
+                        className="form-control"
+                        id="trait_value"
+                        name="trait_value"
+                        style={{ height: 50 }}
+                        value={attributeField.trait_value}
+                        onChange={event => handleInputChange(index, event)}
+                      />
+                    }
+                    {
+                      attributeField.display_type === 'date' &&
+                      <Datetime
+                        style={{ height: 50 }}
+                        value={startTime}
+                        onChange={
+                          val => {
+                            setStartTime(val.toDate())
+                            handleDateChange(index, val.toDate())
+                          }
+                        }
+                        inputProps={{
+                          className: styles.formInput,
+                          onKeyDown: e => e.preventDefault(),
+                        }}
+                        closeOnSelect
+                        isValidDate={cur =>
+                          cur.valueOf() > new Date().getTime()
+                        }
+                      />
+                    }
+                  </div>
+                  <div className="form-group col-sm-2">
+                    <button
+                      className="btn btn-link"
+                      type="button"
+                      onClick={() => handleRemoveFields(index)}
+                    >
+                      <FontAwesomeIcon icon={faMinus} />
+                    </button>
+                    <button
+                      className="btn btn-link"
+                      type="button"
+
+                      onClick={() => handleAddFields()}
+                    >
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </div>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+          {
+            // <pre>
+            //   {JSON.stringify(attributeFields, null, 2)}
+            // </pre>
+          }
         </div>
         <div className={'col-lg-4 col-md-8'}>
           <div className={styles.formGroup}>
@@ -802,9 +1005,9 @@ combination of each.
                       <Stage
 
                         environment={false}
-                        contactShadow={{opacity:0.2, blur:4}}
+                        contactShadow={{ opacity: 0.2, blur: 4 }}
                       >
-                        
+
                         <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
                         <Model
                           scene={threeScence}
@@ -826,7 +1029,7 @@ combination of each.
           </div>
           <div className={styles.formGroup}>
             <p className={styles.formLabel}>
-            IP Rights Document (Optional)&nbsp;
+              IP Rights Document (Optional)&nbsp;
               <BootstrapTooltip
                 title="Link to the document which proves your ownership of this image."
                 placement="top"
@@ -870,24 +1073,24 @@ combination of each.
             </p>
             {hasUnlockableContent && (
               <>
-              <textarea
-                className={cx(styles.formInput, styles.longInput)}
-                maxLength={1000}
-                placeholder="Unlockable Content"
-                value={unlockableContent}
-                onChange={e => setUnlockableContent(e.target.value)}
-                disabled={isMinting}
-              />
-              <div className={styles.lengthIndicator}>
-              {unlockableContent.length}/1000
-            </div>
-            </>
+                <textarea
+                  className={cx(styles.formInput, styles.longInput)}
+                  maxLength={1000}
+                  placeholder="Unlockable Content"
+                  value={unlockableContent}
+                  onChange={e => setUnlockableContent(e.target.value)}
+                  disabled={isMinting}
+                />
+                <div className={styles.lengthIndicator}>
+                  {unlockableContent.length}/1000
+                </div>
+              </>
             )}
           </div>
           <div className="mb-25">
             <strong>Note</strong>
             <p>
-            The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
+              The process of minting NFT is an irreversible process. Please make sure all of the above details are correct.
             </p>
           </div>
 
@@ -927,20 +1130,21 @@ combination of each.
               fee > 0 ? <Skeleton width={330} height={22} /> : ''
             )}
           </div>
+          <div className={styles.mintStatusContainer}>
+            {lastMintedTnxId !== '' && (
+              <a
+                className={styles.tnxAnchor}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${explorerUrl}/tx/${lastMintedTnxId}`}
+              >
+                You can track the last transaction here ...
+              </a>
+            )}
+          </div>
         </div>
       </div>
-      <div className={styles.mintStatusContainer}>
-        {lastMintedTnxId !== '' && (
-          <a
-            className={styles.tnxAnchor}
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`${explorerUrl}/tx/${lastMintedTnxId}`}
-          >
-            You can track the last transaction here ...
-          </a>
-        )}
-      </div>
+
     </PageLayout>
   );
 };

@@ -158,38 +158,38 @@
   }
 }
 
-.attributeWrapper,
+
 .propertiesWrapper {
   max-height: 300px;
   overflow: auto;
   justify-content: center;
 }
 
-.attribute {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100px;
-  min-height: 60px;
-  max-height: 100px;
-  border: 1px solid #eaeaf1;
-  border-radius: 10px;
-  justify-content: center;
-  margin: 4px;
-  min-width:fit-content;
+.attributeWrapper
+{
+  display:grid;
+  grid-template-columns: auto auto;
+  max-height: 300px;
+  overflow: auto;
+  grid-row-gap: 10px;
+  
+}
+
+
   .attributeLabel {
     font-weight: normal;
-    text-align: center;
-    font-size: 12px;
+    font-size: 16px;
     text-transform: uppercase;
+    padding:0 10px;
+    color:#7e7e7e
   }
   .attributeValue {
     font-weight: bold;
-    text-align: center;
-    font-size: 14px;
-    margin-top: 5px;
+    text-align: left;
+    font-size: 16px;
+    padding:0 10px;
   }
-}
+
 
 .property {
   display: flex;

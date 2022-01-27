@@ -353,3 +353,11 @@ input[type='number'] {
     justify-content: center;
   }
 }
+input:read-only, input:read-only:focus
+{
+  cursor: not-allowed;
+}
+.react-dropdown-select-dropdown-handle
+{
+  display:flex;
+}

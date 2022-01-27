@@ -11339,10 +11339,14 @@ input[type="submit"][disabled].btn-primary:hover {
 
 .btn-link {
   font-weight: 400;
-  color: #0d6efd !important;
+  color: #00a59a !important;
 }
 .btn-link:hover {
-  color: #0a58ca;
+  color: #00a59a;
+  background-color: transparent !important;
+}
+.btn-link:focus {
+  color: #00a59a;
   background-color: transparent !important;
 }
 .btn-link:disabled, .btn-link.disabled {
