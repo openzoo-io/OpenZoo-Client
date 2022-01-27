@@ -318,7 +318,13 @@ const PaintBoard = () => {
   const handleInputChange = (index, event) => {
     const values = [...attributeFields];
 
+    if (event.target.type === 'text') {
     event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ ]/g, '');
+    }
+    else
+    {
+      event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+    }
 
     if (event.target.name === 'trait_type') {
       values[index].trait_type = event.target.value;
