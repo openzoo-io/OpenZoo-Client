@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 
 const propTypes = {
   items: PropTypes.array,
+  warnedCollections: PropTypes.array,
   count: PropTypes.number,
   loading: PropTypes.bool,
   onReachBottom: PropTypes.func,
@@ -44,7 +45,7 @@ function AccountProfileArtworksListComponent(props) {
               key={item?.tokenID + index.toString()}
               className="col-xl-4 col-lg-6 col-md-6"
             >
-              <AssetCard preset="four" item={item} onLike={props.onLike} />
+              <AssetCard preset="four" item={item} warnedCollections={props.warnedCollections} onLike={props.onLike} />
             </div>
           ))}
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>

@@ -83,6 +83,7 @@ export function AccountProfilePage() {
     getUserAccountDetails,
     getUserFigures,
     fetchCollections,
+    fetchWarnedCollections,
     fetchTokens,
     updateBanner,
     getAccountActivity,
@@ -147,7 +148,7 @@ export function AccountProfilePage() {
   const [collectionLoading, setCollectionLoading] = useState(false);
   const [collections, setCollections] = useState([]);
   const prevAuthToken = usePrevious(authToken);
-
+  const [warnedCollections, setWarnedCollections] = useState([]);
   const numPerRow = Math.floor(width / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
 
@@ -329,6 +330,13 @@ export function AccountProfilePage() {
     }
   }, [me, uid, account]);
 
+  const updateWarnedCollections = async () => {
+    const res = await fetchWarnedCollections();
+    if (res.status === 'success') {
+      setWarnedCollections(res.data);
+    }
+};
+
   const updateCollections = async () => {
     try {
       dispatch(CollectionsActions.fetchStart());
@@ -352,7 +360,9 @@ export function AccountProfilePage() {
       clearInterval(fetchInterval);
     }
 
+    updateWarnedCollections();
     updateCollections();
+
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     return () => clearInterval(fetchInterval);
   }, [chainId]);
@@ -753,6 +763,7 @@ export function AccountProfilePage() {
                           ? likes.current
                           : []
                       }
+                      warnedCollections={warnedCollections}
                       count={count}
                       loading={
                         tab === 0 ? fetching : tab === 2 ? favFetching : []
