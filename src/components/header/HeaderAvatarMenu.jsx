@@ -324,7 +324,7 @@ export function HeaderAvatarMenu(props) {
                 <span>Un-Warn Collection</span>
               </div>
 
-              <div className="cursor-pointer" onClick={props.unwarnCollection}>
+              <div className="cursor-pointer" onClick={props.banCollection}>
                 <span>Ban Collection</span>
               </div>
 
