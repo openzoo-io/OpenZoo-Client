@@ -544,6 +544,45 @@ export const useApi = () => {
     return res.data;
   };
 
+  // Warn / Unwarn //
+  const warnCollection = async (
+    address,
+    authToken,
+    signature,
+    signatureAddress
+  ) => {
+    const data = { address, signature, signatureAddress };
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/ban/verifyCollection`,
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
+  const unwarnCollection = async (
+    address,
+    authToken,
+    signature,
+    signatureAddress
+  ) => {
+    const data = { address, signature, signatureAddress };
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/ban/unverifyCollection`,
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
   const verifyCollection = async (
     address,
     authToken,
@@ -1005,6 +1044,8 @@ export const useApi = () => {
     addUnlockableContent,
     retrieveUnlockableContent,
     verifyCollection,
-    unverifyCollection
+    unverifyCollection,
+    warnCollection,
+    unwarnCollection,
   };
 };
