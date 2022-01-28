@@ -168,6 +168,11 @@ export const useApi = () => {
     return data;
   };
 
+  const fetchWarnedCollections = async () => {
+    const res = await axios.get(`${apiUrl}/info/getWarnedCollections`);
+    return res.data;
+  };
+
   const fetchCollections = async () => {
     const res = await axios.get(`${apiUrl}/info/getcollections`);
     return res.data;
@@ -949,6 +954,7 @@ export const useApi = () => {
     updateBanner,
     get1155Info,
     getTokenHolders,
+    fetchWarnedCollections,
     fetchCollections,
     fetchCollection,
     fetchCollectionStatistic,

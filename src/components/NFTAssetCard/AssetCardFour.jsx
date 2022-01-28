@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
-import warned from 'constants/warned.collections';
+//import warned from 'constants/warned.collections';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 // import { formatNumber } from 'utils';
 import cx from 'classnames';
@@ -27,6 +27,7 @@ import { useSelector } from 'react-redux';
 import { getRandomIPFS } from 'utils';
 const propTypes = {
   item: PropTypes.object.isRequired,
+  warnedCollections: PropTypes.array,
   info: PropTypes.object,
   liked: PropTypes.number,
   isLike: PropTypes.bool,
@@ -39,6 +40,7 @@ export function AssetCardFour(props) {
   const {
     loading,
     item,
+    warnedCollections,
     authToken,
     info,
     auction,
@@ -61,6 +63,8 @@ export function AssetCardFour(props) {
   );
 
   const [endAuctionIn, setEndAuctionIn] = useState();
+
+
   //console.log(item);
   useEffect(() => {
     if (auction?.endTime == null || !auction?.endTime || !auctionActive) {
@@ -254,7 +258,7 @@ export function AssetCardFour(props) {
               {collection?.isVerified && (
                 <img src="https://assets.openzoo.io/verified.svg" />
               )}
-              {warned.includes(item?.contractAddress) ? (
+              {warnedCollections && warnedCollections.includes(item?.contractAddress) ? (
                 <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"

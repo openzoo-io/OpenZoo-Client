@@ -299,7 +299,9 @@ export function HeaderAvatarMenu(props) {
               <div className="cursor-pointer" onClick={props.reviewCollections}>
                 <span> Review Collections</span>
               </div>
+              <div className="hr mt-2"></div>
             </>
+            
           )}
           {(props.isAdmin || props.isModerator) && (
             <>

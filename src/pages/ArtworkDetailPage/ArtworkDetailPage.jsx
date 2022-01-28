@@ -52,7 +52,7 @@ import {
   Line,
 } from 'recharts';
 // import { ChainId } from '@sushiswap/sdk';
-import warned from 'constants/warned.collections';
+//import warned from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faEye,
@@ -133,6 +133,7 @@ export function ArtworkDetailPage() {
     getNonce,
     retrieveUnlockableContent,
     fetchAuctionBidParticipants,
+    fetchWarnedCollections
   } = useApi();
   const {
     getERC20Contract,
@@ -229,6 +230,7 @@ export function ArtworkDetailPage() {
   const [bidModalVisible, setBidModalVisible] = useState(false);
   const [ownersModalVisible, setOwnersModalVisible] = useState(false);
   const [likesModalVisible, setLikesModalVisible] = useState(false);
+  const [warnedCollections, setWarnedCollections] = useState([]);
 
   const [transferring, setTransferring] = useState(false);
   const [burning, setBurning] = useState(false);
@@ -536,10 +538,10 @@ export function ArtworkDetailPage() {
         const contract = await getERC721Contract(address);
         const tokenURI = await contract.tokenURI(tokenID);
         let realUri = getRandomIPFS(tokenURI);
-        
+
         let isFallback = false;
-        await axios.get(realUri).catch(function(error){
-          realUri = getRandomIPFS(tokenURI,false,true);
+        await axios.get(realUri).catch(function(error) {
+          realUri = getRandomIPFS(tokenURI, false, true);
           isFallback = true;
         });
 
@@ -547,7 +549,7 @@ export function ArtworkDetailPage() {
         const { data } = await axios.get(realUri);
 
         if (data.image) {
-          data.image = getRandomIPFS(data.image,false, isFallback);
+          data.image = getRandomIPFS(data.image, false, isFallback);
         }
 
         if (data.properties?.royalty) {
@@ -1218,6 +1220,13 @@ export function ArtworkDetailPage() {
     setCollectionLoading(false);
   };
 
+  const updateWarnedCollections = async () => {
+    const res = await fetchWarnedCollections();
+    if (res.status === 'success') {
+      setWarnedCollections(res.data);
+    }
+  };
+
   const updateCollections = async () => {
     try {
       dispatch(CollectionsActions.fetchStart());
@@ -1236,6 +1245,10 @@ export function ArtworkDetailPage() {
     }
   };
 
+  useEffect(()=>{
+    updateWarnedCollections()
+  },[])
+
   useEffect(() => {
     if (address && tokenID) {
       addEventListeners();
@@ -1244,7 +1257,9 @@ export function ArtworkDetailPage() {
         clearInterval(fetchInterval);
       }
 
-      // updateCollections();
+      
+
+       updateCollections();
       // setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     }
 
@@ -1433,6 +1448,8 @@ export function ArtworkDetailPage() {
       updateItems();
     }
   }, [moreItems, authToken]);
+
+
 
   const getLikeInfo = async () => {
     setLikeFetching(true);
@@ -2591,7 +2608,7 @@ export function ArtworkDetailPage() {
         </Link>*/}
 
         <div className="item_details my-40">
-          {warned.includes(address) && (
+          {warnedCollections && warnedCollections.includes(address) && (
             <div className="alert alert-danger">
               <b>
                 <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
@@ -3492,6 +3509,7 @@ export function ArtworkDetailPage() {
                         <AssetCard
                           preset="four"
                           item={item}
+                          warnedCollections={warnedCollections}
                           isLike={item.isLiked}
                           cardHeaderClassName={styles.moreNftCardHeader}
                         />

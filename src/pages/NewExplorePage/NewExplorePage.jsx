@@ -17,7 +17,7 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import FilterActions from 'actions/filter.actions';
 
 export function NewExplorePage() {
-  const { fetchCollections, fetchTokens, getItemsLiked } = useApi();
+  const { fetchCollections, fetchWarnedCollections, fetchTokens, getItemsLiked } = useApi();
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
 
@@ -31,6 +31,7 @@ export function NewExplorePage() {
   const [cancelSource, setCancelSource] = useState(null);
   const [likeCancelSource, setLikeCancelSource] = useState(null);
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
+  const [warnedCollections, setWarnedCollections] = useState([]);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -71,6 +72,7 @@ export function NewExplorePage() {
     dispatch(FilterActions.updateStatusFilter('statusOnAuction', false));
 */
     updateCollections();
+    updateWarnedCollections();
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     
     return () => {
@@ -102,6 +104,13 @@ export function NewExplorePage() {
     chainId,
     numPerRow,
   ]);
+
+  const updateWarnedCollections = async () => {
+      const res = await fetchWarnedCollections();
+      if (res.status === 'success') {
+        setWarnedCollections(res.data);
+      }
+  };
 
   const updateCollections = async () => {
     try {
@@ -320,6 +329,7 @@ export function NewExplorePage() {
           category={category}
           count={count}
           loading={downFetching}
+          warnedCollections={warnedCollections}
           onReachBottom={handleOnReachArtworksBottom}
         />
       </div>
