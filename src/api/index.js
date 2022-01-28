@@ -554,7 +554,7 @@ export const useApi = () => {
     const data = { address, signature, signatureAddress };
     const res = await axios({
       method: 'post',
-      url: `${apiUrl}/ban/verifyCollection`,
+      url: `${apiUrl}/ban/warnCollection`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -573,7 +573,7 @@ export const useApi = () => {
     const data = { address, signature, signatureAddress };
     const res = await axios({
       method: 'post',
-      url: `${apiUrl}/ban/unverifyCollection`,
+      url: `${apiUrl}/ban/unwarnCollection`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',

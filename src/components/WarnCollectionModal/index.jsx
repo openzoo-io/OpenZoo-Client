@@ -40,7 +40,7 @@ const WarnCollectionModal = ({ visible, isWarn, onClose }) => {
         const signer = await getSigner();
         const msg = `Approve Signature on OpenZoo.io with nonce ${nonce}`;
         signature = await signer.signMessage(msg);
-        addr = ethers.utils.warnMessage(msg, signature);
+        addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
         toast(
           'error',
@@ -58,7 +58,7 @@ const WarnCollectionModal = ({ visible, isWarn, onClose }) => {
       );
       if (ret.status == 'success')
       {
-        toast('success', 'Success!');
+        toast('success', 'Success! - Please wait around 2 mins');
       }
       else{
         toast('error',ret.data);
