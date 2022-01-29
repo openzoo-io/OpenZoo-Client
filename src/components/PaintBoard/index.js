@@ -860,9 +860,9 @@ const PaintBoard = () => {
                           onKeyDown: e => e.preventDefault(),
                         }}
                         closeOnSelect
-                        isValidDate={cur =>
-                          cur.valueOf() > new Date().getTime()
-                        }
+                        // isValidDate={cur =>
+                        //   cur.valueOf() > new Date().getTime()
+                        // }
                       />
                     }
                   </div>
@@ -871,6 +871,7 @@ const PaintBoard = () => {
                       className="btn btn-link"
                       type="button"
                       onClick={() => handleRemoveFields(index)}
+                      disabled={attributeFields.length<=1}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>

@@ -870,6 +870,7 @@ const CollectionCreate = ({ isRegister }) => {
                         className="btn btn-link"
                         type="button"
                         onClick={() => handleRemoveFields(index)}
+                        disabled={attributeFields.length<=1}
                       >
                         <FontAwesomeIcon icon={faMinus} />
                       </button>
