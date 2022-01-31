@@ -260,7 +260,7 @@ export function ArtworkDetailPageAttributesView(props) {
         )}
         {attributes[key].display_type !== 'date' && (
           <div className={styles.attributeValue}>
-            {attributes[key].display_type === 'boost_number'?'+':''}
+            {attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':''}
             {attributes[key].value}
             {attributes[key].display_type === 'boost_percentage'?'%':''}
           </div>
