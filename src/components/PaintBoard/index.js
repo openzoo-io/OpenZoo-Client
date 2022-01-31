@@ -321,36 +321,52 @@ const PaintBoard = () => {
     const values = [...attributeFields];
 
     if (event.target.type === 'text') {
-      event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ ]/g, '');
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9_ -]/g, '');
     }
     else {
-      event.target.value = event.target.value.replace(/[^0-9.]/g, '');
+      event.target.value = event.target.value.replace(/[^0-9.-]/g, '');
     }
 
     if (event.target.name === 'trait_type') {
       values[index].trait_type = event.target.value;
     }
     if (event.target.name === 'trait_value') {
-      if (event.target.min && Number(event.target.value) < Number(event.target.min)) {
-        event.target.value = event.target.min;
-      }
-      if (event.target.max && Number(event.target.value) > Number(event.target.max)) {
-        event.target.value = event.target.max;
-      }
-
-      if (event.target.type === 'text') {
-
-        values[index].trait_value = event.target.value;
-      }
-      else {
-
-        event.target.value = values[index].trait_value = Number(event.target.value);
-
-      }
+    values[index].trait_value = event.target.value;
     }
+    // if (event.target.name === 'trait_value') {
+      
+    //   // if (event.target.min && Number(event.target.value) < Number(event.target.min)) {
+    //   //   event.target.value = event.target.min;
+    //   // }
+    //   // if (event.target.max && Number(event.target.value) > Number(event.target.max)) {
+    //   //   event.target.value = event.target.max;
+    //   // }
+
+    //   if (event.target.type === 'text') {
+
+    //     values[index].trait_value = event.target.value;
+    //   }
+    //   else {
+
+    //     event.target.value = values[index].trait_value = Number(event.target.value);
+
+    //   }
+    // }
 
     setAttributeFields(values);
   };
+  const handleFinalInputChange = (index, event) => {
+    const values = [...attributeFields];
+
+    if (event.target.type === 'text') {
+      values[index].trait_value = event.target.value;
+    }
+    else {
+      event.target.value = values[index].trait_value = Number(event.target.value);
+    }
+
+    setAttributeFields(values);
+  }
   const handleDateChange = (index, date) => {
     const values = [...attributeFields];
     values[index].trait_value = Date.parse(date) / 1000;
@@ -360,11 +376,14 @@ const PaintBoard = () => {
     if (display_type === '' || display_type === 'text') {
       return 'Text';
     }
-    if (display_type === 'number' || display_type === 'boost_number') {
+    if (display_type === 'number') {
       return 'Number';
     }
+    if (display_type === 'boost_number') {
+      return 'Number (+/-)';
+    }
     if (display_type === 'boost_percentage') {
-      return 'Number 0-100';
+      return 'Number (%)';
     }
     if (display_type === 'date') {
       return 'Date Time';
@@ -828,20 +847,24 @@ const PaintBoard = () => {
                       value={attributeField.trait_type}
                       readOnly={attributeField.display_type}
                       onChange={event => handleInputChange(index, event)}
+                      
                     />
                   </div>
                   <div className="form-group col-sm-5">
-                    <label htmlFor="trait_value">Value ({getValueTypeDisplay(attributeField.display_type)})</label>
+                    <label htmlFor="trait_value">{getValueTypeDisplay(attributeField.display_type)}</label>
                     {
                       attributeField.display_type !== 'date' && <input
                         type={getAttributeValueType(attributeField.display_type)}
-                        {...(attributeField.display_type === 'boost_percentage' ? { min: 0, max: 100 } : {})}
+                        {
+                        ...{}//...(attributeField.display_type === 'boost_percentage' ? { min: 0, max: 100 } : {})
+                        }
                         className="form-control"
                         id="trait_value"
                         name="trait_value"
                         style={{ height: 50 }}
                         value={attributeField.trait_value}
                         onChange={event => handleInputChange(index, event)}
+                        onBlur={event => handleFinalInputChange(index, event)}
                       />
                     }
                     {
@@ -860,9 +883,9 @@ const PaintBoard = () => {
                           onKeyDown: e => e.preventDefault(),
                         }}
                         closeOnSelect
-                        // isValidDate={cur =>
-                        //   cur.valueOf() > new Date().getTime()
-                        // }
+                      // isValidDate={cur =>
+                      //   cur.valueOf() > new Date().getTime()
+                      // }
                       />
                     }
                   </div>
@@ -871,7 +894,7 @@ const PaintBoard = () => {
                       className="btn btn-link"
                       type="button"
                       onClick={() => handleRemoveFields(index)}
-                      disabled={attributeFields.length<=1}
+                      disabled={attributeFields.length <= 1}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
@@ -889,9 +912,9 @@ const PaintBoard = () => {
             ))}
           </div>
           {
-            // <pre>
-            //   {JSON.stringify(attributeFields, null, 2)}
-            // </pre>
+            <pre>
+              {JSON.stringify(attributeFields, null, 2)}
+            </pre>
           }
         </div>
         <div className={'col-lg-4 col-md-8'}>
