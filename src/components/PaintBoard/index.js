@@ -383,7 +383,7 @@ const PaintBoard = () => {
       return 'Number (+/-)';
     }
     if (display_type === 'boost_percentage') {
-      return 'Number (%)';
+      return 'Percentage (+/-)';
     }
     if (display_type === 'date') {
       return 'Date Time';
@@ -912,9 +912,9 @@ const PaintBoard = () => {
             ))}
           </div>
           {
-            <pre>
-              {JSON.stringify(attributeFields, null, 2)}
-            </pre>
+            // <pre>
+            //   {JSON.stringify(attributeFields, null, 2)}
+            // </pre>
           }
         </div>
         <div className={'col-lg-4 col-md-8'}>
