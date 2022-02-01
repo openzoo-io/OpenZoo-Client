@@ -93,7 +93,7 @@ function AssetCardComponent(props) {
       if (item) {
         if (item.imageURL) {
           // eslint-disable-next-line require-atomic-updates
-          item.imageURL = getRandomIPFS(item.imageURL);
+          item.imageURL = getRandomIPFS(item.imageURL, false, true);
         }
 
 
@@ -129,7 +129,8 @@ function AssetCardComponent(props) {
   const getTokenURI = async tokenURI => {
     setFetching(true);
     try {
-      tokenURI = getRandomIPFS(tokenURI);
+      // Need to remove //
+      tokenURI = getRandomIPFS(tokenURI, false, true);
 
       const { data } = await axios.get(tokenURI);
 
@@ -141,6 +142,9 @@ function AssetCardComponent(props) {
       if (data.properties && data.properties.image) {
         data.image = getRandomIPFS(data.properties.image.description);
       }
+
+      data.image = getRandomIPFS(data.image, false , true)
+
 
       setInfo(data);
     } catch {

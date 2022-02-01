@@ -453,20 +453,31 @@ export function ArtworkDetailPage() {
         setOwner(null);
       }
       let data;
+      let isFallback = false;
       const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
       if (base64regex.test(uri)) {
         const string = atob(uri);
         data = JSON.parse(string);
       } else {
-        const realUri = getRandomIPFS(uri);
+        let realUri = getRandomIPFS(uri);
+        
+        
+        await axios.get(realUri).catch(function(error) {
+          
+          realUri = getRandomIPFS(realUri, false, true);
+
+          isFallback = true;
+        });
+
         setTokenUri(realUri);
         new URL(realUri);
-        const response = await axios.get(realUri);
+        let response = await axios.get(realUri);
         data = response.data;
       }
 
       if (data[Object.keys(data)[0]].image) {
-        data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
+        alert(data[Object.keys(data)[0]].image)
+        data.image = getRandomIPFS(data[Object.keys(data)[0]].image,false ,isFallback);
         data.name = data[Object.keys(data)[0]].name;
         data.description = data[Object.keys(data)[0]].description;
       }
@@ -506,7 +517,7 @@ export function ArtworkDetailPage() {
       }
 
       if (data.image) {
-        data.image = getRandomIPFS(data.image);
+        data.image = getRandomIPFS(data.image, false , isFallback);
         // Resync Thumbnail //
         if (thumbnailPath === 'non-image' || thumbnailPath === '.') {
           // Check status of Image //
