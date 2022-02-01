@@ -24,7 +24,7 @@ import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-
+import { getRandomIPFS } from 'utils';
 const propTypes = {
   item: PropTypes.object.isRequired,
   warnedCollections: PropTypes.array,
@@ -182,8 +182,8 @@ export function AssetCardFour(props) {
               src={
                 (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' &&
                   apiUrl + '/image/' + item?.thumbnailPath) ||
-                  info?.image ||
-                  item?.imageURL
+                  getRandomIPFS(info?.image) ||
+                  getRandomIPFS(item?.imageURL)
               }
             />
             <Link to={assetUrl}>
@@ -191,8 +191,8 @@ export function AssetCardFour(props) {
                 image={
                   (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' && 
                     apiUrl + '/image/' + item?.thumbnailPath) ||
-                    info?.image ||
-                    item?.imageURL
+                    getRandomIPFS(info?.image) ||
+                    getRandomIPFS(item?.imageURL)
                 }
                 alt=""
               />

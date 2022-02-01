@@ -42,13 +42,7 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
   }
   if (isFallback)
   {
-    if (tokenURI.includes('ipfs://')) {
-      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
-    }
-    else
-    {
     return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
-    }
   }
   try {
     if (
