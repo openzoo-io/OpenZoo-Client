@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { formatNumber } from 'utils';
-import  warned  from 'constants/warned.collections';
+import warned from 'constants/warned.collections';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 // import { formatNumber } from 'utils';
 import cx from 'classnames';
@@ -18,12 +18,13 @@ import {
   faVideo,
   faCubes,
   faGavel,
-  faExclamationTriangle
+  faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 import { StackAvatars } from 'components/Avatar';
 import { useState } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import { getRandomIPFS } from 'utils';
 const propTypes = {
   item: PropTypes.object.isRequired,
   info: PropTypes.object,
@@ -45,6 +46,8 @@ export function AssetCardFour(props) {
     liked,
     isLike,
     cardHeaderClassName,
+    zooGeneClass,
+    zooElixir,
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
@@ -87,6 +90,21 @@ export function AssetCardFour(props) {
       clearInterval(timer);
     };
   }, [auction?.endTime]);
+
+  const getZooElixirClass = elixir => {
+    switch (elixir) {
+      case '1':
+        return <img src="/ZooBooster/class/N.png" />;
+      case '2':
+        return <img src="/ZooBooster/class/R.png" />;
+      case '3':
+        return <img src="/ZooBooster/class/SR.png" />;
+      case '4':
+        return <img src="/ZooBooster/class/SSR.png" />;
+      case '5':
+        return <img src="/ZooBooster/class/UR.png" />;
+    }
+  };
 
   if (loading) {
     return (
@@ -133,7 +151,8 @@ export function AssetCardFour(props) {
                 <>
                   <div className="avatars -space-x-20">
                     <p className="avatars_name txt_sm d-flex align-items-center">
-                      <ViewModuleIcon className="avatar avatar-sm"/> {formatNumber(item?.supply)} minted
+                      <ViewModuleIcon className="avatar avatar-sm" />{' '}
+                      {formatNumber(item?.supply)} minted
                     </p>
                   </div>
                 </>
@@ -154,24 +173,41 @@ export function AssetCardFour(props) {
             </div>
           </div>
           <div className={cx('card_head', cardHeaderClassName)}>
-            <img className="blur_thumb" src={
-                  (item?.thumbnailPath !== '-' &&
-                    apiUrl + '/image/' + item?.thumbnailPath) ||
-                  info?.image ||
-                  item?.imageURL
-                }/>
+            <img
+              className="blur_thumb"
+              src={
+                (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' &&
+                  apiUrl + '/image/' + item?.thumbnailPath) ||
+                  getRandomIPFS(info?.image) ||
+                  getRandomIPFS(item?.imageURL)
+              }
+            />
             <Link to={assetUrl}>
               <ArtworkMediaView
                 image={
-                  (item?.thumbnailPath !== '-' &&
+                  (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' && 
                     apiUrl + '/image/' + item?.thumbnailPath) ||
-                  info?.image ||
-                  item?.imageURL
+                    getRandomIPFS(info?.image) ||
+                    getRandomIPFS(item?.imageURL)
                 }
                 alt=""
               />
             </Link>
-
+            {zooGeneClass && (
+              <div className="cardZooGeneClass">
+                <img src={`/ZooBooster/class/${zooGeneClass}.png`} />
+              </div>
+            )}
+            {zooElixir && (
+              <>
+                <div className="cardZooGeneClass">
+                  {getZooElixirClass(zooElixir?.level?.toString())}
+                </div>
+                <div className="cardZooElixirFilled">
+                  {(Number(zooElixir?.drops?.toString()) / 1e18).toFixed(2)}%
+                </div>
+              </>
+            )}
             {endAuctionIn && (
               <div className="countdownWrapper space-x-3">
                 {endAuctionIn?.humanize && (
@@ -215,11 +251,21 @@ export function AssetCardFour(props) {
               className={'card_subtitle'}
             >
               {collection?.collectionName || collection?.name}
-              {collection?.isVerified && <img src="https://assets.openzoo.io/verified.svg" />}
-              {warned.includes(item?.contractAddress) ? <BootstrapTooltip
+              {collection?.isVerified && (
+                <img src="https://assets.openzoo.io/verified.svg" />
+              )}
+              {warned.includes(item?.contractAddress) ? (
+                <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"
-                ><a className="text-danger"><FontAwesomeIcon icon={faExclamationTriangle} /></a></BootstrapTooltip> : ''}
+                >
+                  <a className="text-danger">
+                    <FontAwesomeIcon icon={faExclamationTriangle} />
+                  </a>
+                </BootstrapTooltip>
+              ) : (
+                ''
+              )}
             </Link>
             <Link to={assetUrl} className={'color_black'}>
               {info?.name || item?.name}

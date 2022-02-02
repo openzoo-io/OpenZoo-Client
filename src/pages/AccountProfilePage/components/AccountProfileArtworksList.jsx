@@ -1,4 +1,5 @@
 import { AssetCard } from 'components/NFTAssetCard';
+import { ArtworkProfileFillterStatus } from './AccountProfileFillterStatus'
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
@@ -31,6 +32,12 @@ function AccountProfileArtworksListComponent(props) {
   return (
     <div className="tab-content">
       <div className="tab-pane active">
+        <div className="section">
+          <div className="section__head">
+            <ArtworkProfileFillterStatus />
+          </div>
+        </div>
+
         <div className="row">
           {props.items?.map((item, index) => (
             <div

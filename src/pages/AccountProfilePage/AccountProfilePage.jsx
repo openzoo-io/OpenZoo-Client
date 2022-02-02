@@ -151,6 +151,17 @@ export function AccountProfilePage() {
   const numPerRow = Math.floor(width / 256);
   const fetchCount = numPerRow <= 3 ? 18 : 16;
 
+  const {
+    groupType,
+    category,
+    mediaType,
+    sortBy,
+    statusBuyNow,
+    statusHasBids,
+    statusHasOffers,
+    statusOnAuction,
+  } = useSelector(state => state.Filter);
+
   const getUserDetails = async _account => {
     setLoading(true);
     try {
@@ -192,6 +203,22 @@ export function AccountProfilePage() {
     setFiguresFetching(false);
   };
 
+  // Refetch NFT after changed filter / sorting //
+  useEffect(() => {
+    tokens.current = [];
+    setCount(0);
+    fetchNFTs();
+  }, [
+    groupType,
+    category,
+    mediaType,
+    sortBy,
+    statusBuyNow,
+    statusHasBids,
+    statusHasOffers,
+    statusOnAuction,
+  ]);
+
   const fetchNFTs = async () => {
     if (tab === 0) {
       if (fetching) return;
@@ -200,6 +227,12 @@ export function AccountProfilePage() {
       if (bundleFetching) return;
       setBundleFetching(true);
     }
+
+    const filterBy = [];
+      if (statusBuyNow) filterBy.push('buyNow');
+      if (statusHasBids) filterBy.push('hasBids');
+      if (statusHasOffers) filterBy.push('hasOffers');
+      if (statusOnAuction) filterBy.push('onAuction');
 
     try {
       const start = tab === 0 ? tokens.current.length : bundles.current.length;
@@ -212,8 +245,8 @@ export function AccountProfilePage() {
         tab === 0 ? 'single' : 'bundle',
         [],
         null,
-        'createdAt',
-        [],
+        sortBy,
+        filterBy,
         uid,
         null,
         true

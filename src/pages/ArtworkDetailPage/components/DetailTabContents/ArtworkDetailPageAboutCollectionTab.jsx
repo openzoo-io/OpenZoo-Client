@@ -13,9 +13,7 @@ export function ArtworkDetailPageAboutCollectionTab(props) {
 
   return (
     <div>
-      <div className={styles.collectionDescription}>
-        {collection?.description || 'Unverified Collection'}
-      </div>
+      <p>{collection?.description || 'Unverified Collection'}</p>
 
       <div className={styles.socialLinks}>
         {collection?.siteUrl?.length > 0 && (

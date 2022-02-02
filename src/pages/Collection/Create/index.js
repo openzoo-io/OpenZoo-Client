@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import cx from 'classnames';
@@ -15,7 +15,7 @@ import { ClipLoader } from 'react-spinners';
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import showToast from 'utils/toast';
-
+import Select from 'react-dropdown-select';
 import { Categories } from 'constants/filter.constants';
 import HeaderActions from 'actions/header.actions';
 import BootstrapTooltip from 'components/BootstrapTooltip';
@@ -27,13 +27,14 @@ import { useFactoryContract, getSigner } from 'contracts';
 import nftIcon from 'assets/svgs/nft_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {
   faDiscord,
   faTwitter,
   faInstagram,
   faMedium,
-  faTelegramPlane
+  faTelegramPlane,
+
 } from '@fortawesome/free-brands-svg-icons';
 
 import styles from './styles.module.scss';
@@ -256,6 +257,46 @@ const CollectionCreate = ({ isRegister }) => {
     setSelected(selected.filter(id => id !== catId));
   };
 
+  // Attributes //
+
+  const attributeDisplayTypeList = [
+    { display_type: 'text', display_value: 'Text' },
+    { display_type: 'number', display_value: 'Number' },
+    { display_type: 'boost_number', display_value: 'Boost Number' },
+    { display_type: 'boost_percentage', display_value: 'Boost Percentage' },
+    { display_type: 'date', display_value: 'Date' },
+  ];
+  const [attributeFields, setAttributeFields] = useState([
+    { trait_type: '', display_type: 'text' }
+  ]);
+  const handleAddFields = () => {
+    const values = [...attributeFields];
+    values.push({ trait_type: '', display_type: 'text' });
+    setAttributeFields(values);
+  };
+
+  const handleRemoveFields = index => {
+    const values = [...attributeFields];
+    if (values.length === 1) return;
+    values.splice(index, 1);
+    setAttributeFields(values);
+  };
+
+  const handleInputChange = (index, event) => {
+    const values = [...attributeFields];
+    event.target.value = event.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+    values[index].trait_type = event.target.value;
+
+    setAttributeFields(values);
+  };
+
+  const handleSelectChange = (index, col) => {
+    const values = [...attributeFields];
+    values[index].display_type = col.display_type;
+
+    setAttributeFields(values);
+  };
+
   const isValid = (() => {
     if (!logo) return false;
     if (nameError) return false;
@@ -267,6 +308,21 @@ const CollectionCreate = ({ isRegister }) => {
     if (!validEmail(email)) return false;
     if (isRegister && !isAddress(feeRecipient)) return false;
     if (!isAcceptUploadRight || !isAcceptTerms) return false;
+
+    // Attributes //
+    if (attributeFields.length > 1) {
+      let checkAttribute = true;
+      attributeFields.filter(v => {
+        if (v.trait_type.trim() === '') {
+          checkAttribute = false;
+        }
+      });
+
+      if (!checkAttribute) {
+        return false;
+      }
+    }
+
     return true;
   })();
 
@@ -387,7 +443,7 @@ const CollectionCreate = ({ isRegister }) => {
   };
 
   const handleCreate = async () => {
-    
+
     setDeploying(true);
     try {
       const tx = await createNFTContract(
@@ -460,6 +516,7 @@ const CollectionCreate = ({ isRegister }) => {
                   erc721Address: address,
                   collectionName: name,
                   description,
+                  attribute_template: attributeFields.filter((item) => { return item.trait_type.trim() !== '' }),
                   categories: selected.join(','),
                   logoImageHash,
                   siteUrl,
@@ -530,13 +587,15 @@ const CollectionCreate = ({ isRegister }) => {
     </Menu>
   );
 
+
+
   return (
     <PageLayout
       containerClassName="form-container-page box"
       cover={
         !isRegister && (
-          <div className="container" style={{paddingLeft:0,paddingRight:0}}>
-            
+          <div className="container" style={{ paddingLeft: 0, paddingRight: 0 }}>
+
             <div className="d-flex justify-content-between mt-40 space-x-40 sm:space-x-20">
               <TokenChoiceCard
                 title="SINGLE TOKEN"
@@ -563,9 +622,9 @@ const CollectionCreate = ({ isRegister }) => {
         <div className="col-lg-4 col-md-8 space-y-20">
           <h4>{isRegister ? 'COLLECTION REGISTOR' : 'COLLECTION CREATOR'}</h4>
           <p>
-          NFTs can represent essentially any type of digital file, with artists
-creating NFTs featuring images, videos, gifs, audio files, or a 
-combination of each.
+            NFTs can represent essentially any type of digital file, with artists
+            creating NFTs featuring images, videos, gifs, audio files, or a
+            combination of each.
           </p>
           {!isRegister &&
             (isModerator ||
@@ -749,6 +808,90 @@ combination of each.
               )}
             </div>
           </div>
+          {
+            !isRegister && <div className={styles.inputGroup}>
+              <p className={styles.inputTitle}>Attribute Template</p>
+
+              {attributeFields.map((attributeField, index) => (
+                <Fragment key={`${attributeField}~${index}`}>
+                  <div className="form-row mt-10 space-x-5" style={{ display: 'flex' }}>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="trait_type">Title</label>
+                      <input
+                        style={{ height: 50 }}
+                        type="text"
+                        className="form-control"
+                        id="trait_type"
+                        name="trait_type"
+                        placeholder="Head,Body etc."
+                        value={attributeField.trait_type}
+                        onChange={event => handleInputChange(index, event)}
+                      />
+                    </div>
+                    <div className="form-group col-sm-5">
+                      <label htmlFor="display_type">Display</label>
+
+                      <Select
+                        options={attributeDisplayTypeList}
+                        values={attributeDisplayTypeList.filter((item) => { return item.display_type === attributeFields[index].display_type })}
+                        className={styles.select}
+                        onChange={([col]) => {
+                          handleSelectChange(index, col)
+                        }}
+                        placeholder="Choose Collection"
+                        itemRenderer={({ item, methods }) => (
+                          <div
+                            key={item.display_type}
+                            className={styles.collection}
+                            onClick={() => {
+                              methods.clearAll();
+                              methods.addItem(item);
+                            }}
+                          >
+                            <div className={`${styles.collectionName} ${styles.collectionList}`}>
+                              <strong>{item.display_value}</strong>
+                            </div>
+                          </div>
+                        )}
+                        contentRenderer={({ props: { values } }) =>
+                          <div className={styles.collection}>
+
+                            <div className={styles.collectionName}>
+                              <strong>{values[0].display_value}</strong>
+                            </div>
+                          </div>
+                        }
+                      />
+                    </div>
+
+                    <div className="form-group col-sm-2">
+
+                      <button
+                        className="btn btn-link"
+                        type="button"
+                        onClick={() => handleRemoveFields(index)}
+                      >
+                        <FontAwesomeIcon icon={faMinus} />
+                      </button>
+                      <button
+                        className="btn btn-link"
+                        type="button"
+
+                        onClick={() => handleAddFields()}
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
+                    </div>
+                  </div>
+                </Fragment>
+              ))}
+              {
+                // <pre>
+                //   {JSON.stringify(attributeFields, null, 2)}
+                // </pre>
+              }
+            </div>
+          }
           {isRegister && (
             <div className={styles.inputGroup}>
               <div className={styles.inputTitle}>
@@ -924,8 +1067,8 @@ combination of each.
                   />
                 </div>
 
-  
- 
+
+
               </div>
             </div>
           </div>
@@ -954,7 +1097,7 @@ combination of each.
           <div>
             <strong>Note</strong>
             <p>
-            The process of creating Collection is an irreversible process. Please make sure all of the above details are correct.
+              The process of creating Collection is an irreversible process. Please make sure all of the above details are correct.
             </p>
           </div>
           <div className={styles.buttonsWrapper}>
@@ -992,7 +1135,7 @@ combination of each.
               </div>
             )}
           </div>
-         
+
         </div>
       </div>
       {renderMenu}

@@ -92,7 +92,7 @@ export function CollectionList() {
   const prevAuthToken = usePrevious(authToken);
 
   const numPerRow = Math.floor(gridWidth / 256);
-  const fetchCount = numPerRow <= 3 ? 18 : 16;
+  const fetchCount = numPerRow <= 3 ? 14 : 12;
 
   useEffect(() => {
     // Filter by Address //

@@ -35,7 +35,8 @@ export const Contracts = {
     privateArtFactory: '0x3e070bE392D6a54D4A9AF51d4A476f951aA3993B', //FantomArtFactoryPrivate
     zooBooster: '0x38034B2E6ae3fB7FEC5D895a9Ff3474bA0c283F6',
     zooElixir: '0xA67213608Db9D4BFFAc75baD01Ca5B1f4ad0724c',
-    zooAlchemy: '0x23A9f34aa1e45f9E191A6615d24A781607a1bcb1'
+    zooAlchemy: '0x23A9f34aa1e45f9E191A6615d24A781607a1bcb1',
+    zooGenes: '0x992e4447f470ea47819d677b84d2459677bfdadf',
   },
   999: {
     auction: '0x7e408f989deD4ac3ce2AdddD96b8E518Cbdc9aa0',
@@ -47,6 +48,7 @@ export const Contracts = {
     privateArtFactory: '0xCaa6ff4Db9a762dcdc725D69DD5d9B392A66d933', //FantomArtFactoryPrivate
     zooBooster: '0xbCF9F4fae90dA7c4BB05DA6f9E9A9A39dc5Ce979',
     zooElixir: '0xDe3f8DA0Cf18b4ddc5e2f3d94ca3694c241507Bd',
-    zooAlchemy: '0x910A1a6b133A6A869141722872Eb19609A16B511'
+    zooAlchemy: '0x910A1a6b133A6A869141722872Eb19609A16B511',
+    zooGenes: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
   },
 };

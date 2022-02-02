@@ -49,6 +49,10 @@ const sortByItems = [
     label: 'Popularity',
   },
   {
+    id: 'volume',
+    label: 'Volume Traded',
+  },
+  {
     id: 'owner',
     label: 'Number of owners',
   },
