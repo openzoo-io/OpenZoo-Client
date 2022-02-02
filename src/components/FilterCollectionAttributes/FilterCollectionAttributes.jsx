@@ -16,10 +16,15 @@ import './FilterCollectionAttributes.css';
 import { useDispatch } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
 
-export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
+export function FilterCollectionAttributes({
+  hidden = true,
+  hideFunction,
+  toggleAttributeButton,
+}) {
   const { getAttributeFilterData } = useApi();
-  const { addr } = useParams();
-  const [filterData, setFilterData] = useState({});
+  const params = useParams();
+  const [filterData, setFilterData] = useState([]);
+  const [filterableFilterData, setFilterableFilterData] = useState([]);
   const [formData, setFormData] = useState({});
   const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState(true);
   const [isResetButtonDisabled, setIsResetButtonDisabled] = useState(true);
@@ -27,8 +32,9 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    hideFunction();
     fetchFilterData();
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     setIsApplyButtonDisabled(Object.keys(formData).length === 0);
@@ -40,13 +46,26 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
     apply();
   }, [resetCounter]);
 
+  useEffect(() => {
+    setFilterableFilterData(
+      filterData.filter(
+        data =>
+          (data.isNumeric && data.value.min !== data.value.max) ||
+          (!data.isNumeric && data.value.length > 1)
+      )
+    );
+  }, [filterData]);
+
+  useEffect(() => {
+    toggleAttributeButton(filterableFilterData.length);
+  }, [filterableFilterData]);
+
   const fetchFilterData = async () => {
     try {
-      let data = await getAttributeFilterData(addr);
-      if (!data) return;
+      let data = await getAttributeFilterData(params.addr);
       setFilterData(data);
     } catch (e) {
-      setFilterData({});
+      setFilterData([]);
     }
   };
 
@@ -70,7 +89,7 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
       };
 
       return (
-        <Grid style={{ alignItems: 'center', fontSize: '.8rem'}} container>
+        <Grid style={{ alignItems: 'center', fontSize: '.8rem' }} container>
           <Grid item xs={3}>
             <Checkbox style={checkboxStyle} checked={state.selected} />
           </Grid>
@@ -126,7 +145,7 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
       const styles = {
         background: '#fff',
         marginTop: 6,
-        width: 280
+        width: 280,
       };
       return <Popper {...props} style={styles} placement="bottom-start" />;
     };
@@ -161,10 +180,7 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
       </Grid>
     );
 
-    const inputElements = filterData.map(data => {
-      if (data.isNumeric && data.value.min === data.value.max) return;
-      if (!data.isNumeric && data.value.length <= 1) return;
-
+    const inputElements = filterableFilterData.map(data => {
       return data.isNumeric
         ? numericInputTemplate(data._id, data.value)
         : autoCompleteInputTemplate(data._id, data.value);

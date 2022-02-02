@@ -995,7 +995,7 @@ export const useApi = () => {
       },
     }).then(res => res.data);
 
-    return res.status === 'success' ? res.data : null;
+    return res.status === 'success' ? res.data : [];
   };
 
   const isAttributeFilterAvailable = async contractAddress => {
