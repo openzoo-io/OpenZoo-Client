@@ -102,6 +102,8 @@ const ONE_MONTH = ONE_DAY * 30;
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 
+import { useZooElixirContract } from 'contracts/zookeeper';
+
 export function ArtworkDetailPage() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -133,7 +135,7 @@ export function ArtworkDetailPage() {
     getNonce,
     retrieveUnlockableContent,
     fetchAuctionBidParticipants,
-    fetchWarnedCollections
+    fetchWarnedCollections,
   } = useApi();
   const {
     getERC20Contract,
@@ -180,6 +182,8 @@ export function ArtworkDetailPage() {
     cancelBundleOffer,
     acceptBundleOffer,
   } = useBundleSalesContract();
+
+  const { getElixir } = useZooElixirContract();
 
   const { addr: address, id: tokenID, bundleID } = useParams();
 
@@ -264,6 +268,8 @@ export function ArtworkDetailPage() {
   const [hasUnlockable, setHasUnlockable] = useState(false);
   const [revealing, setRevealing] = useState(false);
   const [unlockableContent, setUnlockableContent] = useState('');
+
+  const [zooElixir, setZooElixir] = useState(null);
 
   const [bid, setBid] = useState(null);
   const [winner, setWinner] = useState(null);
@@ -1245,9 +1251,9 @@ export function ArtworkDetailPage() {
     }
   };
 
-  useEffect(()=>{
-    updateWarnedCollections()
-  },[])
+  useEffect(() => {
+    updateWarnedCollections();
+  }, []);
 
   useEffect(() => {
     if (address && tokenID) {
@@ -1257,9 +1263,7 @@ export function ArtworkDetailPage() {
         clearInterval(fetchInterval);
       }
 
-      
-
-       updateCollections();
+      updateCollections();
       // setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     }
 
@@ -1306,6 +1310,18 @@ export function ArtworkDetailPage() {
       console.log('!getItemDetails', bundleListing);
 
       getItemDetails(); // TODO: Need to optimize
+
+      // Case for Elixir //
+      if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
+        try {
+          getElixir(tokenID).then(ret => {
+            setZooElixir(ret);
+            console.log('Elixir Info', ret);
+          });
+        } catch {
+          console.log('error');
+        }
+      }
 
       getAuctions().then(() => {
         getBid();
@@ -1448,8 +1464,6 @@ export function ArtworkDetailPage() {
       updateItems();
     }
   }, [moreItems, authToken]);
-
-
 
   const getLikeInfo = async () => {
     setLikeFetching(true);
@@ -2574,6 +2588,40 @@ export function ArtworkDetailPage() {
     }
   };
 
+  // Elixir Images //
+  const numberToColor = (number, diff = 0) => {
+    return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
+  };
+  const elixirIMG = (bottle_type_id, filled_drop, drop_color) => {
+    bottle_type_id = parseInt(bottle_type_id) + 1;
+    filled_drop = Number(filled_drop);
+
+    if (filled_drop > 100) filled_drop = 100;
+
+    return (
+      <div className="elixir">
+        <img className="bottle" src={`/elixir_sets/${bottle_type_id}e.png`} />
+        <div
+          className="fill"
+          style={{
+            background:
+              'linear-gradient(0deg, ' +
+              drop_color +
+              ' ' +
+              ((filled_drop * 75) / 100).toFixed(2) +
+              '%, rgba(255, 255, 255, 0) 0%)',
+            WebkitMaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
+            MaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
+          }}
+        ></div>
+        <img
+          className="bottle_bg"
+          src={`/elixir_sets/${bottle_type_id}bg.png`}
+        />
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="overflow-hidden">
@@ -2620,14 +2668,25 @@ export function ArtworkDetailPage() {
             <div className="col-lg-6">
               <div className="space-y-20">
                 <div className={styles.artworkMinHeight}>
-                  <ArtworkMediaView
-                    className="item_img"
-                    image={
-                      info.animation_url ? info.animation_url : info?.image
-                    }
-                    coverImage={info?.image}
-                    alt=""
-                  />
+                  {!zooElixir && (
+                    <ArtworkMediaView
+                      className="item_img"
+                      image={
+                        info.animation_url ? info.animation_url : info?.image
+                      }
+                      coverImage={info?.image}
+                      alt=""
+                    />
+                  )}
+                  {zooElixir && (
+                    <div className="item_elixir">
+                      {elixirIMG(
+                        zooElixir.shape,
+                        Number(zooElixir.drops) / 1e18,
+                        numberToColor(zooElixir.color)
+                      )}
+                    </div>
+                  )}
                 </div>
                 <ArtworkDetailPageDetailSection
                   itemType={tokenType.current}

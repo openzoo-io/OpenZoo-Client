@@ -13722,7 +13722,7 @@ label:active:after {
 {
   -o-object-fit: cover;
   object-fit: cover;
-  filter: blur(2rem);
+  filter: blur(2rem) opacity(40%);
     position: absolute;
     z-index: -1;
 }
