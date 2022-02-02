@@ -330,10 +330,9 @@ export const useApi = () => {
     }
 
     data.sortby = sortBy;
-    const url = 'http://localhost:5001' || apiUrl;
     const res = await axios({
       method: 'post',
-      url: `${url}/nftitems/fetchTokens`,
+      url: `${apiUrl}/nftitems/fetchTokens`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -944,10 +943,9 @@ export const useApi = () => {
   };
 
   const getAttributeFilterData = async contractAddress => {
-    const apiEndpoint = 'http://localhost:5001' || apiUrl;
     const res = await axios({
       method: 'get',
-      url: `${apiEndpoint}/collection/${contractAddress}/attributeFilter`,
+      url: `${apiUrl}/collection/${contractAddress}/attributeFilter`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -957,10 +955,9 @@ export const useApi = () => {
   };
 
   const isAttributeFilterAvailable = async contractAddress => {
-    const apiEndpoint = 'http://localhost:5001' || apiUrl;
     const res = await axios({
       method: 'get',
-      url: `${apiEndpoint}/collection/${contractAddress}/attributeFilter/exists`,
+      url: `${apiUrl}/collection/${contractAddress}/attributeFilter/exists`,
       headers: {
         'Content-Type': 'application/json',
       },
