@@ -174,7 +174,7 @@ export const useApi = () => {
   };
 
   // For Profile Colleciton List //
-  const fetchProfileCollectionList = async (owner) => {
+  const fetchProfileCollectionList = async owner => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/info/getProfileCollectionList`,
@@ -191,7 +191,12 @@ export const useApi = () => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/info/getCollectionList`,
-      data: JSON.stringify({ isVerified, start, count: _count, sortedBy: sortedBy.id }),
+      data: JSON.stringify({
+        isVerified,
+        start,
+        count: _count,
+        sortedBy: sortedBy.id,
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -302,8 +307,8 @@ export const useApi = () => {
     cancelToken,
     isProfile = false,
     mediaType = null,
+    attributes = {},
   ) => {
-
     const data = { from, count, type, isProfile };
     if (collections.length > 0) {
       data.collectionAddresses = collections;
@@ -320,11 +325,15 @@ export const useApi = () => {
     if (filterBy.length) {
       data.filterby = filterBy;
     }
+    if (Object.keys(attributes).length) {
+      data.attributes = attributes;
+    }
 
     data.sortby = sortBy;
+    const url = 'http://localhost:5001' || apiUrl;
     const res = await axios({
       method: 'post',
-      url: `${apiUrl}/nftitems/fetchTokens`,
+      url: `${url}/nftitems/fetchTokens`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -934,6 +943,34 @@ export const useApi = () => {
     return res.data;
   };
 
+  const getAttributeFilterData = async contractAddress => {
+    const apiEndpoint = 'http://localhost:5001' || apiUrl;
+    const res = await axios({
+      method: 'get',
+      url: `${apiEndpoint}/collection/${contractAddress}/attributeFilter`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(res => res.data);
+
+    return res.status === 'success' ? res.data : null;
+  };
+
+  const isAttributeFilterAvailable = async contractAddress => {
+    const apiEndpoint = 'http://localhost:5001' || apiUrl;
+    const res = await axios({
+      method: 'get',
+      url: `${apiEndpoint}/collection/${contractAddress}/attributeFilter/exists`,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(() => true)
+    .catch(() => false);
+
+    return res;
+  };
+
   return {
     explorerUrl,
     apiUrl,
@@ -999,6 +1036,8 @@ export const useApi = () => {
     addUnlockableContent,
     retrieveUnlockableContent,
     verifyCollection,
-    unverifyCollection
+    unverifyCollection,
+    getAttributeFilterData,
+    isAttributeFilterAvailable
   };
 };
