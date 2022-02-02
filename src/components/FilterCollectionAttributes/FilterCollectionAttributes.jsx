@@ -163,6 +163,7 @@ export function FilterCollectionAttributes({ hidden = true, hideFunction }) {
 
     const inputElements = filterData.map(data => {
       if (data.isNumeric && data.value.min === data.value.max) return;
+      if (!data.isNumeric && data.value.length <= 1) return;
 
       return data.isNumeric
         ? numericInputTemplate(data._id, data.value)
