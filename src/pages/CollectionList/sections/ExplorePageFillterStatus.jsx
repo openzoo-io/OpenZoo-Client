@@ -138,6 +138,7 @@ export function ExplorePageFillterStatus(props) {
         <FilterCollectionAttributes
           hidden={!showAttributeFilter}
           hideFunction={() => setShowAttributeFilter(false)}
+          toggleAttributeButton={setEnableAttributeFilter}
         />
       </div>
     </div>
