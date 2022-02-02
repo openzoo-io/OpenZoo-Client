@@ -96,10 +96,24 @@
 }
 
 .attribute-filter-container .MuiChip-root {
-  color: #aaa;
-  background: #f5f5f5;
+  color: white;
+  background:#00a59a;
 }
 
+.attribute-filter-container .MuiChip-root {
+  color: white;
+  background:#00a59a;
+}
+
+.attribute-filter-container .MuiChip-root svg
+{
+  color:white
+}
+
+.attribute-filter-container .MuiSlider-root .MuiSlider-valueLabel
+{
+  left:auto;
+}
 
 /*Dark Mode*/
 .is__dark .attribute-filter-container .filter-container
@@ -126,4 +140,9 @@
 .is__dark .attribute-filter-container .MuiSlider-root .MuiSlider-valueLabel span span {
   color: white !important;
 
+}
+
+.is__dark .attribute-filter-container .MuiChip-root
+{
+  background:#00a59a;
 }
