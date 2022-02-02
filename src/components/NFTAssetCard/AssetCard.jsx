@@ -23,6 +23,7 @@ import {
 const propTypes = {
   preset: PropTypes.oneOf(['two', 'three', 'four', 'five']),
   item: PropTypes.object.isRequired,
+  warnedCollections: PropTypes.array,
   loading: PropTypes.object,
   style: PropTypes.object,
   onLike: PropTypes.func,
@@ -52,7 +53,7 @@ const propTypes = {
 // };
 
 function AssetCardComponent(props) {
-  const { preset, item, loading, onLike, cardHeaderClassName, ...rest } = props;
+  const { preset, item, loading, onLike, cardHeaderClassName, warnedCollections, ...rest } = props;
 
   const { likeItem, likeBundle } = useApi();
   const { getAuction } = useAuctionContract();
@@ -236,6 +237,7 @@ function AssetCardComponent(props) {
     return (
       <AssetCardFour
         item={_item}
+        warnedCollections={warnedCollections}
         info={info}
         liked={liked}
         isLike={isLike}

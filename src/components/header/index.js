@@ -15,6 +15,7 @@ import { ADMIN_ADDRESS } from 'constants/index';
 import WFTMModal from 'components/WFTMModal';
 import ModModal from 'components/ModModal';
 import VerifyCollectionModal from 'components/VerifyCollectionModal';
+import WarnCollectionModal from 'components/WarnCollectionModal';
 import BanCollectionModal from 'components/BanCollectionModal';
 import BanItemModal from 'components/BanItemModal';
 import BanUserModal from 'components/BanUserModal';
@@ -61,6 +62,10 @@ const Header = (props) => {
   );
   const [isVerify, setIsVerfiy] = useState(false);
   const [verifyCollectionModalVisible, setVerifyCollectionModalVisible] = useState(
+    false
+  );
+  const [isWarn, setIsWarn] = useState(false);
+  const [warnCollectionModalVisible, setWarnCollectionModalVisible] = useState(
     false
   );
   const [banItemModalVisible, setBanItemModalVisible] = useState(false);
@@ -297,6 +302,18 @@ const Header = (props) => {
   const unverifyCollection = () => {
     setIsVerfiy(false);
     setVerifyCollectionModalVisible(true);
+
+  };
+
+  const warnCollection = () => {
+    setIsWarn(true);
+    setWarnCollectionModalVisible(true);
+
+  };
+
+  const unwarnCollection = () => {
+    setIsWarn(false);
+    setWarnCollectionModalVisible(true);
 
   };
 
@@ -596,6 +613,8 @@ const Header = (props) => {
                   unbanCollection={unbanCollection}
                   verifyCollection={verifyCollection}
                   unverifyCollection={unverifyCollection}
+                  warnCollection={warnCollection}
+                  unwarnCollection={unwarnCollection}
                   banItems={banItems}
                   banUser={banUser}
                   unbanUser={unbanUser}
@@ -762,6 +781,11 @@ const Header = (props) => {
             visible={verifyCollectionModalVisible}
             isVerify={isVerify}
             onClose={() => setVerifyCollectionModalVisible(false)}
+          />
+          <WarnCollectionModal
+            visible={warnCollectionModalVisible}
+            isWarn={isWarn}
+            onClose={() => setWarnCollectionModalVisible(false)}
           />
           <BanCollectionModal
             visible={banCollectionModalVisible}

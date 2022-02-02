@@ -299,7 +299,9 @@ export function HeaderAvatarMenu(props) {
               <div className="cursor-pointer" onClick={props.reviewCollections}>
                 <span> Review Collections</span>
               </div>
+              <div className="hr mt-2"></div>
             </>
+            
           )}
           {(props.isAdmin || props.isModerator) && (
             <>
@@ -312,6 +314,14 @@ export function HeaderAvatarMenu(props) {
                 onClick={props.unverifyCollection}
               >
                 <span>Un-Verfiy Collection</span>
+              </div>
+
+
+              <div className="cursor-pointer" onClick={props.warnCollection}>
+                <span>Warn Collection</span>
+              </div>
+              <div className="cursor-pointer" onClick={props.unwarnCollection}>
+                <span>Un-Warn Collection</span>
               </div>
 
               <div className="cursor-pointer" onClick={props.banCollection}>

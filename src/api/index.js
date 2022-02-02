@@ -168,6 +168,11 @@ export const useApi = () => {
     return data;
   };
 
+  const fetchWarnedCollections = async () => {
+    const res = await axios.get(`${apiUrl}/info/getWarnedCollections`);
+    return res.data;
+  };
+
   const fetchCollections = async () => {
     const res = await axios.get(`${apiUrl}/info/getcollections`);
     return res.data;
@@ -538,6 +543,45 @@ export const useApi = () => {
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/ban/unbanCollection`,
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
+  // Warn / Unwarn //
+  const warnCollection = async (
+    address,
+    authToken,
+    signature,
+    signatureAddress
+  ) => {
+    const data = { address, signature, signatureAddress };
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/ban/warnCollection`,
+      data: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    return res.data;
+  };
+
+  const unwarnCollection = async (
+    address,
+    authToken,
+    signature,
+    signatureAddress
+  ) => {
+    const data = { address, signature, signatureAddress };
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/ban/unwarnCollection`,
       data: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -983,6 +1027,7 @@ export const useApi = () => {
     updateBanner,
     get1155Info,
     getTokenHolders,
+    fetchWarnedCollections,
     fetchCollections,
     fetchCollection,
     fetchCollectionStatistic,
@@ -1035,6 +1080,8 @@ export const useApi = () => {
     verifyCollection,
     unverifyCollection,
     getAttributeFilterData,
-    isAttributeFilterAvailable
+    isAttributeFilterAvailable,
+    warnCollection,
+    unwarnCollection,
   };
 };

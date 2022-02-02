@@ -8,6 +8,7 @@ import FilterActions from 'actions/filter.actions';
 
 const propTypes = {
   items: PropTypes.array,
+  warnedCollections: PropTypes.array,
   category: PropTypes.string,
   count: PropTypes.number,
   loading: PropTypes.bool,
@@ -40,7 +41,7 @@ export function ExplorePageArtworksSection(props) {
           key={'explore-artwork-item-' + index.toString()}
           className="col-xl-3 col-lg-4 col-md-6 col-sm-6"
         >
-          <AssetCard preset="four" item={item} />
+          <AssetCard preset="four" item={item} warnedCollections={props.warnedCollections} />
         </div>
       ))}
       {!props.loading &&

@@ -262,8 +262,8 @@ const CollectionCreate = ({ isRegister }) => {
   const attributeDisplayTypeList = [
     { display_type: 'text', display_value: 'Text' },
     { display_type: 'number', display_value: 'Number' },
-    { display_type: 'boost_number', display_value: 'Boost Number' },
-    { display_type: 'boost_percentage', display_value: 'Boost Percentage' },
+    { display_type: 'boost_number', display_value: 'Range Number' },
+    { display_type: 'boost_percentage', display_value: 'Range Percentage' },
     { display_type: 'date', display_value: 'Date' },
   ];
   const [attributeFields, setAttributeFields] = useState([
@@ -870,6 +870,7 @@ const CollectionCreate = ({ isRegister }) => {
                         className="btn btn-link"
                         type="button"
                         onClick={() => handleRemoveFields(index)}
+                        disabled={attributeFields.length<=1}
                       >
                         <FontAwesomeIcon icon={faMinus} />
                       </button>

@@ -18,7 +18,7 @@ import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
 import { shortenAddress, formatUSD, formatNumber } from 'utils';
-import warned from 'constants/warned.collections';
+//import  warned  from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLocationArrow,
@@ -38,6 +38,7 @@ export function CollectionList() {
   const {
     fetchCollection,
     fetchCollections,
+    fetchWarnedCollections,
     fetchCollectionStatistic,
     fetchTokens,
     getItemsLiked,
@@ -72,6 +73,7 @@ export function CollectionList() {
   const [prevNumPerRow, setPrevNumPerRow] = useState(null);
   const [collectionData, setCollectionData] = useState({});
   const [collectionStatisticData, setCollectionStatisticData] = useState({});
+  const [warnedCollections, setWarnedCollections] = useState([]);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -110,6 +112,7 @@ export function CollectionList() {
     }
 
     updateCollections();
+    updateWarnedCollections();
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
 
     return () => {
@@ -165,6 +168,12 @@ export function CollectionList() {
     numPerRow,
   ]);
   const history = useHistory();
+  const updateWarnedCollections = async () => {
+    const res = await fetchWarnedCollections();
+    if (res.status === 'success') {
+      setWarnedCollections(res.data);
+    }
+};
   const updateCollections = async () => {
     try {
       // Filter by Address //
@@ -393,15 +402,9 @@ export function CollectionList() {
           <>
             <div className="hero_marketplace bg_white">
               <div className="container">
-                {warned.includes(addr) && (
-                  <div className="alert alert-danger">
-                    <b>
-                      <FontAwesomeIcon icon={faExclamationTriangle} /> Warning:
-                    </b>{' '}
-                    This content has been flagged by the OpenZoo Team as
-                    suspicious.
-                  </div>
-                )}
+                {
+                warnedCollections && warnedCollections.includes(addr) && <div className="alert alert-danger"><b><FontAwesomeIcon icon={faExclamationTriangle} /> Warning:</b> This content has been flagged by the OpenZoo Team as suspicious.</div>
+                }
                 <div className="col-lg-6">
                   <div className={styles.collectionDescription}>
                     <div className={styles.logo}>
@@ -579,6 +582,7 @@ export function CollectionList() {
         <div ref={ref} style={{ paddingBottom: 60 }}>
           <ExplorePageArtworksSection
             items={tokens}
+            warnedCollections={warnedCollections}
             category={category}
             count={count}
             loading={downFetching}
