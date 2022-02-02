@@ -1,0 +1,100 @@
+.attribute-filter-container .filter-container {
+  margin: 16px 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 400px;
+  padding: 16px 24px;
+  background: white;
+  border: 1px solid #eee;
+}
+
+.attribute-filter-container .Container h6 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.attribute-filter-container .Container .title {
+  margin-bottom: 16px;
+}
+
+.attribute-filter-container .MuiAutocomplete-input {
+  animation: none;
+  box-shadow: none !important;
+  transition: none !important;
+  font-size: 0.8rem !important;
+}
+
+.attribute-filter-container .MuiAutocomplete-inputRoot .MuiAutocomplete-input {
+  background: white !important;
+  padding: 4px !important;
+}
+
+.attribute-filter-container .MuiAutocomplete-input:focus {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.attribute-filter-container .MuiFormControl-root {
+  background: white;
+  border: 2px solid #cbcbcb !important;
+  border-radius: 16px;
+  padding: 4px 8px !important;
+  margin-top: 22px !important;
+}
+
+.attribute-filter-container .MuiInput-underline:before,
+.attribute-filter-container .MuiInput-underline:after {
+  display: none;
+}
+
+.attribute-filter-container input.MuiInputBase-input:focus {
+  border: none !important;
+}
+
+.attribute-filter-container .MuiSlider-root {
+  color: #00a59a !important;
+  margin-top: 8px;
+}
+
+.attribute-filter-container .MuiSlider-thumb {
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: -8px !important;
+  background-color: #fff !important;
+  border: 2px solid currentColor;
+}
+
+.attribute-filter-container .MuiSlider-track {
+  height: 4px !important;
+}
+
+.attribute-filter-container .input-container p {
+  color: #868686;
+  font-size: 0.8rem;
+}
+
+.attribute-filter-container .filter-header {
+  width: 100%;
+  height: auto;
+  margin-bottom: -16px;
+}
+
+.attribute-filter-container .text-right {
+  text-align: right;
+}
+
+.attribute-filter-container .filter-footer {
+  height: auto;
+  margin-top: -16px;
+}
+
+.attribute-filter-container .filter-footer button {
+  margin: 0 8px;
+}
+
+.attribute-filter-container .MuiChip-root {
+  color: #aaa;
+  background: #f5f5f5;
+}
+
