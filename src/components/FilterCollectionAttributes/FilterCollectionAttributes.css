@@ -78,6 +78,7 @@
   width: 100%;
   height: auto;
   margin-bottom: -16px;
+  border-radius: 20px 0 20px 0;
 }
 
 .attribute-filter-container .text-right {
@@ -87,6 +88,7 @@
 .attribute-filter-container .filter-footer {
   height: auto;
   margin-top: -16px;
+  border-radius: 0 0 20px 20px;
 }
 
 .attribute-filter-container .filter-footer button {
@@ -98,3 +100,30 @@
   background: #f5f5f5;
 }
 
+
+/*Dark Mode*/
+.is__dark .attribute-filter-container .filter-container
+{
+  background:#1e1e1e !important;
+  border:0;
+}
+.is__dark .attribute-filter-container .MuiFormControl-root, .is__dark .attribute-filter-container .MuiAutocomplete-inputRoot .MuiAutocomplete-input
+{
+  background:#4d4d4d !important;
+}
+
+
+.is__dark .MuiAutocomplete-popper
+{
+  background:#4d4d4d !important;
+}
+
+.is__dark .attribute-filter-container .MuiSlider-root span {
+  color: #00a59a !important;
+
+}
+
+.is__dark .attribute-filter-container .MuiSlider-root .MuiSlider-valueLabel span span {
+  color: white !important;
+
+}
