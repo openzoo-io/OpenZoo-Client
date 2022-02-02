@@ -353,11 +353,53 @@ input[type='number'] {
     justify-content: center;
   }
 }
-input:read-only, input:read-only:focus
-{
+input:read-only,
+input:read-only:focus {
   cursor: not-allowed;
 }
-.react-dropdown-select-dropdown-handle
+.react-dropdown-select-dropdown-handle {
+  display: flex;
+}
+
+/* Elixir */
+.elixir
 {
-  display:flex;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.elixir .bottle {
+
+  z-index: 2;
+  width: fit-content !important;
+    height: fit-content  !important;
+}
+
+.elixir .fill {
+  width: 128px !important;
+  height: 128px !important;
+  position: absolute;
+  /* 100 drop = 75% so ... 50 drops = 50*75/100 = 37.5%*/
+  background: linear-gradient(0deg, red 37.5%, rgba(255, 255, 255, 0) 0%);
+  object-fit: scale-down;
+  mask-size: scale-down;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  z-index: 1;
+
+  transform: scale(1.03);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.elixir:hover .fill
+{
+  transform: scale(1.1);
+}
+
+.elixir .bottle_bg {
+  width: 128px !important;
+  height: 128px !important;
+  position: absolute;
 }

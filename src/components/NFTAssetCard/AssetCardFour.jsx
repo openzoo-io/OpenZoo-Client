@@ -64,7 +64,6 @@ export function AssetCardFour(props) {
 
   const [endAuctionIn, setEndAuctionIn] = useState();
 
-
   //console.log(item);
   useEffect(() => {
     if (auction?.endTime == null || !auction?.endTime || !auctionActive) {
@@ -108,6 +107,41 @@ export function AssetCardFour(props) {
       case '5':
         return <img src="/ZooBooster/class/UR.png" />;
     }
+  };
+
+  // Elixir Images //
+  const numberToColor = (number, diff = 0) => {
+    return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
+  };
+  const elixirIMG = (bottle_type_id, filled_drop, drop_color) => {
+    bottle_type_id = parseInt(bottle_type_id) + 1;
+    filled_drop = Number(filled_drop);
+
+    if (filled_drop > 100) filled_drop = 100;
+
+
+    return (
+      <div className="elixir">
+        <img className="bottle" src={`/elixir_sets/${bottle_type_id}e.png`} />
+        <div
+          className="fill"
+          style={{
+            background:
+              'linear-gradient(0deg, ' +
+              drop_color +
+              ' ' +
+              ((filled_drop * 75) / 100).toFixed(2) +
+              '%, rgba(255, 255, 255, 0) 0%)',
+            WebkitMaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
+            MaskImage: `url(/elixir_sets/${bottle_type_id}bg.png)`,
+          }}
+        ></div>
+        <img
+          className="bottle_bg"
+          src={`/elixir_sets/${bottle_type_id}bg.png`}
+        />
+      </div>
+    );
   };
 
   if (loading) {
@@ -180,23 +214,37 @@ export function AssetCardFour(props) {
             <img
               className="blur_thumb"
               src={
-                (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' &&
+                (item?.thumbnailPath !== '-' &&
+                  item?.thumbnailPath !== '.' &&
                   apiUrl + '/image/' + item?.thumbnailPath) ||
-                  getRandomIPFS(info?.image) ||
-                  getRandomIPFS(item?.imageURL)
+                getRandomIPFS(info?.image) ||
+                getRandomIPFS(item?.imageURL)
               }
             />
-            <Link to={assetUrl}>
-              <ArtworkMediaView
-                image={
-                  (item?.thumbnailPath !== '-' && item?.thumbnailPath !== '.' && 
-                    apiUrl + '/image/' + item?.thumbnailPath) ||
+            {!zooElixir && (
+              <Link to={assetUrl}>
+                <ArtworkMediaView
+                  image={
+                    (item?.thumbnailPath !== '-' &&
+                      item?.thumbnailPath !== '.' &&
+                      apiUrl + '/image/' + item?.thumbnailPath) ||
                     getRandomIPFS(info?.image) ||
                     getRandomIPFS(item?.imageURL)
-                }
-                alt=""
-              />
-            </Link>
+                  }
+                  alt=""
+                />
+              </Link>
+            )}
+
+            {zooElixir && (
+              <Link to={assetUrl}>
+                {elixirIMG(
+                  zooElixir.shape,
+                  Number(zooElixir.drops) / 1e18,
+                  numberToColor(zooElixir.color)
+                )}
+              </Link>
+            )}
             {zooGeneClass && (
               <div className="cardZooGeneClass">
                 <img src={`/ZooBooster/class/${zooGeneClass}.png`} />
@@ -258,7 +306,8 @@ export function AssetCardFour(props) {
               {collection?.isVerified && (
                 <img src="https://assets.openzoo.io/verified.svg" />
               )}
-              {warnedCollections && warnedCollections.includes(item?.contractAddress) ? (
+              {warnedCollections &&
+              warnedCollections.includes(item?.contractAddress) ? (
                 <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"
