@@ -3019,7 +3019,7 @@ export function ArtworkDetailPage() {
                           </div>
                         )}
 
-                        {!isMine &&
+                        {!isMine && account &&
                           (!auctionActive() &&
                           bid?.bidder?.toLowerCase() ===
                             account?.toLowerCase() ? (
@@ -3034,8 +3034,8 @@ export function ArtworkDetailPage() {
                           ) : (
                             <></>
                           ))}
-
-                        {!isMine &&
+            
+                        {!isMine && account &&
                           (!auctionActive() &&
                           bid?.bidder?.toLowerCase() === account?.toLowerCase()
                             ? now.getTime() / 1000 >=
