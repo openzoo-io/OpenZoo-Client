@@ -119,7 +119,6 @@ export function AssetCardFour(props) {
 
     if (filled_drop > 100) filled_drop = 100;
 
-
     return (
       <div className="elixir">
         <img className="bottle" src={`/elixir_sets/${bottle_type_id}e.png`} />
@@ -270,6 +269,14 @@ export function AssetCardFour(props) {
                     </div>
                   </>
                 )}
+              </div>
+            )}
+
+            {!endAuctionIn && auction?.endTime && (
+              <div className="countdownWrapper space-x-3">
+                <div className="txt_xs">
+                  <FontAwesomeIcon icon={faGavel} /> Expired
+                </div>
               </div>
             )}
 
