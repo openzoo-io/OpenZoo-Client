@@ -15,6 +15,10 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import './FilterCollectionAttributes.css';
 import { useDispatch } from 'react-redux';
 import FilterActions from 'actions/filter.actions';
+import { Contracts } from 'constants/networks';
+const ENV = process.env.REACT_APP_ENV;
+const CHAIN = ENV === 'MAINNET' ? 888 : 999;
+
 
 export function FilterCollectionAttributes({
   hidden = true,
@@ -94,7 +98,7 @@ export function FilterCollectionAttributes({
             <Checkbox style={checkboxStyle} checked={state.selected} />
           </Grid>
           <Grid item xs={6}>
-            {option.value}
+            {option.label || option.value}
           </Grid>
           <Grid style={{ textAlign: 'right' }} item xs={3}>
             <Chip style={chipStyle} label={`${option.count}`} size="small" />
@@ -109,7 +113,7 @@ export function FilterCollectionAttributes({
           <Chip
             className="autocomplete-chip"
             key={option.value}
-            label={option.value}
+            label={option.label || option.value}
             size="small"
             {...getTagProps({ index })}
           />
@@ -150,35 +154,77 @@ export function FilterCollectionAttributes({
       return <Popper {...props} style={styles} placement="bottom-start" />;
     };
 
-    const autoCompleteInputTemplate = (key, data) => (
-      <Grid className="input-container" key={key} item xs={12} md={3}>
-        <h6>{key}</h6>
-        {
-          <Autocomplete
-            PopperComponent={popperTemplate}
-            size="small"
-            multiple
-            id={key}
-            getOptionLabel={option => option.value}
-            options={data}
-            disableCloseOnSelect
-            limitTags={1}
-            noOptionsText="No results..."
-            renderInput={inputTemplate}
-            renderOption={optionTemplate}
-            renderTags={tagTemplate}
-            onChange={(_e, newValue) => {
-              setFormData({
-                ...formData,
-                [key]: { value: newValue, isNumeric: false },
-              });
-            }}
-            value={formData[key]?.value ?? []}
-            getOptionSelected={(option, value) => option.value === value.value}
-          />
+    // const parseZooKeeper = (key, value) => {
+    //         console.log('key',key);
+    //         console.log('value',value);
+    //           if (value==1)
+    //           {
+    //             console.log('done')
+    //             return 'kuay';
+    //           }
+
+    //         return value;
+    //       }
+
+    const autoCompleteInputTemplate = (key, data) => {
+      let key_display = key;
+
+      if (params.addr === Contracts[CHAIN].zooBooster.toLowerCase()) { // Zoo Booster //
+        if (key === 'item') {
+          key_display = 'class';
+          const booster_cat = ['N','R','SR','SSR','UR'];
+          data.map((v,i) => {
+              data[i].label = booster_cat[Number(v.value)-1];
+          });
         }
-      </Grid>
-    );
+        if (key === 'category')
+        {
+          const booster_cat = ['Fruits','Foods','Sweets','Potions','Spices','Magic'];
+          data.map((v,i) => {
+              data[i].label = booster_cat[Number(v.value)-1];
+          });
+        }
+        if (key === 'level')
+        {
+          const booster_cat = ['★☆☆','★★☆','★★★','MAX'];
+          data.map((v,i) => {
+              data[i].label = booster_cat[Number(v.value)-1];
+          });
+        }
+      }
+
+      return (
+        <Grid className="input-container" key={key} item xs={12} md={3}>
+          <h6>{key_display}</h6>
+          {
+            <Autocomplete
+              PopperComponent={popperTemplate}
+              size="small"
+              multiple
+              id={key}
+              getOptionLabel={option => option.value}
+              options={data}
+              disableCloseOnSelect
+              limitTags={1}
+              noOptionsText="No results..."
+              renderInput={inputTemplate}
+              renderOption={optionTemplate}
+              renderTags={tagTemplate}
+              onChange={(_e, newValue) => {
+                setFormData({
+                  ...formData,
+                  [key]: { value: newValue, isNumeric: false },
+                });
+              }}
+              value={formData[key]?.value ?? []}
+              getOptionSelected={(option, value) =>
+                option.value === value.value
+              }
+            />
+          }
+        </Grid>
+      );
+    };
 
     const inputElements = filterableFilterData.map(data => {
       return data.isNumeric
