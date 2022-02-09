@@ -19,7 +19,6 @@ import { Contracts } from 'constants/networks';
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 
-
 export function FilterCollectionAttributes({
   hidden = true,
   hideFunction,
@@ -175,26 +174,32 @@ export function FilterCollectionAttributes({
     const autoCompleteInputTemplate = (key, data) => {
       let key_display = key;
 
-      if (params.addr === Contracts[CHAIN].zooBooster.toLowerCase()) { // Zoo Booster //
+      if (params.addr === Contracts[CHAIN].zooBooster.toLowerCase()) {
+        // Zoo Booster //
         if (key === 'item') {
           key_display = 'class';
-          const booster_cat = ['N','R','SR','SSR','UR'];
-          data.map((v,i) => {
-              data[i].label = booster_cat[Number(v.value)-1];
+          const booster_cat = ['N', 'R', 'SR', 'SSR', 'UR'];
+          data.map((v, i) => {
+            data[i].label = booster_cat[Number(v.value) - 1];
           });
         }
-        if (key === 'category')
-        {
-          const booster_cat = ['Fruits','Foods','Sweets','Potions','Spices','Magic'];
-          data.map((v,i) => {
-              data[i].label = booster_cat[Number(v.value)-1];
+        if (key === 'category') {
+          const booster_cat = [
+            'Fruits',
+            'Foods',
+            'Sweets',
+            'Potions',
+            'Spices',
+            'Magic',
+          ];
+          data.map((v, i) => {
+            data[i].label = booster_cat[Number(v.value) - 1];
           });
         }
-        if (key === 'level')
-        {
-          const booster_cat = ['★☆☆','★★☆','★★★','MAX'];
-          data.map((v,i) => {
-              data[i].label = booster_cat[Number(v.value)-1];
+        if (key === 'level') {
+          const booster_cat = ['★☆☆', '★★☆', '★★★', 'MAX'];
+          data.map((v, i) => {
+            data[i].label = booster_cat[Number(v.value) - 1];
           });
         }
       }
@@ -221,7 +226,10 @@ export function FilterCollectionAttributes({
                 if (!newValue || !newValue.length) {
                   delete newData[key];
                 } else {
-                  newData = { ...newData, [key]: newValue };
+                  newData = {
+                    ...newData,
+                    [key]: { value: newValue, isNumeric: false },
+                  };
                 }
                 setFormData(newData);
               }}
