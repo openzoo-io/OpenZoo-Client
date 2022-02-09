@@ -35,12 +35,17 @@
   border: none !important;
 }
 
+.MuiGrid-root h6
+{
+  text-transform: capitalize;
+}
+
 .attribute-filter-container .MuiFormControl-root {
   background: white;
   border: 2px solid #cbcbcb !important;
   border-radius: 16px;
   padding: 4px 8px !important;
-  margin-top: 22px !important;
+  margin-top: 10px !important;
 }
 
 .attribute-filter-container .MuiInput-underline:before,

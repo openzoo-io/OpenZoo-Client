@@ -195,7 +195,7 @@ export function FilterCollectionAttributes({
 
       return (
         <Grid className="input-container" key={key} item xs={12} md={3}>
-          <h6>{key_display}</h6>
+          <h6>{key_display.toLowerCase()}</h6>
           {
             <Autocomplete
               PopperComponent={popperTemplate}
