@@ -211,10 +211,13 @@ export function FilterCollectionAttributes({
               renderOption={optionTemplate}
               renderTags={tagTemplate}
               onChange={(_e, newValue) => {
-                setFormData({
-                  ...formData,
-                  [key]: { value: newValue, isNumeric: false },
-                });
+                let newData = Object.fromEntries(formData);
+                if (!newValue || !newValue.length) {
+                  delete newData[key];
+                } else {
+                  newData = { ...newData, [key]: newValue };
+                }
+                setFormData(newData);
               }}
               value={formData[key]?.value ?? []}
               getOptionSelected={(option, value) =>
