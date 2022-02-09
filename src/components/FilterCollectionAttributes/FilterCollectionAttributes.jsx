@@ -36,6 +36,12 @@ export function FilterCollectionAttributes({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //alert('reset');
+    dispatch(FilterActions.updateAttributeFilter({}));
+    setFilterableFilterData([]);
+    setFormData({});
+    setResetCounter(0);
+    setFilterData([]);
     hideFunction();
     fetchFilterData();
   }, [params]);
