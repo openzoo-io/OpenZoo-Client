@@ -11,6 +11,7 @@ const initialState = {
   mediaType: null,
   groupType: 'all',
   sortBy: 'listedAt', // viewed
+  attributes: {},
 };
 
 export function Filter(state = initialState, action) {
@@ -50,6 +51,12 @@ export function Filter(state = initialState, action) {
       return {
         ...state,
         sortBy: action.sortBy,
+      };
+    }
+    case FilterConstants.UPDATE_ATTRIBUTE_FILTER: {
+      return {
+        ...state,
+        attributes: action.attributes,
       };
     }
     default: {

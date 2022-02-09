@@ -11641,7 +11641,7 @@ a.btn-outline.disabled:hover {
   color: #00a59a !important;
   -webkit-box-shadow: 0 9px 6px rgba(0, 0, 0, 0.1), 0 -50px 0 rgba(0, 0, 0, 0) inset;
           box-shadow: 0 9px 6px rgba(0, 0, 0, 0.1), 0 -50px 0 rgba(0, 0, 0, 0) inset;
-  border: solid 1px rgba(10, 33, 65, 0.05) !important;
+  /*border: solid 1px rgba(10, 33, 65, 0.05) !important;*/
 }
 
 .btn-light {
@@ -20933,13 +20933,14 @@ label:active:after {
 .is__dark .btn-white,
 .is__dark .tags,
 .is__dark .light_bg {
-  border: solid 1px #777777;
+  border: 0;
 }
 
-.is__dark .btn-white:hover,
+.is__dark .btn-white:hover, .is__dark .btn-white:focus,
 .is__dark .tags:hover,
 .is__dark .light_bg:hover {
-  border: solid 1px #777777 !important;
+  /*border: solid 1px #777777 !important;*/
+  border: 0;
   background: #777777 !important;
   color:white  !important;
 }

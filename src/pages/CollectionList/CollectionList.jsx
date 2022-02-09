@@ -20,7 +20,11 @@ import styles from './styles.module.scss';
 import { shortenAddress, formatUSD, formatNumber } from 'utils';
 //import  warned  from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationArrow, faGlobe, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faLocationArrow,
+  faGlobe,
+  faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faTwitter,
   faTelegramPlane,
@@ -84,6 +88,7 @@ export function CollectionList() {
     statusHasBids,
     statusHasOffers,
     statusOnAuction,
+    attributes,
   } = useSelector(state => state.Filter);
 
   const prevAuthToken = usePrevious(authToken);
@@ -127,11 +132,23 @@ export function CollectionList() {
       setOwnerInfo(null);
     }
   };
+
+  const FilterType = {
+    Attribute: 'attributes'
+  }
+
   useEffect(() => {
     if (collectionData?.owner) {
       getOwnerInfo(collectionData?.owner);
     }
   }, [collectionData?.owner]);
+
+  useEffect(() => {
+    setPrevNumPerRow(numPerRow);
+    if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
+      return;
+    fetchNFTs(0, FilterType.Attribute);
+  }, [attributes]);
 
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
@@ -189,7 +206,7 @@ export function CollectionList() {
     }
   };
 
-  const fetchNFTs = async dir => {
+  const fetchNFTs = async (dir, filterType) => {
     if (cancelSource) {
       cancelSource.cancel();
     }
@@ -214,7 +231,8 @@ export function CollectionList() {
         start = from;
         _count = fetchCount * 2;
       }
-      if (start === count) {
+
+      if (filterType !== FilterType.Attribute && start === count) {
         return;
       }
 
@@ -229,7 +247,10 @@ export function CollectionList() {
         sortBy,
         filterBy,
         null,
-        cancelTokenSource.token
+        cancelTokenSource.token,
+        false,
+        null,
+        attributes
       );
 
       // Set collection type by first NFT //
