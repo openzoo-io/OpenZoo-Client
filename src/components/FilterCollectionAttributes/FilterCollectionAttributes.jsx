@@ -60,7 +60,7 @@ export function FilterCollectionAttributes({
       filterData.filter(
         data =>
           (data.isNumeric && data.value.min !== data.value.max) ||
-          (!data.isNumeric && data.value.length > 1)
+          (!data.isNumeric && data.value.length > 0) // > 1 is more 1 terms to show attribute
       )
     );
   }, [filterData]);
