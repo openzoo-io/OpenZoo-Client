@@ -222,16 +222,29 @@ export function FilterCollectionAttributes({
               renderOption={optionTemplate}
               renderTags={tagTemplate}
               onChange={(_e, newValue) => {
-                let newData = Object.fromEntries(formData);
-                if (!newValue || !newValue.length) {
-                  delete newData[key];
-                } else {
-                  newData = {
-                    ...newData,
-                    [key]: { value: newValue, isNumeric: false },
-                  };
+                // console.log('newValue',newValue)
+                // console.log('key',key)
+                // console.log(formData);
+                if (newValue.length === 0)
+                {
+                  let tmpFormData = formData;
+                  delete tmpFormData[key];
+                  setFormData({
+                    ...tmpFormData,
+                  });
+                  //console.log('tmpFormData',tmpFormData.length)
+                  if (tmpFormData.length === undefined)
+                  {
+                    reset();
+                  }
                 }
-                setFormData(newData);
+                else
+                {
+                  setFormData({
+                    ...formData,
+                    [key]: { value: newValue, isNumeric: false },
+                  });
+                }
               }}
               value={formData[key]?.value ?? []}
               getOptionSelected={(option, value) =>
