@@ -247,7 +247,7 @@ const PaintBoard = () => {
     accept: accept.join(', '),
     multiple: false,
     onDrop,
-    maxSize: 15728640,
+    maxSize: 26214400, // 25 MB
   });
 
   const removeImage = () => {
@@ -703,7 +703,7 @@ const PaintBoard = () => {
                 </div>
                 <div className={cx(styles.uploadsubtitle, 'text-center')}>
                   <strong>JPG/JPEG, PNG, GIF</strong>
-                  <p>Max 15mb.</p>
+                  <p>Max 25mb.</p>
                 </div>
               </>
             )}
