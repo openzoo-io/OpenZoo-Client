@@ -88,7 +88,16 @@ export function NewExplorePage() {
   }, []);
 
 
-  
+  useEffect(() => {
+    window.addEventListener("unload", function () {
+     // Delete //
+      window.localStorage.removeItem('explore_tokens');
+      window.localStorage.removeItem('explore_count');
+      window.localStorage.removeItem('explore_from');
+      window.localStorage.removeItem('explore_to');
+      window.localStorage.removeItem('fromTop');
+    })
+}, []);
 
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
@@ -109,14 +118,14 @@ export function NewExplorePage() {
 
       if (window.localStorage.getItem('fromTop')) {
         let scroll = Scroll.animateScroll;
-        scroll.scrollTo(window.localStorage.getItem('fromTop'));
+        scroll.scrollTo(window.localStorage.getItem('fromTop'),{duration:0,delay:0});
       }
 
       // Delete //
-      window.localStorage.removeItem('explore_tokens');
-      window.localStorage.removeItem('explore_count');
-      window.localStorage.removeItem('explore_from');
-      window.localStorage.removeItem('explore_to');
+      // window.localStorage.removeItem('explore_tokens');
+      // window.localStorage.removeItem('explore_count');
+      // window.localStorage.removeItem('explore_from');
+      // window.localStorage.removeItem('explore_to');
       window.localStorage.removeItem('fromTop');
     }
     if (!tokens || tokens.length === 0) {
