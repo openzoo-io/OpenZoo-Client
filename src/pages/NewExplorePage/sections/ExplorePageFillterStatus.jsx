@@ -52,6 +52,12 @@ export function ExplorePageFillterStatus(props) {
 
   const updateStatusFilter = (field, selected) => {
     dispatch(FilterActions.updateStatusFilter(field, selected));
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
   };
 
   const handleOnChange = values => {
@@ -73,6 +79,12 @@ export function ExplorePageFillterStatus(props) {
       updateStatusFilter('statusOnAuction', _onAuction);
     }
     props.onChange?.(values);
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
   };
 
   /*
@@ -83,16 +95,34 @@ export function ExplorePageFillterStatus(props) {
 
   const handleOnClickSortBy = item => {
     dispatch(FilterActions.updateSortByFilter(item.id));
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
   };
 
   const handleSelectCategory = item => {
     console.log(item);
     dispatch(FilterActions.updateCategoryFilter(item.id));
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
   };
 
   const handleSelectMediaType = item => {
     console.log('MediaType',item);
     dispatch(FilterActions.updateMediaTypeFilter(item.id));
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
   };
 
   const addAllCategory = CatList =>{

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import * as Scroll from 'react-scroll';
+
 import {
   ExplorePageArtworksSection,
   //ExplorePageFilterCategorySection,
@@ -17,7 +19,12 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import FilterActions from 'actions/filter.actions';
 
 export function NewExplorePage() {
-  const { fetchCollections, fetchWarnedCollections, fetchTokens, getItemsLiked } = useApi();
+  const {
+    fetchCollections,
+    fetchWarnedCollections,
+    fetchTokens,
+    getItemsLiked,
+  } = useApi();
   const dispatch = useDispatch();
   const { chainId } = useWeb3React();
 
@@ -34,9 +41,10 @@ export function NewExplorePage() {
   const [warnedCollections, setWarnedCollections] = useState([]);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
-  const { upFetching, downFetching, tokens, count, from, to } = useSelector(
+  let { upFetching, downFetching, tokens, count, from, to } = useSelector(
     state => state.Tokens
   );
+
   const {
     collections,
     groupType,
@@ -50,19 +58,16 @@ export function NewExplorePage() {
     statusOnAuction,
   } = useSelector(state => state.Filter);
 
-
-
   const prevAuthToken = usePrevious(authToken);
-  
+
   const numPerRow = Math.floor(gridWidth / 256);
-  const fetchCount = numPerRow <= 3 ? 9 : 8;
+  const fetchCount = numPerRow <= 3 ? 15 : 12;
 
   useEffect(() => {
     if (fetchInterval) {
       clearInterval(fetchInterval);
     }
     dispatch(FilterActions.updateCollectionsFilter([]));
-
 
     // Set Buy now //
     /*
@@ -74,22 +79,49 @@ export function NewExplorePage() {
     updateCollections();
     updateWarnedCollections();
     setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
-    
+
     return () => {
       if (fetchInterval) {
         clearInterval(fetchInterval);
       }
-      
-
     };
   }, []);
+
+
+  
 
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
-    fetchNFTs(0);
 
+    
+    let tmpTokens = JSON.parse(window.localStorage.getItem('explore_tokens'));
+    if (tmpTokens) {
+      
+      tokens = tmpTokens;
+      //console.log('tmpTokens', tokens);
+      count = Number(window.localStorage.getItem('explore_count'));
+      from = Number(window.localStorage.getItem('explore_from'));
+      to = Number(window.localStorage.getItem('explore_to'));
+      //console.log(tokens);
+      dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
+
+      if (window.localStorage.getItem('fromTop')) {
+        let scroll = Scroll.animateScroll;
+        scroll.scrollTo(window.localStorage.getItem('fromTop'));
+      }
+
+      // Delete //
+      window.localStorage.removeItem('explore_tokens');
+      window.localStorage.removeItem('explore_count');
+      window.localStorage.removeItem('explore_from');
+      window.localStorage.removeItem('explore_to');
+      window.localStorage.removeItem('fromTop');
+    }
+    if (!tokens || tokens.length === 0) {
+      fetchNFTs(0);
+    }
   }, [
     collections,
     groupType,
@@ -106,10 +138,10 @@ export function NewExplorePage() {
   ]);
 
   const updateWarnedCollections = async () => {
-      const res = await fetchWarnedCollections();
-      if (res.status === 'success') {
-        setWarnedCollections(res.data);
-      }
+    const res = await fetchWarnedCollections();
+    if (res.status === 'success') {
+      setWarnedCollections(res.data);
+    }
   };
 
   const updateCollections = async () => {
@@ -214,6 +246,13 @@ export function NewExplorePage() {
       dispatch(
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
+
+      window.localStorage.setItem('explore_tokens', JSON.stringify(newTokens));
+      window.localStorage.setItem('explore_count', Number(data.total));
+      window.localStorage.setItem('explore_from', Number(_from));
+      window.localStorage.setItem('explore_to', Number(_to));
+
+     
       if (dir === 0 && from) {
         // move scrollbar to middle
         const obj = width > 600 ? ref.current : conRef.current;
@@ -225,10 +264,9 @@ export function NewExplorePage() {
       }
     } finally {
       setCancelSource(null);
+      
     }
   };
-
-
 
   const handleOnReachArtworksBottom = () => {
     if (upFetching || downFetching) return;
@@ -305,7 +343,7 @@ export function NewExplorePage() {
       ref={conRef}
       cover={
         <>
-        {/* 
+          {/* 
           <div className="hero_marketplace bg_white">
             <div className="container">
               <h1 className="text-center">NFT Marketplace</h1>
@@ -317,13 +355,15 @@ export function NewExplorePage() {
         </>
       }
     >
-      <div className="section mt-40"> {/* mt-100 previous */}
+      <div className="section mt-40">
+        {' '}
+        {/* mt-100 previous */}
         <div className="section__head">
           {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
           <ExplorePageFillterStatus />
         </div>
       </div>
-      <div ref={ref} style={{paddingBottom:60}}>
+      <div ref={ref} style={{ paddingBottom: 60 }}>
         <ExplorePageArtworksSection
           items={tokens}
           category={category}

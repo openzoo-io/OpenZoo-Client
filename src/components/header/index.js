@@ -547,6 +547,12 @@ const Header = (props) => {
                     type="checkbox"
                     checked={!onlyVerified}
                     onChange={() => {
+                      // Delete //
+                      window.localStorage.removeItem('explore_tokens');
+                      window.localStorage.removeItem('explore_count');
+                      window.localStorage.removeItem('explore_from');
+                      window.localStorage.removeItem('explore_to');
+                      window.localStorage.removeItem('fromTop');
                       setOnlyVerified(!onlyVerified);
                     }}
                   />
@@ -624,7 +630,7 @@ const Header = (props) => {
                   <NavLink
                     to="/create"
                     className={'btn btn-warning btn-sm'}
-                    
+
                   >
                     Create
                   </NavLink>
@@ -666,13 +672,13 @@ const Header = (props) => {
                   </NavLink>
                 </li>
                 {
-                <li>
-                  <NavLink className="color_black" to="/collections">
-                    Collections
-                  </NavLink>
-                </li>
+                  <li>
+                    <NavLink className="color_black" to="/collections">
+                      Collections
+                    </NavLink>
+                  </li>
                 }
-               
+
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
