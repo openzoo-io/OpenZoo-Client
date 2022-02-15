@@ -63,6 +63,15 @@
   <script src="%PUBLIC_URL%/assets/js/ScrollTrigger.min.js"></script>
   <script src="%PUBLIC_URL%/assets/js/sticky-sidebar.js"></script>
   <script src="%PUBLIC_URL%/assets/js/script.js"></script>
+  <script>
+    setTimeout(()=>{
+      const elem = document.querySelector("#root");
+      if (elem.childNodes.length < 1)
+      {
+        window.location.reload(true);
+      }
+    },5000)
+  </script>
 </body>
 
 </html>
