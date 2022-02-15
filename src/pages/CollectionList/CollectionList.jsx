@@ -585,7 +585,7 @@ export function CollectionList() {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.collectionDescription}>
+                  <div className={styles.collectionDescription} style={{flexWrap:'wrap',gap:10,marginTop:10,marginBottom:10}}>
                     <div className="box">
                       <span>
                         {collectionStatisticData.countNFT
