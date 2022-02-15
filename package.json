@@ -104,7 +104,6 @@
     "react-resize-detector": "^6.7.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
-    "react-scroll": "^1.8.4",
     "react-spinners": "^0.10.6",
     "react-three-fiber": "^6.0.13",
     "react-virtualized": "9.21.2",
