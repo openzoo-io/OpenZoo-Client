@@ -15,6 +15,7 @@ export function Tokens(state = initialState, action) {
     case FilterConstants.UPDATE_STATUS_FILTER:
     case FilterConstants.UPDATE_COLLECTIONS_FILTER:
     case FilterConstants.UPDATE_CATEGORIES_FILTER:
+    case FilterConstants.UPDATE_MEDIATYPE_FILTER:
     case FilterConstants.UPDATE_GROUP_TYPE_FILTER:
     case FilterConstants.UPDATE_SORT_BY_FILTER:
     case TokenConstants.RESET_TOKENS:
