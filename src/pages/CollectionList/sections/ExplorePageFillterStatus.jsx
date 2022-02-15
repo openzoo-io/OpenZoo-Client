@@ -81,6 +81,14 @@ export function ExplorePageFillterStatus(props) {
       updateStatusFilter('statusOnAuction', _onAuction);
     }
     props.onChange?.(values);
+    
+    // Delete //
+    window.localStorage.removeItem('collection_tokens');
+    window.localStorage.removeItem('collection_count');
+    window.localStorage.removeItem('collection_from');
+    window.localStorage.removeItem('collection_to');
+    window.localStorage.removeItem('collection_fromTop');
+
   };
 
   /*
@@ -90,6 +98,12 @@ export function ExplorePageFillterStatus(props) {
 */
   const handleOnClickSortBy = item => {
     dispatch(FilterActions.updateSortByFilter(item.id));
+        // Delete //
+        window.localStorage.removeItem('collection_tokens');
+        window.localStorage.removeItem('collection_count');
+        window.localStorage.removeItem('collection_from');
+        window.localStorage.removeItem('collection_to');
+        window.localStorage.removeItem('collection_fromTop');
   };
 
   return (
@@ -101,6 +115,7 @@ export function ExplorePageFillterStatus(props) {
             items={filterStatusItems}
             values={selectedValues}
             className={'align-items-center'}
+            multiple={false}
             onChange={handleOnChange}
           />
         </div>

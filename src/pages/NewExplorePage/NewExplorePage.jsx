@@ -89,6 +89,11 @@ export function NewExplorePage() {
 
 
   useEffect(() => {
+    window.localStorage.removeItem('collection_tokens');
+      window.localStorage.removeItem('collection_count');
+      window.localStorage.removeItem('collection_from');
+      window.localStorage.removeItem('collection_to');
+    window.localStorage.removeItem('collection_fromTop');
     window.addEventListener("unload", function () {
      // Delete //
       window.localStorage.removeItem('explore_tokens');
@@ -115,6 +120,9 @@ export function NewExplorePage() {
       to = Number(window.localStorage.getItem('explore_to'));
       //console.log(tokens);
       dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
+
+
+
 
       if (window.localStorage.getItem('fromTop')) {
         let scroll = Scroll.animateScroll;
@@ -256,6 +264,7 @@ export function NewExplorePage() {
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
 
+      // Save to LocalStorage
       window.localStorage.setItem('explore_tokens', JSON.stringify(newTokens));
       window.localStorage.setItem('explore_count', Number(data.total));
       window.localStorage.setItem('explore_from', Number(_from));

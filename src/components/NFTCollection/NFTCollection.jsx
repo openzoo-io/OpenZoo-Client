@@ -32,7 +32,14 @@ export function NFTCollection(props) {
       <div className="d-flex flex-column collections_item">
         <div className="d-flex space-x-10">
           <div className="images-box">
-            <Link to={`/collection/${address}`}>
+            <Link to={`/collection/${address}`} onClick={() => {
+                // Delete //
+                window.localStorage.removeItem('collection_tokens');
+                window.localStorage.removeItem('collection_count');
+                window.localStorage.removeItem('collection_from');
+                window.localStorage.removeItem('collection_to');
+                window.localStorage.removeItem('collection_fromTop');
+              }}>
               <img
                 onError={addDefaultSrc}
                 src={`${getRandomIPFS('', true)}${logoImageHash}`}
@@ -40,7 +47,17 @@ export function NFTCollection(props) {
             </Link>
           </div>
           <div className="detail">
-            <Link to={`/collection/${address}`}>
+            <Link
+              to={`/collection/${address}`}
+              onClick={() => {
+                // Delete //
+                window.localStorage.removeItem('collection_tokens');
+                window.localStorage.removeItem('collection_count');
+                window.localStorage.removeItem('collection_from');
+                window.localStorage.removeItem('collection_to');
+                window.localStorage.removeItem('collection_fromTop');
+              }}
+            >
               <h4 className="d-flex">
                 {collectionName || name}{' '}
                 {isVerified && (
@@ -66,7 +83,9 @@ export function NFTCollection(props) {
                 </div>
               ) : (
                 <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
-                  {collectionType[0] ? 'MULTI TOKEN 1155' : 'UNDEFINED TOKEN TYPE'}
+                  {collectionType[0]
+                    ? 'MULTI TOKEN 1155'
+                    : 'UNDEFINED TOKEN TYPE'}
                 </div>
               )}
             </div>
@@ -100,11 +119,11 @@ export function NFTCollection(props) {
             <span className="txt_xs color_text">owners</span>
           </div>
           <div className="stat-card">
-            <h2 className="color_brand">{formatUSD(floor_price,2)}</h2>
+            <h2 className="color_brand">{formatUSD(floor_price, 2)}</h2>
             <span className="txt_xs color_text">floor price</span>
           </div>
           <div className="stat-card">
-            <h2 className="color_brand">{formatUSD(traded_volume,2)}</h2>
+            <h2 className="color_brand">{formatUSD(traded_volume, 2)}</h2>
             <span className="txt_xs color_text">volume traded</span>
           </div>
         </div>

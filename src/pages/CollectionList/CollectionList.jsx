@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import * as Scroll from 'react-scroll';
 import {
   ExplorePageArtworksSection,
   //ExplorePageFilterCategorySection,
@@ -76,7 +77,7 @@ export function CollectionList() {
   const [warnedCollections, setWarnedCollections] = useState([]);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
-  const { upFetching, downFetching, tokens, count, from, to } = useSelector(
+  let { upFetching, downFetching, tokens, count, from, to } = useSelector(
     state => state.Tokens
   );
   const {
@@ -97,6 +98,25 @@ export function CollectionList() {
   const fetchCount = numPerRow <= 3 ? 14 : 12;
 
   useEffect(() => {
+     // Delete //
+     window.localStorage.removeItem('explore_tokens');
+     window.localStorage.removeItem('explore_count');
+     window.localStorage.removeItem('explore_from');
+     window.localStorage.removeItem('explore_to');
+     window.localStorage.removeItem('fromTop');
+    window.addEventListener("unload", function () {
+     // Delete //
+      window.localStorage.removeItem('collection_tokens');
+      window.localStorage.removeItem('collection_count');
+      window.localStorage.removeItem('collection_from');
+      window.localStorage.removeItem('collection_to');
+      window.localStorage.removeItem('collection_fromTop');
+    })
+}, []);
+
+
+  useEffect(() => {
+
     // Filter by Address //
     dispatch(FilterActions.updateCollectionsFilter([addr]));
 
@@ -154,7 +174,38 @@ export function CollectionList() {
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
-    fetchNFTs(0);
+
+
+      let tmpTokens = JSON.parse(window.localStorage.getItem('collection_tokens'));
+      if (tmpTokens) {
+        
+        tokens = tmpTokens;
+        //console.log('tmpTokens', tokens);
+        count = Number(window.localStorage.getItem('collection_count'));
+        from = Number(window.localStorage.getItem('collection_from'));
+        to = Number(window.localStorage.getItem('collection_to'));
+        //console.log(tokens);
+        dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
+  
+  
+        
+  
+        if (window.localStorage.getItem('collection_fromTop')) {
+          let scroll = Scroll.animateScroll;
+          scroll.scrollTo(window.localStorage.getItem('collection_fromTop'),{duration:0,delay:0});
+        }
+  
+        // Delete //
+        // window.localStorage.removeItem('collection_tokens');
+        // window.localStorage.removeItem('collection_count');
+        // window.localStorage.removeItem('collection_from');
+        // window.localStorage.removeItem('collection_to');
+        window.localStorage.removeItem('collection_fromTop');
+      }
+
+      if (!tokens || tokens.length === 0) {
+        fetchNFTs(0);
+      }
   }, [
     collections,
     groupType,
@@ -295,6 +346,15 @@ export function CollectionList() {
       dispatch(
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
+
+      
+        // Save to LocalStorage
+      window.localStorage.setItem('collection_tokens', JSON.stringify(newTokens));
+      window.localStorage.setItem('collection_count', Number(data.total));
+      window.localStorage.setItem('collection_from', Number(_from));
+      window.localStorage.setItem('collection_to', Number(_to));
+
+
       if (dir === 0 && from) {
         // move scrollbar to middle
         const obj = width > 600 ? ref.current : conRef.current;
