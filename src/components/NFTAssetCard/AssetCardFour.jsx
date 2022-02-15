@@ -221,7 +221,7 @@ export function AssetCardFour(props) {
               }
             />
             {!zooElixir && (
-              <Link to={assetUrl}>
+              <Link to={assetUrl} onClick={()=>{window.localStorage.setItem('fromTop',document.documentElement.scrollTop)}}>
                 <ArtworkMediaView
                   image={
                     (item?.thumbnailPath !== '-' &&
@@ -236,7 +236,7 @@ export function AssetCardFour(props) {
             )}
 
             {zooElixir && (
-              <Link to={assetUrl}>
+              <Link to={assetUrl}  onClick={()=>{window.localStorage.setItem('fromTop',document.documentElement.scrollTop)}}>
                 {elixirIMG(
                   zooElixir.shape,
                   Number(zooElixir.drops) / 1e18,
@@ -308,6 +308,7 @@ export function AssetCardFour(props) {
             <Link
               to={'/collection/' + item?.contractAddress}
               className={'card_subtitle'}
+              onClick={()=>{window.localStorage.setItem('fromTop',document.documentElement.scrollTop)}}
             >
               {collection?.collectionName || collection?.name}
               {collection?.isVerified && (
@@ -327,7 +328,7 @@ export function AssetCardFour(props) {
                 ''
               )}
             </Link>
-            <Link to={assetUrl} className={'color_black'}>
+            <Link to={assetUrl} className={'color_black'}  onClick={()=>{window.localStorage.setItem('fromTop',document.documentElement.scrollTop)}}>
               {info?.name || item?.name}
             </Link>
           </h6>
