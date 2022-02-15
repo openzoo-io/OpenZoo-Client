@@ -377,6 +377,22 @@ const Header = (props) => {
                   key={idx}
                   className={styles.result}
                   to={'/collection/' + collection.erc721Address}
+                  onClick={() => {
+                    // Delete //
+                    window.localStorage.removeItem('explore_tokens');
+                    window.localStorage.removeItem('explore_count');
+                    window.localStorage.removeItem('explore_from');
+                    window.localStorage.removeItem('explore_to');
+                    window.localStorage.removeItem('fromTop');
+
+                    // Delete //
+                    window.localStorage.removeItem('collection_tokens');
+                    window.localStorage.removeItem('collection_count');
+                    window.localStorage.removeItem('collection_from');
+                    window.localStorage.removeItem('collection_to');
+                    window.localStorage.removeItem('collection_fromTop');
+
+                  }}
                 >
                   <img
                     className={styles.resultimg}

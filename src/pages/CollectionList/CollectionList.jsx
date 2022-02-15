@@ -164,10 +164,14 @@ export function CollectionList() {
   }, [collectionData?.owner]);
 
   useEffect(() => {
+    
+    if (!attributes || Object.keys(attributes).length === 0) return;
+    //alert('what');
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
     fetchNFTs(0, FilterType.Attribute);
+    
   }, [attributes]);
 
   useEffect(() => {
@@ -204,9 +208,10 @@ export function CollectionList() {
       }
 
       if (!tokens || tokens.length === 0) {
-        fetchNFTs(0);
+        fetchNFTs(0, FilterType.Attribute);
       }
   }, [
+    
     collections,
     groupType,
     category,

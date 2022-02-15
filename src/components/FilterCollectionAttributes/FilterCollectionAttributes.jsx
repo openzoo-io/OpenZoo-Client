@@ -35,12 +35,17 @@ export function FilterCollectionAttributes({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //alert('reset');
-    dispatch(FilterActions.updateAttributeFilter({}));
-    setFilterableFilterData([]);
-    setFormData({});
-    setResetCounter(0);
-    setFilterData([]);
+    let tmpTokens = JSON.parse(
+      window.localStorage.getItem('collection_tokens')
+    );
+    if (!tmpTokens) {
+      //alert('reset');
+      dispatch(FilterActions.updateAttributeFilter({}));
+      setFilterableFilterData([]);
+      setFormData({});
+      setResetCounter(0);
+      setFilterData([]);
+    }
     hideFunction();
     fetchFilterData();
   }, [params]);
@@ -225,21 +230,17 @@ export function FilterCollectionAttributes({
                 // console.log('newValue',newValue)
                 // console.log('key',key)
                 // console.log(formData);
-                if (newValue.length === 0)
-                {
+                if (newValue.length === 0) {
                   let tmpFormData = formData;
                   delete tmpFormData[key];
                   setFormData({
                     ...tmpFormData,
                   });
                   //console.log('tmpFormData',tmpFormData.length)
-                  if (tmpFormData.length === undefined)
-                  {
+                  if (tmpFormData.length === undefined) {
                     reset();
                   }
-                }
-                else
-                {
+                } else {
                   setFormData({
                     ...formData,
                     [key]: { value: newValue, isNumeric: false },
