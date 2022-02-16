@@ -19,10 +19,13 @@ import { Contracts } from 'constants/networks';
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 
+
+
 export function FilterCollectionAttributes({
   hidden = true,
   hideFunction,
   toggleAttributeButton,
+  attributes
 }) {
   const { getAttributeFilterData } = useApi();
   const params = useParams();
@@ -48,11 +51,14 @@ export function FilterCollectionAttributes({
     }
     hideFunction();
     fetchFilterData();
+    // Repopulate previous Attributes //
+    setFormData(attributes);
   }, [params]);
 
   useEffect(() => {
     setIsApplyButtonDisabled(Object.keys(formData).length === 0);
     setIsResetButtonDisabled(Object.keys(formData).length === 0);
+    
   }, [formData]);
 
   useEffect(() => {
