@@ -1,10 +1,11 @@
 import { AssetCard } from 'components/NFTAssetCard';
-import { ArtworkProfileFillterStatus } from './AccountProfileFillterStatus'
+import { ArtworkProfileFillterStatus } from './AccountProfileFillterStatus';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 
 const propTypes = {
+  tab: PropTypes.number,
   items: PropTypes.array,
   warnedCollections: PropTypes.array,
   count: PropTypes.number,
@@ -13,6 +14,7 @@ const propTypes = {
 };
 
 function AccountProfileArtworksListComponent(props) {
+  
   const observer = React.useRef();
   const loadMoreRef = React.useCallback(
     node => {
@@ -33,19 +35,25 @@ function AccountProfileArtworksListComponent(props) {
   return (
     <div className="tab-content">
       <div className="tab-pane active">
-        <div className="section">
-          <div className="section__head">
-            <ArtworkProfileFillterStatus />
+        {props.tab === 0 && (
+          <div className="section">
+            <div className="section__head">
+              <ArtworkProfileFillterStatus />
+            </div>
           </div>
-        </div>
-
+        )}
         <div className="row">
           {props.items?.map((item, index) => (
             <div
               key={item?.tokenID + index.toString()}
               className="col-xl-4 col-lg-6 col-md-6"
             >
-              <AssetCard preset="four" item={item} warnedCollections={props.warnedCollections} onLike={props.onLike} />
+              <AssetCard
+                preset="four"
+                item={item}
+                warnedCollections={props.warnedCollections}
+                onLike={props.onLike}
+              />
             </div>
           ))}
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>

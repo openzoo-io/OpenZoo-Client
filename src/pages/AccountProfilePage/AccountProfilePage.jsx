@@ -763,6 +763,7 @@ export function AccountProfilePage() {
                           ? likes.current
                           : []
                       }
+                      tab={tab}
                       warnedCollections={warnedCollections}
                       count={count}
                       loading={
