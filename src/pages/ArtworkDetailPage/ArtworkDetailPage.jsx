@@ -1168,8 +1168,7 @@ export function ArtworkDetailPage() {
     salesContract.on('OfferCreated', offerCreatedHandler);
     salesContract.on('OfferCanceled', offerCanceledHandler);
 
-    prevSalesContract.current = salesContract;
-    prevAuctionContract.current = auctionContract;
+    
 
     auctionContract.on('AuctionCreated', auctionCreatedHandler);
     auctionContract.on(
@@ -1185,6 +1184,9 @@ export function ArtworkDetailPage() {
     auctionContract.on('BidWithdrawn', bidWithdrawnHandler);
     auctionContract.on('AuctionCancelled', auctionCancelledHandler);
     auctionContract.on('AuctionResulted', auctionResultedHandler);
+
+    prevSalesContract.current = salesContract;
+    prevAuctionContract.current = auctionContract;
   };
 
   const removeEventListeners = async () => {
@@ -1259,17 +1261,17 @@ export function ArtworkDetailPage() {
     if (address && tokenID) {
       addEventListeners();
 
-      if (fetchInterval) {
-        clearInterval(fetchInterval);
-      }
+      // if (fetchInterval) {
+      //   clearInterval(fetchInterval);
+      // }
 
       updateCollections();
       // setFetchInterval(setInterval(updateCollections, 1000 * 60 * 10));
     }
 
-    if (bundleID) {
-      addBundleEventListeners();
-    }
+    // if (bundleID) {
+    //   addBundleEventListeners();
+    // }
 
     setInterval(() => {
       setNow(new Date());
@@ -1280,9 +1282,9 @@ export function ArtworkDetailPage() {
         removeEventListeners();
       }
 
-      if (bundleID) {
-        removeBundleEventListeners();
-      }
+      // if (bundleID) {
+      //   removeBundleEventListeners();
+      // }
     };
   }, [chainId]); // ,holders TODO: Don't know need to add or not
 
