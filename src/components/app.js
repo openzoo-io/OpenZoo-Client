@@ -89,6 +89,8 @@ const App = () => {
     }
   }, [chainId]);
   const history = createBrowserHistory();
+  history.push();
+
   return (
     <div>
       <Router history={history}>
