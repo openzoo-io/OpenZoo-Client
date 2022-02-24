@@ -6,6 +6,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { Toaster } from 'react-hot-toast';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
@@ -87,10 +88,10 @@ const App = () => {
       clearInterval(timer);
     }
   }, [chainId]);
-
+  const history = createBrowserHistory();
   return (
     <div>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/home" component={HomePage} />
