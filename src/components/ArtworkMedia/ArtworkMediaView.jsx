@@ -119,7 +119,7 @@ export function ArtworkMediaView(props) {
               contactShadow={{ opacity: 0.2, blur: 4 }}
             >
               <Environment
-                files={'studio.hdr'}
+                files={'sunrise.hdr'}
                 path={'/'}
                 preset={null}
                 background={false}

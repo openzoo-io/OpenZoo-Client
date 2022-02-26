@@ -1032,7 +1032,7 @@ const PaintBoard = () => {
                         contactShadow={{ opacity: 0.2, blur: 4 }}
                       >
 
-                        <Environment files={'studio.hdr'} path={'/'} preset={null} background={false} />
+                        <Environment files={'sunrise.hdr'} path={'/'} preset={null} background={false} />
                         <Model
                           scene={threeScence}
                           animations={threeAnimations}
