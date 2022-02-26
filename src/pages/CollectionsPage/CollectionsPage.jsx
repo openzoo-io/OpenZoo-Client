@@ -140,6 +140,7 @@ export function CollectionsPage() {
               <CollectionsPageFilterStatus
                 sortedBy={sortedBy}
                 setSortedBy={setSortedBy}
+                count={count}
               />
             }
           </div>
