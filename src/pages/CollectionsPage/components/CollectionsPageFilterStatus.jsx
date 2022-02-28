@@ -89,7 +89,7 @@ export function CollectionsPageFilterStatus(props) {
   return (
     <div className="row justify-content-between align-items-center">
       <div className="col-lg-auto">
-      <div style={{fontSize:20,fontWeight:'bold'}}><span style={{color:'#f9bb32'}}>{props.count}</span> Collections Verified</div>
+      <div style={{fontSize:20,fontWeight:'bold'}}><span style={{color:'#f9bb32'}}>{props.count}</span> {props.onlyVerified ? 'Collections Verified' : 'Total Collections'}</div>
       </div>
 
       

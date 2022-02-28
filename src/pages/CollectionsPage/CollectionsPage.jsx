@@ -141,6 +141,7 @@ export function CollectionsPage() {
                 sortedBy={sortedBy}
                 setSortedBy={setSortedBy}
                 count={count}
+                onlyVerified={onlyVerified}
               />
             }
           </div>
