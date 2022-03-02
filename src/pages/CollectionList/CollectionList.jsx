@@ -181,7 +181,8 @@ export function CollectionList() {
 
 
       let tmpTokens = JSON.parse(window.localStorage.getItem('collection_tokens'));
-      if (tmpTokens) {
+      
+      if (tmpTokens && tmpTokens.contractAddress === addr) {
         
         tokens = tmpTokens;
         //console.log('tmpTokens', tokens);
@@ -191,8 +192,6 @@ export function CollectionList() {
         //console.log(tokens);
         dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
   
-  
-        
   
         if (window.localStorage.getItem('collection_fromTop')) {
           let scroll = Scroll.animateScroll;

@@ -221,16 +221,23 @@ export function AssetCardFour(props) {
               }
             />
             {!zooElixir && (
-              <Link to={assetUrl} onClick={()=>{
-                if (window.location.href.includes('explore'))
-                {
-                  window.localStorage.setItem('fromTop',document.documentElement.scrollTop)
-                }
-                if (window.location.href.includes('collection'))
-                {
-                  window.localStorage.setItem('collection_fromTop',document.documentElement.scrollTop)
-                }
-              }}>
+              <Link
+                to={assetUrl}
+                onClick={() => {
+                  if (window.location.href.includes('explore')) {
+                    window.localStorage.setItem(
+                      'fromTop',
+                      document.documentElement.scrollTop
+                    );
+                  }
+                  if (window.location.href.includes('collection')) {
+                    window.localStorage.setItem(
+                      'collection_fromTop',
+                      document.documentElement.scrollTop
+                    );
+                  }
+                }}
+              >
                 <ArtworkMediaView
                   image={
                     (item?.thumbnailPath !== '-' &&
@@ -245,16 +252,23 @@ export function AssetCardFour(props) {
             )}
 
             {zooElixir && (
-              <Link to={assetUrl} onClick={()=>{
-                if (window.location.href.includes('explore'))
-                {
-                  window.localStorage.setItem('fromTop',document.documentElement.scrollTop)
-                }
-                if (window.location.href.includes('collection'))
-                {
-                  window.localStorage.setItem('collection_fromTop',document.documentElement.scrollTop)
-                }
-              }}>
+              <Link
+                to={assetUrl}
+                onClick={() => {
+                  if (window.location.href.includes('explore')) {
+                    window.localStorage.setItem(
+                      'fromTop',
+                      document.documentElement.scrollTop
+                    );
+                  }
+                  if (window.location.href.includes('collection')) {
+                    window.localStorage.setItem(
+                      'collection_fromTop',
+                      document.documentElement.scrollTop
+                    );
+                  }
+                }}
+              >
                 {elixirIMG(
                   zooElixir.shape,
                   Number(zooElixir.drops) / 1e18,
@@ -326,14 +340,19 @@ export function AssetCardFour(props) {
             <Link
               to={'/collection/' + item?.contractAddress}
               className={'card_subtitle'}
-              onClick={()=>{
-                if (window.location.href.includes('explore'))
-                {
-                  window.localStorage.setItem('fromTop',document.documentElement.scrollTop)
+              onClick={() => {
+                if (window.location.href.includes('explore')) {
+                  window.localStorage.setItem(
+                    'fromTop',
+                    document.documentElement.scrollTop
+                  );
+                  
                 }
-                if (window.location.href.includes('collection'))
-                {
-                  window.localStorage.setItem('collection_fromTop',document.documentElement.scrollTop)
+                if (window.location.href.includes('collection')) {
+                  window.localStorage.setItem(
+                    'collection_fromTop',
+                    document.documentElement.scrollTop
+                  );
                 }
               }}
             >
@@ -355,16 +374,24 @@ export function AssetCardFour(props) {
                 ''
               )}
             </Link>
-            <Link to={assetUrl} className={'color_black'}  onClick={()=>{
-                if (window.location.href.includes('explore'))
-                {
-                  window.localStorage.setItem('fromTop',document.documentElement.scrollTop)
+            <Link
+              to={assetUrl}
+              className={'color_black'}
+              onClick={() => {
+                if (window.location.href.includes('explore')) {
+                  window.localStorage.setItem(
+                    'fromTop',
+                    document.documentElement.scrollTop
+                  );
                 }
-                if (window.location.href.includes('collection'))
-                {
-                  window.localStorage.setItem('collection_fromTop',document.documentElement.scrollTop)
+                if (window.location.href.includes('collection')) {
+                  window.localStorage.setItem(
+                    'collection_fromTop',
+                    document.documentElement.scrollTop
+                  );
                 }
-              }}>
+              }}
+            >
               {info?.name || item?.name}
             </Link>
           </h6>
