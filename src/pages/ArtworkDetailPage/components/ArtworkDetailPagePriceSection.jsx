@@ -53,11 +53,6 @@ export function ArtworkDetailPagePriceSection(props) {
     handleBuyItem,
   } = props;
 
-  /*
-  if (bestListing == null) {
-    return null;
-  }
-  */
 
   return (
     <div className="numbers">

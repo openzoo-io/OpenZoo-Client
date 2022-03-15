@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Contracts } from 'constants/networks';
 import {
   useZooBoosterContract,
@@ -6,6 +6,7 @@ import {
 } from 'contracts/zookeeper';
 
 import styles from '../../styles.module.scss';
+import { useApi } from 'api';
 
 // eslint-disable-next-line no-undef
 const ENV = process.env.REACT_APP_ENV;
@@ -48,7 +49,62 @@ export function ArtworkDetailPageAttributesView(props) {
         //console.log('Elixir Info',zooElixir);
       });
     }
+
+
+    
+
   }, [tokenID]);
+
+  const { getAttributeFilterData } = useApi();
+  const [filterData, setFilterData] = useState([]);
+  const [parsedFilterData, setParsedFilterData] = useState([]);
+  const fetchFilterData = async () => {
+    try {
+      let data = await getAttributeFilterData(address);
+      setFilterData(data);
+    } catch (e) {
+      setFilterData([]);
+    }
+  };
+
+  useMemo(()=>{
+    fetchFilterData();
+  },[])
+
+  useEffect(()=>{
+    if (!filterData) return;
+    let parsedData = [];
+    filterData.map((v)=>{
+      
+
+      if (v.isNumeric === false)
+      {
+        let total_value = 0;
+        v.value.map(v2=>{
+          total_value +=  v2.count;
+        })
+
+        let tmp = v;
+        tmp.total_value = total_value;
+        parsedData.push(tmp);
+      }
+    });
+    //console.log('parsedData',parsedData)
+
+    // parse to array //
+    let result = [];
+    parsedData.map((v)=>{
+      result[v._id] = v;
+      v.value.map((v2)=>{
+        result[v._id][v2.value] = v2;
+      });
+    })
+    console.log('parsedData',result)
+    setParsedFilterData(result);
+
+  },[filterData])
+
+
 
   const numberToColor = (number, diff = 0) => {
     return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
@@ -129,19 +185,19 @@ export function ArtworkDetailPageAttributesView(props) {
       if (attributes[key].trait_type === 'Class') {
         switch (attributes[key].value) {
           case 'N':
-            attributes[key].value = <img src="/ZooBooster/class/N.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/N.png" />;
             break;
           case 'R':
-            attributes[key].value = <img src="/ZooBooster/class/R.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/R.png" />;
             break;
           case 'SR':
-            attributes[key].value = <img src="/ZooBooster/class/SR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/SR.png" />;
             break;
           case 'SSR':
-            attributes[key].value = <img src="/ZooBooster/class/SSR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/SSR.png" />;
             break;
           case 'UR':
-            attributes[key].value = <img src="/ZooBooster/class/UR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/UR.png" />;
             break;
         }
       }
@@ -152,32 +208,32 @@ export function ArtworkDetailPageAttributesView(props) {
       if (attributes[key].trait_type === 'category') {
         switch (attributes[key].value) {
           case '1':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/fruits.png" />
             );
             break;
           case '2':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/foods.png" />
             );
             break;
           case '3':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/sweets.png" />
             );
             break;
           case '4':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/potions.png" />
             );
             break;
           case '5':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/spices.png" />
             );
             break;
           case '6':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <img src="/ZooBooster/category/magic.png" />
             );
             break;
@@ -186,10 +242,10 @@ export function ArtworkDetailPageAttributesView(props) {
       if (attributes[key].trait_type === 'level') {
         switch (attributes[key].value) {
           case '1':
-            attributes[key].value = <img src="/ZooBooster/star.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/star.png" />;
             break;
           case '2':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <>
                 <img src="/ZooBooster/star.png" />
                 <img src="/ZooBooster/star.png" />
@@ -197,7 +253,7 @@ export function ArtworkDetailPageAttributesView(props) {
             );
             break;
           case '3':
-            attributes[key].value = (
+            attributes[key].value2 = (
               <>
                 <img src="/ZooBooster/star.png" />
                 <img src="/ZooBooster/star.png" />
@@ -206,27 +262,27 @@ export function ArtworkDetailPageAttributesView(props) {
             );
             break;
           case '4':
-            attributes[key].value = <img src="/ZooBooster/max.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/max.png" />;
             break;
         }
       }
       if (attributes[key].trait_type === 'item') {
-        attributes[key].trait_type = 'Class';
+        attributes[key].trait_type2 = 'Class';
         switch (attributes[key].value) {
           case '1':
-            attributes[key].value = <img src="/ZooBooster/class/N.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/N.png" />;
             break;
           case '2':
-            attributes[key].value = <img src="/ZooBooster/class/R.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/R.png" />;
             break;
           case '3':
-            attributes[key].value = <img src="/ZooBooster/class/SR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/SR.png" />;
             break;
           case '4':
-            attributes[key].value = <img src="/ZooBooster/class/SSR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/SSR.png" />;
             break;
           case '5':
-            attributes[key].value = <img src="/ZooBooster/class/UR.png" />;
+            attributes[key].value2 = <img src="/ZooBooster/class/UR.png" />;
             break;
         }
       }
@@ -241,7 +297,14 @@ export function ArtworkDetailPageAttributesView(props) {
               {attributes[key].trait_type}
             </div>
 
-            <div className={styles.attributeValue}>{attributes[key].value}</div>
+            <div className={styles.attributeValue}>
+              {attributes[key].value2 || attributes[key].value}
+              {
+              parsedFilterData && parsedFilterData[attributes[key].trait_type] && attributes[key].value && <span className={styles.percent}> ({
+                Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
+                }%)</span>
+            }
+              </div>
           </>
         );
         return;
@@ -251,7 +314,7 @@ export function ArtworkDetailPageAttributesView(props) {
     res.push(
       <>
         <div className={styles.attributeLabel}>
-          {attributes[key].trait_type}
+          {attributes[key].trait_type2 || attributes[key].trait_type}
         </div>
         {attributes[key].display_type === 'date' && (
           <div className={styles.attributeValue}>
@@ -261,7 +324,12 @@ export function ArtworkDetailPageAttributesView(props) {
         {attributes[key].display_type !== 'date' && (
           <div className={styles.attributeValue}>
             {attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':''}
-            {attributes[key].value}
+            {attributes[key].value2 || attributes[key].value}
+            {
+              parsedFilterData && parsedFilterData[attributes[key].trait_type] && <span className={styles.percent}> ({
+                Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
+                }%)</span>
+            }
             {attributes[key].display_type === 'boost_percentage'?'%':''}
           </div>
         )}

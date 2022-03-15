@@ -188,6 +188,15 @@
     text-align: left;
     font-size: 16px;
     padding:0 10px;
+    display:flex;
+    align-items: center;
+    .percent
+    {
+      margin-left:10px;
+      font-size:14px;
+      color:#3d3d3d;
+      font-weight: normal;
+    }
   }
 
 
