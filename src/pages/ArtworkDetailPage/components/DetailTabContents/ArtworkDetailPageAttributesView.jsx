@@ -75,8 +75,6 @@ export function ArtworkDetailPageAttributesView(props) {
     if (!filterData) return;
     let parsedData = [];
     filterData.map((v)=>{
-      
-
       if (v.isNumeric === false)
       {
         let total_value = 0;
@@ -299,8 +297,9 @@ export function ArtworkDetailPageAttributesView(props) {
 
             <div className={styles.attributeValue}>
               {attributes[key].value2 || attributes[key].value}
+              
               {
-              parsedFilterData && parsedFilterData[attributes[key].trait_type] && attributes[key].value && <span className={styles.percent}> ({
+              parsedFilterData && parsedFilterData[attributes[key].trait_type] && attributes[key].value && parsedFilterData[attributes[key].trait_type][attributes[key].value].count && <span className={styles.percent}> ({
                 Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
                 }%)</span>
             }
@@ -325,8 +324,9 @@ export function ArtworkDetailPageAttributesView(props) {
           <div className={styles.attributeValue}>
             {attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':''}
             {attributes[key].value2 || attributes[key].value}
+            
             {
-              parsedFilterData && parsedFilterData[attributes[key].trait_type] && <span className={styles.percent}> ({
+              parsedFilterData && parsedFilterData[attributes[key].trait_type] && parsedFilterData[attributes[key].trait_type][attributes[key].value].count !== undefined && <span className={styles.percent}> ({
                 Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
                 }%)</span>
             }
