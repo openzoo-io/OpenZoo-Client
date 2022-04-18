@@ -323,7 +323,22 @@
 .activity {
   padding: 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  .name
+  {
 
+    
+    .media
+    {
+      min-width:32px;
+    }
+    span
+    {
+      max-width:200px;
+      word-break: break-word;
+      display: block;
+      white-space: normal;
+    }
+  }
   .name,
   .owner {
     color: #00a59a;

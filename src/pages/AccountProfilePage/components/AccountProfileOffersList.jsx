@@ -65,7 +65,7 @@ export function AccountProfileOffersList(props) {
                       : offer.imageURL
                   )}
                 </div>
-                {offer.name}
+                <span>{offer.name}</span>
               </Link>
             ) : (
               <div className={styles.name}>
