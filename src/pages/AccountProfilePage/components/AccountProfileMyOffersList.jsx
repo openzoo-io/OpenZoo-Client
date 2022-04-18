@@ -63,7 +63,7 @@ export function AccountProfileMyOffersList(props) {
                       : bid.imageURL
                   )}
                 </div>
-                {bid.name}
+                <span>{bid.name}</span>
               </Link>
             ) : (
               <div className={styles.name}>
