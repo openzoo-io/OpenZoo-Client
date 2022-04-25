@@ -18,7 +18,7 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
-import { shortenAddress, formatUSD, formatNumber } from 'utils';
+import { shortenAddress, formatUSD, formatNumber, isEmbed } from 'utils';
 //import  warned  from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -35,6 +35,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { Categories } from 'constants/filter.constants';
 import { Link, useHistory } from 'react-router-dom';
+import EmbedModal from 'components/EmbedModal';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -75,6 +76,7 @@ export function CollectionList() {
   const [collectionData, setCollectionData] = useState({});
   const [collectionStatisticData, setCollectionStatisticData] = useState({});
   const [warnedCollections, setWarnedCollections] = useState([]);
+  const [showEmbedModal, setShowEmbedModal] = useState(false);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   let { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -98,21 +100,21 @@ export function CollectionList() {
   const fetchCount = numPerRow <= 3 ? 14 : 12;
 
   useEffect(() => {
-     // Delete //
-     window.localStorage.removeItem('explore_tokens');
-     window.localStorage.removeItem('explore_count');
-     window.localStorage.removeItem('explore_from');
-     window.localStorage.removeItem('explore_to');
-     window.localStorage.removeItem('fromTop');
+    // Delete //
+    window.localStorage.removeItem('explore_tokens');
+    window.localStorage.removeItem('explore_count');
+    window.localStorage.removeItem('explore_from');
+    window.localStorage.removeItem('explore_to');
+    window.localStorage.removeItem('fromTop');
     window.addEventListener("unload", function () {
-     // Delete //
+      // Delete //
       window.localStorage.removeItem('collection_tokens');
       window.localStorage.removeItem('collection_count');
       window.localStorage.removeItem('collection_from');
       window.localStorage.removeItem('collection_to');
       window.localStorage.removeItem('collection_fromTop');
     })
-}, []);
+  }, []);
 
 
   useEffect(() => {
@@ -164,14 +166,14 @@ export function CollectionList() {
   }, [collectionData?.owner]);
 
   useEffect(() => {
-    
+
     if (!attributes || Object.keys(attributes).length === 0) return;
     //alert('what');
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
     fetchNFTs(0, FilterType.Attribute);
-    
+
   }, [attributes]);
 
   useEffect(() => {
@@ -180,37 +182,37 @@ export function CollectionList() {
       return;
 
 
-      let tmpTokens = JSON.parse(window.localStorage.getItem('collection_tokens'));
-      
-      if (tmpTokens && tmpTokens.contractAddress === addr) {
-        
-        tokens = tmpTokens;
-        //console.log('tmpTokens', tokens);
-        count = Number(window.localStorage.getItem('collection_count'));
-        from = Number(window.localStorage.getItem('collection_from'));
-        to = Number(window.localStorage.getItem('collection_to'));
-        //console.log(tokens);
-        dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
-  
-  
-        if (window.localStorage.getItem('collection_fromTop')) {
-          let scroll = Scroll.animateScroll;
-          scroll.scrollTo(window.localStorage.getItem('collection_fromTop'),{duration:0,delay:0});
-        }
-  
-        // Delete //
-        // window.localStorage.removeItem('collection_tokens');
-        // window.localStorage.removeItem('collection_count');
-        // window.localStorage.removeItem('collection_from');
-        // window.localStorage.removeItem('collection_to');
-        window.localStorage.removeItem('collection_fromTop');
+    let tmpTokens = JSON.parse(window.localStorage.getItem('collection_tokens'));
+
+    if (tmpTokens && tmpTokens.contractAddress === addr) {
+
+      tokens = tmpTokens;
+      //console.log('tmpTokens', tokens);
+      count = Number(window.localStorage.getItem('collection_count'));
+      from = Number(window.localStorage.getItem('collection_from'));
+      to = Number(window.localStorage.getItem('collection_to'));
+      //console.log(tokens);
+      dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
+
+
+      if (window.localStorage.getItem('collection_fromTop')) {
+        let scroll = Scroll.animateScroll;
+        scroll.scrollTo(window.localStorage.getItem('collection_fromTop'), { duration: 0, delay: 0 });
       }
 
-      if (!tokens || tokens.length === 0) {
-        fetchNFTs(0, FilterType.Attribute);
-      }
+      // Delete //
+      // window.localStorage.removeItem('collection_tokens');
+      // window.localStorage.removeItem('collection_count');
+      // window.localStorage.removeItem('collection_from');
+      // window.localStorage.removeItem('collection_to');
+      window.localStorage.removeItem('collection_fromTop');
+    }
+
+    if (!tokens || tokens.length === 0) {
+      fetchNFTs(0, FilterType.Attribute);
+    }
   }, [
-    
+
     collections,
     groupType,
     category,
@@ -228,7 +230,7 @@ export function CollectionList() {
     if (res.status === 'success') {
       setWarnedCollections(res.data);
     }
-};
+  };
   const updateCollections = async () => {
     try {
       // Filter by Address //
@@ -316,15 +318,15 @@ export function CollectionList() {
         dir > 0
           ? [...tokens, ...data.tokens]
           : dir < 0
-          ? [...data.tokens, ...tokens]
-          : data.tokens;
+            ? [...data.tokens, ...tokens]
+            : data.tokens;
       newTokens = newTokens.filter(
         (tk, idx) =>
           newTokens.findIndex(_tk =>
             tk.items
               ? tk._id === _tk._id
               : tk.contractAddress === _tk.contractAddress &&
-                tk.tokenID === _tk.tokenID
+              tk.tokenID === _tk.tokenID
           ) === idx
       );
       let _from = from;
@@ -351,8 +353,8 @@ export function CollectionList() {
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
 
-      
-        // Save to LocalStorage
+
+      // Save to LocalStorage
       window.localStorage.setItem('collection_tokens', JSON.stringify(newTokens));
       window.localStorage.setItem('collection_count', Number(data.total));
       window.localStorage.setItem('collection_from', Number(_from));
@@ -409,16 +411,16 @@ export function CollectionList() {
       let missingTokens = tokens.map((tk, index) =>
         tk.items
           ? {
-              index,
-              isLiked: tk.isLiked,
-              bundleID: tk._id,
-            }
+            index,
+            isLiked: tk.isLiked,
+            bundleID: tk._id,
+          }
           : {
-              index,
-              isLiked: tk.isLiked,
-              contractAddress: tk.contractAddress,
-              tokenID: tk.tokenID,
-            }
+            index,
+            isLiked: tk.isLiked,
+            contractAddress: tk.contractAddress,
+            tokenID: tk.tokenID,
+          }
       );
       if (prevAuthToken) {
         missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
@@ -467,7 +469,7 @@ export function CollectionList() {
             <div className="hero_marketplace bg_white">
               <div className="container">
                 {
-                warnedCollections && warnedCollections.includes(addr) && <div className="alert alert-danger"><b><FontAwesomeIcon icon={faExclamationTriangle} /> Warning:</b> This content has been flagged by the OpenZoo Team as suspicious.</div>
+                  warnedCollections && warnedCollections.includes(addr) && <div className="alert alert-danger"><b><FontAwesomeIcon icon={faExclamationTriangle} /> Warning:</b> This content has been flagged by the OpenZoo Team as suspicious.</div>
                 }
                 <div className="col-lg-6">
                   <div className={styles.collectionDescription}>
@@ -589,7 +591,7 @@ export function CollectionList() {
                       </div>
                     </div>
                   </div>
-                  <div className={styles.collectionDescription} style={{flexWrap:'wrap',gap:10,marginTop:10,marginBottom:10}}>
+                  <div className={styles.collectionDescription} style={{ flexWrap: 'wrap', gap: 10, marginTop: 10, marginBottom: 10 }}>
                     <div className="box">
                       <span>
                         {collectionStatisticData.countNFT
@@ -629,6 +631,21 @@ export function CollectionList() {
                   <div className={styles.collectionDescription}>
                     <p>{collectionData?.description}</p>
                   </div>
+                  {
+                    isEmbed() ?
+                      <>
+                      </> :
+                      (
+                        <>
+                          <div className='share-container' style={{ margin: "10px 0" }}>
+                            <button className="btn btn-sm btn-white" onClick={() => setShowEmbedModal(true)}>
+                              <i className="ri-code-line" style={{ marginRight: "5px" }}></i>Embed
+                            </button>
+                            <EmbedModal visible={showEmbedModal} onClose={() => setShowEmbedModal(false)} embedTitle={collectionData?.collectionName} />
+                          </div>
+                        </>
+                      )
+                  }
                 </div>
               </div>
             </div>
@@ -639,7 +656,7 @@ export function CollectionList() {
         <div className="section mt-40">
           <div className="section__head">
             {/*<h2 className="section__title mb-20"> Artworks</h2>*/}
-            <ExplorePageFillterStatus attributes={attributes}/>
+            <ExplorePageFillterStatus attributes={attributes} />
           </div>
         </div>
 

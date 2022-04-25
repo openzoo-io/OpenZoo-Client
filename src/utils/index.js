@@ -40,14 +40,12 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
   if (justURL) {
     return `${IPFSUris[random]}`;
   }
-  if (isFallback)
-  {
+  if (isFallback) {
     if (tokenURI.includes('ipfs://')) {
       return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
     }
-    else
-    {
-    return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
+    else {
+      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
     }
   }
   try {
@@ -176,3 +174,7 @@ export const formatDateTimeAgo = (_date, _now) => {
   }
   return `${diff} Second${diff > 1 ? 's' : ''} Ago`;
 };
+
+export function isEmbed() {
+  return window.location.href.toLocaleLowerCase().endsWith("?embed");
+}
