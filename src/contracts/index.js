@@ -7,10 +7,12 @@ export * from './bundleSales';
 export * from './token';
 export * from './wftm';
 export * from './factory';
-
+import { useWeb3React } from '@web3-react/core';
 export const getSigner = async () => {
-  await window.ethereum.enable();
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const { connector } = useWeb3React();
+  let web3provider = await connector.getProvider();
+  await web3provider.enable();
+  let provider = new ethers.providers.Web3Provider(web3provider);
   const signer = provider.getSigner();
   return signer;
 };

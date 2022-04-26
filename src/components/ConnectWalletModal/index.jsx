@@ -48,14 +48,14 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       }
       return true;
     });
-    
-    
 
     conn &&
       activate(conn, undefined, true).catch(error => {
+        //console.log('conn',conn)
         if (error instanceof UnsupportedChainIdError) {
           activate(conn); // a little janky...can't use setError because the connector isn't set
         }
+        
       });
   };
 

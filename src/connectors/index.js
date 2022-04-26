@@ -1,7 +1,7 @@
 // import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
 //import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-import {WalletConnectConnector} from '@web3-react/walletconnect-connector';
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 //import { Wallet } from 'ethers';
 import { NetworkConnector } from './NetworkConnector';
 
@@ -12,11 +12,11 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-      [888]: 'https://rpc.zookeeper.finance',
-    }
+    [888]: 'https://rpc.zookeeper.finance',
+  }
   : {
-      [999]: 'https://rpc.zookeeper.finance/testnet',
-    };
+    [999]: 'https://rpc.zookeeper.finance/testnet',
+  };
 
 export const network = new NetworkConnector({
   defaultChainId: 888,
@@ -26,16 +26,19 @@ export const network = new NetworkConnector({
 export const injected = new InjectedConnector({
   supportedChainIds: isMainnet
     ? [
-        888, // fantom
-      ]
+      888, // fantom
+    ]
     : [
-        999, // fantom testnet
-      ],
+      999, // fantom testnet
+    ],
 });
 
 export const walletconnect = new WalletConnectConnector({
-  url: 'https://rpc.zookeeper.finance',
-  appName: 'OpenZoo',
+  infuraId: '326fb0397704475abffcfa9ca9c0ee5a',
+  rpc: {
+    888: 'https://rpc.zookeeper.finance',
+    999: 'https://rpc.zookeeper.finance/testnet',
+  }
 });
 
 // export const walletlink = new WalletLinkConnector({
