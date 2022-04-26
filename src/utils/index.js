@@ -175,6 +175,25 @@ export const formatDateTimeAgo = (_date, _now) => {
   return `${diff} Second${diff > 1 ? 's' : ''} Ago`;
 };
 
-export function isEmbed() {
-  return window.location.href.toLocaleLowerCase().endsWith("?embed");
+function getLocationSearchParams() {
+  try {
+    return window.location.search.replace("?", "").toLowerCase().split("&");
+  } catch {
+    return []
+  }
+}
+
+function isEmbed() {
+  return getLocationSearchParams().find(x => x.startsWith("embed")) ?? false;
+}
+
+function isDarkModeRequested() {
+  return getLocationSearchParams().find(x => x.startsWith("theme=dark")) ?? false;
+}
+
+export function getEmbedParams() {
+  return {
+    isEmbed: isEmbed(),
+    isDarkMode: isDarkModeRequested()
+  }
 }

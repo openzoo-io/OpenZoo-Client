@@ -1,0 +1,25 @@
+.footerEmbed {
+    background-color: #fff;
+    margin-bottom: -200px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 2px;
+    border-top: 1px solid #e2eef1;
+
+}
+
+:global {
+    .is__dark {
+        :local {
+            .footerEmbed {
+                background: #4d4d4d !important;
+                border-color: #ffffff1f;
+                color: white;
+            }
+        }
+    }
+}

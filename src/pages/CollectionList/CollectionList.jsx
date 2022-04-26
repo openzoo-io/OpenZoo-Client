@@ -18,7 +18,7 @@ import { PageLayout } from 'components/Layouts/PageLayout';
 import { useParams } from 'react-router';
 import FilterActions from 'actions/filter.actions';
 import styles from './styles.module.scss';
-import { shortenAddress, formatUSD, formatNumber, isEmbed } from 'utils';
+import { shortenAddress, formatUSD, formatNumber, getEmbedParams } from 'utils';
 //import  warned  from 'constants/warned.collections';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -632,7 +632,7 @@ export function CollectionList() {
                     <p>{collectionData?.description}</p>
                   </div>
                   {
-                    isEmbed() ?
+                    getEmbedParams().isEmbed ?
                       <>
                       </> :
                       (
