@@ -39,8 +39,8 @@ const App = () => {
     const getPrice = async () => {
       try {
         if (chainId === 888) {
-          let web3provider = await connector.getProvider();
-          await web3provider.enable();
+          const web3provider = await connector.getProvider();
+          //await web3provider.enable();
           const provider = new ethers.providers.Web3Provider(web3provider);
           const oracle = new ethers.Contract(
             '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
@@ -60,8 +60,8 @@ const App = () => {
           const price = parseFloat(_price.toString()) / 10 ** 18;
           dispatch(PriceActions.updatePrice(price));
         } else if (chainId === 999) {
-          let web3provider = await connector.getProvider();
-          await web3provider.enable();
+          const web3provider = await connector.getProvider();
+          //await web3provider.enable();
           const provider = new ethers.providers.Web3Provider(web3provider);
           const oracle = new ethers.Contract(
             '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',

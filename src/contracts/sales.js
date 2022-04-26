@@ -1,7 +1,7 @@
 // import { ChainId } from '@sushiswap/sdk';
 
 import { calculateGasMargin } from 'utils';
-import utils from 'utils';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
 
@@ -13,7 +13,7 @@ const CHAIN = isMainnet ? 888 : 999;
 
 export const useSalesContract = () => {
   const { getContract } = useContract();
-  const {getHigherGWEI} = utils();
+  const {getHigherGWEI} = useConnectionUtils();
   const getSalesContract = async () =>
     await getContract(Contracts[CHAIN].sales, SALES_CONTRACT_ABI);
 

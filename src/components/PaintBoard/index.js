@@ -39,7 +39,7 @@ import HeaderActions from 'actions/header.actions';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import { calculateGasMargin, formatError} from 'utils';
-import utils from 'utils';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import showToast from 'utils/toast';
 import WalletUtils from 'utils/wallet';
 import useContract from 'utils/sc.interaction';
@@ -126,7 +126,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getHigherGWEI} = utils();
+  const {getHigherGWEI} = useConnectionUtils();
   const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({

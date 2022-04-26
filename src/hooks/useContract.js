@@ -11,7 +11,7 @@ export default () => {
   const getContract = useCallback(
     async (address, abi) => {
       if (chainId) {
-        let web3provider = await connector.getProvider();
+        const web3provider = await connector.getProvider();
         await web3provider.enable();
         const provider = new ethers.providers.Web3Provider(web3provider);
         provider.pollingInterval = 10 * 1000;

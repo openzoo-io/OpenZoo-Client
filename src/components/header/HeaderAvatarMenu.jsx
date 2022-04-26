@@ -64,7 +64,7 @@ export function HeaderAvatarMenu(props) {
 
   const getBalances = async () => {
     //setGettingBalance(true);
-    let web3provider = await connector.getProvider();
+    const web3provider = await connector.getProvider();
     await web3provider.enable();
     const provider = new ethers.providers.Web3Provider(web3provider);
 
@@ -80,6 +80,8 @@ export function HeaderAvatarMenu(props) {
       // await getWFTMBalance(account),
       await zooContract.balanceOf(account),
     ]);
+
+    
 
     setBalance(parseFloat(ftmBal.toString()) / 10 ** 18);
     setZooBalance(parseFloat(zooBal.toString()) / 10 ** 18);

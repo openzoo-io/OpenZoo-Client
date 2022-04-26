@@ -76,6 +76,7 @@ const Header = () => {
     dispatch(WalletConnectActions.disconnectWallet());
     dispatch(AuthActions.signOut());
     handleMenuClose();
+    localStorage.removeItem("walletconnect");
   };
 
   const handleProfileMenuOpen = e => {

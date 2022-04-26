@@ -24,14 +24,12 @@ const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
 
   const getBalance = async () => {
 
-    let web3provider = await connector.getProvider();
+    const web3provider = await connector.getProvider();
     await web3provider.enable();
     let provider = new ethers.providers.Web3Provider(web3provider);
     let [wan] = await Promise.all([
       await provider.getBalance('0xEdf527D13B4Bc7E5C7da0f57474945a54C79444A'),
     ]);
-
-    alert(wan.toString())
 
     setFaucetBalance(parseFloat(wan.toString()) / 10 ** 18);
   }

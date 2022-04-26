@@ -7,7 +7,7 @@ const useContract = () => {
 
   const loadContract = useCallback(
     async (address, abi) => {
-      let web3provider = await connector.getProvider();
+      const web3provider = await connector.getProvider();
       await web3provider.enable();
       const provider = new ethers.providers.Web3Provider(web3provider);
       const signer = provider.getSigner();
@@ -18,7 +18,7 @@ const useContract = () => {
 
   const getAccountBalance = useCallback(
     async address => {
-      let web3provider = await connector.getProvider();
+      const web3provider = await connector.getProvider();
       await web3provider.enable();
       const provider = new ethers.providers.Web3Provider(web3provider);
       let balance = await provider.getBalance(address);

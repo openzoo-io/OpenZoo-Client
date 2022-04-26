@@ -35,6 +35,9 @@ export const injected = new InjectedConnector({
 
 export const walletconnect = new WalletConnectConnector({
   infuraId: '326fb0397704475abffcfa9ca9c0ee5a',
+  rpcUrl: 'https://rpc.zookeeper.finance',
+  chainId: 888,
+  networkId: 888,
   rpc: {
     888: 'https://rpc.zookeeper.finance',
     999: 'https://rpc.zookeeper.finance/testnet',
