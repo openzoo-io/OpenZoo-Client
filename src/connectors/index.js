@@ -1,10 +1,11 @@
 // import { ChainId } from '@sushiswap/sdk';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-
+//import { WalletLinkConnector } from '@web3-react/walletlink-connector';
+import {WalletConnectConnector} from '@web3-react/walletconnect-connector';
+//import { Wallet } from 'ethers';
 import { NetworkConnector } from './NetworkConnector';
 
-import ARTION_LOGO_URL from '../assets/svgs/logo_blue.svg';
+//import ARTION_LOGO_URL from '../assets/svgs/logo_blue.svg';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -32,8 +33,13 @@ export const injected = new InjectedConnector({
       ],
 });
 
-export const walletlink = new WalletLinkConnector({
+export const walletconnect = new WalletConnectConnector({
   url: 'https://rpc.zookeeper.finance',
   appName: 'OpenZoo',
-  appLogoUrl: ARTION_LOGO_URL,
 });
+
+// export const walletlink = new WalletLinkConnector({
+//   url: 'https://rpc.zookeeper.finance',
+//   appName: 'OpenZoo',
+//   appLogoUrl: ARTION_LOGO_URL,
+// });

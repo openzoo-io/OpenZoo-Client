@@ -48,6 +48,8 @@ const ConnectWalletModal = ({ visible, onClose }) => {
       }
       return true;
     });
+    
+    
 
     conn &&
       activate(conn, undefined, true).catch(error => {
