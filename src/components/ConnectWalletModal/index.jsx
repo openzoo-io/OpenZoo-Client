@@ -94,7 +94,7 @@ const ConnectWalletModal = ({ visible, onClose }) => {
                 window.alert('please install MetaMask at: MetaMask.io');
               } else {
                 try {
-                  const param = {
+                  const param = { 
                     chainId: '0x378',
                     chainName: 'Wanchain Mainnet',
                     rpcUrls: ['https://gwan-ssl.wandevs.org:56891'],
