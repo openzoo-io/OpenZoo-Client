@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { useWeb3React } from '@web3-react/core';
 
 export * from './abi';
 export * from './auctions';
@@ -7,7 +8,7 @@ export * from './bundleSales';
 export * from './token';
 export * from './wftm';
 export * from './factory';
-import { useWeb3React } from '@web3-react/core';
+
 export const getSigner = async () => {
   const { connector } = useWeb3React();
   const web3provider = await connector.getProvider();
