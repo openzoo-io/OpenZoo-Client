@@ -44,7 +44,7 @@ import showToast from 'utils/toast';
 import WalletUtils from 'utils/wallet';
 import useContract from 'utils/sc.interaction';
 import { useApi } from 'api';
-import { useSalesContract, getSigner } from 'contracts';
+import { useSalesContract } from 'contracts';
 
 import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
@@ -126,7 +126,8 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getHigherGWEI} = useConnectionUtils();
+  const {getSigner, getHigherGWEI} = useConnectionUtils();
+
   const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({

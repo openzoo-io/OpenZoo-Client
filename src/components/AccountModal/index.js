@@ -11,7 +11,7 @@ import ModalActions from 'actions/modal.actions';
 import AuthActions from 'actions/auth.actions';
 import { useApi } from 'api';
 import toast from 'utils/toast';
-//import { getSigner } from 'contracts';
+
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import styles from './styles.module.scss';
 
