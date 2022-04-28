@@ -10,6 +10,15 @@ export default () => {
         return signer;
     };
 
+    const checkBalance = async (address) => {
+
+        const web3provider = await connector.getProvider();
+        const provider = new ethers.providers.Web3Provider(web3provider);
+        let balance = await provider.getBalance(address);
+        balance = ethers.utils.formatEther(balance);
+        return balance;
+      };
+
     const getHigherGWEI = async () => {
 
         const web3provider = await connector.getProvider();
@@ -18,6 +27,6 @@ export default () => {
 
         return price;
     };
-    return { getHigherGWEI, getSigner }
+    return { getHigherGWEI, getSigner, checkBalance }
 }
 

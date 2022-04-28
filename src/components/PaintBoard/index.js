@@ -41,7 +41,6 @@ import PriceInput from 'components/PriceInput';
 import { calculateGasMargin, formatError} from 'utils';
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import showToast from 'utils/toast';
-import WalletUtils from 'utils/wallet';
 import useContract from 'utils/sc.interaction';
 import { useApi } from 'api';
 import { useSalesContract } from 'contracts';
@@ -126,7 +125,7 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getSigner, getHigherGWEI} = useConnectionUtils();
+  const {getSigner, getHigherGWEI, checkBalance} = useConnectionUtils();
 
   const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
@@ -423,7 +422,7 @@ const PaintBoard = () => {
       }
     }
 
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0';
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0' && description.trim() !== '' && nft;
   };
 
   const resetMintingStatus = () => {
@@ -442,7 +441,8 @@ const PaintBoard = () => {
       showToast('info', 'You are not connected to Wanchain Network');
       return;
     }
-    const balance = await WalletUtils.checkBalance(account);
+    
+    const balance = await checkBalance(account);
 
     if (balance < fee) {
       showToast(
@@ -565,6 +565,7 @@ const PaintBoard = () => {
         type === 721 ? SINGLE_NFT_ABI : MULTI_NFT_ABI
       );
       try {
+       
         const args =
           type === 721 ? [account, jsonHash] : [account, supply, jsonHash];
 
@@ -572,7 +573,9 @@ const PaintBoard = () => {
 
         if (!fee) {
           tx = await contract.mint(...args);
+          
         } else {
+        
           const options = {
             value: ethers.utils.parseEther(fee.toString()),
             gasPrice: getHigherGWEI(),
