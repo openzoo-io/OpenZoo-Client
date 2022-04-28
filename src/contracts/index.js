@@ -1,5 +1,5 @@
-import { ethers } from 'ethers';
-import { useWeb3React } from '@web3-react/core';
+// import { ethers } from 'ethers';
+// import { useWeb3React } from '@web3-react/core';
 
 export * from './abi';
 export * from './auctions';
