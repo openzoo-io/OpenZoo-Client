@@ -420,7 +420,7 @@ const PaintBoard = () => {
       }
     }
 
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0';
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0'  && description.trim() !== '' && nft;
   };
 
   const resetMintingStatus = () => {
