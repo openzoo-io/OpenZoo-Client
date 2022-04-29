@@ -307,6 +307,11 @@ export function ArtworkDetailPage() {
     return account && (ENV === 'MAINNET' ? chainId === 888 : chainId === 999);
   };
 
+  const { isEmbed, isDarkMode } = getEmbedParams();
+  if (isEmbed && isDarkMode) {
+    document.body.classList.add('is__dark');
+  }
+
   useEffect(() => {
     dispatch(HeaderActions.toggleSearchbar(true));
   }, []);
@@ -2757,9 +2762,7 @@ export function ArtworkDetailPage() {
                           'btn btn-sm rounded-pill bg_brand'
                         )}
                         style={{ cursor: 'pointer' }}
-                        href={'/collection/' + address}
-                        target={getEmbedParams().isEmbed ? "_blank" : "_self"}
-                        rel="noreferrer"
+                        href={'/collection/' + address + `${getEmbedParams().isEmbed ? window.location.search : ""}`}
                       /*
                   onClick={() => {
                     history.push('/collection/'+address);
@@ -2967,7 +2970,7 @@ export function ArtworkDetailPage() {
                             {auction.current.resulted ? (
                               <>
                                 {'Winner: '}
-                                <Link to={`/account/${winner}`}>
+                                <Link to={`/account/${winner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                                   {winner?.toLowerCase() ===
                                     account?.toLowerCase()
                                     ? 'Me'
@@ -3177,7 +3180,7 @@ export function ArtworkDetailPage() {
                               {loading ? (
                                 <Skeleton width={100} height={20} />
                               ) : (
-                                <Link to={`/account/${owner}`}>
+                                <Link to={`/account/${owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                                   <div className={styles.userAvatarWrapper}>
                                     {ownerInfo?.imageHash ? (
                                       <img
@@ -3292,7 +3295,7 @@ export function ArtworkDetailPage() {
                               </div>
                             )}
                             <div className={styles.owner}>
-                              <Link to={`/account/${listing.owner}`}>
+                              <Link to={`/account/${listing.owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                                 <div className={styles.userAvatarWrapper}>
                                   {listing.image ? (
                                     <img
@@ -3436,7 +3439,7 @@ export function ArtworkDetailPage() {
                                   {formatExpiration(offer.deadline)}
                                 </div>
                                 <div className={styles.owner}>
-                                  <Link to={`/account/${offer.creator}`}>
+                                  <Link to={`/account/${offer.creator}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                                     <div className={styles.userAvatarWrapper}>
                                       {offer.image ? (
                                         <img

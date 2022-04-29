@@ -64,6 +64,7 @@ import {
   formatNumber,
   formatError,
   getRandomIPFS,
+  getEmbedParams,
 } from 'utils';
 import { Contracts } from 'constants/networks';
 import showToast from 'utils/toast';
@@ -2429,12 +2430,12 @@ const NFTItem = () => {
     }
   };
 
-  
+
   const [zooBoosterBoosting, setzooBoosterBoosting] = useState(0);
   const [zooBoosterLockTimeReduce, setzooBoosterLockTimeReduce] = useState(0);
   const [zooElixir, setzooElixir] = useState({});
   useEffect(() => {
-    
+
     // ZooBooster //
     if (Contracts[CHAIN].zooBooster.toLowerCase() === address.toLowerCase()) {
       getBoosting(tokenID).then(ret => {
@@ -2448,7 +2449,7 @@ const NFTItem = () => {
     // ZooElixir //
     if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
       getElixir(tokenID).then(ret => {
-        
+
         setzooElixir(ret);
         //console.log('Elixir Info',ret);
         //console.log('Elixir Info',zooElixir);
@@ -2458,9 +2459,8 @@ const NFTItem = () => {
 
   }, [tokenID]);
 
-  const numberToColor = (number, diff=0) =>
-  {
-    return '#'+((number%16777215)+diff).toString(16).padStart(6,'0');
+  const numberToColor = (number, diff = 0) => {
+    return '#' + ((number % 16777215) + diff).toString(16).padStart(6, '0');
   }
 
   const renderAttributes = attributes => {
@@ -2491,13 +2491,12 @@ const NFTItem = () => {
     // ZooElixir //
     if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
       let levelImg = '';
-      switch(zooElixir?.level.toString())
-      {
-        case '1':levelImg=<img src="/ZooBooster/class/N.png" />; break;
-        case '2':levelImg=<img src="/ZooBooster/class/R.png" />; break;
-        case '3':levelImg=<img src="/ZooBooster/class/SR.png" />; break;
-        case '4':levelImg=<img src="/ZooBooster/class/SSR.png" />; break;
-        case '5':levelImg=<img src="/ZooBooster/class/UR.png" />; break;
+      switch (zooElixir?.level.toString()) {
+        case '1': levelImg = <img src="/ZooBooster/class/N.png" />; break;
+        case '2': levelImg = <img src="/ZooBooster/class/R.png" />; break;
+        case '3': levelImg = <img src="/ZooBooster/class/SR.png" />; break;
+        case '4': levelImg = <img src="/ZooBooster/class/SSR.png" />; break;
+        case '5': levelImg = <img src="/ZooBooster/class/UR.png" />; break;
       }
       res.push(
         <>
@@ -2510,7 +2509,7 @@ const NFTItem = () => {
           <div key={'zooElixir_drops'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Drops</div>
             <div className={styles.attributeValue}>
-              {Number(zooElixir?.drops.toString())/1e18}%
+              {Number(zooElixir?.drops.toString()) / 1e18}%
             </div>
           </div>
           <div key={'zooElixir_level'} className={styles.attribute}>
@@ -2522,7 +2521,7 @@ const NFTItem = () => {
           <div key={'zooElixir_color'} className={styles.attribute}>
             <div className={styles.attributeLabel}>Color</div>
             <div className={styles.attributeValue}>
-              <div style={{width:20,height:20,borderRadius:'50%',background:numberToColor(Number(zooElixir?.color.toString()))}}>
+              <div style={{ width: 20, height: 20, borderRadius: '50%', background: numberToColor(Number(zooElixir?.color.toString())) }}>
               </div>
             </div>
           </div>
@@ -2673,7 +2672,7 @@ const NFTItem = () => {
                   )}
                 </div>
                 Owned by&nbsp;
-                <Link to={`/account/${owner}`} className={styles.ownerName}>
+                <Link to={`/account/${owner}`} className={styles.ownerName} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                   {isMine ? 'Me' : ownerInfo?.alias || shortenAddress(owner)}
                 </Link>
               </>
@@ -2830,7 +2829,7 @@ const NFTItem = () => {
       : null;
     return (
       <Link
-        to={`/collection/${item.contractAddress}/${item.tokenID}`}
+        to={`/collection/${item.contractAddress}/${item.tokenID}${getEmbedParams().isEmbed ? window.location.search : ""}`}
         className={styles.bundleItem}
         key={idx}
       >
@@ -2882,7 +2881,7 @@ const NFTItem = () => {
               )}
             </div>
             Created by&nbsp;
-            <Link to={`/account/${creator}`} className={styles.ownerName}>
+            <Link to={`/account/${creator}`} className={styles.ownerName} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
               {creator?.toLowerCase() === account?.toLowerCase()
                 ? 'Me'
                 : creatorInfo?.alias || shortenAddress(creator)}
@@ -3279,7 +3278,7 @@ const NFTItem = () => {
                         {auction.current.resulted ? (
                           <>
                             {'Winner: '}
-                            <Link to={`/account/${winner}`}>
+                            <Link to={`/account/${winner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                               {winner?.toLowerCase() === account?.toLowerCase()
                                 ? 'Me'
                                 : shortenAddress(winner)}
@@ -3452,7 +3451,7 @@ const NFTItem = () => {
                           {loading ? (
                             <Skeleton width={100} height={20} />
                           ) : (
-                            <Link to={`/account/${owner}`}>
+                            <Link to={`/account/${owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                               <div className={styles.userAvatarWrapper}>
                                 {ownerInfo?.imageHash ? (
                                   <img
@@ -3508,7 +3507,7 @@ const NFTItem = () => {
                     : listings.current.map((listing, idx) => (
                       <div className={styles.listing} key={idx}>
                         <div className={styles.owner}>
-                          <Link to={`/account/${listing.owner}`}>
+                          <Link to={`/account/${listing.owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                             <div className={styles.userAvatarWrapper}>
                               {listing.image ? (
                                 <img
@@ -3591,7 +3590,7 @@ const NFTItem = () => {
                         .map((offer, idx) => (
                           <div className={styles.offer} key={idx}>
                             <div className={styles.owner}>
-                              <Link to={`/account/${offer.creator}`}>
+                              <Link to={`/account/${offer.creator}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                                 <div className={styles.userAvatarWrapper}>
                                   {offer.image ? (
                                     <img
@@ -3786,7 +3785,7 @@ const NFTItem = () => {
                   )}
                   <div className={styles.from}>
                     {history ? (
-                      <Link to={`/account/${history.from}`}>
+                      <Link to={`/account/${history.from}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                         <div className={styles.userAvatarWrapper}>
                           {history.fromImage ? (
                             <img
@@ -3809,7 +3808,7 @@ const NFTItem = () => {
                   </div>
                   <div className={styles.to}>
                     {history ? (
-                      <Link to={`/account/${history.to}`}>
+                      <Link to={`/account/${history.to}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                         <div className={styles.userAvatarWrapper}>
                           {history.toImage ? (
                             <img

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { useParams } from 'react-router';
-import { formatDateTimeAgo, formatNumber } from 'utils';
+import { formatDateTimeAgo, formatNumber, getEmbedParams } from 'utils';
 import Skeleton from 'react-loading-skeleton';
 import Identicon from 'components/Identicon';
 import { Link } from 'react-router-dom';
@@ -125,8 +125,8 @@ export function ArtworkDetailPageHistorySection(props) {
           {(historyLoading
             ? [null, null, null]
             : filter === 0
-            ? tradeHistory
-            : transferHistory
+              ? tradeHistory
+              : transferHistory
           ).map((history, idx) => {
             const saleDate = history ? new Date(history.createdAt) : null;
             return (
@@ -169,7 +169,7 @@ export function ArtworkDetailPageHistorySection(props) {
                 )}
                 <div className={styles.from}>
                   {history ? (
-                    <Link to={`/account/${history.from}`}>
+                    <Link to={`/account/${history.from}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                       <div className={styles.userAvatarWrapper}>
                         {history.fromImage ? (
                           <img
@@ -192,7 +192,7 @@ export function ArtworkDetailPageHistorySection(props) {
                 </div>
                 <div className={styles.to}>
                   {history ? (
-                    <Link to={`/account/${history.to}`}>
+                    <Link to={`/account/${history.to}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} >
                       <div className={styles.userAvatarWrapper}>
                         {history.toImage ? (
                           <img
