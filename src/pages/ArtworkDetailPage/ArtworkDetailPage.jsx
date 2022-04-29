@@ -2634,7 +2634,9 @@ export function ArtworkDetailPage() {
   if (loading) {
     return (
       <div className="overflow-hidden">
-        <Header />
+        {
+          getEmbedParams().isEmbed ? <></> : <Header />
+        }
         <div className="container">
           {/*
           <Link to="/" className="btn btn-white btn-sm my-40">
