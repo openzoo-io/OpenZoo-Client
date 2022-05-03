@@ -31,6 +31,7 @@ import {
   formatNumber,
   formatError,
   getRandomIPFS,
+  getEmbedParams,
 } from 'utils';
 import axios from 'axios';
 
@@ -103,6 +104,7 @@ const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 
 import { useZooElixirContract } from 'contracts/zookeeper';
+import { FooterEmbed } from 'components/FooterEmbed';
 
 export function ArtworkDetailPage() {
   const dispatch = useDispatch();
@@ -546,7 +548,7 @@ export function ArtworkDetailPage() {
         let realUri = getRandomIPFS(tokenURI);
 
         let isFallback = false;
-        await axios.get(realUri).catch(function(error) {
+        await axios.get(realUri).catch(function (error) {
           realUri = getRandomIPFS(tokenURI, false, true);
           isFallback = true;
         });
@@ -1168,7 +1170,7 @@ export function ArtworkDetailPage() {
     salesContract.on('OfferCreated', offerCreatedHandler);
     salesContract.on('OfferCanceled', offerCanceledHandler);
 
-    
+
 
     auctionContract.on('AuctionCreated', auctionCreatedHandler);
     auctionContract.on(
@@ -1421,16 +1423,16 @@ export function ArtworkDetailPage() {
       let missingTokens = moreItems.current.map((tk, index) =>
         tk.items
           ? {
-              index,
-              isLiked: tk.isLiked,
-              bundleID: tk._id,
-            }
+            index,
+            isLiked: tk.isLiked,
+            bundleID: tk._id,
+          }
           : {
-              index,
-              isLiked: tk.isLiked,
-              contractAddress: tk.contractAddress,
-              tokenID: tk.tokenID,
-            }
+            index,
+            isLiked: tk.isLiked,
+            contractAddress: tk.contractAddress,
+            tokenID: tk.tokenID,
+          }
       );
       if (prevAuthToken) {
         missingTokens = missingTokens.filter(tk => tk.isLiked === undefined);
@@ -2651,7 +2653,11 @@ export function ArtworkDetailPage() {
 
   return (
     <div className="overflow-hidden artwork_detail_page">
-      <Header />
+      {
+        getEmbedParams().isEmbed ?
+          <></> :
+          <Header />
+      }
       <div className="container">
         {/*<Link to="/explore" className="btn btn-white btn-sm my-40">
           Back to Explore
@@ -2752,19 +2758,21 @@ export function ArtworkDetailPage() {
                         )}
                         style={{ cursor: 'pointer' }}
                         href={'/collection/' + address}
-                        /*
-                    onClick={() => {
-                      history.push('/collection/'+address);
+                        target={getEmbedParams().isEmbed ? "_blank" : "_self"}
+                        rel="noreferrer"
+                      /*
+                  onClick={() => {
+                    history.push('/collection/'+address);
+                    
+                    collection?.erc721Address &&
+                      dispatch(
+                        FilterActions.updateCollectionsFilter([
+                          collection.erc721Address,
+                        ])
+                      );
                       
-                      collection?.erc721Address &&
-                        dispatch(
-                          FilterActions.updateCollectionsFilter([
-                            collection.erc721Address,
-                          ])
-                        );
-                        
-                    }}
-                    */
+                  }}
+                  */
                       >
                         {collection?.collectionName || collection?.name || ''}
                         {collection?.isVerified ? (
@@ -2903,9 +2911,8 @@ export function ArtworkDetailPage() {
                   <div className={`${styles.bestBuy} box rounded-20`}>
                     <div
                       className={styles.unlockableLabel}
-                    >{`This item has unlockable content.${
-                      !isMine ? ' Only owners can see the content.' : ''
-                    }`}</div>
+                    >{`This item has unlockable content.${!isMine ? ' Only owners can see the content.' : ''
+                      }`}</div>
                     {isMine ? (
                       unlockableContent ? (
                         <textarea
@@ -2941,13 +2948,13 @@ export function ArtworkDetailPage() {
                           ? auctionEnded
                             ? 'Auction ended'
                             : `Auction ends in ${formatDuration(
-                                auction.current.endTime
-                              )} (${new Date(
-                                auction.current.endTime * 1000
-                              ).toLocaleString()})`
+                              auction.current.endTime
+                            )} (${new Date(
+                              auction.current.endTime * 1000
+                            ).toLocaleString()})`
                           : `Auction starts in ${formatDuration(
-                              auction.current.startTime
-                            )}`
+                            auction.current.startTime
+                          )}`
                       }
                       icon={GavelIcon}
                       fixed
@@ -2962,7 +2969,7 @@ export function ArtworkDetailPage() {
                                 {'Winner: '}
                                 <Link to={`/account/${winner}`}>
                                   {winner?.toLowerCase() ===
-                                  account?.toLowerCase()
+                                    account?.toLowerCase()
                                     ? 'Me'
                                     : shortenAddress(winner)}
                                 </Link>
@@ -3023,10 +3030,10 @@ export function ArtworkDetailPage() {
 
                         {!isMine && account &&
                           (!auctionActive() &&
-                          bid?.bidder?.toLowerCase() ===
+                            bid?.bidder?.toLowerCase() ===
                             account?.toLowerCase() ? (
                             now.getTime() / 1000 <
-                              auction?.current?.endTime + 86400 && (
+                            auction?.current?.endTime + 86400 && (
                               <p style={{ marginTop: 5 }}>
                                 <FontAwesomeIcon icon={faExclamationTriangle} />{' '}
                                 Please wait while the result of the auction is
@@ -3036,40 +3043,40 @@ export function ArtworkDetailPage() {
                           ) : (
                             <></>
                           ))}
-            
+
                         {!isMine && account &&
                           (!auctionActive() &&
-                          bid?.bidder?.toLowerCase() === account?.toLowerCase()
+                            bid?.bidder?.toLowerCase() === account?.toLowerCase()
                             ? now.getTime() / 1000 >=
-                                auction?.current?.endTime + 86400 && (
-                                <div
-                                  className={`${cx(
-                                    styles.withdrawBid,
-                                    bidWithdrawing && styles.disabled
-                                  )} btn btn-warning btn-lg rounded-20`}
-                                  onClick={() => handleWithdrawBid()}
-                                >
-                                  {bidWithdrawing
-                                    ? 'Withdrawing Bid...'
-                                    : 'Withdraw Bid'}
-                                </div>
-                              )
+                            auction?.current?.endTime + 86400 && (
+                              <div
+                                className={`${cx(
+                                  styles.withdrawBid,
+                                  bidWithdrawing && styles.disabled
+                                )} btn btn-warning btn-lg rounded-20`}
+                                onClick={() => handleWithdrawBid()}
+                              >
+                                {bidWithdrawing
+                                  ? 'Withdrawing Bid...'
+                                  : 'Withdraw Bid'}
+                              </div>
+                            )
                             : // )
-                              !isMine &&
-                              bid?.bidder?.toLowerCase() !==
-                                account?.toLowerCase() &&
-                              auctionActive() && (
-                                <div
-                                  className={cx(
-                                    styles.placeBid,
-                                    bidPlacing && styles.disabled,
-                                    ' btn btn-warning btn-lg rounded-20'
-                                  )}
-                                  onClick={() => setBidModalVisible(true)}
-                                >
-                                  Place Bid
-                                </div>
-                              ))}
+                            !isMine &&
+                            bid?.bidder?.toLowerCase() !==
+                            account?.toLowerCase() &&
+                            auctionActive() && (
+                              <div
+                                className={cx(
+                                  styles.placeBid,
+                                  bidPlacing && styles.disabled,
+                                  ' btn btn-warning btn-lg rounded-20'
+                                )}
+                                onClick={() => setBidModalVisible(true)}
+                              >
+                                Place Bid
+                              </div>
+                            ))}
                         {isMine && auctionEnded && !auction.current.resulted && (
                           <div
                             className={`${cx(
@@ -3078,7 +3085,7 @@ export function ArtworkDetailPage() {
                             )} btn btn-warning btn-lg rounded-20`}
                             onClick={
                               bid === null ||
-                              bid?.bid < auction.current?.reservePrice
+                                bid?.bid < auction.current?.reservePrice
                                 ? cancelCurrentAuction
                                 : handleResultAuction
                             }
@@ -3165,81 +3172,114 @@ export function ArtworkDetailPage() {
                       {/*console.log('!listings', listings)*/}
                       {bundleID
                         ? bundleListing.current && (
-                            <div className={styles.listing}>
-                              <div className={styles.owner}>
-                                {loading ? (
-                                  <Skeleton width={100} height={20} />
-                                ) : (
-                                  <Link to={`/account/${owner}`}>
-                                    <div className={styles.userAvatarWrapper}>
-                                      {ownerInfo?.imageHash ? (
-                                        <img
-                                          src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
-                                          className={styles.userAvatar}
-                                        />
-                                      ) : (
-                                        <Identicon
-                                          account={owner}
-                                          size={24}
-                                          className={styles.userAvatar}
-                                        />
-                                      )}
-                                    </div>
-                                    {isMine
-                                      ? 'Me'
-                                      : ownerInfo?.alias ||
-                                        shortenAddress(owner)}
-                                  </Link>
-                                )}
-                              </div>
-                              <div className={styles.price}>
-                                {loading ? (
-                                  <Skeleton width={100} height={20} />
-                                ) : (
-                                  <>
-                                    <img
-                                      src={bundleListing.current.token?.icon}
-                                      className={styles.tokenIcon}
-                                    />
-                                    {formatNumber(bundleListing.current.price)}
-                                  </>
-                                )}
-                              </div>
-                              <div className={styles.buy}>
-                                {!isMine && (
-                                  <TxButton
-                                    className={cx(
-                                      'btn btn-primary btn-md rounded-20',
-                                      styles.buyButton,
-                                      buyingItem && styles.disabled
-                                    )}
-                                    onClick={handleBuyBundle}
-                                  >
-                                    {buyingItem ? (
-                                      <ClipLoader color="#FFF" size={16} />
+                          <div className={styles.listing}>
+                            <div className={styles.owner}>
+                              {loading ? (
+                                <Skeleton width={100} height={20} />
+                              ) : (
+                                <Link to={`/account/${owner}`}>
+                                  <div className={styles.userAvatarWrapper}>
+                                    {ownerInfo?.imageHash ? (
+                                      <img
+                                        src={`https://openzoo.mypinata.cloud/ipfs/${ownerInfo.imageHash}`}
+                                        className={styles.userAvatar}
+                                      />
                                     ) : (
-                                      'Buy'
+                                      <Identicon
+                                        account={owner}
+                                        size={24}
+                                        className={styles.userAvatar}
+                                      />
                                     )}
-                                  </TxButton>
-                                )}
+                                  </div>
+                                  {isMine
+                                    ? 'Me'
+                                    : ownerInfo?.alias ||
+                                    shortenAddress(owner)}
+                                </Link>
+                              )}
+                            </div>
+                            <div className={styles.price}>
+                              {loading ? (
+                                <Skeleton width={100} height={20} />
+                              ) : (
+                                <>
+                                  <img
+                                    src={bundleListing.current.token?.icon}
+                                    className={styles.tokenIcon}
+                                  />
+                                  {formatNumber(bundleListing.current.price)}
+                                </>
+                              )}
+                            </div>
+                            <div className={styles.buy}>
+                              {!isMine && (
+                                <TxButton
+                                  className={cx(
+                                    'btn btn-primary btn-md rounded-20',
+                                    styles.buyButton,
+                                    buyingItem && styles.disabled
+                                  )}
+                                  onClick={handleBuyBundle}
+                                >
+                                  {buyingItem ? (
+                                    <ClipLoader color="#FFF" size={16} />
+                                  ) : (
+                                    'Buy'
+                                  )}
+                                </TxButton>
+                              )}
+                            </div>
+                          </div>
+                        )
+                        : listings.current.map((listing, idx) => (
+                          <div className={styles.listing} key={idx}>
+                            <div className={styles.price}>
+                              <img
+                                src={listing.token?.icon}
+                                className={styles.tokenIcon}
+                              />
+                              <div>
+                                {formatNumber(listing.price)}
+                                <br />
+                                <span>
+                                  (
+                                  {prices[listing.token?.address] !==
+                                    undefined ? (
+                                    `$${(
+                                      listing.price *
+                                      prices[listing.token?.address]
+                                    ).toFixed(2)}`
+                                  ) : (
+                                    <Skeleton width={60} height={24} />
+                                  )}
+                                  )
+                                </span>
                               </div>
                             </div>
-                          )
-                        : listings.current.map((listing, idx) => (
-                            <div className={styles.listing} key={idx}>
+                            {tokenInfo?.totalSupply > 1 && (
+                              <div className={styles.quantity}>
+                                {formatNumber(listing.quantity)}
+                              </div>
+                            )}
+                            {tokenInfo?.totalSupply > 1 && (
                               <div className={styles.price}>
                                 <img
                                   src={listing.token?.icon}
                                   className={styles.tokenIcon}
                                 />
                                 <div>
-                                  {formatNumber(listing.price)}
+                                  {formatNumber(
+                                    listing.price * listing.quantity
+                                  )}
+
                                   <br />
                                   <span>
                                     (
                                     {prices[listing.token?.address] !==
-                                    undefined ? (
+                                      undefined ? (
                                       `$${(
+                                        listing.quantity *
                                         listing.price *
                                         prices[listing.token?.address]
                                       ).toFixed(2)}`
@@ -3250,62 +3290,29 @@ export function ArtworkDetailPage() {
                                   </span>
                                 </div>
                               </div>
-                              {tokenInfo?.totalSupply > 1 && (
-                                <div className={styles.quantity}>
-                                  {formatNumber(listing.quantity)}
+                            )}
+                            <div className={styles.owner}>
+                              <Link to={`/account/${listing.owner}`}>
+                                <div className={styles.userAvatarWrapper}>
+                                  {listing.image ? (
+                                    <img
+                                      src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
+                                      className={styles.userAvatar}
+                                    />
+                                  ) : (
+                                    <Identicon
+                                      account={listing.owner}
+                                      size={24}
+                                      className={styles.userAvatar}
+                                    />
+                                  )}
                                 </div>
-                              )}
-                              {tokenInfo?.totalSupply > 1 && (
-                                <div className={styles.price}>
-                                  <img
-                                    src={listing.token?.icon}
-                                    className={styles.tokenIcon}
-                                  />
-                                  <div>
-                                    {formatNumber(
-                                      listing.price * listing.quantity
-                                    )}
-
-                                    <br />
-                                    <span>
-                                      (
-                                      {prices[listing.token?.address] !==
-                                      undefined ? (
-                                        `$${(
-                                          listing.quantity *
-                                          listing.price *
-                                          prices[listing.token?.address]
-                                        ).toFixed(2)}`
-                                      ) : (
-                                        <Skeleton width={60} height={24} />
-                                      )}
-                                      )
-                                    </span>
-                                  </div>
-                                </div>
-                              )}
-                              <div className={styles.owner}>
-                                <Link to={`/account/${listing.owner}`}>
-                                  <div className={styles.userAvatarWrapper}>
-                                    {listing.image ? (
-                                      <img
-                                        src={`https://openzoo.mypinata.cloud/ipfs/${listing.image}`}
-                                        className={styles.userAvatar}
-                                      />
-                                    ) : (
-                                      <Identicon
-                                        account={listing.owner}
-                                        size={24}
-                                        className={styles.userAvatar}
-                                      />
-                                    )}
-                                  </div>
-                                  {listing.alias || listing.owner?.substr(0, 6)}
-                                </Link>
-                              </div>
-                              <div className={styles.buy}>
-                                {listing.owner.toLowerCase() !==
-                                  account?.toLowerCase() && (
+                                {listing.alias || listing.owner?.substr(0, 6)}
+                              </Link>
+                            </div>
+                            <div className={styles.buy}>
+                              {listing.owner.toLowerCase() !==
+                                account?.toLowerCase() && (
                                   <TxButton
                                     className={cx(
                                       'btn btn-primary btn-md rounded-20',
@@ -3321,9 +3328,9 @@ export function ArtworkDetailPage() {
                                     )}
                                   </TxButton>
                                 )}
-                              </div>
                             </div>
-                          ))}
+                          </div>
+                        ))}
                     </div>
                   </Panel>
                 </div>
@@ -3377,7 +3384,7 @@ export function ArtworkDetailPage() {
                                     <span>
                                       (
                                       {prices[offer.token.address] !==
-                                      undefined ? (
+                                        undefined ? (
                                         `$${(
                                           (offer.pricePerItem || offer.price) *
                                           prices[offer.token.address]
@@ -3403,14 +3410,14 @@ export function ArtworkDetailPage() {
                                     <div>
                                       {formatNumber(
                                         offer.quantity *
-                                          (offer.pricePerItem || offer.price)
+                                        (offer.pricePerItem || offer.price)
                                       )}
 
                                       <br />
                                       <span>
                                         (
                                         {prices[offer.token.address] !==
-                                        undefined ? (
+                                          undefined ? (
                                           `$${(
                                             offer.quantity *
                                             (offer.pricePerItem ||
@@ -3452,14 +3459,14 @@ export function ArtworkDetailPage() {
                                     (myHolding &&
                                       myHolding.supply >= offer.quantity)) &&
                                     offer.creator?.toLowerCase() !==
-                                      account?.toLowerCase() && (
+                                    account?.toLowerCase() && (
                                       <div
                                         className={cx(
                                           'btn btn-primary btn-md rounded-20',
                                           styles.buyButton,
                                           (salesContractApproving ||
                                             offerAccepting) &&
-                                            styles.disabled
+                                          styles.disabled
                                         )}
                                         onClick={
                                           bundleID
@@ -3467,8 +3474,8 @@ export function ArtworkDetailPage() {
                                               ? () => handleAcceptOffer(offer)
                                               : handleApproveBundleSalesContract
                                             : salesContractApproved
-                                            ? () => handleAcceptOffer(offer)
-                                            : handleApproveSalesContract
+                                              ? () => handleAcceptOffer(offer)
+                                              : handleApproveSalesContract
                                         }
                                       >
                                         {!(bundleID
@@ -3493,21 +3500,21 @@ export function ArtworkDetailPage() {
                                     )}
                                   {offer.creator?.toLowerCase() ===
                                     account?.toLowerCase() && (
-                                    <div
-                                      className={cx(
-                                        'btn btn-primary btn-md rounded-20',
-                                        styles.buyButton,
-                                        offerCanceling && styles.disabled
-                                      )}
-                                      onClick={() => handleCancelOffer()}
-                                    >
-                                      {offerCanceling ? (
-                                        <ClipLoader color="#FFF" size={16} />
-                                      ) : (
-                                        'Withdraw'
-                                      )}
-                                    </div>
-                                  )}
+                                      <div
+                                        className={cx(
+                                          'btn btn-primary btn-md rounded-20',
+                                          styles.buyButton,
+                                          offerCanceling && styles.disabled
+                                        )}
+                                        onClick={() => handleCancelOffer()}
+                                      >
+                                        {offerCanceling ? (
+                                          <ClipLoader color="#FFF" size={16} />
+                                        ) : (
+                                          'Withdraw'
+                                        )}
+                                      </div>
+                                    )}
                                 </div>
                               </div>
                             ))}
@@ -3659,6 +3666,9 @@ export function ArtworkDetailPage() {
         onClose={() => setLikesModalVisible(false)}
         users={likeUsersFetching ? new Array(5).fill(null) : likeUsers.current}
       />
+      {
+        getEmbedParams().isEmbed ? <FooterEmbed /> : <></>
+      }
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-import { formatNumber } from 'utils';
+import { formatNumber, getEmbedParams } from 'utils';
 //import warned from 'constants/warned.collections';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 // import { formatNumber } from 'utils';
@@ -53,7 +53,7 @@ export function AssetCardFour(props) {
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
-    ? `/collection/${item?.contractAddress}/${item?.tokenID}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}${getEmbedParams().isEmbed ? window.location.search : ""}`
     : '#';
 
   const { collections } = useSelector(state => state.Collections);
@@ -346,7 +346,7 @@ export function AssetCardFour(props) {
                     'fromTop',
                     document.documentElement.scrollTop
                   );
-                  
+
                 }
                 if (window.location.href.includes('collection')) {
                   window.localStorage.setItem(
@@ -361,7 +361,7 @@ export function AssetCardFour(props) {
                 <img src="https://assets.openzoo.io/verified.svg" />
               )}
               {warnedCollections &&
-              warnedCollections.includes(item?.contractAddress) ? (
+                warnedCollections.includes(item?.contractAddress) ? (
                 <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"

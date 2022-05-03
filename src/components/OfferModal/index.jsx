@@ -166,8 +166,8 @@ const OfferModal = ({
           />
           <PriceInput
             className={styles.formInput}
-            placeholder="0.00"
-            decimals={selected[0]?.decimals || 0}
+            placeholder="0"
+            decimals={0}
             value={'' + price}
             onChange={setPrice}
             disabled={confirming}

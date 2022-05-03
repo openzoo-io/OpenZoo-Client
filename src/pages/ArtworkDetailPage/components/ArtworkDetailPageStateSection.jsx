@@ -1,8 +1,8 @@
 import Identicon from 'components/Identicon';
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
-import { formatNumber, shortenAddress } from 'utils';
+import { formatNumber, getEmbedParams, shortenAddress } from 'utils';
 import styles from '../styles.module.scss';
 import {
   People as PeopleIcon,
@@ -33,18 +33,16 @@ export function ArtworkDetailPageStateSection(props) {
   } = props.data;
 
   const [mine, setMine] = useState(0);
-  useEffect(()=>{
-    if (holders.length > 0)
-    {
+  useEffect(() => {
+    if (holders.length > 0) {
       let myAccount = account?.toLowerCase();
-      holders.map((v)=>{
-        if (v.address === myAccount)
-        {
+      holders.map((v) => {
+        if (v.address === myAccount) {
           setMine(v.supply);
         }
       });
     }
-  },[holders]);
+  }, [holders]);
 
   return (
     <div
@@ -54,9 +52,9 @@ export function ArtworkDetailPageStateSection(props) {
       )}
     >
       <div className={cx('ml-10 space-y-10')}>
-        {(!owner && !tokenType.current)  && 
-        <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
-          
+        {(!owner && !tokenType.current) &&
+          <div className={`${styles.itemOwner} text-danger`}><WarningIcon className={styles.itemIcon} c /> This item is not listed on OpenZoo (Still syncing, Burned, or Banned)</div>
+
         }
         {(ownerInfoLoading || tokenOwnerLoading || owner || tokenInfo) && (
           <div className={styles.itemOwner}>
@@ -79,23 +77,23 @@ export function ArtworkDetailPageStateSection(props) {
                     />
                   )}
                 </div>
-               
-                <Link to={`/account/${owner}`} className={styles.ownerName}>
+
+                <Link to={`/account/${owner}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} className={styles.ownerName}>
                   {isMine ? 'Me' : ownerInfo?.alias || shortenAddress(owner)}
                 </Link>
               </>
             ) : tokenInfo ? (
-              
+
               <>
                 {
                   account && <div
-                  className={cx(styles.itemViews)}
-                
-                >
-                  <PersonIcon style={styles.itemIcon} />
-                  &nbsp;{formatNumber(mine)}
-                  &nbsp;{mine > 1 ? 'Items are' : 'Item is'} mine
-                </div>
+                    className={cx(styles.itemViews)}
+
+                  >
+                    <PersonIcon style={styles.itemIcon} />
+                    &nbsp;{formatNumber(mine)}
+                    &nbsp;{mine > 1 ? 'Items are' : 'Item is'} mine
+                  </div>
                 }
                 <div
                   className={cx(styles.itemViews, styles.clickable)}
@@ -134,7 +132,7 @@ export function ArtworkDetailPageStateSection(props) {
                     />
                   )}
                 </div>
-                <Link to={`/account/${creator}`} className={styles.ownerName}>
+                <Link to={`/account/${creator}`} target={getEmbedParams().isEmbed ? "_blank" : "_self"} className={styles.ownerName}>
                   {creatorInfo?.alias || shortenAddress(creatorInfo?.address)}
                 </Link>
               </>
@@ -143,7 +141,7 @@ export function ArtworkDetailPageStateSection(props) {
         )}
       </div>
       <div>
-        <ViewProofButton tokenUri={tokenUri}/>
+        <ViewProofButton tokenUri={tokenUri} />
       </div>
     </div>
   );
