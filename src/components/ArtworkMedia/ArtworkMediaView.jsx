@@ -12,7 +12,9 @@ import {
   //useProgress,
   //Html,
   Environment,
-  Loader as Loader3d
+  Loader as Loader3d,
+  AdaptiveDpr,
+  AdaptiveEvents
 } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -103,6 +105,9 @@ export function ArtworkMediaView(props) {
     //const { scene } = useGLTF(image);
 
     return (
+      <>
+      
+      {
       <div
         style={{
           maxHeight: 676,
@@ -118,6 +123,8 @@ export function ArtworkMediaView(props) {
               environment={false}
               contactShadow={{ opacity: 0.2, blur: 4 }}
             >
+              <AdaptiveDpr pixelated />
+              <AdaptiveEvents />
               <Environment
                 files={'sunrise.hdr'}
                 path={'/'}
@@ -132,6 +139,8 @@ export function ArtworkMediaView(props) {
         </Canvas>
         <Loader3d dataStyles={{color:'#00a59a'}} barStyles={{background:'#00a59a'}} dataInterpolation={(p) => `Loading ${p.toFixed(2)}%`}/>
       </div>
+      }
+      </>
     );
   } else {
     if (image) {
