@@ -2676,7 +2676,7 @@ export function ArtworkDetailPage() {
             <div className="col-lg-6">
               <div className="space-y-20">
                 <div className={styles.artworkMinHeight}>
-                  {!zooElixir && (
+                  {/* {!zooElixir && (
                     <ArtworkMediaView
                       className="item_img"
                       image={
@@ -2685,7 +2685,7 @@ export function ArtworkDetailPage() {
                       coverImage={info?.image}
                       alt=""
                     />
-                  )}
+                  )} */}
                   {zooElixir && (
                     <div className="item_elixir">
                       {elixirIMG(
