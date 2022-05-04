@@ -10,7 +10,7 @@ import { ethers } from 'ethers';
 
 import HeaderActions from 'actions/header.actions';
 import { useApi } from 'api';
-import { getSigner } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import toast from 'utils/toast';
 
 import styles from './styles.module.scss';
@@ -166,7 +166,7 @@ const SettingOption = ({
 
 const NotificationSetting = () => {
   const dispatch = useDispatch();
-
+  const {getSigner} = useConnectionUtils();
   const { account } = useWeb3React();
   const {
     getNonce,

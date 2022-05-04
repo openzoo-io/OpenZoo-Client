@@ -33,18 +33,20 @@ import { CollectionsPage } from 'pages/CollectionsPage';
 import { CollectionList } from 'pages/CollectionList';
 const App = () => {
   const dispatch = useDispatch();
-  const { chainId } = useWeb3React();
+  const { chainId,connector } = useWeb3React();
 
   useEffect(() => {
     const getPrice = async () => {
       try {
         if (chainId === 888) {
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const web3provider = await connector.getProvider();
+          //await web3provider.enable();
+          const provider = new ethers.providers.Web3Provider(web3provider);
           const oracle = new ethers.Contract(
             '0xA34D0a3a38C385B8CAbF1d888c61ca0d2500B7cE',
             [
               {
-                inputs: [{internalType: 'address', type: 'address', name: '_token'}],
+                inputs: [{ internalType: 'address', type: 'address', name: '_token' }],
                 name: 'getPrice',
                 outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
                 stateMutability: 'view',
@@ -58,12 +60,14 @@ const App = () => {
           const price = parseFloat(_price.toString()) / 10 ** 18;
           dispatch(PriceActions.updatePrice(price));
         } else if (chainId === 999) {
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const web3provider = await connector.getProvider();
+          //await web3provider.enable();
+          const provider = new ethers.providers.Web3Provider(web3provider);
           const oracle = new ethers.Contract(
             '0x2f5e32eC8d9A298063F7FFA14aF515Fa8fEb71Eb',
             [
               {
-                inputs: [{internalType: 'address', type: 'address', name: '_token'}],
+                inputs: [{ internalType: 'address', type: 'address', name: '_token' }],
                 name: 'getPrice',
                 outputs: [{ internalType: 'int256', name: '', type: 'int256' }],
                 stateMutability: 'view',
@@ -109,7 +113,7 @@ const App = () => {
           <Route path="/old-account/:uid" component={AccountDetails} />
           <Route path="/collections" component={CollectionsPage} />
 
-          
+
 
           <ProtectedRoute
             path="/collection/create"

@@ -24,8 +24,8 @@ import {
   useSalesContract,
   useAuctionContract,
   useBundleSalesContract,
-  getSigner,
 } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import {
   shortenAddress,
   formatNumber,
@@ -109,7 +109,7 @@ import { FooterEmbed } from 'components/FooterEmbed';
 export function ArtworkDetailPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const {getSigner} = useConnectionUtils();
   const {
     explorerUrl,
     storageUrl,

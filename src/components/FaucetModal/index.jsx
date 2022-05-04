@@ -10,17 +10,23 @@ import { RaroinModal as Modal } from '../Modal/RaroinModal';
 import axios from 'axios';
 import WWAN_IMAGE from 'assets/imgs/wan.png';
 import { ethers } from 'ethers';
+import { useWeb3React } from '@web3-react/core';
+
 const FaucetModal = ({ account, visible, onClose, setFaucetModalVisible }) => {
   const { tokens } = useTokens();
 
   const [recaptchaValue, setRecaptchaValue] = useState(null);
   const [claiming, setClaiming] = useState(false);
   const [faucetBalance, setFaucetBalance] = useState(0);
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const {connector} = useWeb3React();
+  
   useEffect(() => {}, [tokens]);
 
   const getBalance = async () => {
-    
+
+    const web3provider = await connector.getProvider();
+    await web3provider.enable();
+    let provider = new ethers.providers.Web3Provider(web3provider);
     let [wan] = await Promise.all([
       await provider.getBalance('0xEdf527D13B4Bc7E5C7da0f57474945a54C79444A'),
     ]);
