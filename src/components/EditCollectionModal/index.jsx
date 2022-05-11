@@ -25,7 +25,7 @@ import Modal from '../Modal';
 import styles from './styles.module.scss';
 const EditCollectionModal = ({ visible, onClose }) => {
   const FORM_INITIAL = {
-    collectionName: null,
+    // collectionName: null,
     description: null,
     siteUrl: null,
     twitterHandle: null,
@@ -52,6 +52,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
   const { authToken } = useSelector(state => state.ConnectWallet);
   const { account } = useWeb3React();
   const imageRef = useRef();
+  const [collectionName, setCollectionName] = useState(null)
 
   const options = Categories.filter(cat => form.categories.indexOf(cat.id.toString()) === -1);
   const selectedCategories = Categories.filter(
@@ -157,7 +158,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
   }
 
   const validate = {
-    collectionName: validateRequired.bind(this, "collectionName"),
+    // collectionName: validateRequired.bind(this, "collectionName"),
     description: validateRequired.bind(this, "description"),
     logoImageHash: () => {
       logo !== null
@@ -183,7 +184,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
         clipImage(img, x, y, size, size, async logodata => {
           try {
             const formData = new FormData();
-            formData.append('collectionName', form.collectionName);
+            formData.append('collectionName', collectionName);
             formData.append('erc721Address', addr);
             formData.append('imgData', logodata);
             const result = await axios({
@@ -215,7 +216,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
       setSaving(false);
       const collection = response.data;
       setForm({
-        collectionName: collection.collectionName,
+        // collectionName: collection.collectionName,
         description: collection.description,
         siteUrl: collection.siteUrl,
         twitterHandle: collection.twitterHandle,
@@ -226,7 +227,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
         logoImageHash: collection.logoImageHash,
         categories: collection.categories, erc721Address: addr
       });
-
+      setCollectionName(collection.collectionName);
       setFormLoading(false);
       if (collection.logoImageHash)
         axios.get(`${getRandomIPFS('', true)}${collection.logoImageHash}`, { responseType: 'arraybuffer' }).then(response => {
@@ -324,7 +325,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
                 </>
               )}
             </div>
-            <div className={styles.inputTitle}>Name *</div>
+            {/* <div className={styles.inputTitle}>Name *</div>
             <div className={styles.inputWrapper}>
               <input
                 type="text"
@@ -337,7 +338,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
               />
               {form.collectionName && <div className={styles.lengthIndicator}>{form.collectionName.length}/30</div>}
               {errors.collectionName && <div className={styles.error}>{errors.collectionName}</div>}
-            </div>
+            </div> */}
 
             <div className={styles.inputGroup}>
               <div className={styles.inputTitle}>Description *</div>
