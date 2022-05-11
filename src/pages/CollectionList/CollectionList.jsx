@@ -153,12 +153,15 @@ export function CollectionList() {
   const getOwnerInfo = async owner => {
     try {
       const { data } = await getUserAccountDetails(owner);
-      setShowEditCollectionButton(data.address === user.address);
       setOwnerInfo(data);
     } catch {
       setOwnerInfo(null);
     }
   };
+
+  useEffect(() => {
+    setShowEditCollectionButton(ownerInfo && user && ownerInfo.address && user.address && ownerInfo.address.toLowerCase() === user.address.toLowerCase());
+  }, [ownerInfo, user]);
 
   const FilterType = {
     Attribute: 'attributes'
