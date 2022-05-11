@@ -1006,11 +1006,29 @@ export const useApi = () => {
         'Content-Type': 'application/json',
       },
     })
-    .then(() => true)
-    .catch(() => false);
+      .then(() => true)
+      .catch(() => false);
 
     return res;
   };
+
+  const updateCollection = async (collection, signature, signatureAddress, authToken) => {
+    const res = await axios({
+      method: 'post',
+      url: `${apiUrl}/collection/update`,
+      data: JSON.stringify({
+        signature,
+        signatureAddress,
+        collection
+      }),
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      }
+    });
+
+    return res;
+  }
 
   return {
     explorerUrl,
@@ -1083,5 +1101,6 @@ export const useApi = () => {
     isAttributeFilterAvailable,
     warnCollection,
     unwarnCollection,
+    updateCollection
   };
 };
