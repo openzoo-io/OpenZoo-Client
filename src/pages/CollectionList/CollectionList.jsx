@@ -36,6 +36,7 @@ import {
 import { Categories } from 'constants/filter.constants';
 import { Link, useHistory } from 'react-router-dom';
 import EmbedModal from 'components/EmbedModal';
+import EditCollectionModal from 'components/EditCollectionModal';
 export function CollectionList() {
   const {
     fetchCollection,
@@ -52,6 +53,7 @@ export function CollectionList() {
 
   const { width: gridWidth, ref } = useResizeDetector();
   const { width } = useWindowDimensions();
+  const { user } = useSelector(state => state.Auth);
 
   // console.log({ width });
 
@@ -77,6 +79,8 @@ export function CollectionList() {
   const [collectionStatisticData, setCollectionStatisticData] = useState({});
   const [warnedCollections, setWarnedCollections] = useState([]);
   const [showEmbedModal, setShowEmbedModal] = useState(false);
+  const [showEditCollectionModal, setShowEditCollectionModal] = useState(false);
+  const [showEditCollectionButton, setShowEditCollectionButton] = useState(false);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
   let { upFetching, downFetching, tokens, count, from, to } = useSelector(
@@ -154,6 +158,10 @@ export function CollectionList() {
       setOwnerInfo(null);
     }
   };
+
+  useEffect(() => {
+    setShowEditCollectionButton(ownerInfo && user && ownerInfo.address && user.address && ownerInfo.address.toLowerCase() === user.address.toLowerCase());
+  }, [ownerInfo, user]);
 
   const FilterType = {
     Attribute: 'attributes'
@@ -632,21 +640,33 @@ export function CollectionList() {
                   <div className={styles.collectionDescription}>
                     <p>{collectionData?.description}</p>
                   </div>
-                  {
-                    getEmbedParams().isEmbed ?
-                      <>
-                      </> :
-                      (
+                  <div style={{ display: "flex", flexDirection: "row", gap: 5, margin: "10px 0" }}>
+                    {
+                      getEmbedParams().isEmbed ?
                         <>
-                          <div className='share-container' style={{ margin: "10px 0" }}>
+                        </> :
+                        (
+                          <div className='share-container'>
                             <button className="btn btn-sm btn-white" onClick={() => setShowEmbedModal(true)}>
                               <i className="ri-code-line" style={{ marginRight: "5px" }}></i>Embed
                             </button>
                             <EmbedModal visible={showEmbedModal} onClose={() => setShowEmbedModal(false)} embedTitle={collectionData?.collectionName} />
                           </div>
-                        </>
-                      )
-                  }
+                        )
+                    }
+                    {
+                      showEditCollectionButton ?
+                        <div>
+                          <button className="btn btn-sm btn-white" onClick={() => setShowEditCollectionModal(true)}>
+                            <i className="ri-pencil-line" style={{ marginRight: "5px" }}></i>Edit Collection
+                          </button>
+                          <EditCollectionModal visible={showEditCollectionModal} onClose={() => setShowEditCollectionModal(false)}></EditCollectionModal>
+                        </div>
+                        :
+                        <></>
+                    }
+
+                  </div>
                 </div>
               </div>
             </div>
