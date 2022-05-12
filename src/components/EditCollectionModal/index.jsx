@@ -162,14 +162,16 @@ const EditCollectionModal = ({ visible, onClose }) => {
     description: validateRequired.bind(this, "description"),
     categories: validateRequired.bind(this, "categories"),
     logoImageHash: () => {
-      logo !== null
-      setErrors({ ...errors, logoImageHash: logo === null ? "Logo is required" : null })
+      setErrors({ ...errors, logoImageHash: logo ? null : "Logo is required" })
     }
   }
 
   useEffect(() => {
     validate.categories();
   }, [form.categories]);
+  useEffect(() => {
+    validate.logoImageHash();
+  }, [logo])
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
@@ -330,6 +332,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                 </>
               )}
             </div>
+            {errors.logoImageHash && (
+              <div className={styles.error}>{errors.logoImageHash}</div>
+            )}
             {/* <div className={styles.inputTitle}>Name *</div>
             <div className={styles.inputWrapper}>
               <input
