@@ -160,11 +160,16 @@ const EditCollectionModal = ({ visible, onClose }) => {
   const validate = {
     // collectionName: validateRequired.bind(this, "collectionName"),
     description: validateRequired.bind(this, "description"),
+    categories: validateRequired.bind(this, "categories"),
     logoImageHash: () => {
       logo !== null
       setErrors({ ...errors, logoImageHash: logo === null ? "Logo is required" : null })
     }
   }
+
+  useEffect(() => {
+    validate.categories();
+  }, [form.categories]);
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
@@ -364,7 +369,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
               </div>
             </div>
             <div>
-              <div className={styles.inputTitle}>Category</div>
+              <div className={styles.inputTitle}>Category *</div>
               <div className={cx(styles.inputWrapper, styles.categoryList)}>
                 {form.categories.length < 2 && (
                   <div
@@ -388,6 +393,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                     <CloseIcon className={styles.closeIcon} />
                   </div>
                 ))}
+                {errors.categories && (
+                  <div className={styles.error}>{errors.categories}</div>
+                )}
               </div>
             </div>
             <div className={styles.inputGroup}>

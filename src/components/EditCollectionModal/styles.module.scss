@@ -35,6 +35,7 @@
     color: #4b4b4b;
     display: flex;
     align-items: center;
+    margin-top: 16px;
 }
 
 .inputSubTitle {
@@ -329,6 +330,7 @@
     overflow: hidden;
     border-radius: 12px;
     background-color: #f5f5f5 !important;
+    margin-bottom:16px;
 }
 
 .linkIconWrapper {
@@ -454,7 +456,7 @@
 .uploadCont {
     min-height: 100px;
     aspect-ratio: 1;
-    max-width: 190px;
+    max-width: 250px;
     background-color: #f5f5f5 !important;
     border: 1px solid transparent !important;
     border-radius: 8px;
@@ -468,6 +470,9 @@
     line-height: 24px;
     color: rgba(0, 0, 0, 0.6);
     position: relative;
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 16px;
 }
 
 .image {
