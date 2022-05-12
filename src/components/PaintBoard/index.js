@@ -38,12 +38,12 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import HeaderActions from 'actions/header.actions';
 import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
-import { calculateGasMargin, formatError, getHigherGWEI } from 'utils';
+import { calculateGasMargin, formatError} from 'utils';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import showToast from 'utils/toast';
-import WalletUtils from 'utils/wallet';
 import useContract from 'utils/sc.interaction';
 import { useApi } from 'api';
-import { useSalesContract, getSigner } from 'contracts';
+import { useSalesContract } from 'contracts';
 
 import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
@@ -125,6 +125,8 @@ function Model({ scene, animations }) {
 const PaintBoard = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {getSigner, getHigherGWEI, checkBalance} = useConnectionUtils();
+
   const accept = ['.jpg', '.jpeg', '.png', '.gif'];
   const media_accept = ['.glb', '.mp4', '.mp3']; // '.gltf',
   const PurpleSwitch = withStyles({
@@ -420,7 +422,7 @@ const PaintBoard = () => {
       }
     }
 
-    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0'  && description.trim() !== '' && nft;
+    return name !== '' && account !== '' && image && isAcceptUploadRight !== false && isAcceptTerms !== false && supply !== '0' && description.trim() !== '' && nft;
   };
 
   const resetMintingStatus = () => {
@@ -439,7 +441,8 @@ const PaintBoard = () => {
       showToast('info', 'You are not connected to Wanchain Network');
       return;
     }
-    const balance = await WalletUtils.checkBalance(account);
+    
+    const balance = await checkBalance(account);
 
     if (balance < fee) {
       showToast(
@@ -562,6 +565,7 @@ const PaintBoard = () => {
         type === 721 ? SINGLE_NFT_ABI : MULTI_NFT_ABI
       );
       try {
+       
         const args =
           type === 721 ? [account, jsonHash] : [account, supply, jsonHash];
 
@@ -569,7 +573,9 @@ const PaintBoard = () => {
 
         if (!fee) {
           tx = await contract.mint(...args);
+          
         } else {
+        
           const options = {
             value: ethers.utils.parseEther(fee.toString()),
             gasPrice: getHigherGWEI(),

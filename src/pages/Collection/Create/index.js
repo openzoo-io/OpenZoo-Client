@@ -22,8 +22,8 @@ import BootstrapTooltip from 'components/BootstrapTooltip';
 import PriceInput from 'components/PriceInput';
 import toast from 'utils/toast';
 import { useApi } from 'api';
-import { useFactoryContract, getSigner } from 'contracts';
-
+import { useFactoryContract } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import nftIcon from 'assets/svgs/nft_black.svg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -68,7 +68,7 @@ const CustomRadio = withStyles({
 const CollectionCreate = ({ isRegister }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const {getSigner} = useConnectionUtils();
   const { account } = useWeb3React();
 
   const { apiUrl, getNonce } = useApi();

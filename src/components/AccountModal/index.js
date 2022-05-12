@@ -11,12 +11,13 @@ import ModalActions from 'actions/modal.actions';
 import AuthActions from 'actions/auth.actions';
 import { useApi } from 'api';
 import toast from 'utils/toast';
-import { getSigner } from 'contracts';
 
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import styles from './styles.module.scss';
 
 const AccountModal = () => {
   const { getNonce, updateAccountDetails } = useApi();
+  const {getSigner} = useConnectionUtils();
   const dispatch = useDispatch();
   const { account } = useWeb3React();
 
@@ -116,6 +117,7 @@ const AccountModal = () => {
         signature = await signer.signMessage(msg);
         addr = ethers.utils.verifyMessage(msg, signature);
       } catch (err) {
+        console.log('sign error',err)
         toast(
           'error',
           'You need to sign the message to be able to update account settings.'

@@ -1,4 +1,5 @@
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
+// import { useWeb3React } from '@web3-react/core';
 
 export * from './abi';
 export * from './auctions';
@@ -8,9 +9,11 @@ export * from './token';
 export * from './wftm';
 export * from './factory';
 
-export const getSigner = async () => {
-  await window.ethereum.enable();
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  return signer;
-};
+// export const getSigner = async () => {
+//   const { connector } = useWeb3React();
+//   const web3provider = await connector.getProvider();
+//   await web3provider.enable();
+//   let provider = new ethers.providers.Web3Provider(web3provider);
+//   const signer = provider.getSigner();
+//   return signer;
+// };

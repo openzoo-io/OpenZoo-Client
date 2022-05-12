@@ -499,6 +499,7 @@ export function CollectionList() {
                         <Link
                           to={`/account/${collectionData?.owner}`}
                           className="creators space-x-10"
+                          target={getEmbedParams().isEmbed ? "_blank" : "_self"}
                         >
                           {ownerInfo?.alias ||
                             shortenAddress(collectionData?.owner)}
