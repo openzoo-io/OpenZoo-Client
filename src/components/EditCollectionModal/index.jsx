@@ -37,7 +37,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
     categories: [],
     erc721Address: null,
   }
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const { addr } = useParams();
   const { fetchCollection, apiUrl, updateCollection, getNonce } = useApi();
   const [form, setForm] = useState(FORM_INITIAL);
@@ -162,25 +162,30 @@ const EditCollectionModal = ({ visible, onClose }) => {
     description: validateRequired.bind(this, "description"),
     categories: validateRequired.bind(this, "categories"),
     logoImageHash: () => {
-      logo !== null
-      setErrors({ ...errors, logoImageHash: logo === null ? "Logo is required" : null })
+      setErrors({ ...errors, logoImageHash: logo ? null : "Logo is required" })
     }
   }
 
   useEffect(() => {
     validate.categories();
   }, [form.categories]);
+  useEffect(() => {
+    validate.logoImageHash();
+  }, [logo])
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
-
-      if (!logo || !logoChanged)
+      if (!logoChanged) {
         return resolve();
+      }
+
+      if (!logo) {
+        return reject('No logo found');
+      }
 
       const img = new Image();
       img.src = URL.createObjectURL(logo);
       img.onload = function () {
-        console.log(apiUrl)
         const w = this.width;
         const h = this.height;
         const size = Math.min(w, h);
@@ -217,6 +222,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
       return;
     }
 
+    setLogoChanged(false);
     fetchCollection(addr).then((response) => {
       setSaving(false);
       const collection = response.data;
@@ -272,7 +278,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
     setSaving(true);
 
     try {
-      const signature = await sign();
+      console.log(sign)
+      const signature = {}
+      // const signature = await sign();
       await uploadImage();
       await updateCollection(form, signature.signature, signature.signatureAddress, authToken);
       showToast('success', "The collection has been saved successfully. The page will reload in 2 seconds.");
@@ -330,6 +338,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
                 </>
               )}
             </div>
+            {errors.logoImageHash && (
+              <div className={styles.error}>{errors.logoImageHash}</div>
+            )}
             {/* <div className={styles.inputTitle}>Name *</div>
             <div className={styles.inputWrapper}>
               <input
