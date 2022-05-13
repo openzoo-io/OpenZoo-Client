@@ -57,8 +57,9 @@ import {
   useSalesContract,
   useAuctionContract,
   useBundleSalesContract,
-  getSigner,
+
 } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import {
   shortenAddress,
   formatNumber,
@@ -114,7 +115,7 @@ const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 const NFTItem = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const {getSigner} = useConnectionUtils();
   const {
     explorerUrl,
     storageUrl,

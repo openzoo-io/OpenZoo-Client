@@ -6,13 +6,14 @@ import { useWeb3React } from '@web3-react/core';
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 export default () => {
-  const { chainId } = useWeb3React();
+  const { chainId, connector } = useWeb3React();
 
   const getContract = useCallback(
     async (address, abi) => {
       if (chainId) {
-        await window.ethereum.enable();
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const web3provider = await connector.getProvider();
+        await web3provider.enable();
+        const provider = new ethers.providers.Web3Provider(web3provider);
         provider.pollingInterval = 10 * 1000;
         const signer = provider.getSigner();
 

@@ -6,13 +6,14 @@ import { ethers } from 'ethers';
 
 import toast from 'utils/toast';
 import { useApi } from 'api';
-import { getSigner } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 
 import Modal from '../Modal';
 import styles from '../Modal/common.module.scss';
 
 const WarnCollectionModal = ({ visible, isWarn, onClose }) => {
   const { getNonce, warnCollection, unwarnCollection } = useApi();
+  const {getSigner} = useConnectionUtils();
   const { account } = useWeb3React();
 
   const { authToken } = useSelector(state => state.ConnectWallet);
