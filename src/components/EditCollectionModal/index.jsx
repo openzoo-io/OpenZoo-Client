@@ -175,14 +175,12 @@ const EditCollectionModal = ({ visible, onClose }) => {
 
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
-
       if (!logo || !logoChanged)
         return resolve();
 
       const img = new Image();
       img.src = URL.createObjectURL(logo);
       img.onload = function () {
-        console.log(apiUrl)
         const w = this.width;
         const h = this.height;
         const size = Math.min(w, h);
