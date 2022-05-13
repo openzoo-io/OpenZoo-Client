@@ -12,7 +12,7 @@ import { useApi } from 'api';
 import axios from 'axios';
 import cx from 'classnames';
 import { Categories } from 'constants/filter.constants';
-import { getSigner } from 'contracts';
+import useConnectionUtils from 'hooks/useConnectionUtils';
 import { ethers } from 'ethers';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -37,7 +37,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
     categories: [],
     erc721Address: null,
   }
-
+  const {getSigner} = useConnectionUtils();
   const { addr } = useParams();
   const { fetchCollection, apiUrl, updateCollection, getNonce } = useApi();
   const [form, setForm] = useState(FORM_INITIAL);
