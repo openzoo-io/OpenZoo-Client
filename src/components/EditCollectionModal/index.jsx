@@ -207,8 +207,9 @@ const EditCollectionModal = ({ visible, onClose }) => {
               },
             });
             const logoImageHash = result.data.data;
-            setForm({ ...form, logoImageHash: logoImageHash });
-            return resolve();
+            let newForm = { ...form, logoImageHash: logoImageHash }
+            setForm(newForm);
+            return resolve(newForm);
           } catch (e) {
             return reject(e);
           }
@@ -281,8 +282,8 @@ const EditCollectionModal = ({ visible, onClose }) => {
       console.log(sign)
       //const signature = {}
       const signature = await sign();
-      await uploadImage();
-      await updateCollection(form, signature.signature, signature.signatureAddress, authToken);
+      let newForm = await uploadImage();
+      await updateCollection(newForm, signature.signature, signature.signatureAddress, authToken);
       showToast('success', "The collection has been saved successfully. The page will reload in 2 seconds.");
       onClose();
       setTimeout(() => { window.location.reload(); }, 2000);
