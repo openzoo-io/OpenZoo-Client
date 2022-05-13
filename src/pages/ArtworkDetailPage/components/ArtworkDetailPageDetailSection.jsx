@@ -331,7 +331,7 @@ export function ArtworkDetailPageDetailSection(props) {
             &nbsp;Transfer
           </div>
         )}
-        {isMine && !bundleID && itemType === 721 && (
+        {isMine && !bundleID && itemType === 721 && address !== '0x992e4447f470ea47819d677b84d2459677bfdadf' && address !=='0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' && address !== '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c' && (
           <div className="btn btn-sm btn-white" onClick={onBurnClick}>
             <i className="ri-delete-bin-line color_info"></i>
             &nbsp;Delete
