@@ -279,8 +279,8 @@ const EditCollectionModal = ({ visible, onClose }) => {
 
     try {
       console.log(sign)
-      const signature = {}
-      // const signature = await sign();
+      //const signature = {}
+      const signature = await sign();
       await uploadImage();
       await updateCollection(form, signature.signature, signature.signatureAddress, authToken);
       showToast('success', "The collection has been saved successfully. The page will reload in 2 seconds.");
