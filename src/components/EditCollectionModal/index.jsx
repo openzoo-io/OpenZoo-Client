@@ -176,7 +176,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
       if (!logoChanged) {
-        return resolve(form.logoImageHash);
+        return resolve(form);
       }
 
       if (!logo) {
