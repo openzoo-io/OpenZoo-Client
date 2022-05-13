@@ -176,7 +176,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
   const uploadImage = async () => {
     return new Promise((resolve, reject) => {
       if (!logoChanged) {
-        return resolve();
+        return resolve(form.logoImageHash);
       }
 
       if (!logo) {
@@ -283,6 +283,7 @@ const EditCollectionModal = ({ visible, onClose }) => {
       //const signature = {}
       const signature = await sign();
       let newForm = await uploadImage();
+      console.log(newForm);
       await updateCollection(newForm, signature.signature, signature.signatureAddress, authToken);
       showToast('success', "The collection has been saved successfully. The page will reload in 2 seconds.");
       onClose();
