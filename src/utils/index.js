@@ -56,7 +56,10 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
     } else if (tokenURI.includes('ipfs://')) {
       return `${IPFSUris[random]}${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
     }
-    return tokenURI;
+
+
+
+    return tokenURI.replace('zoo-factory.vercel.app', 'app.zookeeper.finance');
   }
   catch (error) {
     return tokenURI;
