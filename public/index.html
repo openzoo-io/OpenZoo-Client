@@ -55,7 +55,7 @@
 
 <body id="body" class="body">
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root">Loading...</div>
+  <div id="root">Loading...<br/>If the page seems stuck, please click "<a href="#" onclick="javascript:window.location.reload(true)">reload</a>"</div>
   <script src="%PUBLIC_URL%/assets/js/jquery-3.6.0.js"></script>
   <script src="%PUBLIC_URL%/assets/js/bootstrap.bundle.min.js"></script>
   <script src="%PUBLIC_URL%/assets/js/swiper-bundle.min.js"></script>
@@ -66,7 +66,8 @@
   <script>
     setTimeout(()=>{
       const elem = document.querySelector("#root");
-      if (elem.childNodes.length < 1)
+      //alert(elem.childNodes.length)
+      if (elem.childNodes.length === 5)
       {
         window.location.reload(true);
       }
