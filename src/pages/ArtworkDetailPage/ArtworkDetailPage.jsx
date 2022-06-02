@@ -1313,7 +1313,7 @@ export function ArtworkDetailPage() {
       bundleListing.current = null;
       console.log('!getItemDetails', bundleListing);
 
-      getItemDetails(); // TODO: Need to optimize
+      
 
       // Case for Elixir //
       if (Contracts[CHAIN].zooElixir.toLowerCase() === address.toLowerCase()) {
@@ -1327,9 +1327,15 @@ export function ArtworkDetailPage() {
         }
       }
 
+      getItemDetails(); // TODO: Need to optimize
+
       getAuctions().then(() => {
         getBid();
+        const res = auction?.current?.owner ? auction.current.owner : owner;
+        setOwner(res);
       });
+
+     
 
       increaseViewCount(address, tokenID).then(({ data }) => {
         setViews(data);
