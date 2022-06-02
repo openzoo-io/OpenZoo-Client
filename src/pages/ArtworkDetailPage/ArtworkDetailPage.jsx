@@ -1332,11 +1332,11 @@ export function ArtworkDetailPage() {
       getAuctions().then(() => {
         getBid();
         const res = auction?.current?.owner ? auction.current.owner : owner;
+        if (res !== undefined)
         setOwner(res);
       });
 
      
-
       increaseViewCount(address, tokenID).then(({ data }) => {
         setViews(data);
       });
