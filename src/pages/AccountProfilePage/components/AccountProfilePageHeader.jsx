@@ -115,7 +115,7 @@ export function AccountProfilePageHeader(props) {
                   <div className="avatar_wrap">
                     <Avatar account={uid} size="lg" user={user} />
                   </div>
-                  <h5>{user?.alias ?? 'unnamed'}</h5>
+                  <h5>{user?.alias || ((uid === '0x8930f0cafda831181fd3f5dcccaeb0418b615b56') ? 'Auction Contract' :'unnamed')}</h5>
                 </div>
                 <div className="avatars d-flex space-x-20 align-items-center">
                   <div className="avatar_wrap"></div>

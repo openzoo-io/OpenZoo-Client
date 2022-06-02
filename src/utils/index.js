@@ -21,7 +21,10 @@ function isValidCode(code) {
 
 export function shortenAddress(address, chars = 4) {
   if (!address) return '';
-
+  if (address === '0x8930f0cafda831181fd3f5dcccaeb0418b615b56')
+  {
+    return 'Auction Contract';
+  }
   const parsed = isAddress(address);
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`);
