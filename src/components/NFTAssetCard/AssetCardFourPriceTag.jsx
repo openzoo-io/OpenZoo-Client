@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import cx from 'classnames';
 import Skeleton from 'react-loading-skeleton';
@@ -7,6 +7,7 @@ import { formatNumber } from 'utils';
 import { Link } from 'react-router-dom';
 import wFTMLogo from 'assets/imgs/wftm.png';
 import { useWeb3React } from '@web3-react/core';
+import axios from 'axios';
 export function AssetCardFourPriceTag(props) {
   const { account } = useWeb3React();
   const {
@@ -22,6 +23,31 @@ export function AssetCardFourPriceTag(props) {
   const styles = useStyle();
 
   const { getTokenByAddress } = useTokens();
+  const [priceUSD, setPriceUSD] = useState(null);
+  const [lastSalePriceUSD, setLastSalePriceUSD] = useState(null);
+
+  useEffect(() => {
+    const KEY_CURRENT_PRICE_MULTIPLIER = 'openzoo_current_price_multiplier';
+    const multiplier = sessionStorage.getItem(KEY_CURRENT_PRICE_MULTIPLIER);
+
+    const update = () => {
+      let multiplier = sessionStorage.getItem(KEY_CURRENT_PRICE_MULTIPLIER);
+      if (!multiplier) return;
+      multiplier = parseFloat(multiplier);
+      setPriceUSD(multiplier * item.price);
+      setLastSalePriceUSD(multiplier * item.lastSalePrice)
+    }
+
+    if (multiplier == null) {
+      axios
+        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=zookeeper&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+        .then(x => x.data[0].current_price)
+        .then(x => sessionStorage.setItem(KEY_CURRENT_PRICE_MULTIPLIER, x))
+        .then(() => update());
+    } else {
+      update();
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -47,27 +73,27 @@ export function AssetCardFourPriceTag(props) {
 
         {auction ? (
           <div className="d-flex flex-column space-x-5 align-items-end justify-content-center px-10">
-            
+
             <strong className={cx(styles.tokenPrice, 'color_brand')}>
-            <img
-              src={
-                auctionActive
-                  ? auction?.token?.icon
-                  : getTokenByAddress(item?.paymentToken)?.icon || wFTMLogo
-              }
-              alt={auction?.token?.symbol}
-              className={styles.tokenIcon}
-            />
+              <img
+                src={
+                  auctionActive
+                    ? auction?.token?.icon
+                    : getTokenByAddress(item?.paymentToken)?.icon || wFTMLogo
+                }
+                alt={auction?.token?.symbol}
+                className={styles.tokenIcon}
+              />
               {formatNumber(
-                (parseFloat(auction.highestBid.toString()) / 1e18).toFixed(2).replace(/[.,]00$/, "") 
+                (parseFloat(auction.highestBid.toString()) / 1e18).toFixed(2).replace(/[.,]00$/, "")
               )}{' '}
               {auction?.token?.symbol}
             </strong>
             <div className={styles.dollar}>
-            {
-                auctionActive ? 'Reserved price '+formatNumber(auction.reservePrice.toFixed(2).replace(/[.,]00$/, "") )+' '+auction?.token?.symbol : ''
+              {
+                auctionActive ? 'Reserved price ' + formatNumber(auction.reservePrice.toFixed(2).replace(/[.,]00$/, "")) + ' ' + auction?.token?.symbol : ''
               }{' '}
-              </div>
+            </div>
           </div>
         ) : (
           <div className="d-flex flex-column space-x-5 align-items-end justify-content-center px-10">
@@ -81,13 +107,18 @@ export function AssetCardFourPriceTag(props) {
                   {item.price} {getTokenByAddress(item?.paymentToken)?.symbol}
                 </strong>
 
-                <div className={styles.dollar}>
-                  =${formatNumber(item.priceInUSD.toFixed(2).replace(/[.,]00$/, ""))}
-                </div>
+                {
+                  priceUSD != null && priceUSD > 0 ?
+                    <div className={styles.dollar}>
+                      =${formatNumber(priceUSD.toFixed(2).replace(/[.,]00$/, ""))}
+                    </div> :
+                    <></>
+                }
+
               </>
             ) : (
               <Link to={assetUrl} className="cursor-pointer color_brand">
-               
+
                 {item?.lastSalePrice > 0 && (
                   <>
                     <div className="d-flex justify-content-end align-items-center space-x-5">
@@ -106,9 +137,14 @@ export function AssetCardFourPriceTag(props) {
                         {formatNumber(item.lastSalePrice.toFixed(2).replace(/[.,]00$/, ""))}
                       </strong>
                     </div>
-                    <div className={cx(styles.dollar,"d-flex justify-content-end")}>
-                      =${formatNumber(item.lastSalePriceInUSD.toFixed(2).replace(/[.,]00$/, ""))}
-                    </div>
+                    {
+                      lastSalePriceUSD != null && lastSalePriceUSD > 0 ?
+                        <div className={cx(styles.dollar, "d-flex justify-content-end")}>
+                          =${formatNumber(lastSalePriceUSD.toFixed(2).replace(/[.,]00$/, ""))}
+                        </div> :
+                        <></>
+                    }
+
                   </>
                 )}
                 {!item?.lastSalePrice
@@ -124,7 +160,7 @@ export function AssetCardFourPriceTag(props) {
         )}
       </div>
 
-      
+
     </>
   );
 }
