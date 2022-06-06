@@ -109,7 +109,7 @@ import { FooterEmbed } from 'components/FooterEmbed';
 export function ArtworkDetailPage() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {getSigner} = useConnectionUtils();
+  const { getSigner } = useConnectionUtils();
   const {
     explorerUrl,
     storageUrl,
@@ -301,6 +301,7 @@ export function ArtworkDetailPage() {
   const prevAuctionContract = useRef(null);
 
   const { authToken } = useSelector(state => state.ConnectWallet);
+  const { currentPrice } = useSelector(state => state.CoinGecko);
   const prevAuthToken = usePrevious(authToken);
 
   const isLoggedIn = () => {
@@ -3244,11 +3245,11 @@ export function ArtworkDetailPage() {
                                 <br />
                                 <span>
                                   (
-                                  {prices[listing.token?.address] !==
+                                  {currentPrice !==
                                     undefined ? (
                                     `$${(
                                       listing.price *
-                                      prices[listing.token?.address]
+                                      currentPrice
                                     ).toFixed(2)}`
                                   ) : (
                                     <Skeleton width={60} height={24} />
@@ -3276,12 +3277,12 @@ export function ArtworkDetailPage() {
                                   <br />
                                   <span>
                                     (
-                                    {prices[listing.token?.address] !==
+                                    {currentPrice !==
                                       undefined ? (
                                       `$${(
                                         listing.quantity *
                                         listing.price *
-                                        prices[listing.token?.address]
+                                        currentPrice
                                       ).toFixed(2)}`
                                     ) : (
                                       <Skeleton width={60} height={24} />
@@ -3383,11 +3384,11 @@ export function ArtworkDetailPage() {
                                     <br />
                                     <span>
                                       (
-                                      {prices[offer.token.address] !==
+                                      {currentPrice !==
                                         undefined ? (
                                         `$${(
                                           (offer.pricePerItem || offer.price) *
-                                          prices[offer.token.address]
+                                          currentPrice
                                         ).toFixed(3)}`
                                       ) : (
                                         <Skeleton width={60} height={24} />
@@ -3416,13 +3417,13 @@ export function ArtworkDetailPage() {
                                       <br />
                                       <span>
                                         (
-                                        {prices[offer.token.address] !==
+                                        {currentPrice !==
                                           undefined ? (
                                           `$${(
                                             offer.quantity *
                                             (offer.pricePerItem ||
                                               offer.price) *
-                                            prices[offer.token.address]
+                                            currentPrice
                                           ).toFixed(3)}`
                                         ) : (
                                           <Skeleton width={60} height={24} />

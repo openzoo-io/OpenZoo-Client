@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
-import cx from 'classnames';
-import Skeleton from 'react-loading-skeleton';
-import useTokens from 'hooks/useTokens';
-import { formatNumber } from 'utils';
-import { Link } from 'react-router-dom';
-import wFTMLogo from 'assets/imgs/wftm.png';
 import { useWeb3React } from '@web3-react/core';
-import axios from 'axios';
+import wFTMLogo from 'assets/imgs/wftm.png';
+import cx from 'classnames';
+import useTokens from 'hooks/useTokens';
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { formatNumber } from 'utils';
+
 export function AssetCardFourPriceTag(props) {
   const { account } = useWeb3React();
   const {
@@ -23,31 +24,7 @@ export function AssetCardFourPriceTag(props) {
   const styles = useStyle();
 
   const { getTokenByAddress } = useTokens();
-  const [priceUSD, setPriceUSD] = useState(null);
-  const [lastSalePriceUSD, setLastSalePriceUSD] = useState(null);
-
-  useEffect(() => {
-    const KEY_CURRENT_PRICE_MULTIPLIER = 'openzoo_current_price_multiplier';
-    const multiplier = sessionStorage.getItem(KEY_CURRENT_PRICE_MULTIPLIER);
-
-    const update = () => {
-      let multiplier = sessionStorage.getItem(KEY_CURRENT_PRICE_MULTIPLIER);
-      if (!multiplier) return;
-      multiplier = parseFloat(multiplier);
-      setPriceUSD(multiplier * item.price);
-      setLastSalePriceUSD(multiplier * item.lastSalePrice)
-    }
-
-    if (multiplier == null) {
-      axios
-        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=zookeeper&order=market_cap_desc&per_page=100&page=1&sparkline=false')
-        .then(x => x.data[0].current_price)
-        .then(x => sessionStorage.setItem(KEY_CURRENT_PRICE_MULTIPLIER, x))
-        .then(() => update());
-    } else {
-      update();
-    }
-  }, []);
+  const { currentPrice } = useSelector(state => state.CoinGecko);
 
   if (loading) {
     return (
@@ -108,13 +85,12 @@ export function AssetCardFourPriceTag(props) {
                 </strong>
 
                 {
-                  priceUSD != null && priceUSD > 0 ?
+                  currentPrice != null && currentPrice > 0 ?
                     <div className={styles.dollar}>
-                      =${formatNumber(priceUSD.toFixed(2).replace(/[.,]00$/, ""))}
+                      =${formatNumber((item.price * currentPrice).toFixed(2).replace(/[.,]00$/, ""))}
                     </div> :
                     <></>
                 }
-
               </>
             ) : (
               <Link to={assetUrl} className="cursor-pointer color_brand">
@@ -137,13 +113,11 @@ export function AssetCardFourPriceTag(props) {
                         {formatNumber(item.lastSalePrice.toFixed(2).replace(/[.,]00$/, ""))}
                       </strong>
                     </div>
-                    {
-                      lastSalePriceUSD != null && lastSalePriceUSD > 0 ?
-                        <div className={cx(styles.dollar, "d-flex justify-content-end")}>
-                          =${formatNumber(lastSalePriceUSD.toFixed(2).replace(/[.,]00$/, ""))}
-                        </div> :
-                        <></>
-                    }
+
+                    <div className={cx(styles.dollar, "d-flex justify-content-end")}>
+                      =${formatNumber(item.lastSalePriceInUSD.toFixed(2).replace(/[.,]00$/, ""))}
+                    </div> :
+                    <></>
 
                   </>
                 )}
