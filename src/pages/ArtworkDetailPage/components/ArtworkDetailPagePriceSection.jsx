@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TxButton from 'components/TxButton';
 import cx from 'classnames';
 import { ClipLoader } from 'react-spinners';
+import { useSelector } from 'react-redux';
 
 const propTypes = {
   bestListing: PropTypes.object,
@@ -12,6 +13,9 @@ const propTypes = {
 };
 
 export function ArtworkDetailPagePriceSection(props) {
+
+  const { currentPrice } = useSelector(state => state.CoinGecko)
+
   const {
     bid,
     bestListing,
@@ -62,10 +66,10 @@ export function ArtworkDetailPagePriceSection(props) {
             <h2 className="">
               {prices[bestListing.token?.address]
                 ? `$${formatNumber(
-                    (
-                      bestListing.price * prices[bestListing.token?.address]
-                    ).toFixed(3)
-                  )}`
+                  (
+                    bestListing.price * currentPrice
+                  ).toFixed(3)
+                )}`
                 : null}
             </h2>
             <span className="d-flex align-items-center txt_lg">
@@ -79,10 +83,10 @@ export function ArtworkDetailPagePriceSection(props) {
 
           <div className="d-flex sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
             <div></div>
-           
+
             {bestListing &&
               bestListing?.owner.toLocaleLowerCase() !==
-                account?.toLocaleLowerCase() && (
+              account?.toLocaleLowerCase() && (
                 <TxButton
                   className={cx(
                     'btn btn-warning btn-lg rounded-20',
@@ -110,7 +114,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     )}
                     onClick={
                       bid === null ||
-                      bid?.bid < auction.current?.reservePrice || !auctionEnded
+                        bid?.bid < auction.current?.reservePrice || !auctionEnded
                         ? cancelCurrentAuction
                         : handleResultAuction
                     }
@@ -134,7 +138,7 @@ export function ArtworkDetailPagePriceSection(props) {
                         'btn btn-warning btn-lg rounded-20',
                         styles.headerButton,
                         (auctionStarting || auctionUpdating || auctionEnded) &&
-                          styles.disabled
+                        styles.disabled
                       )}
                       onClick={() => {
                         !auctionEnded && setAuctionModalVisible(true);
@@ -151,7 +155,7 @@ export function ArtworkDetailPagePriceSection(props) {
                   )}
                 {(!auction.current || auction.current.resulted) && (
                   <>
-                    
+
                     {hasListing ? (
                       <div
                         className={cx(
@@ -230,11 +234,11 @@ export function ArtworkDetailPagePriceSection(props) {
             <div></div>
             {isMine && (
               <>
-              {
-                (!auctionEnded && bid?.bid >= auction.current?.reservePrice) && (
-                  <p>Reserve price met. Auction cannot be cancelled</p>
-                )
-              }
+                {
+                  (!auctionEnded && bid?.bid >= auction.current?.reservePrice) && (
+                    <p>Reserve price met. Auction cannot be cancelled</p>
+                  )
+                }
 
                 {(auction && auction.current?.resulted === false) && ((!auctionEnded && (bid?.bid < auction.current.reservePrice || !bid)) || (auctionEnded && (bid?.bid >= auction.current.reservePrice))) ? (
                   <div
@@ -243,21 +247,21 @@ export function ArtworkDetailPagePriceSection(props) {
                       styles.headerButton,
                       (auctionCanceling || resulting) && styles.disabled
                     )}
-                    onClick={((bid?.bid >= auction.current.reservePrice && auctionEnded)? handleResultAuction : cancelCurrentAuction)}
+                    onClick={((bid?.bid >= auction.current.reservePrice && auctionEnded) ? handleResultAuction : cancelCurrentAuction)}
                   >
-                    
+
                     {auctionCancelConfirming ? (
                       <ClipLoader color="#FFF" size={16} />
                     ) : bid?.bid < auction.current.reservePrice ||
                       !auctionEnded ? (
                       'Cancel Auction'
                     ) : (
-                     
-                      (bid?.bid >= auction.current.reservePrice ? 'Accept highest bid' :'Cancel Auction')
+
+                      (bid?.bid >= auction.current.reservePrice ? 'Accept highest bid' : 'Cancel Auction')
                     )}
                   </div>
                 ) : null}
-                
+
                 {!bundleID &&
                   (!auction.current) &&
                   !hasListing && !bid &&
@@ -267,7 +271,7 @@ export function ArtworkDetailPagePriceSection(props) {
                         'btn btn-warning btn-lg rounded-20',
                         styles.headerButton,
                         (auctionStarting || auctionUpdating || auctionEnded) &&
-                          styles.disabled
+                        styles.disabled
                       )}
                       onClick={() => {
                         !auctionEnded && setAuctionModalVisible(true);
@@ -284,7 +288,7 @@ export function ArtworkDetailPagePriceSection(props) {
                   )}
                 {(!auction.current || auction.current.resulted) && (
                   <>
-                    
+
                     {hasListing ? (
                       <div
                         className={cx(
@@ -324,21 +328,21 @@ export function ArtworkDetailPagePriceSection(props) {
 
                     {
                       //&& window.location.href.indexOf('emergency_cancel_listing') !== -1) 
-                      !hasListing  && (
+                      !hasListing && (
                         <div
-                        className={cx(
-                          'btn btn-danger btn-lg rounded-20',
-                          styles.headerButton,
-                          cancelingListing
-                        )}
-                        onClick={cancelList}
-                      >
-                        {cancelListingConfirming ? (
-                          <ClipLoader color="#FFF" size={16} />
-                        ) : (
-                          <>FORCE<br/>CANCEL SELL</>
-                        )}
-                      </div>
+                          className={cx(
+                            'btn btn-danger btn-lg rounded-20',
+                            styles.headerButton,
+                            cancelingListing
+                          )}
+                          onClick={cancelList}
+                        >
+                          {cancelListingConfirming ? (
+                            <ClipLoader color="#FFF" size={16} />
+                          ) : (
+                            <>FORCE<br />CANCEL SELL</>
+                          )}
+                        </div>
                       )
                     }
                   </>
