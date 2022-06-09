@@ -19,7 +19,7 @@ import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { /*useWFTMContract,*/ useNFTContract } from 'contracts';
 import { formatNumber } from 'utils';
-import FaucetModal from 'components/FaucetModal';
+//import FaucetModal from 'components/FaucetModal';
 
 const propTypes = {
   user: PropTypes.object,
@@ -46,7 +46,7 @@ export function HeaderAvatarMenu(props) {
   const [copied, setCopied] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   //const [gettingBalance, setGettingBalance] = useState(false);
-  const [faucetModalVisible, setFaucetModalVisible] = useState(false);
+  //const [faucetModalVisible, setFaucetModalVisible] = useState(false);
   const wrapperRef = useDetectOutsideRef(() => {
     setMenuVisible(false);
   });
@@ -153,12 +153,12 @@ export function HeaderAvatarMenu(props) {
 */
   return (
     <>
-      <FaucetModal
+      {/* <FaucetModal
         account={account}
         visible={faucetModalVisible}
         onClose={() => setFaucetModalVisible(false)}
         setFaucetModalVisible={setFaucetModalVisible}
-      />
+      /> */}
       <div
         className="header__avatar"
         onClick={handleOnClick}
