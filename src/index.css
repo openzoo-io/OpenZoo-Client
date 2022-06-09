@@ -264,6 +264,7 @@ input[type='number'] {
 }
 .claimFreeWanBtn:hover {
   transform: scale(1.05);
+  color: white;
 }
 
 .faucetBalance {

@@ -223,16 +223,17 @@ export function HeaderAvatarMenu(props) {
             </div>
           )}
           {balance < 0.02 && (
-            <div
+            <a
+              href={`https://t.me/wan_faucet_bot`} target="_blank" rel="noreferrer"
               onClick={() => {
-                setFaucetModalVisible(true);
+                //setFaucetModalVisible(true);
               }}
               className="d-flex flex-column align-items-start space-x-10 claimFreeWanBtn"
             >
               <div></div>
               <div>FIRST TIME?</div>
               <div>Claim Free WAN to Start</div>
-            </div>
+            </a>
           )}
           {/*
         <div className="hr"></div>
