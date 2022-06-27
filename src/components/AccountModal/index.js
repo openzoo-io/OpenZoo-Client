@@ -16,7 +16,7 @@ import useConnectionUtils from 'hooks/useConnectionUtils';
 import styles from './styles.module.scss';
 
 const AccountModal = () => {
-  const { getNonce, updateAccountDetails } = useApi();
+  const { getNonce, updateAccountDetails,checkBan } = useApi();
   const {getSigner} = useConnectionUtils();
   const dispatch = useDispatch();
   const { account } = useWeb3React();
@@ -25,7 +25,7 @@ const AccountModal = () => {
 
   const rootRef = useRef(null);
   const inputRef = useRef(null);
-
+ 
   const [alias, setAlias] = useState('');
   const [email, setEmail] = useState('');
   const [bio, setBio] = useState('');
@@ -126,7 +126,18 @@ const AccountModal = () => {
         return;
       }
 
+      let isBanned = await checkBan(account, authToken);
+
+        if (isBanned) {
+          toast('error', 'You are banned from editing your profile.');
+          setSaving(false);
+          return;
+        }
+
       if (!avatar || avatar.startsWith('https')) {
+
+        
+
         const res = await updateAccountDetails(
           alias,
           email,

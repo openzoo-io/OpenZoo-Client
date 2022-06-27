@@ -58,10 +58,12 @@ export function AssetCardFour(props) {
 
   const { collections } = useSelector(state => state.Collections);
 
+  
+
   const collection = collections.find(
     col => col.address === item?.contractAddress
   );
-
+  console.log('collection',collection)
   const [endAuctionIn, setEndAuctionIn] = useState();
 
   //console.log(item);
@@ -357,6 +359,7 @@ export function AssetCardFour(props) {
               }}
             >
               {collection?.collectionName || collection?.name}
+              
               {collection?.isVerified && (
                 <img src="https://assets.openzoo.io/verified.svg" />
               )}
