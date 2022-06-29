@@ -724,7 +724,7 @@
 
 .history {
   min-width: 600px;
-  height: 58px;
+  height: 80px;
   display: flex;
   align-items: center;
   padding: 0 14px;
@@ -1024,6 +1024,10 @@
     :local {
       .tradeHistoryButton {
         color: white !important;
+      }
+      .history
+      {
+        background:#111;
       }
     }
   }

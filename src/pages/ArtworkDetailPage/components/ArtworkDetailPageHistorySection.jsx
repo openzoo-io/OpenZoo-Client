@@ -148,8 +148,11 @@ export function ArtworkDetailPageHistorySection(props) {
                               ''
                             )}
                           </a>
-                          <span>
+                          <span style={{fontSize:11}}>
                             (${formatNumber(history.priceInUSD.toFixed(3))})
+                          </span>
+                          <span style={{fontSize:10}}>
+                           ${(history.priceInUSD / history.price).toFixed(3)} / ZOO
                           </span>
                         </div>
                       </>
