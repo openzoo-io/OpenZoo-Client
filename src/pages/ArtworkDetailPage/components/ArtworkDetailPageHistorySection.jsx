@@ -239,6 +239,11 @@ export function ArtworkDetailPageHistorySection(props) {
             );
           })}
         </div>
+        {filter === 0 && (
+          <div style={{ fontSize: 11, marginTop: 10 }}>
+            * USD value at time of transaction
+          </div>
+        )}
       </div>
     </div>
   );
