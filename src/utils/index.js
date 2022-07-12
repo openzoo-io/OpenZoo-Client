@@ -42,10 +42,10 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
   }
   if (isFallback) {
     if (tokenURI.includes('ipfs://')) {
-      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
+      return `https://openzoo.mypinata.cloud/ipfs/${tokenURI.split('ipfs://')[1].replace(/([^:]\/)\/+/g, "$1")}`;
     }
     else {
-      return `https://artion.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
+      return `https://openzoo.mypinata.cloud/ipfs/${tokenURI.split('ipfs/')[1]}`;
     }
   }
   try {
@@ -53,7 +53,8 @@ export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => 
       tokenURI.includes('pinata.cloud') ||
       tokenURI.includes('cloudflare') ||
       tokenURI.includes('ipfs.io') ||
-      tokenURI.includes('ipfs.infura.io')
+      tokenURI.includes('ipfs.infura.io') ||
+      tokenURI.includes('graph.wanswap.finance')
     ) {
       return `${IPFSUris[random]}${tokenURI.split('ipfs/')[1]}`;
     } else if (tokenURI.includes('ipfs://')) {
