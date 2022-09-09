@@ -55,7 +55,7 @@ const propTypes = {
 function AssetCardComponent(props) {
   const { preset, item, loading, onLike, cardHeaderClassName, warnedCollections, ...rest } = props;
 
-  const { likeItem, likeBundle } = useApi();
+  const { likeItem, likeBundle, getUserAccountDetails } = useApi();
   const { getAuction } = useAuctionContract();
   const { getTokenByAddress } = useTokens();
   const { authToken } = useSelector(state => state.ConnectWallet);
@@ -188,6 +188,17 @@ function AssetCardComponent(props) {
     
   };
 
+
+  const [auctionOwnerInfo, setAuctionOwnerInfo] = useState(null);
+  const getAuctionOwnerInfo = async (auctionOwner) => {
+    try {
+      const { data } = await getUserAccountDetails(auctionOwner);
+      setAuctionOwnerInfo(data);
+    } catch {
+      setAuctionOwnerInfo(null);
+    }
+  };
+
   const getCurrentAuction = async () => {
     try {
       const _auction = await getAuction(item.contractAddress, item.tokenID);
@@ -198,6 +209,7 @@ function AssetCardComponent(props) {
         );
         _auction.token = token;
         setAuction(_auction);
+        getAuctionOwnerInfo(_auction.owner);
       }
     } catch {
       //
@@ -251,6 +263,7 @@ function AssetCardComponent(props) {
         authToken={authToken}
         zooGeneClass={zooGeneClass}
         zooElixir={zooElixir}
+        auctionOwnerInfo={auctionOwnerInfo}
         {...rest}
       />
     );

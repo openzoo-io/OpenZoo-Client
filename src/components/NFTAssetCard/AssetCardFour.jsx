@@ -50,20 +50,21 @@ export function AssetCardFour(props) {
     cardHeaderClassName,
     zooGeneClass,
     zooElixir,
+    auctionOwnerInfo,
   } = props;
   const { apiUrl } = useApi();
   const assetUrl = item
-    ? `/collection/${item?.contractAddress}/${item?.tokenID}${getEmbedParams().isEmbed ? window.location.search : ""}`
+    ? `/collection/${item?.contractAddress}/${item?.tokenID}${
+        getEmbedParams().isEmbed ? window.location.search : ''
+      }`
     : '#';
 
   const { collections } = useSelector(state => state.Collections);
 
-  
-
   const collection = collections.find(
     col => col.address === item?.contractAddress
   );
-  console.log('collection',collection)
+  console.log('collection', collection);
   const [endAuctionIn, setEndAuctionIn] = useState();
 
   //console.log(item);
@@ -171,7 +172,7 @@ export function AssetCardFour(props) {
         <div className="card_body space-y-10">
           <div className="creators space-x-10">
             <div className="avatars space-x-3">
-              {item?.tokenType === 721 && item?.owner && (
+              {item?.tokenType === 721 && item?.owner && auction === null && (
                 <StackAvatars
                   users={new Array(1).fill({
                     address: item?.owner,
@@ -183,6 +184,15 @@ export function AssetCardFour(props) {
                       item.ownerAlias && item.ownerAlias[0]
                         ? item.ownerAlias[1]
                         : null,
+                  })}
+                />
+              )}
+              {item?.tokenType === 721 && auction !== null && (
+                <StackAvatars
+                  users={new Array(1).fill({
+                    address: auction?.owner,
+                    alias: auctionOwnerInfo?.alias,
+                    imageHash: auctionOwnerInfo?.imageHash,
                   })}
                 />
               )}
@@ -348,7 +358,6 @@ export function AssetCardFour(props) {
                     'fromTop',
                     document.documentElement.scrollTop
                   );
-
                 }
                 if (window.location.href.includes('collection')) {
                   window.localStorage.setItem(
@@ -359,12 +368,12 @@ export function AssetCardFour(props) {
               }}
             >
               {collection?.collectionName || collection?.name}
-              
+
               {collection?.isVerified && (
                 <img src="https://assets.openzoo.io/verified.svg" />
               )}
               {warnedCollections &&
-                warnedCollections.includes(item?.contractAddress) ? (
+              warnedCollections.includes(item?.contractAddress) ? (
                 <BootstrapTooltip
                   title="Warning: This content has been flagged by the OpenZoo Team as suspicious."
                   placement="top"
