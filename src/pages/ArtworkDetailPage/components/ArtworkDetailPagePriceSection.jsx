@@ -336,6 +336,13 @@ export function ArtworkDetailPagePriceSection(props) {
                           styles.headerButton,
                           (listingItem || priceUpdating) && styles.disabled
                         )}
+                        style={
+                          hasListing &&
+                          myListing() !== undefined &&
+                          new Date(myListing().startTime).getTime() +
+                            1000 * 86400 * 30 * 5 <
+                            new Date().getTime() && {display:'none'}
+                        }
                         onClick={() =>
                           !(listingItem || priceUpdating)
                             ? setSellModalVisible(true)
@@ -416,7 +423,7 @@ export function ArtworkDetailPagePriceSection(props) {
               new Date().getTime() && (
               <div className={cx('alert alert-danger mt-20')}>
                 Selling price set date is over 5 months and has expired. Please
-                cancel or update your selling price
+                cancel your selling price
               </div>
             )}
         </>
