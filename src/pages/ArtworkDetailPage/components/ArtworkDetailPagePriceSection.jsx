@@ -341,7 +341,7 @@ export function ArtworkDetailPagePriceSection(props) {
                           myListing() !== undefined &&
                           new Date(myListing().startTime).getTime() +
                             1000 * 86400 * 30 * 5 <
-                            new Date().getTime() && {display:'none'}
+                            new Date().getTime() ? {display:'none'} : {}
                         }
                         onClick={() =>
                           !(listingItem || priceUpdating)
