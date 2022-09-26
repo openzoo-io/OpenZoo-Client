@@ -87,6 +87,7 @@ export function AssetCardFourPriceTag(props) {
           <div className="d-flex flex-column space-x-5 align-items-end justify-content-center px-10">
             {item.price ? (
               <>
+              
                 <strong className={cx(styles.tokenPrice, 'color_brand')}>
                   <img
                     src={getTokenByAddress(item?.paymentToken)?.icon}
@@ -95,7 +96,7 @@ export function AssetCardFourPriceTag(props) {
                   {formatNumber(item.price.toFixed(2).replace(/[.,]00$/, ''))}{' '}
                   {getTokenByAddress(item?.paymentToken)?.symbol}
                   {new Date(item.listedAt).getTime() + 1000 * 86400 * 30 * 5 <
-                    new Date().getTime()  && !auctionActive && (
+                    new Date().getTime()  && !auctionActive && item.tokenType !== 1155 && (
                     <BootstrapTooltip
                       title="Selling price set date is over 5 months and has expired. Item
                       can not currently be bought."
