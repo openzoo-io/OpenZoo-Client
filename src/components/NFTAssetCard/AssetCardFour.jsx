@@ -64,7 +64,7 @@ export function AssetCardFour(props) {
   const collection = collections.find(
     col => col.address === item?.contractAddress
   );
-  console.log('collection', collection);
+  //console.log('collection', collection);
   const [endAuctionIn, setEndAuctionIn] = useState();
 
   //console.log(item);
