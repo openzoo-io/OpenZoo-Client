@@ -81,7 +81,7 @@ export function AssetCardFourPriceTag(props) {
                     src={getTokenByAddress(item?.paymentToken)?.icon}
                     className={`${styles.tokenIcon}`}
                   />{' '}
-                  {item.price} {getTokenByAddress(item?.paymentToken)?.symbol}
+                  {formatNumber(item.price.toFixed(2).replace(/[.,]00$/, ""))} {getTokenByAddress(item?.paymentToken)?.symbol}
                 </strong>
 
                 {
