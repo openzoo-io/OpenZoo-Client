@@ -45,6 +45,7 @@ export function ExplorePageFillterStatus(props) {
   },[]);
 
   const filter = useSelector(state => state.Filter);
+
   const {
     statusBuyNow,
     statusHasBids,
