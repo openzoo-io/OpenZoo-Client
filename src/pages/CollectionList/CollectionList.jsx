@@ -101,7 +101,7 @@ export function CollectionList() {
   const prevAuthToken = usePrevious(authToken);
 
   const numPerRow = Math.floor(gridWidth / 256);
-  const fetchCount = numPerRow <= 3 ? 14 : 12;
+  const fetchCount = numPerRow <= 3 ? 28 : 24; /// 14 : 12
 
   useEffect(() => {
     // Delete //
