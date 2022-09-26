@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBan,
 } from '@fortawesome/free-solid-svg-icons';
-
+import permanentlist from '../../constants/permanent.collection.js';
 export function AssetCardFourPriceTag(props) {
   const { account } = useWeb3React();
   const {
@@ -95,8 +95,11 @@ export function AssetCardFourPriceTag(props) {
                   />{' '}
                   {formatNumber(item.price.toFixed(2).replace(/[.,]00$/, ''))}{' '}
                   {getTokenByAddress(item?.paymentToken)?.symbol}
+                  
                   {new Date(item.listedAt).getTime() + 1000 * 86400 * 30 * 5 <
-                    new Date().getTime()  && !auctionActive && item.tokenType !== 1155 && (
+                    new Date().getTime()  && !auctionActive && item.tokenType !== 1155 && 
+                    permanentlist[item.contractAddress.toLowerCase()] !== item.owner && 
+                    (
                     <BootstrapTooltip
                       title="Selling price set date is over 5 months and has expired. Item
                       can not currently be bought."

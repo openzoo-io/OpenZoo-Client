@@ -93,7 +93,7 @@ import usePrevious from 'hooks/usePrevious';
 import styles from './styles.module.scss';
 
 import { AssetCard } from 'components/NFTAssetCard/AssetCard';
-
+import permanentlist from 'constants/permanent.collection.js';
 const ONE_MIN = 60;
 const ONE_HOUR = ONE_MIN * 60;
 const ONE_DAY = ONE_HOUR * 24;
@@ -3313,7 +3313,9 @@ export function ArtworkDetailPage() {
                                   account?.toLowerCase() &&
                                   new Date(listing.startTime).getTime() +
                                     1000 * 86400 * 30 * 5 >=
-                                    new Date().getTime() && (
+                                    new Date().getTime() &&
+                                    permanentlist[address.toLowerCase()] !== listing.owner.toLowerCase() && 
+                                    (
                                       <TxButton
                                         className={cx(
                                           'btn btn-primary btn-md rounded-20',
@@ -3335,7 +3337,9 @@ export function ArtworkDetailPage() {
                                     account?.toLowerCase() &&
                                     new Date(listing.startTime).getTime() +
                                       1000 * 86400 * 30 * 5 <
-                                      new Date().getTime() && (<>Expired</>)
+                                      new Date().getTime() && 
+                                      permanentlist[address.toLowerCase()] !== listing.owner.toLowerCase() && 
+                                      (<>Expired</>)
                                   }
                               </div>
                             </div>

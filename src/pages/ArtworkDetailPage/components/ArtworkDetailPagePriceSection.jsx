@@ -6,7 +6,7 @@ import TxButton from 'components/TxButton';
 import cx from 'classnames';
 import { ClipLoader } from 'react-spinners';
 import { useSelector } from 'react-redux';
-
+import permanentlist from 'constants/permanent.collection.js';
 const propTypes = {
   bestListing: PropTypes.object,
   prices: PropTypes.object,
@@ -81,13 +81,18 @@ export function ArtworkDetailPagePriceSection(props) {
 
             <div className="d-flex sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
               <div></div>
-
+                    {
+                      console.log('bestListing',bestListing)
+                    }
               {bestListing &&
                 bestListing?.owner.toLocaleLowerCase() !==
                   account?.toLocaleLowerCase() &&
-                new Date(bestListing.startTime).getTime() +
+                ( new Date(bestListing.startTime).getTime() +
                   1000 * 86400 * 30 * 5 >=
-                  new Date().getTime() && (
+                  new Date().getTime() || 
+                  permanentlist[bestListing.minter.toLowerCase()] === bestListing.owner.toLowerCase() ) 
+                  && 
+                  (
                   <TxButton
                     className={cx(
                       'btn btn-warning btn-lg rounded-20',
@@ -232,7 +237,9 @@ export function ArtworkDetailPagePriceSection(props) {
 
           {tokenType.current !== 1155 &&
             new Date(bestListing.startTime).getTime() + 1000 * 86400 * 30 * 5 <
-              new Date().getTime() && (
+              new Date().getTime() && 
+              permanentlist[bestListing.minter.toLowerCase()]!== bestListing.owner.toLowerCase() &&
+              (
               <div className={cx('alert alert-danger mt-20')}>
                 Selling price set date is over 5 months and has expired. Item
                 can not currently be bought.
@@ -330,6 +337,7 @@ export function ArtworkDetailPagePriceSection(props) {
                         </div>
                       ) : null}
 
+                   
                       <div
                         className={cx(
                           'btn btn-warning btn-lg rounded-20',
@@ -341,7 +349,10 @@ export function ArtworkDetailPagePriceSection(props) {
                           myListing() !== undefined &&
                           new Date(myListing().startTime).getTime() +
                             1000 * 86400 * 30 * 5 <
-                            new Date().getTime() ? {display:'none'} : {}
+                            new Date().getTime() 
+                            && permanentlist[myListing().minter.toLowerCase()]!== myListing().owner.toLowerCase()
+                            
+                            ? {display:'none'} : {}
                         }
                         onClick={() =>
                           !(listingItem || priceUpdating)
@@ -419,6 +430,7 @@ export function ArtworkDetailPagePriceSection(props) {
           {hasListing &&
             tokenType.current !== 1155 &&
             myListing() !== undefined &&
+            permanentlist[myListing().minter.toLowerCase()]!== myListing().owner.toLowerCase() &&
             new Date(myListing().startTime).getTime() + 1000 * 86400 * 30 * 5 <
               new Date().getTime() && (
               <div className={cx('alert alert-danger mt-20')}>
