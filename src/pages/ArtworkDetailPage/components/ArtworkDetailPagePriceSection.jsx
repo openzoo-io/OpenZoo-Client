@@ -90,7 +90,7 @@ export function ArtworkDetailPagePriceSection(props) {
                 ( new Date(bestListing.startTime).getTime() +
                   1000 * 86400 * 30 * 5 >=
                   new Date().getTime() || 
-                  permanentlist[bestListing.minter.toLowerCase()] === bestListing.owner.toLowerCase() ) 
+                  permanentlist[bestListing.minter.toLowerCase()] === bestListing?.owner?.toLowerCase() ) 
                   && 
                   (
                   <TxButton
@@ -238,7 +238,7 @@ export function ArtworkDetailPagePriceSection(props) {
           {tokenType.current !== 1155 &&
             new Date(bestListing.startTime).getTime() + 1000 * 86400 * 30 * 5 <
               new Date().getTime() && 
-              permanentlist[bestListing.minter.toLowerCase()]!== bestListing.owner.toLowerCase() &&
+              permanentlist[bestListing.minter.toLowerCase()]!== bestListing?.owner?.toLowerCase() &&
               (
               <div className={cx('alert alert-danger mt-20')}>
                 Selling price set date is over 5 months and has expired. Item
@@ -350,7 +350,7 @@ export function ArtworkDetailPagePriceSection(props) {
                           new Date(myListing().startTime).getTime() +
                             1000 * 86400 * 30 * 5 <
                             new Date().getTime() 
-                            && permanentlist[myListing().minter.toLowerCase()]!== myListing().owner.toLowerCase()
+                            && permanentlist[myListing()?.minter?.toLowerCase()]!== myListing()?.owner?.toLowerCase()
                             
                             ? {display:'none'} : {}
                         }
@@ -430,10 +430,14 @@ export function ArtworkDetailPagePriceSection(props) {
           {hasListing &&
             tokenType.current !== 1155 &&
             myListing() !== undefined &&
-            permanentlist[myListing().minter.toLowerCase()]!== myListing().owner.toLowerCase() &&
+            myListing().minter !== undefined &&
+            permanentlist[myListing()?.minter?.toLowerCase()]!== myListing()?.owner?.toLowerCase() &&
             new Date(myListing().startTime).getTime() + 1000 * 86400 * 30 * 5 <
               new Date().getTime() && (
               <div className={cx('alert alert-danger mt-20')}>
+                {
+                  console.log('check', myListing(), hasListing)
+                }
                 Selling price set date is over 5 months and has expired. Please
                 cancel your selling price
               </div>
