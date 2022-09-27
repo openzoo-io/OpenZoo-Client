@@ -82,6 +82,11 @@ export const Categories = [
     icon: iconDomain,
     label: 'Video',
   },
+  {
+    id: 8,
+    icon: iconDomain,
+    label: 'Domain Names',
+  },
 ];
 
 export const SortByOptions = [

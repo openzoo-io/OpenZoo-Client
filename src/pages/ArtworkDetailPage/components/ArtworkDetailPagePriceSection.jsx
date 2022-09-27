@@ -57,8 +57,10 @@ export function ArtworkDetailPagePriceSection(props) {
     myListing,
   } = props;
 
+  
   return (
     <div className="numbers">
+      
       {bestListing && (
         <>
           <div className="d-flex flex-column flex-sm-column flex-md-row  space-x-10 justify-content-between align-items-center">
@@ -81,9 +83,7 @@ export function ArtworkDetailPagePriceSection(props) {
 
             <div className="d-flex sm:space-x-5 md:space-x-10 space-x-20 sm:-ml-5 md:-ml-10 -ml-20">
               <div></div>
-                    {
-                      console.log('bestListing',bestListing)
-                    }
+
               {bestListing &&
                 bestListing?.owner.toLocaleLowerCase() !==
                   account?.toLocaleLowerCase() &&
