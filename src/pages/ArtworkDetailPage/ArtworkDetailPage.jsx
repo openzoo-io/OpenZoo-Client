@@ -2677,7 +2677,7 @@ export function ArtworkDetailPage() {
                     <ArtworkMediaView
                       className="item_img"
                       image={
-                        info.animation_url ? info.animation_url : info?.image
+                        info?.animation_url ? info.animation_url : info?.image
                       }
                       coverImage={info?.image}
                       alt=""

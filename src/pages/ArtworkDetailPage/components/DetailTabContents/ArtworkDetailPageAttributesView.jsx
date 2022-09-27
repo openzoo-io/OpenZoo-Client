@@ -18,6 +18,9 @@ const ZOOGENES_EXCLUDED = [
   'Accessory Points',
   'Costume Points',
   'Ghost Points',
+  'Generation',
+  'Headgear Points',
+  'Effect Points',
 ];
 
 export function ArtworkDetailPageAttributesView(props) {
@@ -322,9 +325,18 @@ export function ArtworkDetailPageAttributesView(props) {
         )}
         {attributes[key].display_type !== 'date' && (
           <div className={styles.attributeValue}>
-            {attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':''}
-            {attributes[key].value2 || attributes[key].value}
+            {Contracts[CHAIN].zooGenes.toLowerCase() !== address.toLowerCase() ? attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?'+':'' : ''}
+            {Contracts[CHAIN].zooGenes.toLowerCase() !== address.toLowerCase() ? attributes[key].value2 || attributes[key].value : ''}
+            {
+              
+              Contracts[CHAIN].zooGenes.toLowerCase() === address.toLowerCase() && attributes[key].display_type === 'boost_number' && Number(attributes[key].value) > 0 ?
             
+            <div className="progress" style={{width:'100%',marginRight:20, height: '1.15rem'}}>
+              <div className="progress-bar" style={{background:'#00a59a',width:`${attributes[key].value2 || attributes[key].value}%`}}>{attributes[key].value2 || attributes[key].value}</div>
+            </div>
+
+            : Contracts[CHAIN].zooGenes.toLowerCase() === address.toLowerCase() && (attributes[key].value2 || attributes[key].value)
+            }
             {
               parsedFilterData && parsedFilterData[attributes[key].trait_type] && parsedFilterData[attributes[key].trait_type][attributes[key].value] && parsedFilterData[attributes[key].trait_type][attributes[key].value].count !== undefined && <span className={styles.percent}> ({
                 Number(Number(parsedFilterData[attributes[key].trait_type][attributes[key].value].count) * 100 / Number(parsedFilterData[attributes[key].trait_type].total_value)).toFixed(2)
