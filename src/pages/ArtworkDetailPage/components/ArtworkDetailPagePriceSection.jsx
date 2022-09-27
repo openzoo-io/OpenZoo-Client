@@ -347,6 +347,7 @@ export function ArtworkDetailPagePriceSection(props) {
                         style={
                           hasListing &&
                           myListing() !== undefined &&
+                          myListing().minter !== undefined &&
                           new Date(myListing().startTime).getTime() +
                             1000 * 86400 * 30 * 5 <
                             new Date().getTime() 
