@@ -72,7 +72,7 @@ export function NFTCollection(props) {
             <div className="txt _bold color_light_grey">
               created by{' '}
               <Link to={`/account/${owner}`} className="color_brand owner">
-                {ownerAlias[0] ? ownerAlias[0] : shortenAddress(owner)}
+                {ownerAlias ? ownerAlias[0] : shortenAddress(owner)}
               </Link>
             </div>
             <div className="categories d-flex space-x-5 space-y-5 -ml-5">
