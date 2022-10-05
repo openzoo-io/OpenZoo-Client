@@ -19,13 +19,11 @@ import { Contracts } from 'constants/networks';
 const ENV = process.env.REACT_APP_ENV;
 const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 
-
-
 export function FilterCollectionAttributes({
   hidden = true,
   hideFunction,
   toggleAttributeButton,
-  attributes
+  attributes,
 }) {
   const { getAttributeFilterData } = useApi();
   const params = useParams();
@@ -58,7 +56,6 @@ export function FilterCollectionAttributes({
   useEffect(() => {
     setIsApplyButtonDisabled(Object.keys(formData).length === 0);
     setIsResetButtonDisabled(Object.keys(formData).length === 0);
-    
   }, [formData]);
 
   useEffect(() => {
@@ -77,7 +74,13 @@ export function FilterCollectionAttributes({
   }, [filterData]);
 
   useEffect(() => {
-    toggleAttributeButton(filterableFilterData.length);
+    let fileredData = filterableFilterData.filter(data => {
+      return (
+        (data.isNumeric === false && data.value.length > 1) ||
+        data.isNumeric === true
+      );
+    });
+    toggleAttributeButton(fileredData.length);
   }, [filterableFilterData]);
 
   const fetchFilterData = async () => {
@@ -167,6 +170,7 @@ export function FilterCollectionAttributes({
         marginTop: 6,
         width: 280,
       };
+
       return <Popper {...props} style={styles} placement="bottom-start" />;
     };
 
@@ -264,9 +268,12 @@ export function FilterCollectionAttributes({
     };
 
     const inputElements = filterableFilterData.map(data => {
-      return data.isNumeric
-        ? numericInputTemplate(data._id, data.value)
-        : autoCompleteInputTemplate(data._id, data.value);
+      
+      if ((data.isNumeric === false && data.value.length > 1) || data.isNumeric === true) {
+        return data.isNumeric
+          ? numericInputTemplate(data._id, data.value)
+          : autoCompleteInputTemplate(data._id, data.value);
+      }
     });
 
     return (
