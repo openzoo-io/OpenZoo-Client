@@ -37,6 +37,7 @@ import { Categories } from 'constants/filter.constants';
 import { Link, useHistory } from 'react-router-dom';
 import EmbedModal from 'components/EmbedModal';
 import EditCollectionModal from 'components/EditCollectionModal';
+import multichainlist from '../../constants/multichain.collection'
 export function CollectionList() {
   const {
     fetchCollection,
@@ -640,7 +641,24 @@ export function CollectionList() {
                   <div className={styles.collectionDescription}>
                     <p>{collectionData?.description}</p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "row", gap: 5, margin: "10px 0" }}>
+                  <div className={styles.share_wrapper}>
+                    {
+                      multichainlist[addr] && 
+                      <div className='share-container'>
+                        <div className={styles.multichain_wrapper}>
+                        <span><b>Multichain</b>{' '}collection</span>
+                            {
+                              multichainlist[addr].map((v,i) => {
+                                return <a href={v.url} target="_blank" rel="noreferrer" className={styles.multichain} key={'multichain'+i}>
+                                <img src={'/chain/'+v.icon+'.svg'}/> {v.chain}
+                              </a>
+                              })
+                            }
+                        </div>
+                      </div>
+                      
+                    }
+                    <div className={styles.share_group}>
                     {
                       getEmbedParams().isEmbed ?
                         <>
@@ -665,7 +683,7 @@ export function CollectionList() {
                         :
                         <></>
                     }
-
+                    </div>
                   </div>
                 </div>
               </div>
