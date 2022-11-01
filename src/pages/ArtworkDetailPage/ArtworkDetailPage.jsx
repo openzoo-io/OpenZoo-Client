@@ -34,7 +34,7 @@ import {
   getEmbedParams,
 } from 'utils';
 import axios from 'axios';
-
+import multichainlist from '../../constants/multichain.collection'
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames';
 import Loader from 'react-loader-spinner';
@@ -58,6 +58,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faEye,
   faExclamationTriangle,
+  faCaretRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { useWeb3React } from '@web3-react/core';
 import { ClipLoader } from 'react-spinners';
@@ -67,6 +68,7 @@ import {
   Timeline as TimelineIcon,
   LocalOffer as LocalOfferIcon,
   Toc as TocIcon,
+  Transform,
 } from '@material-ui/icons';
 import toast from 'react-hot-toast';
 
@@ -3105,6 +3107,24 @@ export function ArtworkDetailPage() {
                     </Panel>
                   </div>
                 )}
+                {
+                  multichainlist[address] && <div className={`${styles.panelWrapper} boxNoPad`}>
+                    <Panel title={`<b>${collection?.collectionName || collection?.name}</b> ARE CROSSCHAIN`} 
+                    icon={Transform} fixed={true} expanded={true}
+                    containerClassName="px-20 border-none"
+                    headerClassName="px-0"
+                    >
+                    <div className={styles.multichain}>
+                      Users can utilize Wanchain&apos;s Industry-Best Crosschain Bridge to Execute
+                      Decentralised, Non-Custodial NFT Crosschain Transactions Between Multiple Chains
+                      <a target="_blank" href="https://bridge.wanchain.org/#/nft" rel="noreferrer">
+                        <img src="/wanbridge.svg" alt="" /> <FontAwesomeIcon icon={faCaretRight} />
+                      </a>
+                    </div>
+                    
+                    </Panel>
+                  </div>
+                }
                 {!bundleID && (
                   <div className={`${styles.panelWrapper} boxNoPad`}>
                     <Panel title="Price History" icon={TimelineIcon}>

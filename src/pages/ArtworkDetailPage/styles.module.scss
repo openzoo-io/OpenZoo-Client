@@ -34,8 +34,8 @@
   font-size: 18px;
   user-select: none;
   margin-right: 16px;
-  line-height:18px;
-  flex:1;
+  line-height: 18px;
+  flex: 1;
   &:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   }
@@ -158,47 +158,41 @@
   }
 }
 
-
 .propertiesWrapper {
   max-height: 300px;
   overflow: auto;
   justify-content: center;
 }
 
-.attributeWrapper
-{
-  display:grid;
+.attributeWrapper {
+  display: grid;
   grid-template-columns: auto auto;
   max-height: 300px;
   overflow: auto;
   grid-row-gap: 10px;
-  
 }
 
+.attributeLabel {
+  font-weight: normal;
+  font-size: 16px;
 
-  .attributeLabel {
+  padding: 0 10px;
+  color: #7e7e7e;
+}
+.attributeValue {
+  font-weight: bold;
+  text-align: left;
+  font-size: 16px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  .percent {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #3d3d3d;
     font-weight: normal;
-    font-size: 16px;
-    
-    padding:0 10px;
-    color:#7e7e7e
   }
-  .attributeValue {
-    font-weight: bold;
-    text-align: left;
-    font-size: 16px;
-    padding:0 10px;
-    display:flex;
-    align-items: center;
-    .percent
-    {
-      margin-left:10px;
-      font-size:14px;
-      color:#3d3d3d;
-      font-weight: normal;
-    }
-  }
-
+}
 
 .property {
   display: flex;
@@ -232,15 +226,12 @@
   margin-top: 15px;
 }
 
-:global
-{
-  .is__dark
-  {
-    :local
-    {
-      .socialLinks img
-      {
-        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(341deg) brightness(103%) contrast(104%);
+:global {
+  .is__dark {
+    :local {
+      .socialLinks img {
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(341deg)
+          brightness(103%) contrast(104%);
       }
     }
   }
@@ -294,10 +285,10 @@
   white-space: nowrap;
   display: flex;
   align-items: center;
-  
+
   img {
     width: 28px;
-    height:28px;
+    height: 28px;
     position: absolute;
     right: -15px;
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
@@ -391,23 +382,21 @@
 .liking {
   color: #007bff;
 }
-.artworkMinHeight
-{
-  width:100%;
-  min-height:300px;
-  position:relative;
+.artworkMinHeight {
+  width: 100%;
+  min-height: 300px;
+  position: relative;
 }
 .royaltyFee {
   flex: none;
-  display:flex;
+  display: flex;
   align-items: center;
-  margin-left:15px;
-  svg
-  {
-    width:18px;
-    height:18px;
-    margin-left:3px;
-    margin-top:-2px;
+  margin-left: 15px;
+  svg {
+    width: 18px;
+    height: 18px;
+    margin-left: 3px;
+    margin-top: -2px;
   }
 }
 .favIcon {
@@ -432,6 +421,41 @@
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+.multichain {
+  padding: 15px 0px;
+  font-size: 10px;
+  line-height:12px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  a {
+    display:flex;
+    align-items: center;
+    font-size:16px;
+    color:white;
+    img {
+      width: 160px;
+    }
+    svg
+    {
+      margin-left:10px;
+
+    }
+    border-radius: 14px;
+    padding: 5px 16px;
+    background-color: #062950;
+    border: 1px solid white;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .multichain {
+    flex-direction: column;
   }
 }
 
@@ -462,6 +486,13 @@
       .offer,
       .bundleItem {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+      }
+      .multichain {
+        a {
+         
+          background-color: transparent;
+
+        }
       }
     }
   }
@@ -536,7 +567,7 @@
 
 .heading {
   background-color: #f6f7f9;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 :global {
@@ -582,18 +613,15 @@
   flex: 2;
   display: flex;
   align-items: flex-start;
-  div
-  {
-    font-weight:bold;
-    font-size:14px;
-    line-height:15px;
-    span
-    {
-      font-size:14px;
-      font-weight:normal
+  div {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 15px;
+    span {
+      font-size: 14px;
+      font-weight: normal;
     }
   }
-
 }
 
 .quantity {
@@ -602,7 +630,6 @@
 
 .total {
   flex: 2;
-
 }
 
 .deadline {
@@ -760,14 +787,12 @@
   display: flex;
   align-items: center;
   flex: 2;
-  div
-  {
+  div {
     display: flex;
     flex-direction: column;
   }
-  span
-  {
-    font-size:12px;
+  span {
+    font-size: 12px;
     font-weight: normal;
   }
 }
@@ -776,9 +801,8 @@
   flex: 2;
 }
 
-.explorer
-{
-  flex:1;
+.explorer {
+  flex: 1;
 }
 
 .loadingIndicator {
@@ -946,7 +970,7 @@
 .buyNow {
   margin-top: 20px;
   width: 100%;
-  
+
   cursor: pointer;
 }
 
@@ -1025,9 +1049,8 @@
       .tradeHistoryButton {
         color: white !important;
       }
-      .history
-      {
-        background:#111;
+      .history {
+        background: #111;
       }
     }
   }
@@ -1207,7 +1230,6 @@ canvas {
   background: white !important;
   height: 100% !important;
   border-radius: 20px;
-
 }
 
 :global .is__dark {
@@ -1217,4 +1239,3 @@ canvas {
     }
   }
 }
-

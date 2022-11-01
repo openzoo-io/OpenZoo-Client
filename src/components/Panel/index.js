@@ -30,7 +30,7 @@ const Panel = ({
       <div className={cx(styles.header, headerClassName)} onClick={handleOpen}>
         <div className={styles.titleWrapper}>
           {icon && <Icon className={styles.titleIcon} />}
-          <span className={styles.title}>{title}</span>
+          <span className={styles.title} dangerouslySetInnerHTML={{__html: title}}></span>
         </div>
         {!fixed &&
           (open ? (
