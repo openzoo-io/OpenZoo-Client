@@ -153,7 +153,7 @@ const BidModal = ({
             onFocus={() => setFocused(true)}
             onBlur={() => {
               setFocused(false);
-              setPrice(Number(price).toFixed(0));
+              //setPrice(Number(price).toFixed(2));
             }}
             disabled={confirming}
             onInputError={err => setInputError(err)}
