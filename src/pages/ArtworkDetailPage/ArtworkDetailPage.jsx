@@ -3004,6 +3004,7 @@ export function ArtworkDetailPage() {
                                 src={auction.current.token?.icon}
                                 className={styles.tokenIcon}
                               />
+                             
                               {formatNumber(bid.bid)} (
                               {formatNumber(auctionBidParticipants)} Participant
                               {auctionBidParticipants > 1 ? 's' : ''})

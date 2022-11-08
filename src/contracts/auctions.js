@@ -4,6 +4,7 @@ import { calculateGasMargin } from 'utils';
 import useConnectionUtils from 'hooks/useConnectionUtils';
 import { Contracts } from 'constants/networks';
 import useContract from 'hooks/useContract';
+import { BigNumber } from 'bignumber.js';
 
 import { AUCTION_CONTRACT_ABI } from './abi';
 
@@ -87,9 +88,10 @@ export const useAuctionContract = () => {
       tokenAddress.toLowerCase() === process.env.REACT_APP_USDC ||
       tokenAddress === process.env.REACT_APP_FUSDT
     ) {
-      bid = parseFloat(res[1].toString()) / 1e6;
+      bid = Number(new BigNumber(res[1].toString()).div(1e6).toString());
     } else {
-      bid = parseFloat(res[1].toString()) / 1e18;
+      bid = Number(new BigNumber(res[1].toString()).div(1e18).toString());
+      //console.log('bid', Number(new BigNumber(res[1].toString()).div(1e18).toString()));
     }
 
     const lastBidTime = parseFloat(res[2].toString());
