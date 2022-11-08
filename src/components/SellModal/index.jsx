@@ -188,7 +188,11 @@ const SellModal = ({
             value={'' + price}
             onChange={setPrice}
             onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onBlur={() => 
+              {
+                setFocused(false);
+                setPrice(Number(Number(price).toFixed(5)).toString());
+              }}
             disabled={contractApproving || confirming}
             onInputError={setInputError}
           />
