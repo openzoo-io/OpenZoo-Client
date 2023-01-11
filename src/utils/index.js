@@ -21,8 +21,7 @@ function isValidCode(code) {
 
 export function shortenAddress(address, chars = 4) {
   if (!address) return '';
-  if (address === '0x8930f0cafda831181fd3f5dcccaeb0418b615b56')
-  {
+  if (address === '0x8930f0cafda831181fd3f5dcccaeb0418b615b56') {
     return 'Auction Contract';
   }
   const parsed = isAddress(address);
@@ -33,9 +32,10 @@ export function shortenAddress(address, chars = 4) {
 }
 
 
-
+let random = null;
 export const getRandomIPFS = (tokenURI, justURL = false, isFallback = false) => {
-  let random = Math.floor(Math.random() * IPFSUris.length);
+
+  random = random ?? Math.floor(Math.random() * IPFSUris.length);
 
   if (justURL) {
     return `${IPFSUris[random]}`;
