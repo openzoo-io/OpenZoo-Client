@@ -569,7 +569,7 @@ export function ArtworkDetailPage() {
 
         setInfo(data);
       } catch {
-        history.replace('/404');
+        history.push('/404');
       }
     }
     setLoading(false);
