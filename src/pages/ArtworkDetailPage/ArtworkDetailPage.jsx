@@ -438,7 +438,7 @@ export function ArtworkDetailPage() {
         token: getTokenByAddress(offer.paymentToken),
       }));
 
-      moreItems.current = nfts;
+      
 
       try {
         tokenType.current = type;
@@ -537,7 +537,7 @@ export function ArtworkDetailPage() {
           }
         }
       }
-
+      moreItems.current = nfts;
       setInfo(data);
     } catch (err) {
       console.log('!2 222222', err);
