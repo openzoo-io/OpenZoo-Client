@@ -472,7 +472,9 @@ export function ArtworkDetailPage() {
         const realUri = getRandomIPFS(uri);
         setTokenUri(realUri);
         new URL(realUri);
-        const response = await axios.get(realUri);
+        const response = await axios.get(realUri, {headers: {
+          'Accept': 'text/plain'
+        }});
         data = response.data;
       }
 
@@ -557,7 +559,9 @@ export function ArtworkDetailPage() {
         });
 
         setTokenUri(realUri);
-        const { data } = await axios.get(realUri);
+        const { data } = await axios.get(realUri,{headers: {
+          'Accept': 'text/plain'
+        }});
 
         if (data.image) {
           data.image = getRandomIPFS(data.image, false, isFallback);

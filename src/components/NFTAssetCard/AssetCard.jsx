@@ -133,7 +133,9 @@ function AssetCardComponent(props) {
     try {
       tokenURI = getRandomIPFS(tokenURI);
 
-      const { data } = await axios.get(tokenURI);
+      const { data } = await axios.get(tokenURI,{headers: {
+        'Accept': 'text/plain'
+      }});
 
       if (data[Object.keys(data)[0]].image) {
         data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
@@ -156,7 +158,9 @@ function AssetCardComponent(props) {
     try {
       tokenURI = getRandomIPFS(tokenURI);
 
-      const { data } = await axios.get(tokenURI);
+      const { data } = await axios.get(tokenURI,{headers: {
+        'Accept': 'text/plain'
+      }});
 
       if (data.attributes) {
         data.attributes.map((v) => {
