@@ -1,2 +1,2 @@
-const { override, addDecoratorsLegacy } = require('customize-cra');
-module.exports = override(addDecoratorsLegacy());
+const { override, addDecoratorsLegacy, disableChunk } = require('customize-cra');
+module.exports = override(addDecoratorsLegacy(), disableChunk(false));
