@@ -55,6 +55,7 @@ export const useSalesContract = () => {
     const contract = await getSalesContract();
     const options = {
       gasPrice: getHigherGWEI(),
+      gasLimit: 500000
     };
 
     return await contract['buyItem(address,uint256,address,address)'](
@@ -70,6 +71,7 @@ export const useSalesContract = () => {
     const contract = await getSalesContract();
     const options = {
       gasPrice: getHigherGWEI(),
+      gasLimit: 500000
     };
     
     return await contract['buyItemWithQuantity(address,uint256,address,address,uint256)'](
