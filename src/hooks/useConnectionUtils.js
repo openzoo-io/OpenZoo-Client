@@ -23,7 +23,7 @@ export default () => {
 
         const web3provider = await connector.getProvider();
         const provider = new ethers.providers.Web3Provider(web3provider);
-        const price = (await provider.getGasPrice()) * 5;
+        const price = (await provider.getGasPrice()) * 3;
 
         return price;
     };
