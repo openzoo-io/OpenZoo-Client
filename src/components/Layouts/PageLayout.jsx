@@ -9,8 +9,9 @@ export function PageLayout(props) {
   const { className, containerClassName, children, cover, ...rest } = props;
   const { isEmbed, isDarkMode } = getEmbedParams();
 
-  if (isEmbed && isDarkMode) {
+  if (isDarkMode) { //isEmbed && 
     document.body.classList.add('is__dark');
+    window.localStorage.setItem('darkmode', true);
   }
 
   return (

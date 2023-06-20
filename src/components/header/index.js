@@ -152,6 +152,7 @@ const Header = (props) => {
   useEffect(() => {
     if (account) {
       init();
+      
     } else {
       handleSignOut();
     }
