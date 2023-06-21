@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.5.5",
-    "@bandprotocol/bandchain.js": "^1.2.1",
+
     "@brainhubeu/react-carousel": "^2.0.4",
     "@emotion/core": "^10.0.15",
     "@emotion/styled": "^10.0.15",
@@ -74,7 +74,7 @@
     "material-ui-colors": "^1.0.0",
     "material-ui-image": "^3.3.1",
     "mini-css-extract-plugin": "0.5.0",
-    "mobx": "^5.13.0",
+
     "moment": "^2.24.0",
     "mousetrap": "^1.6.3",
     "optimize-css-assets-webpack-plugin": "5.0.3",
@@ -96,13 +96,13 @@
     "react-dom": "^16.9.0",
     "react-dropdown-select": "^4.7.4",
     "react-dropzone": "^11.3.2",
-    "react-google-recaptcha": "^2.1.0",
+
     "react-hot-toast": "^1.0.2",
-    "react-list-drag-and-drop": "^0.9.1",
+
     "react-loader-spinner": "^4.0.0",
     "react-loading-skeleton": "^2.2.0",
     "react-player": "^2.9.0",
-    "react-range": "^1.4.3",
+
     "react-redux": "^7.2.2",
     "react-resize-detector": "^6.7.4",
     "react-router-dom": "^5.2.0",
@@ -129,7 +129,7 @@
     "ts-pnp": "1.1.2",
     "ua-parser-js": "^0.7.20",
     "url-loader": "2.1.0",
-    "walletconnect": "^1.7.7",
+
     "webpack": "4.39.1",
     "webpack-dev-server": "3.2.1",
     "webpack-manifest-plugin": "2.0.4",
