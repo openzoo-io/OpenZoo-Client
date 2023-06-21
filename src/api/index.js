@@ -173,9 +173,26 @@ export const useApi = () => {
     return res.data;
   };
 
+  // Caching for Collections //
+  const writeToCache = (cacheKey, data) => {
+    sessionStorage.setItem(cacheKey, JSON.stringify(data))
+  }
+
+  const readFromCache = cacheKey => JSON.parse(sessionStorage.getItem(cacheKey)) || null
+
   const fetchCollections = async () => {
-    const res = await axios.get(`${apiUrl}/info/getcollections`);
-    return res.data;
+    const cacheKey = 'collections'
+    const cacheData = readFromCache(cacheKey);
+
+    if (!cacheData) {
+      const res = await axios.get(`${apiUrl}/info/getcollections`);
+      writeToCache(cacheKey, res.data)
+      return res.data;
+    }
+    else
+    {
+      return cacheData;
+    }
   };
 
   // For Profile Colleciton List //
