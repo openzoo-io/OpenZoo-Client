@@ -52,7 +52,7 @@ export function AssetCardFour(props) {
     zooElixir,
     auctionOwnerInfo,
   } = props;
-  const { apiUrl } = useApi();
+  const { thumbUrl } = useApi();
   const assetUrl = item
     ? `/collection/${item?.contractAddress}/${item?.tokenID}${
         getEmbedParams().isEmbed ? window.location.search : ''
@@ -227,7 +227,7 @@ export function AssetCardFour(props) {
               src={
                 (item?.thumbnailPath !== '-' &&
                   item?.thumbnailPath !== '.' &&
-                  apiUrl + '/image/' + item?.thumbnailPath+'?img-quality=60&img-format=auto&img-width=676') ||
+                  thumbUrl + '/image/' + item?.thumbnailPath+'?img-quality=60&img-format=auto&img-width=676') ||
                 getRandomIPFS(info?.image)+'?img-quality=60&img-format=auto&img-width=676' ||
                 getRandomIPFS(item?.imageURL) + '?img-quality=60&img-format=auto&img-width=676'
               }
@@ -254,7 +254,7 @@ export function AssetCardFour(props) {
                   image={
                     (item?.thumbnailPath !== '-' &&
                       item?.thumbnailPath !== '.' &&
-                      apiUrl + '/image/' + item?.thumbnailPath) ||
+                      thumbUrl + '/image/' + item?.thumbnailPath) ||
                     getRandomIPFS(info?.image) ||
                     getRandomIPFS(item?.imageURL)
                   }

@@ -12,6 +12,10 @@ export const useApi = () => {
     ? 'https://api-mainnet.openzoo.io'
     : 'https://api.openzoo.io';
 
+  const thumbUrl = isMainnet
+    ? 'https://thumb-mainnet.openzoo.io'
+    : 'https://api.openzoo.io';
+
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
@@ -189,8 +193,7 @@ export const useApi = () => {
       writeToCache(cacheKey, res.data)
       return res.data;
     }
-    else
-    {
+    else {
       return cacheData;
     }
   };
@@ -210,7 +213,7 @@ export const useApi = () => {
 
   // For Colleciton List page //
   const fetchCollectionList = async (isVerified, start, _count, sortedBy) => {
-    
+
     const res = await axios({
       method: 'post',
       url: `${apiUrl}/info/getCollectionList`,
@@ -1051,6 +1054,7 @@ export const useApi = () => {
   return {
     explorerUrl,
     apiUrl,
+    thumbUrl,
     storageUrl,
     getNonce,
     getAuthToken,
