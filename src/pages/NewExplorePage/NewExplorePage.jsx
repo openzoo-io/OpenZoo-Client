@@ -87,32 +87,29 @@ export function NewExplorePage() {
     };
   }, []);
 
-
   useEffect(() => {
     window.localStorage.removeItem('collection_tokens');
-      window.localStorage.removeItem('collection_count');
-      window.localStorage.removeItem('collection_from');
-      window.localStorage.removeItem('collection_to');
+    window.localStorage.removeItem('collection_count');
+    window.localStorage.removeItem('collection_from');
+    window.localStorage.removeItem('collection_to');
     window.localStorage.removeItem('collection_fromTop');
-    window.addEventListener("unload", function () {
-     // Delete //
+    window.addEventListener('visibilitychange', function() {
+      // Delete //
       window.localStorage.removeItem('explore_tokens');
       window.localStorage.removeItem('explore_count');
       window.localStorage.removeItem('explore_from');
       window.localStorage.removeItem('explore_to');
       window.localStorage.removeItem('fromTop');
-    })
-}, []);
+    });
+  }, []);
 
   useEffect(() => {
     setPrevNumPerRow(numPerRow);
     if (isNaN(numPerRow) || (prevNumPerRow && prevNumPerRow !== numPerRow))
       return;
 
-    
     let tmpTokens = JSON.parse(window.localStorage.getItem('explore_tokens'));
     if (tmpTokens) {
-      
       tokens = tmpTokens;
       //console.log('tmpTokens', tokens);
       count = Number(window.localStorage.getItem('explore_count'));
@@ -121,12 +118,12 @@ export function NewExplorePage() {
       //console.log(tokens);
       dispatch(TokensActions.fetchingSuccess(count, tokens, from, to));
 
-
-
-
       if (window.localStorage.getItem('fromTop')) {
         let scroll = Scroll.animateScroll;
-        scroll.scrollTo(window.localStorage.getItem('fromTop'),{duration:0,delay:0});
+        scroll.scrollTo(window.localStorage.getItem('fromTop'), {
+          duration: 0,
+          delay: 0,
+        });
       }
 
       // Delete //
@@ -270,7 +267,6 @@ export function NewExplorePage() {
       window.localStorage.setItem('explore_from', Number(_from));
       window.localStorage.setItem('explore_to', Number(_to));
 
-     
       if (dir === 0 && from) {
         // move scrollbar to middle
         const obj = width > 600 ? ref.current : conRef.current;
@@ -282,7 +278,6 @@ export function NewExplorePage() {
       }
     } finally {
       setCancelSource(null);
-      
     }
   };
 
