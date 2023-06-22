@@ -18,15 +18,16 @@
 
 
   <link rel="apple-touch-icon" href="icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.typekit.net/evf2xmx.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" />
   <link rel="stylesheet" type="text/css" charset="UTF-8"
     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -55,7 +56,37 @@
 
 <body id="body" class="body">
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root">Loading...<br/>If the page seems stuck, please click "<a href="#" onclick="javascript:window.location.reload(true)">reload</a>"</div>
+  <div id="root">
+    <main>
+      <div class="custom-loader"></div>
+    </main>
+    <style>
+      main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .custom-loader {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 8px solid;
+        border-color: #ffc107;
+        border-right-color: #00A59A;
+        animation: s2 1s infinite linear;
+      }
+
+      @keyframes s2 {
+        to {
+          transform: rotate(1turn)
+        }
+      }
+    </style>
+  </div>
+  <!-- <div id="root">Loading...<br/>If the page seems stuck, please click "<a href="#" onclick="javascript:window.location.reload(true)">reload</a>"</div> -->
   <script src="%PUBLIC_URL%/assets/js/jquery-3.6.0.js"></script>
   <script src="%PUBLIC_URL%/assets/js/bootstrap.bundle.min.js"></script>
   <script src="%PUBLIC_URL%/assets/js/swiper-bundle.min.js"></script>
@@ -64,14 +95,13 @@
   <script src="%PUBLIC_URL%/assets/js/sticky-sidebar.js"></script>
   <script src="%PUBLIC_URL%/assets/js/script.js"></script>
   <script>
-    setTimeout(()=>{
+    setTimeout(() => {
       const elem = document.querySelector("#root");
       //alert(elem.childNodes.length)
-      if (elem.childNodes.length === 5)
-      {
+      if (elem.childNodes.length === 5) {
         window.location.reload(true);
       }
-    },3000)
+    }, 3000)
   </script>
 </body>
 
