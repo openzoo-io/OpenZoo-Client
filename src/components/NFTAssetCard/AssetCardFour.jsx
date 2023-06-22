@@ -227,9 +227,9 @@ export function AssetCardFour(props) {
               src={
                 (item?.thumbnailPath !== '-' &&
                   item?.thumbnailPath !== '.' &&
-                  apiUrl + '/image/' + item?.thumbnailPath+'?img-quality=60&img-format=jpeg&img-width=676') ||
-                getRandomIPFS(info?.image)+'?img-quality=60&img-format=jpeg&img-width=676' ||
-                getRandomIPFS(item?.imageURL) + '?img-quality=60&img-format=jpeg&img-width=676'
+                  apiUrl + '/image/' + item?.thumbnailPath+'?img-quality=60&img-format=auto&img-width=676') ||
+                getRandomIPFS(info?.image)+'?img-quality=60&img-format=auto&img-width=676' ||
+                getRandomIPFS(item?.imageURL) + '?img-quality=60&img-format=auto&img-width=676'
               }
             />
             {!zooElixir && (

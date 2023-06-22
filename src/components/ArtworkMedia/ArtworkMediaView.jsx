@@ -141,7 +141,7 @@ export function ArtworkMediaView(props) {
         <Suspense fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}>
           <SuspenseImg
             className={cx(styles.mediaInner, className)}
-            src={image2+'?img-quality=60&img-format=jpeg&img-width=676'}
+            src={image2+'?img-quality=60&img-format=auto&img-width=676'}
             onError={addDefaultSrc}
           />
         </Suspense>
