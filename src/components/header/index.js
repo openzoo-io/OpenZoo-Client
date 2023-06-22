@@ -152,7 +152,7 @@ const Header = (props) => {
   useEffect(() => {
     if (account) {
       init();
-      
+
     } else {
       handleSignOut();
     }
@@ -528,7 +528,6 @@ const Header = (props) => {
                 <NavLink
                   to="/explore"
                   className={'color_black'}
-                  activeClassName={styles.active}
                 >
                   Explore
                 </NavLink>
@@ -538,7 +537,6 @@ const Header = (props) => {
                   <NavLink
                     to="/collections"
                     className={'color_black'}
-                    activeClassName={styles.active}
                   >
                     Collections
                   </NavLink>
@@ -758,7 +756,6 @@ const Header = (props) => {
                   <Link
                     to="/create"
                     className={'btn btn-warning w-full'}
-                    activeClassName={styles.active}
                   >
                     Create
                   </Link>
