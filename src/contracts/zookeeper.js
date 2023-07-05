@@ -2,7 +2,7 @@ import { Contracts } from 'constants/networks';
 import { ALCHEMY_ABI } from 'contracts';
 import useContract from 'hooks/useContract';
 
-import { ZOOBOOSTER_ABI } from './abi';
+import { SASAIRDROP_ABI, ZOOBOOSTER_ABI } from './abi';
 
 // eslint-disable-next-line no-undef
 const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
@@ -53,4 +53,17 @@ export const useZooElixirContract = () => {
     return {
         getElixir
     };
+}
+
+export const useSASAirdropContract = () => {
+    const { getContract } = useContract();
+    const getSASAirdropContract = async () =>
+        await getContract(Contracts[CHAIN].sasAirdrop, SASAIRDROP_ABI);
+    const getIsSASClaimed = async (tokenId) => {
+        const contract = await getSASAirdropContract();
+        return await contract.nftClaimed(tokenId);
+    }
+    return {
+        getIsSASClaimed
+    }
 }

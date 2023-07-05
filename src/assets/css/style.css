@@ -14080,6 +14080,27 @@ label:active:after {
     align-items: center;
 }
 
+.card__item .card_head .cardSASClass
+{
+  position: absolute;
+  padding: 3px 12px;
+  z-index: 1;
+  top: 5px;
+  right: 5px;
+  display:flex;
+  padding: 2px 10px;
+  background:white;
+  border-radius: 10px;
+  font-size:9px;
+  flex-direction: column;
+  justify-content: center;
+  line-height:9px;
+  align-items: center;
+  color: #00a59a !important;
+  text-transform: uppercase;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
 .card__item .card_head .cardZooGeneClass {
   position: absolute;
   padding: 3px 12px;

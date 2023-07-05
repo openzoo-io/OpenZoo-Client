@@ -50,6 +50,7 @@ export function AssetCardFour(props) {
     cardHeaderClassName,
     zooGeneClass,
     zooElixir,
+    sasClaimed,
     auctionOwnerInfo,
   } = props;
   const { thumbUrl } = useApi();
@@ -227,9 +228,14 @@ export function AssetCardFour(props) {
               src={
                 (item?.thumbnailPath !== '-' &&
                   item?.thumbnailPath !== '.' &&
-                  thumbUrl + '/image/' + item?.thumbnailPath+'?img-quality=60&img-format=auto&img-width=676') ||
-                getRandomIPFS(info?.image)+'?img-quality=60&img-format=auto&img-width=676' ||
-                getRandomIPFS(item?.imageURL) + '?img-quality=60&img-format=auto&img-width=676'
+                  thumbUrl +
+                    '/image/' +
+                    item?.thumbnailPath +
+                    '?img-quality=60&img-format=auto&img-width=676') ||
+                getRandomIPFS(info?.image) +
+                  '?img-quality=60&img-format=auto&img-width=676' ||
+                getRandomIPFS(item?.imageURL) +
+                  '?img-quality=60&img-format=auto&img-width=676'
               }
             />
             {!zooElixir && (
@@ -300,6 +306,14 @@ export function AssetCardFour(props) {
                 </div>
                 <div className="cardZooElixirFilled">
                   {(Number(zooElixir?.drops?.toString()) / 1e18).toFixed(2)}%
+                </div>
+              </>
+            )}
+            {sasClaimed && (
+              <>
+                <div className="cardSASClass">
+                  <span>Airdrop</span>
+                  <span><b>Claimed</b></span>
                 </div>
               </>
             )}

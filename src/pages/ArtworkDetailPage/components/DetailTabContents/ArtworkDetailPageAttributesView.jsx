@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Contracts } from 'constants/networks';
 import {
+  useSASAirdropContract,
   useZooBoosterContract,
   useZooElixirContract,
 } from 'contracts/zookeeper';
@@ -28,9 +29,14 @@ export function ArtworkDetailPageAttributesView(props) {
 
   const { getBoosting, getLockTimeReduce } = useZooBoosterContract();
   const { getElixir } = useZooElixirContract();
+  const { getIsSASClaimed } = useSASAirdropContract();
 
   const [zooBoosterBoosting, setzooBoosterBoosting] = useState(0);
   const [zooBoosterLockTimeReduce, setzooBoosterLockTimeReduce] = useState(0);
+
+  // SAS //
+  const [SASClaimed, setSASClaimed] = useState(false);
+
   const [zooElixir, setzooElixir] = useState({});
 
   useEffect(() => {
@@ -51,6 +57,15 @@ export function ArtworkDetailPageAttributesView(props) {
         //console.log('Elixir Info',ret);
         //console.log('Elixir Info',zooElixir);
       });
+    }
+    // SAS Claimed //
+    if ('0xc2b3af0a56387d4ef095a80a174f493e9a0438a5' === address.toLowerCase()) {
+      getIsSASClaimed(tokenID).then(ret => {
+        if (ret.toString() !== "0")
+        {
+          setSASClaimed(true)
+        }
+      })
     }
 
 
@@ -124,6 +139,19 @@ export function ArtworkDetailPageAttributesView(props) {
         <div className={styles.attributeLabel}>Lock Reduce</div>
         <div className={styles.attributeValue}>
           -{zooBoosterLockTimeReduce.toFixed(3)}%
+        </div>
+      </>
+    );
+  }
+
+  // SAS Airdrop - Additional Data //
+  if ('0xc2b3af0a56387d4ef095a80a174f493e9a0438a5' === address.toLowerCase()) {
+    
+    res.push(
+      <>
+        <div className={styles.attributeLabel}>Airdrop Claimed</div>
+        <div className={styles.attributeValue}>
+          {SASClaimed ? 'Yes' : 'No'}
         </div>
       </>
     );
@@ -312,6 +340,8 @@ export function ArtworkDetailPageAttributesView(props) {
         return;
       }
     }
+
+   
 
     res.push(
       <>

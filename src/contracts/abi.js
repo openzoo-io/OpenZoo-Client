@@ -3379,6 +3379,29 @@ export const ALCHEMY_ABI = [
   }
 ];
 
+// For nftClaimed only
+export const SASAIRDROP_ABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "nftClaimed",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
+
 export default {
   SALES_CONTRACT_ABI,
   BUNDLE_SALES_CONTRACT_ABI,

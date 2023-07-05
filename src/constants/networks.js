@@ -37,6 +37,7 @@ export const Contracts = {
     zooElixir: '0xA67213608Db9D4BFFAc75baD01Ca5B1f4ad0724c',
     zooAlchemy: '0x23A9f34aa1e45f9E191A6615d24A781607a1bcb1',
     zooGenes: '0x992e4447f470ea47819d677b84d2459677bfdadf',
+    sasAirdrop: '0x75ddDe8fDA1db1d04e743D48cc9B2dBCB3a0150f'
   },
   999: {
     auction: '0x7e408f989deD4ac3ce2AdddD96b8E518Cbdc9aa0',
@@ -50,5 +51,6 @@ export const Contracts = {
     zooElixir: '0xDe3f8DA0Cf18b4ddc5e2f3d94ca3694c241507Bd',
     zooAlchemy: '0x910A1a6b133A6A869141722872Eb19609A16B511',
     zooGenes: '0x35b0b5c350b62ddee9be102b7567c4dabe52cf4f',
+    sasAirdrop: '0x75ddDe8fDA1db1d04e743D48cc9B2dBCB3a0150f'
   },
 };

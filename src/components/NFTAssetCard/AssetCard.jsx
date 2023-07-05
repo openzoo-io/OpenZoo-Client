@@ -17,6 +17,7 @@ import useTokens from 'hooks/useTokens';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import {
+  useSASAirdropContract,
   //useZooBoosterContract,
   useZooElixirContract,
 } from 'contracts/zookeeper';
@@ -53,7 +54,15 @@ const propTypes = {
 // };
 
 function AssetCardComponent(props) {
-  const { preset, item, loading, onLike, cardHeaderClassName, warnedCollections, ...rest } = props;
+  const {
+    preset,
+    item,
+    loading,
+    onLike,
+    cardHeaderClassName,
+    warnedCollections,
+    ...rest
+  } = props;
 
   const { likeItem, likeBundle, getUserAccountDetails } = useApi();
   const { getAuction } = useAuctionContract();
@@ -68,7 +77,9 @@ function AssetCardComponent(props) {
   const [info, setInfo] = useState(null);
   const [auction, setAuction] = useState(null);
   const [zooGeneClass, setZooGeneClass] = useState(null);
+  const [sasClaimed, setSASClaimed] = useState(null);
   const { getElixir } = useZooElixirContract();
+  const { getIsSASClaimed } = useSASAirdropContract();
   const [zooElixir, setZooElixir] = useState(null);
   // TODO: delete faker code
   const _item = item && Object.keys(item).length > 0 ? item : []; ///fakerAsset();
@@ -96,7 +107,6 @@ function AssetCardComponent(props) {
           item.imageURL = getRandomIPFS(item.imageURL);
         }
 
-
         setLiked(item.liked);
         setAuction(null);
         if (item.items) {
@@ -107,15 +117,24 @@ function AssetCardComponent(props) {
         }
 
         // Get Class for Collection ZooGene //
-        if (item.contractAddress === '0x992e4447f470ea47819d677b84d2459677bfdadf')
-        {
+        if (
+          item.contractAddress === '0x992e4447f470ea47819d677b84d2459677bfdadf'
+        ) {
           await getZooGeneClass(item.tokenURI);
         }
 
         // Get Class for Collection ZooElixir //
-        if (item.contractAddress === '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c')
-        {
+        if (
+          item.contractAddress === '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
+        ) {
           await getZooElixirClass(item.tokenID);
+        }
+
+        // Get Claimed SAS //
+        if (
+          item.contractAddress === '0xc2b3af0a56387d4ef095a80a174f493e9a0438a5'
+        ) {
+          await getSASNFTsClaimed(item.tokenID);
         }
       }
     }
@@ -133,9 +152,11 @@ function AssetCardComponent(props) {
     try {
       tokenURI = getRandomIPFS(tokenURI);
 
-      const { data } = await axios.get(tokenURI,{headers: {
-        'Accept': 'text/plain'
-      }});
+      const { data } = await axios.get(tokenURI, {
+        headers: {
+          Accept: 'text/plain',
+        },
+      });
 
       if (data[Object.keys(data)[0]].image) {
         data.image = getRandomIPFS(data[Object.keys(data)[0]].image);
@@ -154,47 +175,55 @@ function AssetCardComponent(props) {
   };
 
   const getZooGeneClass = async tokenURI => {
-    
     try {
       tokenURI = getRandomIPFS(tokenURI);
 
-      const { data } = await axios.get(tokenURI,{headers: {
-        'Accept': 'text/plain'
-      }});
+      const { data } = await axios.get(tokenURI, {
+        headers: {
+          Accept: 'text/plain',
+        },
+      });
 
       if (data.attributes) {
-        data.attributes.map((v) => {
-          if (v.trait_type === 'Class')
-            setZooGeneClass(v.value);
+        data.attributes.map(v => {
+          if (v.trait_type === 'Class') setZooGeneClass(v.value);
         });
       }
-
-    
-
     } catch {
-     console.log('error')
+      console.log('error');
     }
-    
   };
 
   const getZooElixirClass = async tokenID => {
-    
     try {
       getElixir(tokenID).then(ret => {
         setZooElixir(ret);
-        console.log('Elixir Info',ret);
+        console.log('Elixir Info', ret);
         //console.log('Elixir Info',zooElixir);
       });
-
     } catch {
-     console.log('error')
+      console.log('error');
     }
-    
   };
 
+  const getSASNFTsClaimed = async tokenID => {
+    try {
+      getIsSASClaimed(tokenID).then(ret => {
+        //setZooElixir(ret);
+        if (ret.toString() !== "0")
+        {
+          setSASClaimed(true)
+        }
+        //console.log('SAS', tokenID , );
+        //console.log('Elixir Info',zooElixir);
+      });
+    } catch {
+      console.log('error');
+    }
+  };
 
   const [auctionOwnerInfo, setAuctionOwnerInfo] = useState(null);
-  const getAuctionOwnerInfo = async (auctionOwner) => {
+  const getAuctionOwnerInfo = async auctionOwner => {
     try {
       const { data } = await getUserAccountDetails(auctionOwner);
       setAuctionOwnerInfo(data);
@@ -250,8 +279,7 @@ function AssetCardComponent(props) {
     }
   };
 
-  if (preset === 'four')
-  {
+  if (preset === 'four') {
     return (
       <AssetCardFour
         item={_item}
@@ -267,6 +295,7 @@ function AssetCardComponent(props) {
         authToken={authToken}
         zooGeneClass={zooGeneClass}
         zooElixir={zooElixir}
+        sasClaimed={sasClaimed}
         auctionOwnerInfo={auctionOwnerInfo}
         {...rest}
       />
