@@ -4,9 +4,9 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:prettier/recommended',
+    //'eslint:recommended',
+    //'plugin:react/recommended',
+    //'plugin:prettier/recommended',
   ],
   parser: 'babel-eslint',
   globals: {
@@ -23,11 +23,5 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/prop-types': 'off',
-    'prettier/prettier': [
-      'warn',
-      {
-        endOfLine: 'auto',
-      },
-    ],
   },
 };

@@ -1,11 +1,8 @@
 {
-  "name": "paint",
-  "homepage": "https://youngmanalive.github.io",
-  "version": "0.1.0",
+  "name": "openzoo",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "7.5.5",
-
     "@brainhubeu/react-carousel": "^2.0.4",
     "@emotion/core": "^10.0.15",
     "@emotion/styled": "^10.0.15",
@@ -17,8 +14,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/styles": "^4.11.3",
-    "@react-three/drei": "^7.26.1",
-    
+    "@react-three/drei": "^9.80.1",
     "@svgr/webpack": "4.3.2",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
@@ -29,8 +25,6 @@
     "@web3-react/walletlink-connector": "^6.2.3",
     "axios": "^0.21.1",
     "axios-react": "^2.0.2",
-    "babel-jest": "^24.8.0",
-    "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.3",
     "babel-preset-react-app": "^9.0.1",
     "bignumber.js": "^9.1.0",
@@ -42,64 +36,38 @@
     "dotenv-expand": "4.2.0",
     "email-deep-validator": "^3.3.0",
     "erc721": "^5.2.0",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-config-react-app": "^5.0.0",
-    "eslint-loader": "2.2.1",
-    "eslint-plugin-flowtype": "3.13.0",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-mobx": "^0.0.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
     "ethers": "^5.5.3",
     "faker": "^5.4.0",
     "file-loader": "3.0.1",
     "file-saver": "^2.0.5",
-    "firebase": "^8.2.7",
-    "firebase-admin": "^9.5.0",
-    "font-awesome": "^4.7.0",
     "fs-extra": "7.0.1",
     "gh-pages": "^2.1.1",
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
     "jazzicon": "https://github.com/openzoo-io/jazzicon.git",
-
     "material-ui": "^0.20.2",
     "material-ui-colors": "^1.0.0",
     "material-ui-image": "^3.3.1",
     "mini-css-extract-plugin": "0.5.0",
-
     "moment": "^2.24.0",
-    "mousetrap": "^1.6.3",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.5.0",
-    "postcss-flexbugs-fixes": "4.1.0",
-    "postcss-loader": "3.0.0",
-    "postcss-normalize": "7.0.1",
-    "postcss-preset-env": "6.7.0",
-    "postcss-safe-parser": "4.0.1",
-    "prettier": "^1.19.1",
     "radiance-ui": "^4.2.1",
-    "react": "^16.9.0",
+    "react": "^18.2.0",
     "react-app-polyfill": "^1.0.2",
     "react-app-rewired": "^2.1.8",
     "react-copy-to-clipboard": "^5.0.3",
     "react-datetime": "^3.0.4",
     "react-dev-utils": "^9.0.2",
     "react-device-detect": "^1.17.0",
-    "react-dom": "^16.9.0",
+    "react-dom": "^18.2.0",
     "react-dropdown-select": "^4.7.4",
     "react-dropzone": "^11.3.2",
-
     "react-hot-toast": "^1.0.2",
-
     "react-loader-spinner": "^4.0.0",
     "react-loading-skeleton": "^2.2.0",
     "react-player": "^2.9.0",
-
     "react-redux": "^7.2.2",
     "react-resize-detector": "^6.7.4",
     "react-router-dom": "^5.2.0",
@@ -126,15 +94,11 @@
     "ts-pnp": "1.1.2",
     "ua-parser-js": "^0.7.20",
     "url-loader": "2.1.0",
-
-    "webpack": "4.39.1",
-    "webpack-dev-server": "3.2.1",
-    "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build"
+    "start": "react-app-rewired --openssl-legacy-provider start",
+    "build": "react-app-rewired --openssl-legacy-provider build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -149,20 +113,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-
-  "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true
-        }
-      ]
-    ],
-    "presets": [
-      "react-app"
     ]
   },
   "devDependencies": {

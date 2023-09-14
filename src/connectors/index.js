@@ -12,10 +12,10 @@ const isMainnet = process.env.REACT_APP_ENV === 'MAINNET';
 
 const RPC = isMainnet
   ? {
-    [888]: 'https://rpc.zookeeper.finance',
+    [888]: 'https://gwan-ssl.wandevs.org:56891',
   }
   : {
-    [999]: 'https://rpc.zookeeper.finance/testnet',
+    [999]: 'https://gwan-ssl.wandevs.org:46891',
   };
 
 export const network = new NetworkConnector({
@@ -35,12 +35,12 @@ export const injected = new InjectedConnector({
 
 export const walletconnect = new WalletConnectConnector({
   infuraId: '326fb0397704475abffcfa9ca9c0ee5a',
-  rpcUrl: 'https://rpc.zookeeper.finance',
+  rpcUrl: 'https://gwan-ssl.wandevs.org:56891',
   chainId: 888,
   networkId: 888,
   rpc: {
-    888: 'https://rpc.zookeeper.finance',
-    999: 'https://rpc.zookeeper.finance/testnet',
+    888: 'https://gwan-ssl.wandevs.org:56891',
+    999: 'https://gwan-ssl.wandevs.org:46891',
   }
 });
 
