@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
 import 'assets/css/plugins/remixicon.min.css';
@@ -14,8 +14,9 @@ import { NetworkContextName } from './constants';
 import getLibrary from './utils/getLibrary';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
+const root = createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
@@ -24,6 +25,5 @@ ReactDOM.render(
         </Web3ReactManager>
       </Web3ProviderNetwork>
     </Web3ReactProvider>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );

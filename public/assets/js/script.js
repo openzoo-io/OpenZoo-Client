@@ -259,37 +259,37 @@ setInterval(function () { makeTimer(); }, 1000);
 
 
 // Scroll Animation
-(function () {
+// (function () {
 
-	gsap.registerPlugin(ScrollTrigger);
-	gsap.to(".creators_anim1", {
-		x: 500,
-		duration: 3,
-		scrollTrigger: {
-			trigger: ".dribbble_svg",
-			scrub: true
-		}
-	});
+// 	gsap.registerPlugin(ScrollTrigger);
+// 	gsap.to(".creators_anim1", {
+// 		x: 500,
+// 		duration: 3,
+// 		scrollTrigger: {
+// 			trigger: ".dribbble_svg",
+// 			scrub: true
+// 		}
+// 	});
 
-	gsap.to(".creators_anim2", {
-		x: -500,
-		duration: 3,
-		scrollTrigger: {
-			trigger: ".dribbble_svg",
-			scrub: true
-		}
-	});
-	gsap.to(".creators_anim3", {
-		x: 500,
-		duration: 3,
-		scrollTrigger: {
-			trigger: ".dribbble_svg",
-			scrub: true
-		}
-	});
+// 	gsap.to(".creators_anim2", {
+// 		x: -500,
+// 		duration: 3,
+// 		scrollTrigger: {
+// 			trigger: ".dribbble_svg",
+// 			scrub: true
+// 		}
+// 	});
+// 	gsap.to(".creators_anim3", {
+// 		x: 500,
+// 		duration: 3,
+// 		scrollTrigger: {
+// 			trigger: ".dribbble_svg",
+// 			scrub: true
+// 		}
+// 	});
 
 
-}());
+// }());
 
 // profile Image
 $("#profileImage").click(function (e) {
