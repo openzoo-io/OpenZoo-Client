@@ -10,7 +10,7 @@ export const useApi = () => {
 
   const apiUrl = isMainnet
     ? 'https://api-mainnet-proxy.openzoo.io'
-    : 'https://api.openzoo.io';
+    : 'https://api.openzoo.io'; 
 
   const thumbUrl = isMainnet
     ? 'https://thumb-mainnet.openzoo.io'
