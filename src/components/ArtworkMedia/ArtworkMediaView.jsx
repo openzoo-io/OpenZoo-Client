@@ -137,7 +137,7 @@ export function ArtworkMediaView(props) {
     if (image) {
       // Convert from zoo-factory.vercel.app to Zookeeper //
       let image2 = image.replace("zoo-factory.vercel.app","app.zookeeper.finance");
-      image2=image.replace("api-mainnet","thumb-mainnet");
+      image2=image.replace("api-mainnet-proxy","thumb-mainnet");
       return (
         <Suspense fallback={<Loader type="Oval" stroke="#00A59A" size={32} />}>
           <SuspenseImg

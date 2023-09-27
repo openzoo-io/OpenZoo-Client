@@ -9,7 +9,7 @@ export const useApi = () => {
     : 'https://testnet.wanscan.org';
 
   const apiUrl = isMainnet
-    ? 'https://api-mainnet.openzoo.io'
+    ? 'https://api-mainnet-proxy.openzoo.io'
     : 'https://api.openzoo.io';
 
   const thumbUrl = isMainnet
@@ -19,7 +19,7 @@ export const useApi = () => {
   // eslint-disable-next-line no-undef
   // const apiUrl = process.env.REACT_APP_API_URI;
   const storageUrl = isMainnet
-    ? 'https://api-mainnet.openzoo.io'
+    ? 'https://api-mainnet-proxy.openzoo.io'
     : 'https://api.openzoo.io';
 
   // const tokenURL = 'https://fetch-tokens.vercel.app/api';
