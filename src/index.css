@@ -437,3 +437,9 @@ input:read-only:focus {
   color: #00a59a !important;
   font-weight: bold !important;
 }
+
+#nprogress .bar
+{
+  height:5px !important;
+  background: #00a59a !important;
+}
