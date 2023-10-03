@@ -27,7 +27,7 @@ import PriceActions from 'actions/price.actions';
 //import { HomePage } from 'pages/HomePage/HomePage';
 //import { NewExplorePage } from 'pages/NewExplorePage';
 //import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
-//import { AccountProfilePage } from 'pages/AccountProfilePage';
+import { AccountProfilePage } from 'pages/AccountProfilePage';
 //import { CollectionsPage } from 'pages/CollectionsPage';
 //import { CollectionList } from 'pages/CollectionList';
 import axios from 'axios';
@@ -38,7 +38,7 @@ const NewExplorePage = React.lazy(() => import('../pages/NewExplorePage/NewExplo
 const ArtworkDetailPage = React.lazy(() => import('../pages/ArtworkDetailPage/ArtworkDetailPage'));
 const CollectionList = React.lazy(() => import('../pages/CollectionList/CollectionList'));
 const CollectionsPage = React.lazy(() => import('../pages/CollectionsPage/CollectionsPage'));
-const AccountProfilePage = React.lazy(() => import('../pages/AccountProfilePage/AccountProfilePage'));
+//const AccountProfilePage = React.lazy(() => import('../pages/AccountProfilePage/AccountProfilePage'));
 
 
 
