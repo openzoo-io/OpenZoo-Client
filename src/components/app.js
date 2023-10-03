@@ -113,7 +113,7 @@ const App = () => {
     };
 
     getPrice();
-    const timer = setInterval(getPrice, 1000 * 10);
+    const timer = setInterval(getPrice, 1000 * 60);
     return () => {
       clearInterval(timer);
     }
