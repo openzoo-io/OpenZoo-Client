@@ -58,6 +58,7 @@ export default function NewExplorePage() {
     statusOnAuction,
   } = useSelector(state => state.Filter);
 
+
   const prevAuthToken = usePrevious(authToken);
 
   const numPerRow = Math.floor(gridWidth / 256);
@@ -110,6 +111,7 @@ export default function NewExplorePage() {
 
     let tmpTokens = JSON.parse(window.localStorage.getItem('explore_tokens'));
     if (tmpTokens) {
+     // dispatch(TokensActions.startFetching(1));
       tokens = tmpTokens;
       //console.log('tmpTokens', tokens);
       count = Number(window.localStorage.getItem('explore_count'));
@@ -177,6 +179,7 @@ export default function NewExplorePage() {
   };
 
   const fetchNFTs = async dir => {
+    //console.log('fetching...', dir)
     if (cancelSource) {
       cancelSource.cancel();
     }
@@ -189,12 +192,16 @@ export default function NewExplorePage() {
       if (statusHasBids) filterBy.push('hasBids');
       if (statusHasOffers) filterBy.push('hasOffers');
       if (statusOnAuction) filterBy.push('onAuction');
+      
 
       const cancelTokenSource = axios.CancelToken.source();
       setCancelSource(cancelTokenSource);
 
       let start;
       let _count = fetchCount;
+
+      //console.log('filterBy', filterBy, fetchCount);
+
       if (dir !== 0) {
         _count -= tokens.length % numPerRow;
         start = Math.max(dir < 0 ? from - _count : to, 0);
@@ -283,6 +290,8 @@ export default function NewExplorePage() {
 
   const handleOnReachArtworksBottom = () => {
     if (upFetching || downFetching) return;
+    //console.log('onlyVerified', onlyVerified)
+
     fetchNFTs(1);
   };
 

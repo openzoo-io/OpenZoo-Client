@@ -21,11 +21,12 @@ export function ExplorePageArtworksSection(props) {
 
   const loadMoreRef = React.useCallback(
     node => {
-      console.log(props.items.length,props.count);
+      //console.log(props.items.length,props.count);
       const hasMore = props.items.length !== props.count; // TODO: Need to check
       //console.log(props.items.length);
       //console.log(props.count);
       if (props.loading) return;
+      if (props.count === null) return;
       if (observer.current) observer.current?.disconnect();
       observer.current = new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && hasMore) {
