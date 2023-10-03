@@ -25,14 +25,21 @@ import CollectionCreate from '../pages/Collection/Create';
 import CollectionReview from '../pages/Collection/Review';
 import NotificationSetting from '../pages/NotificationSetting';
 import PriceActions from 'actions/price.actions';
-import { HomePage } from 'pages/HomePage';
-import { NewExplorePage } from 'pages/NewExplorePage';
-import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
+//import { HomePage } from 'pages/HomePage/HomePage';
+//import { NewExplorePage } from 'pages/NewExplorePage';
+//import { ArtworkDetailPage } from 'pages/ArtworkDetailPage';
 import { AccountProfilePage } from 'pages/AccountProfilePage';
 import { CollectionsPage } from 'pages/CollectionsPage';
-import { CollectionList } from 'pages/CollectionList';
+//import { CollectionList } from 'pages/CollectionList';
 import axios from 'axios';
 import CoinGeckoActions from 'actions/coinGecko.actions';
+
+const HomePage = React.lazy(() => import('../pages/HomePage/HomePage'));
+const NewExplorePage = React.lazy(() => import('../pages/NewExplorePage/NewExplorePage'));
+const ArtworkDetailPage = React.lazy(() => import('../pages/ArtworkDetailPage/ArtworkDetailPage'));
+const CollectionList = React.lazy(() => import('../pages/CollectionList/CollectionList'));
+
+//console.log('homepage', HomePage)
 
 const App = () => {
   const dispatch = useDispatch();
@@ -116,53 +123,57 @@ const App = () => {
   return (
     <div>
       <Router history={history}>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/home" component={HomePage} />
-          {/*
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/home" component={HomePage} />
+            {/*
           <Route exact path="/old-explore" component={ExplorePage} />
           <Route path="/old-explore/:addr/:id" component={NFTItem} />
            */}
-          <Route exact path="/explore" component={NewExplorePage} />
-          <Route exact path="/explore/:addr" component={NewExplorePage} />
-          <Route exact path="/collection/:addr/:id" component={ArtworkDetailPage} />
-          <ProtectedRoute exact path="/create" component={PaintBoard} />
-          {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
-          <Route path="/account/:uid" component={AccountProfilePage} />
-          <Route path="/old-account/:uid" component={AccountDetails} />
-          <Route path="/collections" component={CollectionsPage} />
+            <Route exact path="/explore" component={NewExplorePage} />
+            <Route exact path="/explore/:addr" component={NewExplorePage} />
+            <Route exact path="/collection/:addr/:id" component={ArtworkDetailPage} />
+            <Route exact path="/collection/:addr" component={CollectionList} />
+            <ProtectedRoute exact path="/create" component={PaintBoard} />
+            {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
+            <Route path="/account/:uid" component={AccountProfilePage} />
+            <Route path="/old-account/:uid" component={AccountDetails} />
+            <Route path="/collections" component={CollectionsPage} />
 
 
 
-          <ProtectedRoute
-            path="/collection/create"
-            component={() => <CollectionCreate isRegister={false} />}
-          />
-          <ProtectedRoute
-            path="/collection/register"
-            component={() => <CollectionCreate isRegister />}
-          />
-          <ProtectedRoute
-            path="/collection/review"
-            component={CollectionReview}
-          />
-          <ProtectedRoute
-            path="/settings/notification"
-            component={NotificationSetting}
-          />
+            <ProtectedRoute
+              path="/collection/create"
+              component={() => <CollectionCreate isRegister={false} />}
+            />
+            <ProtectedRoute
+              path="/collection/register"
+              component={() => <CollectionCreate isRegister />}
+            />
+            <ProtectedRoute
+              path="/collection/review"
+              component={CollectionReview}
+            />
+            <ProtectedRoute
+              path="/settings/notification"
+              component={NotificationSetting}
+            />
 
-          <Route exact path="/collection/:addr" component={CollectionList} />
+            
 
-          <Route path="/404" component={NotFound} />
-          <Route path="*">
-            <Redirect to="/404" />
-          </Route>
-        </Switch>
+            <Route path="/404" component={NotFound} />
+            <Route path="*">
+              <Redirect to="/404" />
+            </Route>
+          </Switch>
+        </React.Suspense>
         <AccountModal />
         <WFTMModal />
         <Toaster position="bottom-right" reverseOrder={false} />
       </Router>
-    </div>
+    </div >
   );
 };
 

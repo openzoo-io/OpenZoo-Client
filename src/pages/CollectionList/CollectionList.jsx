@@ -38,7 +38,7 @@ import { Link, useHistory } from 'react-router-dom';
 import EmbedModal from 'components/EmbedModal';
 import EditCollectionModal from 'components/EditCollectionModal';
 import multichainlist from '../../constants/multichain.collection'
-export function CollectionList() {
+export default function CollectionList() {
   const {
     fetchCollection,
     fetchCollections,

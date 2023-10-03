@@ -6,7 +6,7 @@ import TxButton from 'components/TxButton';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
-export function HomePage() {
+export default function HomePage() {
   useEffect(() => {
     document.body.classList.add('homepage');
     return () => {

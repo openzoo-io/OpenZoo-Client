@@ -108,7 +108,7 @@ const CHAIN = ENV === 'MAINNET' ? 888 : 999;
 import { useZooElixirContract } from 'contracts/zookeeper';
 import { FooterEmbed } from 'components/FooterEmbed';
 
-export function ArtworkDetailPage() {
+export default function ArtworkDetailPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { getSigner } = useConnectionUtils();
@@ -1296,6 +1296,13 @@ export function ArtworkDetailPage() {
   }, [chainId]); // ,holders TODO: Don't know need to add or not
 
   useEffect(() => {
+
+
+    console.log(address);
+    console.log(tokenID);
+
+
+
     setLiked(null);
     console.log('!bundleID', bundleID);
     if (bundleID) {
@@ -1966,7 +1973,7 @@ export function ArtworkDetailPage() {
 
       if (listing.token.address === '') {
         const price = ethers.utils.parseEther(_price.toString());
-
+       
         const tx = await buyItemETH(
           address,
           ethers.BigNumber.from(tokenID),

@@ -18,7 +18,7 @@ import usePrevious from 'hooks/usePrevious';
 import { PageLayout } from 'components/Layouts/PageLayout';
 import FilterActions from 'actions/filter.actions';
 
-export function NewExplorePage() {
+export default function NewExplorePage() {
   const {
     fetchCollections,
     fetchWarnedCollections,
