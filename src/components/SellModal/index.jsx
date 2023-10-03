@@ -150,6 +150,8 @@ const SellModal = ({
         <div className={cx(styles.formInputCont, focused && styles.focused)}>
           <Select
             options={options}
+            labelField='symbol'
+            valueField='address'
             disabled={confirming}
             values={selected}
             onChange={tk => {

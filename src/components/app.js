@@ -13,16 +13,16 @@ import { useWeb3React } from '@web3-react/core';
 // import { ChainId } from '@sushiswap/sdk';
 // import { Client } from '@bandprotocol/bandchain.js';
 import ProtectedRoute from './ProtectedRoute';
-import AccountModal from './AccountModal';
-import WFTMModal from './WFTMModal';
+//import AccountModal from './AccountModal';
+//import WFTMModal from './WFTMModal';
 import NotFound from './NotFound';
-import PaintBoard from './PaintBoard';
+//import PaintBoard from './PaintBoard';
 //import ExplorePage from '../pages/explorepage';
 //import AccountDetails from '../pages/AccountDetails';
 //import NFTItem from '../pages/NFTItem';
-import CollectionCreate from '../pages/Collection/Create';
-import CollectionReview from '../pages/Collection/Review';
-import NotificationSetting from '../pages/NotificationSetting';
+//import CollectionCreate from '../pages/Collection/Create';
+//import CollectionReview from '../pages/Collection/Review';
+//import NotificationSetting from '../pages/NotificationSetting';
 import PriceActions from 'actions/price.actions';
 //import { HomePage } from 'pages/HomePage/HomePage';
 //import { NewExplorePage } from 'pages/NewExplorePage';
@@ -39,6 +39,15 @@ const ArtworkDetailPage = React.lazy(() => import('../pages/ArtworkDetailPage/Ar
 const CollectionList = React.lazy(() => import('../pages/CollectionList/CollectionList'));
 const CollectionsPage = React.lazy(() => import('../pages/CollectionsPage/CollectionsPage'));
 const AccountProfilePage = React.lazy(() => import('../pages/AccountProfilePage/AccountProfilePage'));
+
+
+
+// Protected Area //
+const PaintBoard = React.lazy(() => import('./PaintBoard'));
+const CollectionCreate = React.lazy(() => import('../pages/Collection/Create'));
+const CollectionReview = React.lazy(() => import('../pages/Collection/Review'));
+const NotificationSetting = React.lazy(() => import('../pages/NotificationSetting'));
+const AccountModal = React.lazy(() => import('./AccountModal'));
 //console.log('homepage', HomePage)
 
 const App = () => {
@@ -135,7 +144,7 @@ const App = () => {
             <Route exact path="/explore" component={NewExplorePage} />
             <Route exact path="/explore/:addr" component={NewExplorePage} />
             <Route exact path="/collection/:addr/:id" component={ArtworkDetailPage} />
-            <Route exact path="/collection/:addr" component={CollectionList} />
+            
             <ProtectedRoute exact path="/create" component={PaintBoard} />
             {/* <Route path="/bundle/:bundleID" component={NFTItem} /> */}
             <Route path="/account/:uid" component={AccountProfilePage} />
@@ -161,7 +170,7 @@ const App = () => {
               component={NotificationSetting}
             />
 
-            
+            <Route exact path="/collection/:addr" component={CollectionList} />
 
             <Route path="/404" component={NotFound} />
             <Route path="*">
@@ -170,7 +179,7 @@ const App = () => {
           </Switch>
         </React.Suspense>
         <AccountModal />
-        <WFTMModal />
+        {/* <WFTMModal /> */}
         <Toaster position="bottom-right" reverseOrder={false} />
       </Router>
     </div >

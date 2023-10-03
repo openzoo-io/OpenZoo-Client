@@ -72,7 +72,7 @@ const NFTItem = ({ item, selected, onClick }) => {
   );
 };
 
-const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
+const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => { } }) => {
   const { tokens: payTokens } = useTokens();
   const { account, chainId } = useWeb3React();
   const { getSalesContract } = useSalesContract();
@@ -357,6 +357,8 @@ const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
               <div className={styles.formLabel}>Price</div>
               <div className={styles.formInputCont}>
                 <Select
+                  labelField='symbol'
+                  valueField='address'
                   options={options}
                   disabled={creating}
                   values={paySelected}
@@ -440,7 +442,7 @@ const NewBundleModal = ({ visible, onClose, onCreateSuccess = () => {} }) => {
                 styles.button,
                 styles.save,
                 (creating || loadingStatus || approving || !isValid()) &&
-                  styles.disabled
+                styles.disabled
               )}
               onClick={
                 isValid() && !creating && !loadingStatus && !approving

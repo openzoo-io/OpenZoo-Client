@@ -833,6 +833,8 @@ const CollectionCreate = ({ isRegister }) => {
 
                       <Select
                         options={attributeDisplayTypeList}
+                        labelField='display_value'
+                        valueField='display_type'
                         values={attributeDisplayTypeList.filter((item) => { return item.display_type === attributeFields[index].display_type })}
                         className={styles.select}
                         onChange={([col]) => {

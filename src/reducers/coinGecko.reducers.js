@@ -8,7 +8,7 @@ export function CoinGecko(
 ) {
     switch (action.type) {
         case CoinGeckoConstants.DATA_FETCHED: {
-            console.log(action.data)
+            //console.log(action.data)
             return {
                 ...state,
                 currentPrice: action.data.current_price,

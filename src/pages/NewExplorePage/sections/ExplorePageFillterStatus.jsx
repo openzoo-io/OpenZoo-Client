@@ -152,14 +152,12 @@ export function ExplorePageFillterStatus(props) {
       <div className="col-lg-auto">
         <div className="d-flex flex-wrap space-x-10 sm:space-x-0 align-items-center sm:mt-20">
           <DropdownButton
-            key="mediaType-by-dropdown-menu"
             value={mediaType}
             items={addAllMediaType(MediaTypes)}
             onClickItem={handleSelectMediaType}
             className="sm:mt-5"
           />
           <DropdownButton
-            key="category-by-dropdown-menu"
             value={category}
             items={addAllCategory(Categories)}
             onClickItem={handleSelectCategory}
@@ -175,7 +173,6 @@ export function ExplorePageFillterStatus(props) {
           />
           */}
           <DropdownButton
-            key="sort-by-dropdown-menu"
             value={sortBy}
             items={SortByOptions}
             onClickItem={handleOnClickSortBy}

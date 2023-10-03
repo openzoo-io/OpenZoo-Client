@@ -48,6 +48,7 @@ import { useSalesContract } from 'contracts';
 import styles from './styles.module.scss';
 import { PageLayout } from 'components/Layouts';
 import Datetime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
 import ReactPlayer from 'react-player';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls, Stage, useAnimations, Environment } from '@react-three/drei';
@@ -749,10 +750,13 @@ const PaintBoard = () => {
                 <i className="ri-add-line"></i>
               </button>
             </div>
+            
             <Select
               options={collections}
               disabled={isMinting}
               values={selected}
+              labelField='collectionName'
+              valueField='erc721Address'
               onChange={([col]) => {
                 setSelected([col]);
                 setNft(col.erc721Address);
@@ -974,7 +978,7 @@ const PaintBoard = () => {
               }}
               name="mediaURL"
               multiple={false}
-              maxSize="52428800"
+              maxSize={52428800}
               accept={media_accept.join(', ')}
             >
               {({ getRootProps, getInputProps }) =>

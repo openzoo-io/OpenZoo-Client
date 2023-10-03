@@ -133,6 +133,8 @@ const OfferModal = ({
         <div className="d-flex rounded-15 bg_input align-items-center">
           <Select
             options={options}
+            labelField='symbol'
+            valueField='address'
             disabled={confirming}
             values={selected}
             onChange={tk => {

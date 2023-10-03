@@ -192,6 +192,8 @@ const AuctionModal = ({
         >
           <Select
             options={options}
+            labelField='symbol'
+            valueField='address'
             disabled={auction || confirming}
             values={selected}
             onChange={tk => {
