@@ -75,7 +75,7 @@ const TAB_ITEMS = [
   },
 ];
 
-export function AccountProfilePage() {
+export default function AccountProfilePage() {
   const dispatch = useDispatch();
 
   const {
@@ -237,9 +237,10 @@ export function AccountProfilePage() {
 
     try {
       const start = tab === 0 ? tokens.current.length : bundles.current.length;
-      const _count =
+      let _count =
         fetchCount -
         ((tab === 0 ? tokens.current : bundles.current).length % numPerRow);
+
       const { data } = await fetchTokens(
         start,
         _count,
