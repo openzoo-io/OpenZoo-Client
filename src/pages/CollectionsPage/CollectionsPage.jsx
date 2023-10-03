@@ -13,7 +13,7 @@ import { useMemo } from 'react';
 // ]
 
 
-export function CollectionsPage() {
+export default function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
   const [sortedBy, setSortedBy] = useState({ id: 'popularity' });
