@@ -112,11 +112,11 @@ export function AssetCardFourPriceTag(props) {
                   )}
                 </strong>
 
-                {currentPrice != null && currentPrice > 0 ? (
+                {Object.keys(currentPrice).length > 0 && currentPrice[getTokenByAddress(item?.paymentToken)?.symbol] > 0 ? (
                   <div className={styles.dollar}>
                     =$
                     {formatNumber(
-                      (item.price * currentPrice)
+                      (item.price * currentPrice[getTokenByAddress(item?.paymentToken)?.symbol])
                         .toFixed(2)
                         .replace(/[.,]00$/, '')
                     )}

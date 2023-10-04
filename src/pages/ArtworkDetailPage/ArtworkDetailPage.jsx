@@ -3275,11 +3275,13 @@ export default function ArtworkDetailPage() {
                                 <div>
                                   {formatNumber(listing.price)}
                                   <br />
+                                  
                                   <span>
                                     (
-                                    {currentPrice !== undefined ? (
+                      
+                                    {currentPrice[listing.token?.symbol] !== undefined ? (
                                       `$${(
-                                        listing.price * currentPrice
+                                        listing.price * currentPrice[listing.token?.symbol]
                                       ).toFixed(2)}`
                                     ) : (
                                       <Skeleton width={60} height={24} />
@@ -3307,11 +3309,11 @@ export default function ArtworkDetailPage() {
                                     <br />
                                     <span>
                                       (
-                                      {currentPrice !== undefined ? (
+                                      {currentPrice[listing.token?.symbol] !== undefined  ? (
                                         `$${(
                                           listing.quantity *
                                           listing.price *
-                                          currentPrice
+                                          currentPrice[listing.token?.symbol]
                                         ).toFixed(2)}`
                                       ) : (
                                         <Skeleton width={60} height={24} />
@@ -3428,10 +3430,10 @@ export default function ArtworkDetailPage() {
                                     <br />
                                     <span>
                                       (
-                                      {currentPrice !== undefined ? (
+                                      {currentPrice[offer.token?.symbol] !== undefined ? (
                                         `$${(
                                           (offer.pricePerItem || offer.price) *
-                                          currentPrice
+                                          currentPrice[offer.token?.symbol]
                                         ).toFixed(3)}`
                                       ) : (
                                         <Skeleton width={60} height={24} />
@@ -3460,12 +3462,12 @@ export default function ArtworkDetailPage() {
                                       <br />
                                       <span>
                                         (
-                                        {currentPrice !== undefined ? (
+                                        {currentPrice[offer.token?.symbol] !== undefined ? (
                                           `$${(
                                             offer.quantity *
                                             (offer.pricePerItem ||
                                               offer.price) *
-                                            currentPrice
+                                              currentPrice[offer.token?.symbol]
                                           ).toFixed(3)}`
                                         ) : (
                                           <Skeleton width={60} height={24} />

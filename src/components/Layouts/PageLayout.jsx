@@ -9,8 +9,7 @@ import { useDispatch } from 'react-redux';
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import PriceActions from 'actions/price.actions';
-import axios from 'axios';
-import CoinGeckoActions from 'actions/coinGecko.actions';
+
 
 export function PageLayout(props) {
   const { className, containerClassName, children, cover, ...rest } = props;
@@ -19,21 +18,7 @@ export function PageLayout(props) {
   const dispatch = useDispatch();
   const { chainId, connector } = useWeb3React();
 
-  React.useEffect(() => {
 
-    //alert('OpenZoo is on maintenance mode. Please do not use it for now. We will be back soon. Thank you for your patience.');
-    const fetch = () => {
-      axios
-        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=zookeeper&order=market_cap_desc&per_page=100&page=1&sparkline=false')
-        .then(response => {
-          if (response?.data?.[0])
-            dispatch(CoinGeckoActions.dataFetched(response.data[0]))
-        })
-    }
-
-    fetch();
-    setInterval(fetch, 60000);
-  }, []);
 
   React.useEffect(() => {
     const getPrice = async () => {

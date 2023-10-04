@@ -11,7 +11,7 @@ export function CoinGecko(
             //console.log(action.data)
             return {
                 ...state,
-                currentPrice: action.data.current_price,
+                currentPrice: action.data,
             };
         }
 

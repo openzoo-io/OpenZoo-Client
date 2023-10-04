@@ -11,11 +11,14 @@ import { Toaster } from 'react-hot-toast';
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
+import axios from 'axios';
+import CoinGeckoActions from 'actions/coinGecko.actions';
+
 // import { ChainId } from '@sushiswap/sdk';
 // import { Client } from '@bandprotocol/bandchain.js';
 import ProtectedRoute from './ProtectedRoute';
 //import AccountModal from './AccountModal';
-//import WFTMModal from './WFTMModal';
+import WFTMModal from './WFTMModal';
 import NotFound from './NotFound';
 //import PaintBoard from './PaintBoard';
 //import ExplorePage from '../pages/explorepage';
@@ -31,7 +34,7 @@ import NotFound from './NotFound';
 //import { AccountProfilePage } from 'pages/AccountProfilePage';
 //import { CollectionsPage } from 'pages/CollectionsPage';
 //import { CollectionList } from 'pages/CollectionList';
-
+import { useDispatch } from 'react-redux';
 
 const HomePage = React.lazy(() => import('../pages/HomePage/HomePage'));
 const NewExplorePage = React.lazy(() => import('../pages/NewExplorePage/NewExplorePage'));
@@ -39,7 +42,6 @@ const ArtworkDetailPage = React.lazy(() => import('../pages/ArtworkDetailPage/Ar
 const CollectionList = React.lazy(() => import('../pages/CollectionList/CollectionList'));
 const CollectionsPage = React.lazy(() => import('../pages/CollectionsPage/CollectionsPage'));
 const AccountProfilePage = React.lazy(() => import('../pages/AccountProfilePage/AccountProfilePage'));
-
 
 
 // Protected Area //
@@ -52,6 +54,7 @@ const AccountModal = React.lazy(() => import('./AccountModal'));
 
 const App = () => {
 
+  const dispatch = useDispatch();
   const LazyLoad = () => {
     useEffect(() => {
       NProgress.start();
@@ -63,6 +66,31 @@ const App = () => {
 
     return '';
   };
+
+  useEffect(() => {
+    //alert('OpenZoo is on maintenance mode. Please do not use it for now. We will be back soon. Thank you for your patience.');
+    const fetch = () => {
+      axios
+        .get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=zookeeper,wanchain&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+        .then(response => {
+          if (response?.data?.[0]) {
+            let datatosave = {}
+            response.data.map((coin) => {
+              if (coin.symbol === 'wan')
+              {
+                coin.symbol = 'wwan';
+              }
+              datatosave[coin.symbol.toUpperCase()] = coin.current_price;
+            })
+            console.log('datatosave',datatosave);
+            dispatch(CoinGeckoActions.dataFetched(datatosave))
+          }
+        })
+    }
+
+    fetch();
+    setInterval(fetch, 60000);
+  }, []);
 
 
   return (
@@ -114,7 +142,7 @@ const App = () => {
           </Switch>
         </React.Suspense>
         <AccountModal />
-        {/* <WFTMModal /> */}
+        <WFTMModal />
         <Toaster position="bottom-right" reverseOrder={false} />
       </Router>
     </div >

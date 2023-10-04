@@ -68,7 +68,7 @@ export function ArtworkDetailPagePriceSection(props) {
               <h2 className="">
                 {prices[bestListing.token?.address]
                   ? `$${formatNumber(
-                      (bestListing.price * currentPrice).toFixed(3)
+                      (bestListing.price * currentPrice[bestListing.token?.symbol]).toFixed(3)
                     )}`
                   : null}
               </h2>
