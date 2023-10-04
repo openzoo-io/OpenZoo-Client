@@ -85,6 +85,7 @@ const App = () => {
             console.log('datatosave',datatosave);
             dispatch(CoinGeckoActions.dataFetched(datatosave))
           }
+         
         })
     }
 

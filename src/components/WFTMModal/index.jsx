@@ -31,8 +31,8 @@ const WFTMModal = ({ visible, onClose }) => {
   const [amount, setAmount] = useState('');
   const [inputError, setInputError] = useState(null);
 
-  const { price } = useSelector(state => state.Price);
-
+  const { currentPrice } = useSelector(state => state.CoinGecko);
+  //console.log('currentPrice', currentPrice)
   const getBalances = async (overrideLoading = false) => {
     if (!overrideLoading) {
       setLoading(true);
@@ -214,7 +214,7 @@ const WFTMModal = ({ visible, onClose }) => {
                 onInputError={setInputError}
               />
               <div className={styles.usdVal}>
-                ${formatNumber(((parseFloat(amount) || 0) * price).toFixed(2))}
+                ${formatNumber(((parseFloat(amount) || 0) * (currentPrice?.WWAN || 0)).toFixed(2))}
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ const WFTMModal = ({ visible, onClose }) => {
                 onInputError={setInputError}
               />
               <div className={styles.usdVal}>
-                ${formatNumber(((parseFloat(amount) || 0) * price).toFixed(2))}
+                ${formatNumber(((parseFloat(amount) || 0) * (currentPrice?.WAN || 0)).toFixed(2))}
               </div>
             </div>
           </div>

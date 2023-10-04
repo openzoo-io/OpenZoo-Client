@@ -3279,7 +3279,7 @@ export default function ArtworkDetailPage() {
                                   <span>
                                     (
                       
-                                    {currentPrice[listing.token?.symbol] !== undefined ? (
+                                    {currentPrice !== null && currentPrice[listing.token?.symbol] !== undefined ? (
                                       `$${(
                                         listing.price * currentPrice[listing.token?.symbol]
                                       ).toFixed(2)}`
@@ -3309,7 +3309,7 @@ export default function ArtworkDetailPage() {
                                     <br />
                                     <span>
                                       (
-                                      {currentPrice[listing.token?.symbol] !== undefined  ? (
+                                      {currentPrice !== null && currentPrice[listing.token?.symbol] !== undefined  ? (
                                         `$${(
                                           listing.quantity *
                                           listing.price *
@@ -3430,7 +3430,7 @@ export default function ArtworkDetailPage() {
                                     <br />
                                     <span>
                                       (
-                                      {currentPrice[offer.token?.symbol] !== undefined ? (
+                                      {currentPrice !== null && currentPrice[offer.token?.symbol] !== undefined ? (
                                         `$${(
                                           (offer.pricePerItem || offer.price) *
                                           currentPrice[offer.token?.symbol]
@@ -3462,7 +3462,7 @@ export default function ArtworkDetailPage() {
                                       <br />
                                       <span>
                                         (
-                                        {currentPrice[offer.token?.symbol] !== undefined ? (
+                                        {currentPrice !== null && currentPrice[offer.token?.symbol] !== undefined ? (
                                           `$${(
                                             offer.quantity *
                                             (offer.pricePerItem ||

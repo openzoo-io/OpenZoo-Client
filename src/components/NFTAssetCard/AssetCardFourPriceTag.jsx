@@ -111,8 +111,8 @@ export function AssetCardFourPriceTag(props) {
                     </BootstrapTooltip>
                   )}
                 </strong>
-
-                {Object.keys(currentPrice).length > 0 && currentPrice[getTokenByAddress(item?.paymentToken)?.symbol] > 0 ? (
+                
+                {currentPrice !== null && Object.keys(currentPrice).length > 0 && currentPrice[getTokenByAddress(item?.paymentToken)?.symbol] > 0 ? (
                   <div className={styles.dollar}>
                     =$
                     {formatNumber(
