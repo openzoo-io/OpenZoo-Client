@@ -271,7 +271,7 @@
 
 .itemInfoCont {
   margin: 40px 0;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #eaeaf1;
   overflow: hidden;
 }
@@ -326,8 +326,8 @@
   align-items: center;
   font-size: 14px;
   color: #a2a2ad;
-  -webkit-box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .itemOwner {
@@ -892,13 +892,13 @@
 .panelWrapper {
   min-width: 550px;
   margin: 20px 0;
-  border-radius: 20px;
+  border-radius: 8px;
   // border: 1px solid #eaeaf1;
   box-sizing: border-box;
   overflow: hidden;
   background-color: white;
-  -webkit-box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .unlockableLabel {
@@ -914,7 +914,7 @@
   resize: none;
   margin: 20px 0 0;
   outline: none;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 8px 16px;
   box-sizing: border-box;
@@ -924,7 +924,7 @@
 .bestBuy {
   padding: 20px 20px 20px;
   margin: 20px 0;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #eaeaf1;
   box-sizing: border-box;
 }
@@ -1003,7 +1003,7 @@
 .filtermenu {
   width: 220px;
   padding: 24px;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 4px 40px rgba(0, 0, 0, 0.15);
 }
@@ -1229,7 +1229,7 @@ canvas {
   aspect-ratio: 1;
   background: white !important;
   height: 100% !important;
-  border-radius: 20px;
+  border-radius: 8px;
 }
 
 :global .is__dark {

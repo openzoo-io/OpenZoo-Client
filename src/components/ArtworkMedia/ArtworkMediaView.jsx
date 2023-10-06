@@ -108,7 +108,7 @@ export function ArtworkMediaView(props) {
           maxHeight: 676,
           maxWidth: 676,
           aspectRatio: 1,
-          boxShadow: '3px 3px 1px 1px rgba(0, 0, 0, 0.05)',
+          boxShadow: '0',
           borderRadius: 20,
         }}
       >
