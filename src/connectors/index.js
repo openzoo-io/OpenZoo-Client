@@ -41,7 +41,8 @@ export const walletconnect = new WalletConnectConnector({
   rpc: {
     888: 'https://gwan-ssl.wandevs.org:56891',
     999: 'https://gwan-ssl.wandevs.org:46891',
-  }
+  },
+  bridge: 'https://derelay.rabby.io'
 });
 
 // export const walletlink = new WalletLinkConnector({
