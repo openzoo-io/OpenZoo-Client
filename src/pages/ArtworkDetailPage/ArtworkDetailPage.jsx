@@ -403,6 +403,15 @@ export default function ArtworkDetailPage() {
     setHistoryLoading(true);
     tradeHistory.current = [];
     try {
+
+      // Ban ZooBoosters //
+      
+      const banList = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 62, 78, 86, 89, 99, 14, 16, 56, 65, 66, 252, 222]
+      if (address == '0x38034b2e6ae3fb7fec5d895a9ff3474ba0c283f6' && (banList.includes(Number(tokenID)) || banList.includes(tokenID)))
+      {
+        throw new Error('Not found!')
+      }
+
       const {
         data: {
           contentType: _contentType,
