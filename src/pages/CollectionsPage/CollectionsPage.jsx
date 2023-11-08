@@ -144,7 +144,7 @@ export default function CollectionsPage() {
           </div>
         </div>
 
-        <div className="row justify-content-center mb-30">
+        <div className="row justify-content-start mb-30" style={{zoom: 0.8}}>
           {collections.map((item, index) => {
             if (!item.isSticky) return <></>;
             return (
@@ -176,7 +176,7 @@ export default function CollectionsPage() {
             }
           </div>
         }
-        <div className="row justify-content-center mb-30_reset">
+        <div className="row justify-content-start mb-30_reset">
           {collections.map((item, index) => {
             if (item.isSticky) return <></>;
             return (
