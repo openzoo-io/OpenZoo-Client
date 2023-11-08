@@ -32,7 +32,7 @@ export function NFTCollection(props) {
     <div className="collections mb-30">
       <div className="d-flex flex-column collections_item">
         <div className="d-flex space-x-10">
-          <div className="images-box">
+          <div className="images-box" style={props?.minimal?{width:100,height:100}:{}}>
             <Link to={`/collection/${address}`} onClick={() => {
                 // Delete //
                 window.localStorage.removeItem('collection_tokens');

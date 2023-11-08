@@ -150,7 +150,7 @@ export default function CollectionsPage() {
             return (
               <div
                 key={`collection-item-${index}`}
-                className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+                className="col-xl-3 col-lg-6 col-md-6 col-sm-12"
               >
                 <NFTCollection item={item} minimal={true}/>
               </div>
