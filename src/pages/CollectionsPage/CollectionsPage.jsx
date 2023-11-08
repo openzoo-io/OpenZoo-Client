@@ -15,7 +15,7 @@ import { useMemo } from 'react';
 export default function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
-  const [sortedBy, setSortedBy] = useState({ id: 'popularity' });
+  const [sortedBy, setSortedBy] = useState({ id: 'volume' });
   const [loading, setLoading] = useState(false);
   const { onlyVerified } = useSelector(state => state.Filter);
   const [count, setCount] = useState(0);
