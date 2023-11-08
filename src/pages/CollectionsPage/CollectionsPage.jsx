@@ -12,7 +12,6 @@ import { useMemo } from 'react';
 //   '0xa67213608db9d4bffac75bad01ca5b1f4ad0724c'
 // ]
 
-
 export default function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
@@ -48,17 +47,16 @@ export default function CollectionsPage() {
     [collections, count, loading]
   );
 
-  useMemo(()=>{
+  useMemo(() => {
     setCollections([]);
     setFrom(0);
     setTo(0);
     setCount(0);
-  },[onlyVerified, sortedBy])
-
+  }, [onlyVerified, sortedBy]);
 
   useEffect(() => {
     if (typeof onlyVerified === 'undefined') return;
-    
+
     getAllCollections(0);
   }, [onlyVerified, sortedBy]);
 
@@ -73,11 +71,10 @@ export default function CollectionsPage() {
   //   return array;
   // }
 
-  const getAllCollections = async (dir) => {
+  const getAllCollections = async dir => {
     setLoading(true);
 
-    if (dir === 0)
-    {
+    if (dir === 0) {
       console.log(collections);
     }
 
@@ -94,12 +91,16 @@ export default function CollectionsPage() {
       return;
     }
 
-    const res = await fetchCollectionList(onlyVerified, start, _count, sortedBy);
+    const res = await fetchCollectionList(
+      onlyVerified,
+      start,
+      _count,
+      sortedBy
+    );
     if (res.status === 'success') {
       // let official = [];
       // let nonofficial = [];
 
-      
       // res.data.collections.map(item => {
       //   if (
       //     stickylist.indexOf(item.address) !== -1
@@ -111,17 +112,16 @@ export default function CollectionsPage() {
       // });
 
       //nonofficial = shuffleArray(nonofficial);
-      
+
       setCount(res.data.total);
       //setCollections(res.data.collections);
-      
 
       let _from = from;
       let _to = to;
 
       if (dir > 0) {
         _to += res.data.collections.length;
-      }  else {
+      } else {
         _to = _from + res.data.collections.length;
       }
       setFrom(_from);
@@ -134,6 +134,36 @@ export default function CollectionsPage() {
   return (
     <PageLayout>
       <div className="section mt-50 collectionList">
+        <div className="section__head">
+          <div class="row justify-content-between align-items-center">
+            <div class="col-lg-auto">
+            <div style={{fontSize:20,fontWeight:'bold'}}>
+                Featured Collections
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="row justify-content-center mb-30">
+          {collections.map((item, index) => {
+            if (!item.isSticky) return <></>;
+            return (
+              <div
+                key={`collection-item-${index}`}
+                className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+              >
+                <NFTCollection item={item} minimal={true}/>
+              </div>
+            );
+          })}
+
+          <div className={'d-flex justify-content-center'} ref={loadMoreRef}>
+            {loading && (
+              <Loader type="Oval" color="#00A59A" height={40} width={40} />
+            )}
+          </div>
+        </div>
+
         {
           <div className="section__head">
             {
@@ -147,14 +177,17 @@ export default function CollectionsPage() {
           </div>
         }
         <div className="row justify-content-center mb-30_reset">
-          {collections.map((item, index) => (
-            <div
-              key={`collection-item-${index}`}
-              className="col-lg-4 col-md-12 col-sm-12"
-            >
-              <NFTCollection item={item} />
-            </div>
-          ))}
+          {collections.map((item, index) => {
+            if (item.isSticky) return <></>;
+            return (
+              <div
+                key={`collection-item-${index}`}
+                className="col-xl-4 col-lg-6 col-md-6 col-sm-12"
+              >
+                <NFTCollection item={item} />
+              </div>
+            );
+          })}
 
           <div className={'d-flex justify-content-center'} ref={loadMoreRef}>
             {loading && (

@@ -21,6 +21,7 @@ export function NFTCollection(props) {
     floor_price,
     traded_volume,
     collectionType,
+    isSticky,
   } = props.item;
 
   function addDefaultSrc(ev) {
@@ -108,7 +109,8 @@ export function NFTCollection(props) {
             </div>
           </div>
         </div>
-        <div className="d-flex mt-10 space-x-10 space-y-10 -ml-10 flex-wrap">
+        {
+        !props?.minimal && <div className="d-flex mt-10 space-x-10 space-y-10 -ml-10 flex-wrap">
           <div></div>
           <div className="stat-card">
             <h2 className="color_brand">{formatNumber(item_count)}</h2>
@@ -127,6 +129,7 @@ export function NFTCollection(props) {
             <span className="txt_xs color_text">volume traded</span>
           </div>
         </div>
+        }
       </div>
     </div>
   );
