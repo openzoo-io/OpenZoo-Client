@@ -71,14 +71,14 @@ export function NFTCollection(props) {
               </h4>
             </Link>
             <div className="txt _bold color_light_grey">
-              created by{' '}
+              created by{props?.minimal?<br/>:' '}
               <Link to={`/account/${owner}`} className="color_brand owner">
                 {ownerAlias ? ownerAlias[0] : shortenAddress(owner)}
               </Link>
             </div>
             <div className="categories d-flex space-x-5 space-y-5 -ml-5">
               <div></div>
-              {collectionType[0] && collectionType[0].tokenType === 721 ? (
+              {!props?.minimal && collectionType[0] && collectionType[0].tokenType === 721 ? (
                 <div className="txt_xs color_text px-3 py-1 bg_hard_light rounded-pill">
                   SINGLE TOKEN 721
                 </div>
@@ -93,7 +93,7 @@ export function NFTCollection(props) {
             <div className="categories d-flex space-x-5 space-y-5 -ml-5">
               <div></div>
 
-              {categories &&
+              {!props?.minimal && categories &&
                 Categories &&
                 Categories.map(v => {
                   if (categories.includes(v.id + '')) {
