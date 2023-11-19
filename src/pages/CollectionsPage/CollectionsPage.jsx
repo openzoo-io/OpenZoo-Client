@@ -178,7 +178,7 @@ export default function CollectionsPage() {
         }
         <div className="row justify-content-start mb-30_reset">
           {collections.map((item, index) => {
-            //if (item.isSticky) return <></>;
+            if (item.isSticky) return <></>;
             return (
               <div
                 key={`collection-item-${index}`}
