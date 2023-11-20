@@ -15,6 +15,7 @@ import { useMemo } from 'react';
 export default function CollectionsPage() {
   const { fetchCollectionList } = useApi();
   const [collections, setCollections] = useState([]);
+  const [official_collections, setOfficial_collections] = useState([]);
   const [sortedBy, setSortedBy] = useState({ id: 'volume' });
   const [loading, setLoading] = useState(false);
   const { onlyVerified } = useSelector(state => state.Filter);
@@ -49,6 +50,7 @@ export default function CollectionsPage() {
 
   useMemo(() => {
     setCollections([]);
+    setOfficial_collections([]);
     setFrom(0);
     setTo(0);
     setCount(0);
@@ -126,6 +128,7 @@ export default function CollectionsPage() {
       }
       setFrom(_from);
       setTo(_to);
+      setOfficial_collections(res.data.official_collections);
       setCollections([...collections, ...res.data.collections]);
       setLoading(false);
     }
@@ -145,8 +148,8 @@ export default function CollectionsPage() {
         </div>
 
         <div className="row justify-content-start mb-30" style={{zoom: 0.8}}>
-          {collections.map((item, index) => {
-            if (!item.isSticky) return <></>;
+          {official_collections.map((item, index) => {
+           // if (!item.isSticky) return <></>;
             return (
               <div
                 key={`collection-item-${index}`}
@@ -178,7 +181,7 @@ export default function CollectionsPage() {
         }
         <div className="row justify-content-start mb-30_reset">
           {collections.map((item, index) => {
-            if (item.isSticky) return <></>;
+            //if (item.isSticky) return <></>;
             return (
               <div
                 key={`collection-item-${index}`}
