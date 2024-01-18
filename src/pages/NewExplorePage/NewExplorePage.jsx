@@ -203,7 +203,8 @@ export default function NewExplorePage() {
       //console.log('filterBy', filterBy, fetchCount);
 
       if (dir !== 0) {
-        _count -= tokens.length % numPerRow;
+        //alert(tokens.length)
+        //_count -= tokens.length % numPerRow;
         start = Math.max(dir < 0 ? from - _count : to, 0);
       } else {
         start = from;
@@ -264,6 +265,7 @@ export default function NewExplorePage() {
       // } else if (dir < 0) {
       //   _to = _from + newTokens.length;
       // }
+      //alert(newTokens.length)
       dispatch(
         TokensActions.fetchingSuccess(data.total, newTokens, _from, _to)
       );
