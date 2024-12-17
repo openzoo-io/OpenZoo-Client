@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@brainhubeu/react-carousel": "^2.0.4",
+    "@brainhubeu/react-carousel": "2.0.4",
     "@emotion/core": "^10.0.15",
     "@emotion/styled": "^10.0.15",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
