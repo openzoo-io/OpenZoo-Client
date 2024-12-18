@@ -502,18 +502,20 @@ const Header = (props) => {
   }
 
   return (
-    <header className={cx('header__1', 'js-header', styles.header)}>
-      <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
-      <div className={'container'}>
-        <div className={'wrapper js-header-wrapper'}>
-          <div className="header__logo">
-            <Link to="/" className={'header__logo'}>
-              <img src={logoSmallBlue} alt="logo" />
-            </Link>
-          </div>
-          <div className={cx('header__menu', styles.left)}>
-            <ul className="d-flex space-x-20">
-              {/*
+    <>
+      <header className={cx('header__1', 'js-header', styles.header)}>
+        <div onClick={scrollToTop} className="scroll-to-top"><FontAwesomeIcon icon={faAngleUp} /></div>
+        <div className={'container'}>
+
+          <div className={'wrapper js-header-wrapper'}>
+            <div className="header__logo">
+              <Link to="/" className={'header__logo'}>
+                <img src={logoSmallBlue} alt="logo" />
+              </Link>
+            </div>
+            <div className={cx('header__menu', styles.left)}>
+              <ul className="d-flex space-x-20">
+                {/*
               <li>
                 <NavLink
                   to="/home"
@@ -524,176 +526,29 @@ const Header = (props) => {
                 </NavLink>
               </li>
               */}
-              <li>
-                <NavLink
-                  to="/explore"
-                  className={'color_black'}
-                >
-                  Explore
-                </NavLink>
-              </li>
-              {
                 <li>
                   <NavLink
-                    to="/collections"
+                    to="/explore"
                     className={'color_black'}
                   >
-                    Collections
-                  </NavLink>
-                </li>
-              }
-            </ul>
-          </div>
-          {renderSearchBox()}
-          <div className={cx('header__menu')}>
-            <ul className="d-flex space-x-20">
-              <li>
-                <div className={styles.darkmodeToggle}>
-                  <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <img src="https://assets.openzoo.io/verified.svg" style={{
-                      width: 24,
-                      height: 24,
-
-                      filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
-                    }} />
-                  </span>
-                  <input
-                    id="onlyVerified-toggle"
-                    type="checkbox"
-                    checked={!onlyVerified}
-                    onChange={() => {
-                      // Delete //
-                      window.localStorage.removeItem('explore_tokens');
-                      window.localStorage.removeItem('explore_count');
-                      window.localStorage.removeItem('explore_from');
-                      window.localStorage.removeItem('explore_to');
-                      window.localStorage.removeItem('fromTop');
-                      setOnlyVerified(!onlyVerified);
-                    }}
-                  />
-                  <label
-                    style={{ marginBottom: 0 }}
-                    className="toggle"
-                    htmlFor={`onlyVerified-toggle`}
-                  >
-                    Toggle
-                  </label>
-                  <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
-                    All<br />Collections
-                  </span>
-
-                </div>
-              </li>
-              <li>
-                <div className={styles.darkmodeToggle}>
-                  <span style={{ marginRight: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faSun} />
-                  </span>
-                  <input
-                    id="darkmode-toggle"
-                    type="checkbox"
-                    checked={DarkMode}
-                    onChange={() => {
-                      setDarkMode(!DarkMode);
-                    }}
-                  />
-                  <label
-                    style={{ marginBottom: 0 }}
-                    className="toggle"
-                    htmlFor={`darkmode-toggle`}
-                  >
-                    Toggle
-                  </label>
-                  <span style={{ marginLeft: 5, display: 'flex' }}>
-                    <FontAwesomeIcon icon={faMoon} />
-                  </span>
-                </div>
-              </li>
-
-            </ul>
-          </div>
-
-          <div className="d-flex align-items-center space-x-20 sm:space-x-10">
-
-            {account ? (
-              <>
-                {/*<HeaderNotificationMenu />*/}
-                <HeaderAvatarMenu
-
-                  user={user}
-                  loading={loading}
-                  isAdmin={
-                    account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())
-                  }
-                  isModerator={isModerator}
-                  onClickSignOut={handleSignOut}
-                  addMod={addMod}
-                  removeMod={removeMod}
-                  reviewCollections={reviewCollections}
-                  banCollection={banCollection}
-                  unbanCollection={unbanCollection}
-                  verifyCollection={verifyCollection}
-                  unverifyCollection={unverifyCollection}
-                  warnCollection={warnCollection}
-                  unwarnCollection={unwarnCollection}
-                  banItems={banItems}
-                  banUser={banUser}
-                  unbanUser={unbanUser}
-                  boostCollection={boostCollection}
-                />
-                <div className="header__btns">
-                  <NavLink
-                    to="/create"
-                    className={'btn btn-warning btn-sm'}
-
-                  >
-                    Create
-                  </NavLink>
-                </div>
-              </>
-            ) : (
-              <div className="header__btns">
-                <a
-                  className="btn btn-warning btn-sm"
-                  onClick={handleConnectWallet}
-                >
-                  <i className="ri-wallet-3-line"></i>
-                  Connect wallet
-                </a>
-              </div>
-            )}
-            <div
-              className={cx('header__burger', burgerActive && 'active')}
-              onClick={handleClickBurgerMenu}
-            ></div>
-          </div>
-
-          <div
-            className={cx(
-              'header__mobile js-header-mobile shadow-sm',
-              burgerActive && 'visible'
-            )}
-          >
-            <div className="header__mobile__menu space-y-20">
-              <ul className="d-flex space-y-20">
-                <li>
-                  <NavLink className="color_black" to="/home">
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="color_black" to="/explore">
                     Explore
                   </NavLink>
                 </li>
                 {
                   <li>
-                    <NavLink className="color_black" to="/collections">
+                    <NavLink
+                      to="/collections"
+                      className={'color_black'}
+                    >
                       Collections
                     </NavLink>
                   </li>
                 }
-
+              </ul>
+            </div>
+            {renderSearchBox()}
+            <div className={cx('header__menu')}>
+              <ul className="d-flex space-x-20">
                 <li>
                   <div className={styles.darkmodeToggle}>
                     <span style={{ marginLeft: 5, display: 'flex' }}>
@@ -709,6 +564,12 @@ const Header = (props) => {
                       type="checkbox"
                       checked={!onlyVerified}
                       onChange={() => {
+                        // Delete //
+                        window.localStorage.removeItem('explore_tokens');
+                        window.localStorage.removeItem('explore_count');
+                        window.localStorage.removeItem('explore_from');
+                        window.localStorage.removeItem('explore_to');
+                        window.localStorage.removeItem('fromTop');
                         setOnlyVerified(!onlyVerified);
                       }}
                     />
@@ -750,93 +611,243 @@ const Header = (props) => {
                     </span>
                   </div>
                 </li>
+
               </ul>
+            </div>
+
+            <div className="d-flex align-items-center space-x-20 sm:space-x-10">
+
               {account ? (
-                <div className="col-md-12 col-sm-12">
-                  <Link
-                    to="/create"
-                    className={'btn btn-warning w-full'}
-                  >
-                    Create
-                  </Link>
-                </div>
-              ) : (
-                <a
-                  className="btn btn-warning w-full"
-                  onClick={handleConnectWallet}
-                >
-                  Connect wallet
-                </a>
-              )}
-              <div className="space-y-20">
-                <div className="header__search in_mobile w-full">
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    onChange={e => handleSearch(e.target.value)}
-                    onFocus={() => setSearchBarActive(true)}
-                    onBlur={() =>
-                      setTimeout(() => setSearchBarActive(false), 200)
+                <>
+                  {/*<HeaderNotificationMenu />*/}
+                  <HeaderAvatarMenu
+
+                    user={user}
+                    loading={loading}
+                    isAdmin={
+                      account?.toLowerCase() && ADMIN_ADDRESS.includes(account?.toLowerCase())
                     }
+                    isModerator={isModerator}
+                    onClickSignOut={handleSignOut}
+                    addMod={addMod}
+                    removeMod={removeMod}
+                    reviewCollections={reviewCollections}
+                    banCollection={banCollection}
+                    unbanCollection={unbanCollection}
+                    verifyCollection={verifyCollection}
+                    unverifyCollection={unverifyCollection}
+                    warnCollection={warnCollection}
+                    unwarnCollection={unwarnCollection}
+                    banItems={banItems}
+                    banUser={banUser}
+                    unbanUser={unbanUser}
+                    boostCollection={boostCollection}
                   />
-                  <button className="header__result">
-                    <i className="ri-search-line"></i>
-                  </button>
+                  {/* <div className="header__btns">
+                    <NavLink
+                      to="/create"
+                      className={'btn btn-warning btn-sm'}
+
+                    >
+                      Create
+                    </NavLink>
+                  </div> */}
+                </>
+              ) : (
+                <div className="header__btns">
+                  <a
+                    className="btn btn-warning btn-sm"
+                    onClick={handleConnectWallet}
+                  >
+                    <i className="ri-wallet-3-line"></i>
+                    Connect wallet
+                  </a>
+                </div>
+              )}
+              <div
+                className={cx('header__burger', burgerActive && 'active')}
+                onClick={handleClickBurgerMenu}
+              ></div>
+            </div>
+
+            <div
+              className={cx(
+                'header__mobile js-header-mobile shadow-sm',
+                burgerActive && 'visible'
+              )}
+            >
+              <div className="header__mobile__menu space-y-20">
+                <ul className="d-flex space-y-20">
+                  <li>
+                    <NavLink className="color_black" to="/home">
+                      Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="color_black" to="/explore">
+                      Explore
+                    </NavLink>
+                  </li>
+                  {
+                    <li>
+                      <NavLink className="color_black" to="/collections">
+                        Collections
+                      </NavLink>
+                    </li>
+                  }
+
+                  <li>
+                    <div className={styles.darkmodeToggle}>
+                      <span style={{ marginLeft: 5, display: 'flex' }}>
+                        <img src="https://assets.openzoo.io/verified.svg" style={{
+                          width: 24,
+                          height: 24,
+
+                          filter: 'drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2))',
+                        }} />
+                      </span>
+                      <input
+                        id="onlyVerified-toggle"
+                        type="checkbox"
+                        checked={!onlyVerified}
+                        onChange={() => {
+                          setOnlyVerified(!onlyVerified);
+                        }}
+                      />
+                      <label
+                        style={{ marginBottom: 0 }}
+                        className="toggle"
+                        htmlFor={`onlyVerified-toggle`}
+                      >
+                        Toggle
+                      </label>
+                      <span style={{ marginRight: 5, display: 'flex', fontSize: 11, textAlign: 'left', lineHeight: '11px' }}>
+                        All<br />Collections
+                      </span>
+
+                    </div>
+                  </li>
+                  <li>
+                    <div className={styles.darkmodeToggle}>
+                      <span style={{ marginRight: 5, display: 'flex' }}>
+                        <FontAwesomeIcon icon={faSun} />
+                      </span>
+                      <input
+                        id="darkmode-toggle"
+                        type="checkbox"
+                        checked={DarkMode}
+                        onChange={() => {
+                          setDarkMode(!DarkMode);
+                        }}
+                      />
+                      <label
+                        style={{ marginBottom: 0 }}
+                        className="toggle"
+                        htmlFor={`darkmode-toggle`}
+                      >
+                        Toggle
+                      </label>
+                      <span style={{ marginLeft: 5, display: 'flex' }}>
+                        <FontAwesomeIcon icon={faMoon} />
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+                {account ? (
+                  <div className="col-md-12 col-sm-12">
+                    <Link
+                      to="/create"
+                      className={'btn btn-warning w-full'}
+                    >
+                      Create
+                    </Link>
+                  </div>
+                ) : (
+                  <a
+                    className="btn btn-warning w-full"
+                    onClick={handleConnectWallet}
+                  >
+                    Connect wallet
+                  </a>
+                )}
+                <div className="space-y-20">
+                  <div className="header__search in_mobile w-full">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      onChange={e => handleSearch(e.target.value)}
+                      onFocus={() => setSearchBarActive(true)}
+                      onBlur={() =>
+                        setTimeout(() => setSearchBarActive(false), 200)
+                      }
+                    />
+                    <button className="header__result">
+                      <i className="ri-search-line"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
+              <div className="header__mobile__menu">{renderSearchResult()}</div>
             </div>
-            <div className="header__mobile__menu">{renderSearchResult()}</div>
+
+            <WFTMModal
+              visible={wftmModalVisible}
+              onClose={() => dispatch(ModalActions.hideWFTMModal())}
+            />
+            <ModModal
+              isAdding={isAdding}
+              visible={modModalVisible}
+              onClose={() => setModModalVisible(false)}
+            />
+            <VerifyCollectionModal
+              visible={verifyCollectionModalVisible}
+              isVerify={isVerify}
+              onClose={() => setVerifyCollectionModalVisible(false)}
+            />
+            <WarnCollectionModal
+              visible={warnCollectionModalVisible}
+              isWarn={isWarn}
+              onClose={() => setWarnCollectionModalVisible(false)}
+            />
+            <BanCollectionModal
+              visible={banCollectionModalVisible}
+              isBan={isBan}
+              onClose={() => setBanCollectionModalVisible(false)}
+            />
+            <BanItemModal
+              visible={banItemModalVisible}
+              onClose={() => setBanItemModalVisible(false)}
+            />
+            <BanUserModal
+              visible={banUserModalVisible}
+              onClose={() => setBanUserModalVisible(false)}
+              isForBanning={true}
+            />
+            <BanUserModal
+              visible={unbanUserModalVisible}
+              onClose={() => setUnbanUserModalVisible(false)}
+              isForBanning={false}
+            />
+            <BoostCollectionModal
+              visible={boostCollectionModalVisible}
+              onClose={() => setBoostCollectionModalVisible(false)}
+            />
+            <ConnectWalletModal
+              visible={connectWalletModalVisible}
+              onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
+            />
           </div>
 
-          <WFTMModal
-            visible={wftmModalVisible}
-            onClose={() => dispatch(ModalActions.hideWFTMModal())}
-          />
-          <ModModal
-            isAdding={isAdding}
-            visible={modModalVisible}
-            onClose={() => setModModalVisible(false)}
-          />
-          <VerifyCollectionModal
-            visible={verifyCollectionModalVisible}
-            isVerify={isVerify}
-            onClose={() => setVerifyCollectionModalVisible(false)}
-          />
-          <WarnCollectionModal
-            visible={warnCollectionModalVisible}
-            isWarn={isWarn}
-            onClose={() => setWarnCollectionModalVisible(false)}
-          />
-          <BanCollectionModal
-            visible={banCollectionModalVisible}
-            isBan={isBan}
-            onClose={() => setBanCollectionModalVisible(false)}
-          />
-          <BanItemModal
-            visible={banItemModalVisible}
-            onClose={() => setBanItemModalVisible(false)}
-          />
-          <BanUserModal
-            visible={banUserModalVisible}
-            onClose={() => setBanUserModalVisible(false)}
-            isForBanning={true}
-          />
-          <BanUserModal
-            visible={unbanUserModalVisible}
-            onClose={() => setUnbanUserModalVisible(false)}
-            isForBanning={false}
-          />
-          <BoostCollectionModal
-            visible={boostCollectionModalVisible}
-            onClose={() => setBoostCollectionModalVisible(false)}
-          />
-          <ConnectWalletModal
-            visible={connectWalletModalVisible}
-            onClose={() => dispatch(ModalActions.hideConnectWalletModal())}
-          />
         </div>
-      </div>
-    </header>
+
+      </header>
+      <header className={cx('header__1', 'js-header', styles.header)} style={{ zIndex: 1, padding: '5px 10px', color: 'black', whiteSpace: 'wrap', textAlign: 'center', backgroundColor: '#ffc107' }}>
+        <b>OpenZoo.io</b> will close on December 20, 2024.<br />
+        <b>ZooGenes</b>: Snapshot on December 21, 2024 (Block 36,180,000). NFTs will be reminted on Avalanche C-Chain and airdropped by December 25, 2024. No action needed.<br />
+        <b>ZooBoosters/ZooNFTs</b>: Future in-game utility updates coming soon.<br /><br />
+        Finalize transactions before the closure. Thank you for supporting OpenZoo!
+      </header>
+    </>
   );
 };
 
