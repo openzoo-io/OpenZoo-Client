@@ -194,7 +194,7 @@ export function ArtworkDetailPageDirectOfferTab(props) {
                   styles.makeOffer,
                   offerPlacing && styles.disabled
                 )}
-                onClick={() => setOfferModalVisible(true)}
+                onClick={() => alert('Make offer is disabled')} //setOfferModalVisible(true)}
               >
                 Make Offer
               </TxButton>

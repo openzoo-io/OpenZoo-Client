@@ -57,10 +57,10 @@ export function ArtworkDetailPagePriceSection(props) {
     myListing,
   } = props;
 
-  
+
   return (
     <div className="numbers">
-      
+
       {bestListing && (
         <>
           <div className="d-flex flex-column flex-sm-column flex-md-row  space-x-10 justify-content-between align-items-center">
@@ -68,8 +68,8 @@ export function ArtworkDetailPagePriceSection(props) {
               <h2 className="">
                 {prices[bestListing.token?.address]
                   ? `$${formatNumber(
-                      (bestListing.price * (currentPrice !== null ? currentPrice[bestListing.token?.symbol] : 0)).toFixed(3)
-                    )}`
+                    (bestListing.price * (currentPrice !== null ? currentPrice[bestListing.token?.symbol] : 0)).toFixed(3)
+                  )}`
                   : null}
               </h2>
               <span className="d-flex align-items-center txt_lg">
@@ -86,23 +86,24 @@ export function ArtworkDetailPagePriceSection(props) {
 
               {bestListing &&
                 bestListing?.owner.toLocaleLowerCase() !==
-                  account?.toLocaleLowerCase() &&
-                ( new Date(bestListing.startTime).getTime() +
+                account?.toLocaleLowerCase() &&
+                (new Date(bestListing.startTime).getTime() +
                   1000 * 86400 * 30 * 5 >=
-                  new Date().getTime() || 
-                  permanentlist[bestListing.minter.toLowerCase()] === bestListing?.owner?.toLowerCase() ) 
-                  && 
-                  (
+                  new Date().getTime() ||
+                  permanentlist[bestListing.minter.toLowerCase()] === bestListing?.owner?.toLowerCase())
+                &&
+                (
                   <TxButton
                     className={cx(
                       'btn btn-warning btn-lg rounded-20',
                       styles.headerButton,
                       buyingItem && styles.disabled
                     )}
+
                     onClick={
                       bundleID
                         ? handleBuyBundle
-                        : () => handleBuyItem(bestListing)
+                        : () => alert('Buy now is disabled') //handleBuyItem(bestListing)
                     }
                   >
                     Buy Now
@@ -120,10 +121,11 @@ export function ArtworkDetailPagePriceSection(props) {
                       )}
                       onClick={
                         bid === null ||
-                        bid?.bid < auction.current?.reservePrice ||
-                        !auctionEnded
+                          bid?.bid < auction.current?.reservePrice ||
+                          !auctionEnded
                           ? cancelCurrentAuction
-                          : handleResultAuction
+                          : //handleResultAuction
+                          alert('Accept auction is disabled')
                       }
                     >
                       {auctionCancelConfirming ? (
@@ -147,10 +149,11 @@ export function ArtworkDetailPagePriceSection(props) {
                           (auctionStarting ||
                             auctionUpdating ||
                             auctionEnded) &&
-                            styles.disabled
+                          styles.disabled
                         )}
                         onClick={() => {
-                          !auctionEnded && setAuctionModalVisible(true);
+                          !auctionEnded && //setAuctionModalVisible(true);
+                          alert('Start auction is disabled')
                         }}
                       >
                         {auctionStartConfirming || auctionUpdateConfirming ? (
@@ -188,7 +191,8 @@ export function ArtworkDetailPagePriceSection(props) {
                         )}
                         onClick={() =>
                           !(listingItem || priceUpdating)
-                            ? setSellModalVisible(true)
+                            ? //setSellModalVisible(true)
+                            alert('Sell is disabled')
                             : null
                         }
                       >
@@ -220,7 +224,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     onClick={
                       hasMyOffer
                         ? handleCancelOffer
-                        : () => setOfferModalVisible(true)
+                        : () => alert('Make offer is disabled') //setOfferModalVisible(true)
                     }
                   >
                     {offerConfirming ? (
@@ -237,9 +241,9 @@ export function ArtworkDetailPagePriceSection(props) {
 
           {tokenType.current !== 1155 &&
             new Date(bestListing.startTime).getTime() + 1000 * 86400 * 30 * 5 <
-              new Date().getTime() && 
-              permanentlist[bestListing.minter.toLowerCase()]!== bestListing?.owner?.toLowerCase() &&
-              (
+            new Date().getTime() &&
+            permanentlist[bestListing.minter.toLowerCase()] !== bestListing?.owner?.toLowerCase() &&
+            (
               <div className={cx('alert alert-danger mt-20')}>
                 Selling price set date is over 5 months and has expired. Item
                 can not currently be bought.
@@ -261,11 +265,11 @@ export function ArtworkDetailPagePriceSection(props) {
                     )}
 
                   {auction &&
-                  auction.current?.resulted === false &&
-                  ((!auctionEnded &&
-                    (bid?.bid < auction.current.reservePrice || !bid)) ||
-                    (auctionEnded &&
-                      bid?.bid >= auction.current.reservePrice)) ? (
+                    auction.current?.resulted === false &&
+                    ((!auctionEnded &&
+                      (bid?.bid < auction.current.reservePrice || !bid)) ||
+                      (auctionEnded &&
+                        bid?.bid >= auction.current.reservePrice)) ? (
                     <div
                       className={cx(
                         'btn btn-warning btn-lg rounded-20',
@@ -274,7 +278,8 @@ export function ArtworkDetailPagePriceSection(props) {
                       )}
                       onClick={
                         bid?.bid >= auction.current.reservePrice && auctionEnded
-                          ? handleResultAuction
+                          ? //handleResultAuction
+                          alert('Accept auction is disabled')
                           : cancelCurrentAuction
                       }
                     >
@@ -303,10 +308,11 @@ export function ArtworkDetailPagePriceSection(props) {
                           (auctionStarting ||
                             auctionUpdating ||
                             auctionEnded) &&
-                            styles.disabled
+                          styles.disabled
                         )}
                         onClick={() => {
-                          !auctionEnded && setAuctionModalVisible(true);
+                          !auctionEnded && //setAuctionModalVisible(true);
+                          alert('Start auction is disabled')
                         }}
                       >
                         {auctionStartConfirming || auctionUpdateConfirming ? (
@@ -337,7 +343,7 @@ export function ArtworkDetailPagePriceSection(props) {
                         </div>
                       ) : null}
 
-                   
+
                       <div
                         className={cx(
                           'btn btn-warning btn-lg rounded-20',
@@ -346,18 +352,19 @@ export function ArtworkDetailPagePriceSection(props) {
                         )}
                         style={
                           hasListing &&
-                          myListing() !== undefined &&
-                          myListing().minter !== undefined &&
-                          new Date(myListing().startTime).getTime() +
+                            myListing() !== undefined &&
+                            myListing().minter !== undefined &&
+                            new Date(myListing().startTime).getTime() +
                             1000 * 86400 * 30 * 5 <
-                            new Date().getTime() 
-                            && permanentlist[myListing()?.minter?.toLowerCase()]!== myListing()?.owner?.toLowerCase()
-                            
-                            ? {display:'none'} : {}
+                            new Date().getTime()
+                            && permanentlist[myListing()?.minter?.toLowerCase()] !== myListing()?.owner?.toLowerCase()
+
+                            ? { display: 'none' } : {}
                         }
                         onClick={() =>
                           !(listingItem || priceUpdating)
-                            ? setSellModalVisible(true)
+                            ? //setSellModalVisible(true)
+                            alert('Sell is disabled')
                             : null
                         }
                       >
@@ -371,7 +378,7 @@ export function ArtworkDetailPagePriceSection(props) {
                       </div>
 
                       {//&& window.location.href.indexOf('emergency_cancel_listing') !== -1)
-                      !hasListing &&
+                        !hasListing &&
                         window.location.href.indexOf(
                           'emergency_cancel_listing'
                         ) === -1 && (
@@ -414,7 +421,7 @@ export function ArtworkDetailPagePriceSection(props) {
                     onClick={
                       hasMyOffer
                         ? handleCancelOffer
-                        : () => setOfferModalVisible(true)
+                        : () => alert('Make offer is disabled') //setOfferModalVisible(true)
                     }
                   >
                     {offerConfirming ? (
@@ -432,9 +439,9 @@ export function ArtworkDetailPagePriceSection(props) {
             tokenType.current !== 1155 &&
             myListing() !== undefined &&
             myListing().minter !== undefined &&
-            permanentlist[myListing()?.minter?.toLowerCase()]!== myListing()?.owner?.toLowerCase() &&
+            permanentlist[myListing()?.minter?.toLowerCase()] !== myListing()?.owner?.toLowerCase() &&
             new Date(myListing().startTime).getTime() + 1000 * 86400 * 30 * 5 <
-              new Date().getTime() && (
+            new Date().getTime() && (
               <div className={cx('alert alert-danger mt-20')}>
                 {
                   console.log('check', myListing(), hasListing)

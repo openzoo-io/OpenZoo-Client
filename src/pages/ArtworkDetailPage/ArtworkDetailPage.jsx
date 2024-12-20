@@ -3365,7 +3365,7 @@ export default function ArtworkDetailPage() {
                                           styles.buyButton,
                                           buyingItem && styles.disabled
                                         )}
-                                        onClick={() => handleBuyItem(listing)}
+                                        onClick={() => alert('Buy is disabled')} //handleBuyItem(listing)}
                                       >
                                         {buyingItem ? (
                                           <ClipLoader color="#FFF" size={16} />
@@ -3522,15 +3522,15 @@ export default function ArtworkDetailPage() {
                                             offerAccepting) &&
                                             styles.disabled
                                         )}
-                                        onClick={
-                                          bundleID
-                                            ? isBundleContractApproved
-                                              ? () => handleAcceptOffer(offer)
-                                              : handleApproveBundleSalesContract
-                                            : salesContractApproved
-                                            ? () => handleAcceptOffer(offer)
-                                            : handleApproveSalesContract
-                                        }
+                                        onClick={() => alert('Accept offer is disabled')} // bundleID
+                                          // bundleID
+                                          //   ? isBundleContractApproved
+                                          //     ? () => handleAcceptOffer(offer)
+                                          //     : handleApproveBundleSalesContract
+                                          //   : salesContractApproved
+                                          //   ? () => handleAcceptOffer(offer)
+                                          //   : handleApproveSalesContract
+                                        
                                       >
                                         {!(bundleID
                                           ? isBundleContractApproved
@@ -3588,7 +3588,7 @@ export default function ArtworkDetailPage() {
                                   'btn btn-primary btn-lg rounded-20',
                                   offerPlacing && styles.disabled
                                 )}
-                                onClick={() => setOfferModalVisible(true)}
+                                onClick={() => alert('Make offer is disabled')} //setOfferModalVisible(true)}
                               >
                                 Make Offer
                               </TxButton>

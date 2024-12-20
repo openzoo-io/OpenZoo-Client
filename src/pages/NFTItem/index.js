@@ -3112,7 +3112,7 @@ const NFTItem = () => {
                 onClick={
                   hasMyOffer
                     ? handleCancelOffer
-                    : () => setOfferModalVisible(true)
+                    : () => alert('Make offer is disabled') //setOfferModalVisible(true)
                 }
               >
                 {offerConfirming ? (
