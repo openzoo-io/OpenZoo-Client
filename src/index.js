@@ -17,7 +17,7 @@ import 'assets/css/style.css';
 const root = createRoot(document.getElementById('root'));
 
 root.render(
-  <div style={{ textAlign: 'center', fontSize: '20px', width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+  <div style={{ textAlign: 'center', fontSize: '20px', width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
     <img src="https://openzoo.io/icon.png" alt="OpenZoo.io" style={{ width: '150px', height: '150px' }} />
     
     <div><strong>OpenZoo.io</strong> is already closed.</div>
