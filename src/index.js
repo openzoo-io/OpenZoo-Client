@@ -20,7 +20,7 @@ root.render(
   <div style={{ textAlign: 'center', fontSize: '20px', width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
     <img src="https://openzoo.io/icon.png" alt="OpenZoo.io" style={{ width: '150px', height: '150px' }} />
     
-    <div><strong>OpenZoo.io</strong> already closed.</div>
+    <div><strong>OpenZoo.io</strong> is already closed.</div>
     <div><b>ZooBoosters/ZooNFTs</b>: Future in-game utility updates coming soon.</div>
     <div style={{ marginTop: '20px' }}>Thank you for supporting OpenZoo!</div>
   </div>
